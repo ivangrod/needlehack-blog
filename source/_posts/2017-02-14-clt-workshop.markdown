@@ -6,7 +6,7 @@ date_formatted: "February 14, 2017"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2017-02-workshop/social.png
+og_image: "{{site.baseurl}}/images/blog/2017-02-workshop/social.png"
 ---
 
 There will be a Home Assistant Workshop at the [Chemnitzer Linux-Tage 2017][clt]. First I will cover the installation, the setup, and the configuration process. The second part will be all about automation. Last but not least, we will talk about the integration of a new platform/component. 

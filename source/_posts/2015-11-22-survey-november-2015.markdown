@@ -5,7 +5,7 @@ date: 2015-11-22 15:51:18 +0100
 date_formatted: "November 22, 2015"
 author: Fabian Affolter
 categories: Survey
-og_image: {{site.baseurl}}/images/blog/2015-11-survey/releases.png
+og_image: "{{site.baseurl}}/images/blog/2015-11-survey/releases.png"
 ---
 
 <img src='/images/blog/2015-11-survey/releases.png' style='float: right; margin-left: 8px; margin-bottom: 8px;' height='120'/>Around a week ago we started with the first survey. Now 30 people have participated. Thank you very much if you did. We think that's enough time to have some "only partially representative" data. It's hard to tell how many Home Assistant users are out there. Currently there are 215 members on our [Discord chat server](https://discord.gg/c5DvZ4e) and last week [PyPI](https://pypi.python.org/pypi/homeassistant/) counted 5063 downloads.

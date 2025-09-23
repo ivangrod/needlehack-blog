@@ -7,7 +7,7 @@ date_formatted: "March 5, 2025"
 author: Marcel van der Veldt
 comments: true
 categories: Music-Assistant
-og_image: {{site.baseurl}}/images/blog/2025-03-music-assistant/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2025-03-music-assistant/art.jpg"
 ---
 
 <p><img src='/images/blog/2025-03-music-assistant/art.jpg' alt="Music Assistants next big hit" class='no-shadow' /></p>

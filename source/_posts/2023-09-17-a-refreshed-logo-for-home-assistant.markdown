@@ -7,7 +7,7 @@ date_formatted: "September 17, 2023"
 author: Madelena Mak
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/frontpage/HA10_-_Website_banner.png
+og_image: "{{site.baseurl}}/images/frontpage/HA10_-_Website_banner.png"
 ---
 
 <img class='no-shadow' src='/images/blog/2023-09-ha10/logo-cover.png' alt='The new Home Assistant logo on a blue background.'>

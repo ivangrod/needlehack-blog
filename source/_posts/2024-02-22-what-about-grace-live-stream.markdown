@@ -7,7 +7,7 @@ date_formatted: "February 22, 2024"
 author: Madelena Mak
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2024-02-grace-chapter-1/banner.png
+og_image: "{{site.baseurl}}/images/blog/2024-02-grace-chapter-1/banner.png"
 ---
 
 Who is Grace? Grace Hopper was a computer scientist, mathematician, and US Navy admiral who had made significant contributions to the field of computer programming and technology, from her pioneering work on and contributions to the Harvard Mark I computer, COBOL, and UNIVAC I.

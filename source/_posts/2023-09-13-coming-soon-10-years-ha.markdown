@@ -7,7 +7,7 @@ date_formatted: "September 13, 2023"
 author: Paulus Schoutsen
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/frontpage/HA10_-_Website_banner.png
+og_image: "{{site.baseurl}}/images/frontpage/HA10_-_Website_banner.png"
 ---
 
 Join us on September 17 to look back on ten years of Home Assistant and hear some very special announcements...

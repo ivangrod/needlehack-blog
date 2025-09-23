@@ -6,7 +6,7 @@ date_formatted: "April 26, 2018"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2018-04-developer-website/screenshot.png
+og_image: "{{site.baseurl}}/images/blog/2018-04-developer-website/screenshot.png"
 ---
 
 When we launched the website in December 2014, we've only had a handful of components and usage instructions. Since then the website has grown to over a 1000 pages touching a wide range of topics. The growth, while great, also has put a lot of strain on how the docs are organised. One of the places that was especially suffering under the growth was the developer section. It was living under a single top menu item and had to contain everything in a single sidebar.

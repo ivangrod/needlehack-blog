@@ -8,7 +8,7 @@ author: Paulus Schoutsen
 author_twitter: balloob
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2019-11-voice-assistant/almond.png
+og_image: "{{site.baseurl}}/images/blog/2019-11-voice-assistant/almond.png"
 ---
 
 TL;DR:

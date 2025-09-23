@@ -8,7 +8,7 @@ author_twitter: balloob
 categories:
 - Release-Notes
 - Core
-og_image: {{site.baseurl}}/images/blog/2016-02-release-14/social.png
+og_image: "{{site.baseurl}}/images/blog/2016-02-release-14/social.png"
 ---
 
 It's been another two weeks which means it's time for release: 0.14!

@@ -8,7 +8,7 @@ author: Paulus Schoutsen
 author_twitter: balloob
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2021-03-18-nabu-casa-acquired-esphome/social.png
+og_image: "{{site.baseurl}}/images/blog/2021-03-18-nabu-casa-acquired-esphome/social.png"
 ---
 
 <img alt="Nabu Casa heart ESPHome" src="{{site.baseurl}}/images/blog/2021-03-18-nabu-casa-acquired-esphome/social.png" />

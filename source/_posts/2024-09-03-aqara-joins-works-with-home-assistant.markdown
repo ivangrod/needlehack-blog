@@ -7,7 +7,7 @@ date_formatted: "September 3, 2024"
 author: Guy Sie
 comments: true
 categories: Works-with-Home-Assistant
-og_image: {{site.baseurl}}/images/blog/2024-09-aqara-wwha/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2024-09-aqara-wwha/art.jpg"
 ---
 <img src='/images/blog/2024-09-aqara-wwha/art.jpg' style='border: 0;box-shadow: none;' alt="Aqara joins Works with Home Assistant">
 

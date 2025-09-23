@@ -7,7 +7,7 @@ date_formatted: "February 16, 2024"
 author: Michael Hansen
 comments: true
 categories: Assist
-og_image: {{site.baseurl}}/images/blog/2024-02-voice-chapter-6/banner.png
+og_image: "{{site.baseurl}}/images/blog/2024-02-voice-chapter-6/banner.png"
 ---
 
 Even though our Year of the Voice has ended, that does not mean the development of our voice assistant has stopped! We're excited to show you what we've been working on since [Chapter 5](https://www.youtube.com/live/djEkgoS5dDQ) last year during our Chapter 6 livestream on Wednesday, February 21st, at 21:00 CET / 3:00 PM ET / 12:00 PM PT.

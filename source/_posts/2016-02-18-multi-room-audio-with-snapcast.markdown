@@ -4,7 +4,7 @@ date: 2016-02-18 00:10:56 -0500
 author: happyleavesaoc
 categories: How-To
 date_formatted: "February 18, 2016"
-og_image: {{site.baseurl}}/images/blog/2016-02-snapcast/diagram.png
+og_image: "{{site.baseurl}}/images/blog/2016-02-snapcast/diagram.png"
 ---
 
 Would you like to listen to music in every room in your home, controlled from one source? Then multi-room audio is for you.

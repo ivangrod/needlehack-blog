@@ -5,7 +5,7 @@ date: 2017-10-15 08:00:00 +0200
 date_formatted: "October 15, 2017"
 author: Fabian Affolter
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2017-10-template/social.png
+og_image: "{{site.baseurl}}/images/blog/2017-10-template/social.png"
 ---
 
 This [Pull Request](https://github.com/home-assistant/home-assistant/pull/9868) shows in a clear way what happens if the documentation is not as good as it should be. In short, it's about [Templating](/docs/configuration/templating/) and how people start to think about creative ways to solve it if it's not documented. Let's assume that we want the current year. There are a couple of options available to do that:

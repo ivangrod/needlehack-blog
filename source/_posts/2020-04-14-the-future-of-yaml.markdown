@@ -6,7 +6,7 @@ date_formatted: "April 14, 2020"
 author: Franck Nijhof
 author_twitter: frenck
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2020-04-14-the-future-of-yaml/social.png
+og_image: "{{site.baseurl}}/images/blog/2020-04-14-the-future-of-yaml/social.png"
 ---
 
 Recently, comments and questions in the community have been posted, about the

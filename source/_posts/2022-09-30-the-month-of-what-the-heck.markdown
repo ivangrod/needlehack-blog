@@ -6,7 +6,7 @@ date_formatted: "September 30, 2022"
 author: Franck Nijhof
 author_twitter: frenck
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2022-09-30-the-month-of-what-the-heck/social.png
+og_image: "{{site.baseurl}}/images/blog/2022-09-30-the-month-of-what-the-heck/social.png"
 ---
 
 <a href='https://community.home-assistant.io/c/what-the-heck/56'><img src='/images/blog/2022-09-30-the-month-of-what-the-heck/social.png' style='border: 0;box-shadow: none;'></a>

@@ -5,7 +5,7 @@ date: 2015-08-26 08:12 -0700
 date_formatted: "August 26, 2015"
 author: Nolan Gilley
 categories: User-Stories
-og_image: {{site.baseurl}}/images/blog/2015-08-laundry-automation/moteino-and-sensors.jpg
+og_image: "{{site.baseurl}}/images/blog/2015-08-laundry-automation/moteino-and-sensors.jpg"
 ---
 
 

@@ -5,7 +5,7 @@ date: 2017-11-05 20:00:00 -0500
 date_formatted: "November 5, 2017"
 author: Adam Mills
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2017-11-0.57/languages.png
+og_image: "{{site.baseurl}}/images/blog/2017-11-0.57/languages.png"
 ---
 
 <p class='img'>

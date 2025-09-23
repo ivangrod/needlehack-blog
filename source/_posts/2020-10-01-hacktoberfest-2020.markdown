@@ -6,7 +6,7 @@ date_formatted: "October 1, 2020"
 author: Franck Nijhof
 author_twitter: frenck
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2020-10-01-hacktoberfest-2020/social.png
+og_image: "{{site.baseurl}}/images/blog/2020-10-01-hacktoberfest-2020/social.png"
 ---
 
 <img src='/images/blog/2020-10-01-hacktoberfest-2020/social.png' class='no-shadow'>

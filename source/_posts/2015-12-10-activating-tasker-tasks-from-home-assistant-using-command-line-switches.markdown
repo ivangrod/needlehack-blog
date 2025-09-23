@@ -5,7 +5,7 @@ date: 2015-12-10 10:39:41 +0000
 date_formatted: "December 10, 2015"
 author: Rowan Hine
 categories: How-To
-og_image: {{site.baseurl}}/images/blog/2015-12-tasker/screenshot-2.png
+og_image: "{{site.baseurl}}/images/blog/2015-12-tasker/screenshot-2.png"
 ---
 
 <img src='/images/blog/2015-12-tasker/tasker-logo.png' style='clear: right; border:none; box-shadow: none; float: right; margin-bottom: 12px;' width='200' />

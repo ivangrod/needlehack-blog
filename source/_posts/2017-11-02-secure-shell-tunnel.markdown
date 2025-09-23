@@ -6,7 +6,7 @@ date_formatted: "November 02, 2017"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: How-To
-og_image: {{site.baseurl}}/images/blog/2017-11-ssh/social.png
+og_image: "{{site.baseurl}}/images/blog/2017-11-ssh/social.png"
 ---
 
 Most system engineers are very familiar with [SSH (Secure shell)](https://en.wikipedia.org/wiki/Secure_Shell). This tool which contains a server part and a client part is used to access a remote system in a secure way. It can also help you if your are running Home Assistant but don't want to expose it to the public. On a Linux system SSH is often available by default. If you are using a Windows installation additional steps are required which are not covered here.

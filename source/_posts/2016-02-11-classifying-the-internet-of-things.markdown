@@ -6,7 +6,7 @@ date_formatted: "February 12, 2016"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Internet-of-Things
-og_image: {{site.baseurl}}/images/blog/2016-02-classifying-internet-of-things/social.png
+og_image: "{{site.baseurl}}/images/blog/2016-02-classifying-internet-of-things/social.png"
 ---
 
 The core of home automation is knowing what’s going on. The faster we know about a state change, the better we can serve the user. If you want to have your lights to turn on when you arrive at home, it doesn’t help if it only knows about it after you’ve already opened the door and manually (!!) turned on the lights.

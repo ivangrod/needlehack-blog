@@ -7,7 +7,7 @@ date_formatted: "September 17, 2023"
 author: Guy Sie
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2023-09-ha10/green-intro.png
+og_image: "{{site.baseurl}}/images/blog/2023-09-ha10/green-intro.png"
 ---
 
 Back in 2021, we launched a crowdfunding campaign for Home Assistant Yellow. Home Assistant Yellow was our take on what a smart home hub should look like, with all the features we enthusiasts want. We're very proud of Home Assistant Yellow, but at the same time, it has become clear that people just starting their smart home journey don't need all the features Yellow offers. With the global component shortages making the required Compute Module 4 more expensive and harder to find, Home Assistant Yellow is no longer a good fit for beginners.

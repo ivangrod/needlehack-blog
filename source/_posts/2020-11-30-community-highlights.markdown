@@ -6,7 +6,7 @@ date_formatted: "December 1, 2020"
 author: Franck Nijhof
 author_twitter: frenck
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2020-12-01-community-highlights/social.png
+og_image: "{{site.baseurl}}/images/blog/2020-12-01-community-highlights/social.png"
 ---
 
 The 7th edition of the Home Assistant Community Highlights! Some interesting

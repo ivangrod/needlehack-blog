@@ -7,7 +7,7 @@ date_formatted: "October 1, 2017"
 author: Dan Faulknor
 author_twitter: dangeek
 categories: Media
-og_image: {{site.baseurl}}/images/hasspodcast.jpg
+og_image: "{{site.baseurl}}/images/hasspodcast.jpg"
 ---
 
 Dale ([dale3h](https://github.com/dale3h)) joins Rohan and Dan to talk about Dale’s involvement in the project as a community 

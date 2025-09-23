@@ -6,7 +6,7 @@ date_formatted: "September 29, 2017"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2017-09-hacktoberfest/hacktoberfest-2017.png
+og_image: "{{site.baseurl}}/images/blog/2017-09-hacktoberfest/hacktoberfest-2017.png"
 ---
 
 For the second year in a row, Home Assistant will be participating in [Hacktoberfest]. Hacktoberfest is an event organized by DigitalOcean and GitHub to support and celebrate open source. The idea is that open source projects like Home Assistant will gather a bunch of entry-level bugs, features, and documentation enhancements and that you, a current or future contributor, will help us fix them. If you submit four pull-requests during October, you will have earned yourself a limited edition Hacktoberfest T-shirt!

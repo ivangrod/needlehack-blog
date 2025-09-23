@@ -6,7 +6,7 @@ date_formatted: "July 9, 2019"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2019-07-home-assistant-cast-preview/home-assistant-cast.jpg
+og_image: "{{site.baseurl}}/images/blog/2019-07-home-assistant-cast-preview/home-assistant-cast.jpg"
 ---
 
 Today is my birthday. I'm turning 33. And to celebrate, I want to share a preview of a project that I have been working on: Home Assistant Cast. It's the Home Assistant Lovelace interface, but for Cast-enabled devices like Chromecasts or Google Assistant devices with screens.

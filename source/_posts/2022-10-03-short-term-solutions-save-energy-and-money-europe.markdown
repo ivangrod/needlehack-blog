@@ -6,7 +6,7 @@ date_formatted: "October 3, 2022"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2022-10-03-short-term-solutions-save-energy-and-money-europe/shelly-trv.png
+og_image: "{{site.baseurl}}/images/blog/2022-10-03-short-term-solutions-save-energy-and-money-europe/shelly-trv.png"
 ---
 
 Europe has entered an energy crisis and prices for electricity and gas are skyrocketing. Rates of €1/kWh and €3,40 per m³ of gas are not uncommon. People are turning to their friends in the Home Assistant community asking for help on how to save energy. With winter around the corner, they want a solution that they can apply before it gets really cold.

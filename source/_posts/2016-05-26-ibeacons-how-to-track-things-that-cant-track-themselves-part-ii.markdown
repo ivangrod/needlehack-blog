@@ -6,7 +6,7 @@ date_formatted: "May 26, 2016"
 author: Greg Dowling
 author_twitter: pavoni240
 categories: iBeacons Device-Tracking OwnTracks
-og_image: {{site.baseurl}}/images/blog/2016-05-ibeacons/keys_device.png
+og_image: "{{site.baseurl}}/images/blog/2016-05-ibeacons/keys_device.png"
 ---
 
 _This post is by Home Assistant contributor [Greg Dowling](https://github.com/pavoni)._

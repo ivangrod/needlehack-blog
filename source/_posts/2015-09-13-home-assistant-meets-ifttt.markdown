@@ -6,7 +6,7 @@ date_formatted: "September 13, 2015"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: How-To Release-Notes
-og_image: {{site.baseurl}}/images/blog/2015-09-ifttt/og_facebook.png
+og_image: "{{site.baseurl}}/images/blog/2015-09-ifttt/og_facebook.png"
 ---
 
 Today we announce the release of Home Assistant v0.7.2 which includes brand new support by [@sfam][github-sfam] to integrate with [IFTTT][ifttt]. IFTTT stands for If This, Then That and is a webservice that integrates with almost every possible webservice out there. Adding Home Assistant to this mix means Home Assistant can connect with all via IFTTT.

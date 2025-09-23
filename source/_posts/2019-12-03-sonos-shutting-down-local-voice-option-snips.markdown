@@ -6,7 +6,7 @@ date_formatted: "December 3, 2019"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Public-Service-Announcement
-og_image: {{site.baseurl}}/images/blog/2019-12-sonos-shutting-down-snips/social.png
+og_image: "{{site.baseurl}}/images/blog/2019-12-sonos-shutting-down-snips/social.png"
 ---
 
 It's that time of the year. The time when it's cold outside, it's cozy and warm inside, we're spending time with friends and family, and time for big companies to drop local accessible technology ([2015](/blog/2015/12/12/philips-hue-blocks-3rd-party-bulbs/), [2018](/blog/2018/12/17/logitech-harmony-removes-local-api/)).

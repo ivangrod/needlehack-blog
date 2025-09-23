@@ -7,7 +7,7 @@ date_formatted: "February 27, 2025"
 author: Miranda Bishop
 comments: true
 categories: Works-with-Home-Assistant
-og_image: {{site.baseurl}}/images/blog/2025-02-apollo/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2025-02-apollo/art.jpg"
 ---
 
 <img src='/images/blog/2025-02-apollo/art.jpg' style='border: 0;box-shadow: none;' alt="Apollo wwha logo">

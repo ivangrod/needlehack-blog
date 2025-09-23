@@ -7,7 +7,7 @@ date_formatted: "August 1, 2024"
 author: Andy Gill
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2024-08-yellow-lineup/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2024-08-yellow-lineup/art.jpg"
 ---
 <p class='img'><img src='/images/blog/2024-08-yellow-lineup/art.jpg' style='border: 0;box-shadow: none;' alt="Home Assistant Yellow and packaging">Home Assistant Yellow fully assembled with additional (and not included) NVMe storage and Z-Wave GPIO module</p>
 

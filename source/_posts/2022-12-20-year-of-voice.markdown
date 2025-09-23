@@ -10,7 +10,7 @@ comments: true
 categories:
 - Announcements
 - Assist
-og_image: {{site.baseurl}}/images/blog/2022-12-20-year-of-voice/conversation.png
+og_image: "{{site.baseurl}}/images/blog/2022-12-20-year-of-voice/conversation.png"
 ---
 
 _**TL;DR**: It is our goal for 2023 to let users control Home Assistant in their own language. Mike Hansen, creator of Rhasspy, has joined Nabu Casa to lead this effort. We’re starting off by building a [collection of intent matching sentences in every language](https://github.com/home-assistant/intents)._

@@ -7,7 +7,7 @@ date_formatted: "March 26, 2025"
 author: Paulus Schoutsen
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2025-03-SOTOH-announce/art.png
+og_image: "{{site.baseurl}}/images/blog/2025-03-SOTOH-announce/art.png"
 ---
 <lite-youtube videoid="o4Vctz1_KYE" videotitle="State of the Open Home 2025"></lite-youtube>
 

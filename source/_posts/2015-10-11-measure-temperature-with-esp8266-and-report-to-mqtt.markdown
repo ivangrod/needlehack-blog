@@ -6,7 +6,7 @@ date_formatted: "October 11, 2015"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: How-To MQTT ESP8266
-og_image: {{site.baseurl}}/images/blog/2015-10-esp8266-temp/ha-sensor.png
+og_image: "{{site.baseurl}}/images/blog/2015-10-esp8266-temp/ha-sensor.png"
 ---
 
 {::options coderay_line_numbers="table" /}

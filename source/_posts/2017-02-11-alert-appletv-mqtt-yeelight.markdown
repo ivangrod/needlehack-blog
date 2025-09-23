@@ -8,7 +8,7 @@ author_twitter: robbie
 categories:
 - Release-Notes
 - Core
-og_image: {{site.baseurl}}/images/blog/2017-02-0.38/social.png
+og_image: "{{site.baseurl}}/images/blog/2017-02-0.38/social.png"
 ---
 
 Another Saturday, another release!

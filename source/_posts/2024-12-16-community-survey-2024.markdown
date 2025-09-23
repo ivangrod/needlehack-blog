@@ -7,7 +7,7 @@ date_formatted: "December 16, 2024"
 author: Annika Schulz
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2024-12-survey/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2024-12-survey/art.jpg"
 ---
 
 <img src='/images/blog/2024-12-survey/art.jpg' alt="2024 community survey">

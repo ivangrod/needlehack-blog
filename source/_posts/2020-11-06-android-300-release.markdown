@@ -6,7 +6,7 @@ date_formatted: "November 6, 2020"
 comments: true
 author: Daniel Shokouhi
 categories: Release-Notes
-og_image: {{site.baseurl}}/images/blog/2020-11-06-android-300-release/Companion.png
+og_image: "{{site.baseurl}}/images/blog/2020-11-06-android-300-release/Companion.png"
 ---
 
 Hey everyone it's been a little while since we last spoke. We have a brand new Home Assistant Companion for Android release that we are excited to get into your hands and will roll out over the next day or so in the Google Play store.

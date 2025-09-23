@@ -5,7 +5,7 @@ date: 2016-08-07 12:36 -0700
 date_formatted: "August 7, 2016"
 author: Paulus Schoutsen
 categories: Technology
-og_image: {{site.baseurl}}/images/blog/2016-08-optimizing-web-app/performance-diagram.png
+og_image: "{{site.baseurl}}/images/blog/2016-08-optimizing-web-app/performance-diagram.png"
 ---
 
 _This blog post will go into detail about the recent performance optimizations that went into the Home Assistant front end. For people not familiar with the app, check out [the demo][demo] and [the source][hap]._

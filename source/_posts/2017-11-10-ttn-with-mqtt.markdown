@@ -6,7 +6,7 @@ date_formatted: "November 10, 2017"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: How-To
-og_image: {{site.baseurl}}/images/blog/2017-11-mqtt-ttn/social-ha-ttn.png
+og_image: "{{site.baseurl}}/images/blog/2017-11-mqtt-ttn/social-ha-ttn.png"
 ---
 
 The Home Assistant integration for [The Things Network (TTN)](https://www.thethingsnetwork.org/) uses their [Storage](https://www.thethingsnetwork.org/docs/applications/storage/) feature to get the sensor data. The easiest way to observe TTN sensors would be [MQTT](https://www.thethingsnetwork.org/docs/applications/mqtt/) as it doesn't requires any additional configuration.

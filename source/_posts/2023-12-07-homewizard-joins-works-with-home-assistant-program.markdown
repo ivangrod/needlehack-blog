@@ -7,7 +7,7 @@ date_formatted: "December 7, 2023"
 author: Guy Sie
 comments: true
 categories: Works-with-Home-Assistant
-og_image: {{site.baseurl}}/images/blog/2023-12-homewizard/homewizard-wwha-og.png
+og_image: "{{site.baseurl}}/images/blog/2023-12-homewizard/homewizard-wwha-og.png"
 ---
 
 We’re delighted to announce that HomeWizard has joined the Works With Home Assistant program under the *‘Works Locally With Home Assistant’* badge and is committed to ensuring their products work well in Home Assistant. This Dutch company creates Wi-Fi devices that give households insight into their electricity, water, and gas consumption. They want to make people aware of their energy consumption and help them save on energy - not just because it’s good for their wallet, but also good for the world. A mission that matches our [Open Home values](/blog/2021/12/23/the-open-home/) perfectly. They will also be the first company to use our updated Works With Home Assistant badge, featuring the new Home Assistant logo!

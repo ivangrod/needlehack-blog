@@ -7,7 +7,7 @@ date_formatted: "February 21, 2024"
 author: Michael Hansen
 comments: true
 categories: Assist
-og_image: {{site.baseurl}}/images/blog/2024-02-21-voice-chapter-6/social.jpg
+og_image: "{{site.baseurl}}/images/blog/2024-02-21-voice-chapter-6/social.jpg"
 ---
 
 **TL;DR:** We have added on-device wake word detection (microWakeWord)! It's faster and more scalable than processing the wake word in Home Assistant. We will keep supporting wake word processing in Home Assistant. Also new is more customization for sentence triggers, additional intents for controlling more devices, and better error messages and debugging tools.

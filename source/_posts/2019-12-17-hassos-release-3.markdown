@@ -6,7 +6,7 @@ date_formatted: "December 17, 2019"
 author: Pascal Vizeli
 author_twitter: pvizeli
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2019-12-hassos-release-3/blogpost.png
+og_image: "{{site.baseurl}}/images/blog/2019-12-hassos-release-3/blogpost.png"
 ---
 
 A bit behind the original timeline, but we happy to announce, we've released version 3 of Hass.io Operating System: HassOS. Just in time for Christmas!

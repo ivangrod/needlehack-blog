@@ -6,7 +6,7 @@ date_formatted: "May 7, 2017"
 author: Florian Klien
 author_twitter: flowolf
 categories: Community Micropython
-og_image: {{site.baseurl}}/images/blog/2017-05-grazer-linuxtage/social.png
+og_image: "{{site.baseurl}}/images/blog/2017-05-grazer-linuxtage/social.png"
 ---
 
 I like Python. It's a clean easy to read, easy to learn language. Yet when you use it for some time you still find more features to improve your coding. What I probably like most about Python is the community and the great libraries that already exist. Often solving a problem means including a pre-existing library and writing some glue code. That makes it quick to get things up and running.

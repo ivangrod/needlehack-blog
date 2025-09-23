@@ -8,7 +8,7 @@ author: Frank Bakker
 comments: true
 categories:
 - Release-Notes
-og_image: {{site.baseurl}}/images/blog/2021-11-NetDaemon/NetDaemonLogo.png
+og_image: "{{site.baseurl}}/images/blog/2021-11-NetDaemon/NetDaemonLogo.png"
 ---
 
 <img src='/images/blog/2021-11-NetDaemon/NetDaemonLogo.png' style='border: 0;box-shadow: none; width: 25%; height: 25%; float: right;'>

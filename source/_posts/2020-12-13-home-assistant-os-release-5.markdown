@@ -8,7 +8,7 @@ author: Stefan Agner
 author_twitter: falstaff_ch
 comments: true
 categories: Release-Notes
-og_image: {{site.baseurl}}/images/blog/2020-12-13-os5/social.png
+og_image: "{{site.baseurl}}/images/blog/2020-12-13-os5/social.png"
 ---
 
 <img src='/images/blog/2020-12-13-os5/social.png' style='border: 0;box-shadow: none;'>

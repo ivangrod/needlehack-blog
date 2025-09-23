@@ -8,7 +8,7 @@ author: Stefan Agner
 comments: true
 categories:
   - Announcements
-og_image: {{site.baseurl}}/images/blog/2023-04-18-os10/social.png
+og_image: "{{site.baseurl}}/images/blog/2023-04-18-os10/social.png"
 ---
 
 <a href='https://github.com/home-assistant/operating-system/releases/tag/10.0'>

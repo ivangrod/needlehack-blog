@@ -7,7 +7,7 @@ date_formatted: "February 15, 2024"
 author: Paulus Schoutsen
 comments: true
 categories: Z-Wave
-og_image: {{site.baseurl}}/images/blog/2024-02-zwave/nabucasa-zwa.png
+og_image: "{{site.baseurl}}/images/blog/2024-02-zwave/nabucasa-zwa.png"
 ---
 
 TL;DR: We have joined the Z-Wave Alliance, thanks to revenue from Home Assistant Cloud subscribers, and will start the certification process for Z-Wave JS.

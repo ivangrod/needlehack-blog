@@ -8,7 +8,7 @@ author_twitter: fabaff
 categories:
 - Release-Notes
 - Core
-og_image: {{site.baseurl}}/images/blog/2016-12-0.35/social.png
+og_image: "{{site.baseurl}}/images/blog/2016-12-0.35/social.png"
 ---
 
 5000 stars on GitHub, 2000 people in our [chatroom][discord] and over a million monthly page views. I don't think we could wish for a better place to be at the end of 2016. Feels like an early Christmas present! Our early one for you is 0.35. It's not a single thing inside a nice wrapping, more like several little gifts inside the 0.35 box.

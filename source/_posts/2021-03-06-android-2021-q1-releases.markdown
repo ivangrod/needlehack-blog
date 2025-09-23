@@ -6,7 +6,7 @@ date_formatted: "March 4, 2021"
 comments: true
 author: Daniel Shokouhi
 categories: Release-Notes
-og_image: {{site.baseurl}}/images/blog/2021-03-06-android-q1-releases/Companion.png
+og_image: "{{site.baseurl}}/images/blog/2021-03-06-android-q1-releases/Companion.png"
 ---
 
 Hey everyone! It has been quite some time since we last provided an update on all that is new with the Android app. You may have already noticed that we had changed our release versioning to match that of Home Assistant Core. In fact, we will be attempting to align our releases more closely to Core releases. This way we can start supporting brand new features quickly, like the recently released [My Home Assistant](https://my.home-assistant.io).

@@ -6,7 +6,7 @@ date_formatted: "June 1, 2016"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Community Video
-og_image: {{site.baseurl}}/images/blog/2016-06-community-highlights/video_preview.png
+og_image: "{{site.baseurl}}/images/blog/2016-06-community-highlights/video_preview.png"
 ---
 
 Our community is amazingly helpful and creative. If you haven't been there yet, make sure to stop by our [chat room] and come hang out with us. In this blog post I want to highlight a few recent awesome projects and videos from the community.

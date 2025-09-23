@@ -9,7 +9,7 @@ author_twitter: balloob
 comments: true
 categories:
 - Release-Notes
-og_image: {{site.baseurl}}/images/blog/2022-05-ukraine-alarm/integration.png
+og_image: "{{site.baseurl}}/images/blog/2022-05-ukraine-alarm/integration.png"
 ---
 
 In February 2022, [Russia invaded Ukraine](https://en.wikipedia.org/wiki/2022_Russian_invasion_of_Ukraine). The countries have been at war ever since. Ukrainian citizens can at any moment be caught in crossfire or be deliberately targeted by the Russian army. Ukraine introduced the [Ukraine Alarm](https://www.ukrainealarm.com/) service to help citizens be notified when fighting is happening nearby.

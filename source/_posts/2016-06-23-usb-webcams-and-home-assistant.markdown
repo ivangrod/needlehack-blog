@@ -6,7 +6,7 @@ date_formatted: "June 23, 2016"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: How-To
-og_image: {{site.baseurl}}/images/blog/2016-06-cranberry/social.png
+og_image: "{{site.baseurl}}/images/blog/2016-06-cranberry/social.png"
 ---
 
 <img src='/images/blog/2016-06-cranberry/motion.png' style='clear: right; border:none; box-shadow: none; float: right; margin-bottom: 12px;' width='200' />

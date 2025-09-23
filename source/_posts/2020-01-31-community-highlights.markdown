@@ -6,7 +6,7 @@ date_formatted: "January 31, 2020"
 author: Franck Nijhof
 author_twitter: frenck
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2020-01-31-community-highlights/social.png
+og_image: "{{site.baseurl}}/images/blog/2020-01-31-community-highlights/social.png"
 ---
 
 Back in [2015][community-highlights-2015] and in [2016][community-highlights-2016], we tried starting a series of blog posts called "Community Highlight",

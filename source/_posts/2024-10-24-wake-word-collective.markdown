@@ -7,7 +7,7 @@ date_formatted: "October 24, 2024"
 author: Mike Hansen
 comments: true
 categories: Assist
-og_image: {{site.baseurl}}/images/blog/2024-10-wake-word-collective/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2024-10-wake-word-collective/art.jpg"
 ---
 <img src='/images/blog/2024-10-wake-word-collective/art.jpg' alt="Help us improve voice">
 

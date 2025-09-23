@@ -6,7 +6,7 @@ date_formatted: "May 7, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2021-05-07-community-highlights/social.png
+og_image: "{{site.baseurl}}/images/blog/2021-05-07-community-highlights/social.png"
 ---
 
 Damn! We are already at the 20th edition of the Home Assistant Community

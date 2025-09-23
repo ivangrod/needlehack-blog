@@ -7,7 +7,7 @@ date_formatted: "April 27, 2023"
 author: Paulus Schoutsen
 comments: true
 categories: Assist
-og_image: {{site.baseurl}}/images/blog/2023-04-27-year-of-the-voice-chapter-2/social.png
+og_image: "{{site.baseurl}}/images/blog/2023-04-27-year-of-the-voice-chapter-2/social.png"
 ---
 
 

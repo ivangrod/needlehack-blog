@@ -6,7 +6,7 @@ date_formatted: "July 27, 2017"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Media
-og_image: {{site.baseurl}}/images/blog/2017-07-talk-python/logo.png
+og_image: "{{site.baseurl}}/images/blog/2017-07-talk-python/logo.png"
 ---
 
 <iframe width="100%" height="166" scrolling="no" frameborder="no"

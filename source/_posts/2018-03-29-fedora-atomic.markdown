@@ -6,7 +6,7 @@ date_formatted: "March 29, 2018"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2018-03-fedora-atomic/social.png
+og_image: "{{site.baseurl}}/images/blog/2018-03-fedora-atomic/social.png"
 ---
 
 

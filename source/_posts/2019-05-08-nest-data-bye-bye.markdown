@@ -6,7 +6,7 @@ date_formatted: "May 8, 2019"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Public-Service-Announcement
-og_image: {{site.baseurl}}/images/blog/2019-05-nest-data-bye-bye/notice.png
+og_image: "{{site.baseurl}}/images/blog/2019-05-nest-data-bye-bye/notice.png"
 ---
 
 **Update May 16:** Nest just announced [in a blog post](https://blog.google/products/google-nest/updates-works-with-nest/) that they changed their plan. It will still retire the Works with Nest program at the end of August, but it will no longer cut off existing users of the API. It will however still stop accepting new users at the end of August.

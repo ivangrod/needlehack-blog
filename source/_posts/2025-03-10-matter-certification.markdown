@@ -9,7 +9,7 @@ comments: true
 categories: 
   - Announcements
   - Matter
-og_image: {{site.baseurl}}/images/blog/2025-03-matter-certification/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2025-03-matter-certification/art.jpg"
 ---
 
 <p><img src='/images/blog/2025-03-matter-certification/art.jpg' alt="Home Assistant is officially matter certified" class='no-shadow' /></p>

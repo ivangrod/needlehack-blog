@@ -8,7 +8,7 @@ author_twitter: balloob
 categories:
 - Release-Notes
 - Core
-og_image: {{site.baseurl}}/images/blog/2017-02-0.39/social.png
+og_image: "{{site.baseurl}}/images/blog/2017-02-0.39/social.png"
 ---
 
 It's time for 0.39 and this release has some amazing new features!

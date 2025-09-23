@@ -7,7 +7,7 @@ date_formatted: "August 21, 2025"
 author: Miranda Bishop
 comments: true
 categories: Works-with-Home-Assistant
-og_image: {{site.baseurl}}/images/blog/2025-08-airgradient/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2025-08-airgradient/art.jpg"
 ---
 
 <img src='/images/blog/2025-08-airgradient/art.jpg' style='border: 0;box-shadow: none;' alt="AirGradient joins Works with Home Assistant">

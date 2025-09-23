@@ -7,7 +7,7 @@ date_formatted: "March 3rd, 2023"
 author: Uwe Bernitt
 comments: true
 categories: Works-with-Home-Assistant
-og_image: {{site.baseurl}}/images/blog/2023-03-03-heltun-partner/social.png
+og_image: "{{site.baseurl}}/images/blog/2023-03-03-heltun-partner/social.png"
 ---
 
 <img src='/images/blog/2023-03-03-heltun-partner/heltun-top.png' alt="HELTUN and Works with Home Assistant logos" class='no-shadow'>

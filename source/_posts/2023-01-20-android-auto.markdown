@@ -6,7 +6,7 @@ date_formatted: "January 20, 2023"
 comments: true
 author: Daniel Shokouhi
 categories: Release-Notes
-og_image: {{site.baseurl}}/images/blog/2023-01-20-android-auto/Companion.png
+og_image: "{{site.baseurl}}/images/blog/2023-01-20-android-auto/Companion.png"
 ---
 
 

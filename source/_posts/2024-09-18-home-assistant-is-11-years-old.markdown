@@ -7,7 +7,7 @@ date_formatted: "September 18, 2024"
 author: Paulus Schoutsen
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2024-09-11th-anniversary/art.png
+og_image: "{{site.baseurl}}/images/blog/2024-09-11th-anniversary/art.png"
 ---
 
 <img src='/images/blog/2024-09-11th-anniversary/art.png' alt='Art by Clelia' style='border: 0;box-shadow: none;'>

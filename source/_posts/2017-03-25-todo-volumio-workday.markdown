@@ -8,7 +8,7 @@ author_twitter: fabaff
 categories:
 - Release-Notes
 - Core
-og_image: {{site.baseurl}}/images/blog/2017-03-0.41/social.png
+og_image: "{{site.baseurl}}/images/blog/2017-03-0.41/social.png"
 ---
 
 Welcome to 0.41. There was a lot going on in the last two weeks. Not only from the code side but also from the social one of Home Assistant. [Paulus][@balloob] did an [interview] with [OpenSourceCraft], [Fabian][@fabaff] did a [workshop] at the [Chemnitzer Linux Tage][clt], and we are now an award-winning Open source project (I will cover that in a separate blog post).

@@ -5,7 +5,7 @@ date: 2016-08-31 06:17:25 +0200
 date_formatted: "August 31, 2016"
 author: Fabian Affolter
 categories: How-To MQTT ESP8266 Micropython
-og_image: {{site.baseurl}}/images/blog/2016-07-micropython/social.png
+og_image: "{{site.baseurl}}/images/blog/2016-07-micropython/social.png"
 ---
 
 <img src='/images/blog/2016-07-micropython/micropython.png' style='clear: right; border:none; box-shadow: none; float: right; margin-bottom: 12px;' width='200' />

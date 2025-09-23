@@ -7,7 +7,7 @@ date_formatted: "January 25, 2024"
 author: Marcel van der Veldt
 comments: true
 categories: Matter
-og_image: {{site.baseurl}}/images/blog/2024-01-matter/matter.png
+og_image: "{{site.baseurl}}/images/blog/2024-01-matter/matter.png"
 ---
 During our State of Matter live stream two weeks ago, we explained what Matter is, how it relates to Thread, and how you can compare it with existing protocols you may already know, like Zigbee or Z-Wave. 
 

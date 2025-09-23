@@ -6,7 +6,7 @@ date_formatted: "April 9, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2021-04-09-community-highlights/social.png
+og_image: "{{site.baseurl}}/images/blog/2021-04-09-community-highlights/social.png"
 ---
 
 What did you think of [the release][release] last Wednesday? A

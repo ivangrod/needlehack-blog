@@ -8,7 +8,7 @@ author: Paulus Schoutsen
 author_twitter: balloob
 comments: true
 categories: Public-Service-Announcement
-og_image: {{site.baseurl}}/images/blog/2023-03-supervisor-security-disclosure/social.png
+og_image: "{{site.baseurl}}/images/blog/2023-03-supervisor-security-disclosure/social.png"
 ---
 
 ![Attention please read](/images/blog/2023-03-supervisor-security-disclosure/social.png)

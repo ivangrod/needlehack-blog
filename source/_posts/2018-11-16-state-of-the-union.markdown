@@ -6,7 +6,7 @@ date_formatted: "November 16, 2018"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Video
-og_image: {{site.baseurl}}/images/blog/2018-11-state-of-the-union/share-the-love.jpg
+og_image: "{{site.baseurl}}/images/blog/2018-11-state-of-the-union/share-the-love.jpg"
 ---
 
 <p class='img'>

@@ -6,7 +6,7 @@ date_formatted: "June 4, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2021-06-04-community-highlights/social.png
+og_image: "{{site.baseurl}}/images/blog/2021-06-04-community-highlights/social.png"
 ---
 
 The 24th edition of the Home Assistant Community Highlights! Some interesting

@@ -8,7 +8,7 @@ author_twitter: balloob
 categories:
 - Release-Notes
 - Core
-og_image: {{site.baseurl}}/images/blog/2016-01-release-12/social.png
+og_image: "{{site.baseurl}}/images/blog/2016-01-release-12/social.png"
 ---
 
 Another sprint has come to an end and it seems that we have not slowed down a single bit 🚀. 0.12 is full of new components, platforms and organizational additions.

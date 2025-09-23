@@ -7,7 +7,7 @@ date_formatted: "June 25, 2025"
 author: Mike Hansen
 comments: true
 categories: Assist
-og_image: {{site.baseurl}}/images/blog/2025-06-voice-chapter-10/art.png
+og_image: "{{site.baseurl}}/images/blog/2025-06-voice-chapter-10/art.png"
 ---
 
 <img src='/images/blog/2025-06-voice-chapter-10/art.png' style='border: 0;box-shadow: none;' alt="Chapter 10 of our ongoing voice series">

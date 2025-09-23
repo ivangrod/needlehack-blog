@@ -6,7 +6,7 @@ date_formatted: "September 20, 2020"
 author: Franck Nijhof
 author_twitter: frenck
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2020-09-20-community-highlights/social.png
+og_image: "{{site.baseurl}}/images/blog/2020-09-20-community-highlights/social.png"
 ---
 
 It has been waaay too long since we had a Community Highlights blog.

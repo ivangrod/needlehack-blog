@@ -6,7 +6,7 @@ date_formatted: "February 19, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2021-02-19-community-highlights/social.png
+og_image: "{{site.baseurl}}/images/blog/2021-02-19-community-highlights/social.png"
 ---
 
 The 9th edition of the Home Assistant Community Highlights! Some interesting

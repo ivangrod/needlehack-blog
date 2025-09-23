@@ -6,7 +6,7 @@ date_formatted: "July 17, 2017"
 author: Phil Hawthorne
 author_twitter: philhawthorne
 categories: Media
-og_image: {{site.baseurl}}/images/hasspodcast.jpg
+og_image: "{{site.baseurl}}/images/hasspodcast.jpg"
 ---
 
 We quickly cover off a few community items including the move to Discord and Carlo talks with Phil about his use of Floorplan.

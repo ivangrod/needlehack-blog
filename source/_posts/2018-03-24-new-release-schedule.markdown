@@ -6,7 +6,7 @@ date_formatted: "March 24, 2018"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2018-03-release-schedule/social.png
+og_image: "{{site.baseurl}}/images/blog/2018-03-release-schedule/social.png"
 ---
 
 So this weekend we're going to shake things a little up. Instead of releasing a new version today, we've released a beta version of the new version: 0.66.0.beta0. After a week of being in beta, the version will be promoted to be the new stable release. While the beta is live, we will accept contributions on the dev branch for the next version as usual.

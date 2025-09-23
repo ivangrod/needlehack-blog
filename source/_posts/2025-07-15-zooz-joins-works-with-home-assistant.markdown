@@ -7,7 +7,7 @@ date_formatted: "July 15, 2025"
 author: Miranda Bishop
 comments: true
 categories: Works-with-Home-Assistant
-og_image: {{site.baseurl}}/images/blog/2025-07-zooz/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2025-07-zooz/art.jpg"
 ---
 
 <img src='/images/blog/2025-07-zooz/art.jpg' style='border: 0;box-shadow: none;' alt="Zooz joins Works with Home Assistant">

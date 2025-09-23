@@ -6,7 +6,7 @@ date_formatted: "February 28, 2020"
 author: Franck Nijhof
 author_twitter: frenck
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2020-02-28-community-highlights/social.png
+og_image: "{{site.baseurl}}/images/blog/2020-02-28-community-highlights/social.png"
 ---
 
 For the 4th edition, I thought it fitted to devote the community highlights to 3D!

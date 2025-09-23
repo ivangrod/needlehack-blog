@@ -6,7 +6,7 @@ date_formatted: "April 15, 2019"
 author: Pascal Vizeli
 author_twitter: pvizeli
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2019-04-hassio-ingress/blogpost.png
+og_image: "{{site.baseurl}}/images/blog/2019-04-hassio-ingress/blogpost.png"
 ---
 
 Today we are proud to introduce a new feature for Hass.io called Ingress. Ingress allows Hass.io add-ons to seamlessly integrate their user interface with Home Assistant. Home Assistant will take care of the authentication and the secure connection, so users can start using the add-on directly, without any configuration necessary by the users. It just works. Even with Nabu Casa’s Home Assistant Cloud Remote UI!

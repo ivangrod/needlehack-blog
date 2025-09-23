@@ -6,7 +6,7 @@ date_formatted: "May 12, 2016"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Video
-og_image: {{site.baseurl}}/images/blog/2016-05-video-configuring-home-assistant/preview-video.png
+og_image: "{{site.baseurl}}/images/blog/2016-05-video-configuring-home-assistant/preview-video.png"
 ---
 
 Ben from [BRUH Automation](http://www.bruhautomation.com) authors a lot of great video's about how he is using Home Assistant and how you can get started with it too. The video below will walk you through how to configure Home Assistant. Enjoy!

@@ -9,7 +9,7 @@ comments: true
 categories:
   - Announcements
   - Works-with-Home-Assistant
-og_image: {{site.baseurl}}/images/blog/2024-08-wwha-update/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2024-08-wwha-update/art.jpg"
 ---
 <p class='img'><img src='/images/blog/2024-08-wwha-update/art.jpg' style='border: 0;box-shadow: none;' alt="Works with Home Assistant becomes part of the Open Home Foundation">Art by Clelia Rella</p>
 

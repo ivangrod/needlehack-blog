@@ -5,7 +5,7 @@ date: 2016-08-03 10:22 -0700
 date_formatted: "August 2, 2016"
 author: Nolan Gilley
 categories: User-Stories
-og_image: {{site.baseurl}}/images/blog/2016-07-laundry-automation/protoboard.jpg
+og_image: "{{site.baseurl}}/images/blog/2016-07-laundry-automation/protoboard.jpg"
 ---
 
 _This is a guest post by Home Assistant user and contributor [Nolan Gilley](https://github.com/nkgilley)._

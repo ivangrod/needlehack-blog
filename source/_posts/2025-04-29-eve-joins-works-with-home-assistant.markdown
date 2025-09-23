@@ -7,7 +7,7 @@ date_formatted: "April 29, 2025"
 author: Miranda Bishop
 comments: true
 categories: Works-with-Home-Assistant
-og_image: {{site.baseurl}}/images/blog/2025-04-eve/art.jpg
+og_image: "{{site.baseurl}}/images/blog/2025-04-eve/art.jpg"
 ---
 
 <img src='/images/blog/2025-04-eve/art.jpg' style='border: 0;box-shadow: none;' alt="Eve and Home Assistant collaboration banner">

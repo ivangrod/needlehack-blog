@@ -9,7 +9,7 @@ author_twitter: balloob
 comments: true
 categories:
 - Announcements
-og_image: {{site.baseurl}}/images/blog/2021-08-energy/social.png
+og_image: "{{site.baseurl}}/images/blog/2021-08-energy/social.png"
 ---
 
 _TL; DR: We're adding energy management and [it's awesome](https://demo.home-assistant.io/#/energy). Created two products to read out electricity meters: [SlimmeLezer](https://www.slimmelezer.nl) for P1 ports & [Home Assistant Glow](https://github.com/klaasnicolaas/home-assistant-glow) for activity LEDs. Upgraded most of the [existing energy integrations](/integrations/#energy) to be compatible._

@@ -6,7 +6,7 @@ date_formatted: "June 16, 2021"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2021-06-power-up-your-esp-projects/social.png
+og_image: "{{site.baseurl}}/images/blog/2021-06-power-up-your-esp-projects/social.png"
 ---
 
 ESP8266 and ESP32 are microcontrollers made by the Chinese company Espressif.
