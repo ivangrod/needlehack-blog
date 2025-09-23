@@ -6,7 +6,7 @@ date_formatted: "January 3, 2017"
 author: Ben
 author_twitter: bruhautomation
 categories: Community
-og_image: {{site.baseurl}}/images/blog/2017-01-bruh-christmas/christmas-tree.gif
+og_image: "{{site.baseurl}}/images/blog/2017-01-bruh-christmas/christmas-tree.gif"
 ---
 
 Hello and Happy New Year!
