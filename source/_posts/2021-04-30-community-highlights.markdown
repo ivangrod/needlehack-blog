@@ -6,7 +6,7 @@ date_formatted: "April 30, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: /images/blog/2021-04-30-community-highlights/social.png
+og_image: {{site.baseurl}}/images/blog/2021-04-30-community-highlights/social.png
 ---
 
 The 19th edition of the Home Assistant Community Highlights! Some interesting

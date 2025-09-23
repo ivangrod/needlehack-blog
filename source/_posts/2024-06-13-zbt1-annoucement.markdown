@@ -7,7 +7,7 @@ date_formatted: "June 13, 2024"
 author: Andy Gill
 comments: true
 categories: Announcements
-og_image: /images/blog/2024-06-ZBT1/art.jpg
+og_image: {{site.baseurl}}/images/blog/2024-06-ZBT1/art.jpg
 ---
 
 <p class="img no-shadow"><img src='/images/blog/2024-06-ZBT1/art.jpg' alt='Home Assistant Skyconnect becomes Connect ZBT-1'/></p>

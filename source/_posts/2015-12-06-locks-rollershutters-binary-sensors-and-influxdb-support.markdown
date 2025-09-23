@@ -8,7 +8,7 @@ author_twitter: balloob
 categories:
 - Release-Notes
 - Core
-og_image: /images/blog/2015-12-release-09/facebook-09.png
+og_image: {{site.baseurl}}/images/blog/2015-12-release-09/facebook-09.png
 ---
 
 It's been a few weeks but we managed to polish a nice new release of Home Assistant for y'all!

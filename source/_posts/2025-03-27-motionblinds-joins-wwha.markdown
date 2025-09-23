@@ -7,7 +7,7 @@ date_formatted: "March 27, 2025"
 author: Miranda Bishop
 comments: true
 categories: Works-with-Home-Assistant
-og_image: /images/blog/2025-03-motionblinds/art.jpg
+og_image: {{site.baseurl}}/images/blog/2025-03-motionblinds/art.jpg
 ---
 
 <img src='/images/blog/2025-03-motionblinds/art.jpg' style='border: 0;box-shadow: none;' alt="Motionblinds wwha logo">

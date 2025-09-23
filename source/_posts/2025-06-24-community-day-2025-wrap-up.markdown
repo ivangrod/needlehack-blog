@@ -7,7 +7,7 @@ date_formatted: "June 24, 2025"
 author: Missy Quarry
 comments: true
 categories: Announcements
-og_image: /images/blog/2025-06-community-day-wrap-up/art.jpg
+og_image: {{site.baseurl}}/images/blog/2025-06-community-day-wrap-up/art.jpg
 ---
 
 <img src='/images/blog/2025-06-community-day-wrap-up/art.jpg' style='border: 0;box-shadow: none;' alt="Pictures of multiple community day meetups">

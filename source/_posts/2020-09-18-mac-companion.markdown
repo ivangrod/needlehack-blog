@@ -7,7 +7,7 @@ comments: true
 author: Tom Brien
 author_twitter: tbrien88
 categories: Announcements
-og_image: /images/blog/2020-09-18-mac-companion/social.png
+og_image: {{site.baseurl}}/images/blog/2020-09-18-mac-companion/social.png
 ---
 
 Wow, what a birthday week it has been! We've had a [new supervisor release](/blog/2020/09/16/supervisor-joins-the-party), one of the largest and most user-driven core [releases](/blog/2020/09/17/release-115), thanks to the [month of What The Heck?!](/blog/2020/08/18/the-month-of-what-the-heck/). We even got [RFID tags](/blog/2020/09/15/home-assistant-tags) right into the heart of Home Assistant, but we're not done yet! We have "One more thing…"

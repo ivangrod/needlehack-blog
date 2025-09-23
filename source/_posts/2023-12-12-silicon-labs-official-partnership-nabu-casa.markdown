@@ -7,7 +7,7 @@ date_formatted: "December 12, 2023"
 author: Guy Sie
 comments: true
 categories: Announcements
-og_image: /images/blog/2023-12-siliconlabs/siliconlabs-og.png
+og_image: {{site.baseurl}}/images/blog/2023-12-siliconlabs/siliconlabs-og.png
 ---
 
 [Silicon Labs](https://www.silabs.com/) has entered an official partnership with [Nabu Casa](https://www.nabucasa.com/) to offer support for our open-source and hardware efforts.

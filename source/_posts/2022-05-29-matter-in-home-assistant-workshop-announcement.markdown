@@ -9,7 +9,7 @@ author_twitter: balloob
 comments: true
 categories:
 - Announcements
-og_image: /images/blog/2022-05-matter-in-home-assistant-workshop-announcement/social.png
+og_image: {{site.baseurl}}/images/blog/2022-05-matter-in-home-assistant-workshop-announcement/social.png
 ---
 
 <!--<img src='/images/blog/2022-05-matter-in-home-assistant-workshop-announcement/header.png' alt="Decorative header." class='no-shadow'>-->

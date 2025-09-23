@@ -7,7 +7,7 @@ date_formatted: "January 5, 2024"
 author: Marcel van der Veldt
 comments: true
 categories: Matter
-og_image: /images/blog/2024-01-matter/matter.png
+og_image: {{site.baseurl}}/images/blog/2024-01-matter/matter.png
 ---
 
 TL;DR: We'll have a Matter livestream on Wednesday, January 10. Post all your questions about Matter and Home Assistant in the comment section, and we'll try to answer them during the stream!

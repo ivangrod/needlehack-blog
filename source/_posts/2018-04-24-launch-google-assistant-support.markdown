@@ -6,7 +6,7 @@ date_formatted: "April 24, 2018"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Announcements
-og_image: /images/blog/2018-04-google-assistant/google-assistant-home-assistant.png
+og_image: {{site.baseurl}}/images/blog/2018-04-google-assistant/google-assistant-home-assistant.png
 ---
 
 <p class='img'>

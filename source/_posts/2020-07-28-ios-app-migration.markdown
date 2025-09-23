@@ -7,7 +7,7 @@ comments: false
 author: Robbie Trencheny
 author_twitter: robbie
 categories: Announcements
-og_image: /images/blog/2020-07-28-ios-app-migration/social-update.png
+og_image: {{site.baseurl}}/images/blog/2020-07-28-ios-app-migration/social-update.png
 ---
 
 Hi there, your friend and pal, Robbie the iOS developer here with an important update about a change to the Home Assistant Companion App for iOS and a few steps you, the user, will need to take.

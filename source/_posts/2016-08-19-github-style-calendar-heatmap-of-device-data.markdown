@@ -6,7 +6,7 @@ date_formatted: "August 19, 2016"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: How-To IoT-Data
-og_image: /images/blog/2016-08-data-exploration/heatmap.png
+og_image: {{site.baseurl}}/images/blog/2016-08-data-exploration/heatmap.png
 ---
 
 

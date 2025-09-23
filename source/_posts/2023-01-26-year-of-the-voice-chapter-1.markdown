@@ -7,7 +7,7 @@ date_formatted: "January 26, 2023"
 author: Paulus Schoutsen
 comments: true
 categories: Assist
-og_image: /images/blog/2023-01-26-year-of-the-voice-chapter-1/social.png
+og_image: {{site.baseurl}}/images/blog/2023-01-26-year-of-the-voice-chapter-1/social.png
 ---
 
 This year is Home Assistant's [year of the voice](https://www.home-assistant.io/blog/2022/12/20/year-of-voice/). It is our goal for 2023 to let users control Home Assistant in their own language. Today, one month into 2023, we start our first chapter.

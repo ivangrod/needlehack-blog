@@ -8,7 +8,7 @@ author: Uwe Bernitt
 comments: true
 categories:
   - Announcements
-og_image: /images/blog/2023-06-27-knx-collaboration/social.png
+og_image: {{site.baseurl}}/images/blog/2023-06-27-knx-collaboration/social.png
 ---
 
 <img src='/images/blog/2023-06-27-knx-collaboration/social.png' alt="The KNX panel in Home Assistant" class='no-shadow'>

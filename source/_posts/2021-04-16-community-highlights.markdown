@@ -6,7 +6,7 @@ date_formatted: "April 16, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: /images/blog/2021-04-16-community-highlights/social.png
+og_image: {{site.baseurl}}/images/blog/2021-04-16-community-highlights/social.png
 ---
 
 For me personally a small milestone: it’s already the 10th community highlight

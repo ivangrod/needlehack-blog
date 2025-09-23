@@ -7,7 +7,7 @@ date_formatted: "December 13, 2023"
 author: Michael Hansen
 comments: true
 categories: Assist
-og_image: /images/blog/2023-12-13-year-of-the-voice-chapter-5/social.png
+og_image: {{site.baseurl}}/images/blog/2023-12-13-year-of-the-voice-chapter-5/social.png
 ---
 
 <p><img src='/images/blog/2023-12-13-year-of-the-voice-chapter-5/social.png' class='no-shadow' /></p>

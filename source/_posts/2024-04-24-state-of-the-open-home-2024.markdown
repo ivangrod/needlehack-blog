@@ -7,7 +7,7 @@ date_formatted: "April 24, 2024"
 author: Gordon Cameron
 comments: true
 categories: Announcements
-og_image: /images/blog/2024-04-24-state-of-the-open-home-2024/banner.jpg
+og_image: {{site.baseurl}}/images/blog/2024-04-24-state-of-the-open-home-2024/banner.jpg
 ---
 
 We recently held our [State of the Open Home 2024 live stream](https://www.youtube.com/live/oa__fLArsFk?si=PzlfiHLUYE6uAEq3), where we revealed how we are thinking [even bigger](/blog/2018/09/17/thinking-big/) about securing the future of the smart home. During this stream we launched the [Open Home Foundation](https://www.openhomefoundation.org/), a new non-profit organization created to fight for the fundamental principles of the smart home — privacy, choice, and sustainability — focused on serving everyone that lives in one. To learn more about the Open Home Foundation read the full [announcement](https://www.openhomefoundation.org/blog/announcing-the-open-home-foundation/).

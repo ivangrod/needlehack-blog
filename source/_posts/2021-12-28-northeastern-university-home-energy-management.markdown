@@ -6,7 +6,7 @@ date_formatted: "December 28, 2021"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Video
-og_image: /images/blog/2021-12-northeastern-university/overview.png
+og_image: {{site.baseurl}}/images/blog/2021-12-northeastern-university/overview.png
 ---
 
 Two weeks ago we hosted the [State of the Open Home](/state-of-the-open-home/). It included a presentation by [Prof. Michael Kane](https://coe.northeastern.edu/people/kane-michael/) and [Maharsi Pathak](https://www.linkedin.com/in/maharshi-pathak-) from the department of Civil and Environmental Engineering at [Northeastern University](https://www.northeastern.edu/).

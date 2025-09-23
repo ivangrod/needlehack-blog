@@ -6,7 +6,7 @@ date_formatted: "June 02, 2017"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: Media
-og_image: /images/hasspodcast.jpg
+og_image: {{site.baseurl}}/images/hasspodcast.jpg
 ---
 
 The first podcast by [Home Assistant Podcast](https://hasspodcast.io) contains an introduction and covers the [0.45](/blog/2017/05/20/automation-editor-zwave-panel-ocr/) release of Home Assistant.

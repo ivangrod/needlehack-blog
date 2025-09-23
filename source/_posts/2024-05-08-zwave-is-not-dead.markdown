@@ -7,7 +7,7 @@ date_formatted: "May 8, 2024"
 author: Paulus Schoutsen
 comments: true
 categories: Z-Wave
-og_image: /images/blog/2024-05-zwave-is-not-dead/art.jpg
+og_image: {{site.baseurl}}/images/blog/2024-05-zwave-is-not-dead/art.jpg
 ---
 
 <p class="img"><img src='/images/blog/2024-05-zwave-is-not-dead/art.jpg'/><i>Art by Clelia Rella</i></p>

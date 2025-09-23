@@ -6,7 +6,7 @@ date_formatted: "April 23, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: /images/blog/2021-04-23-community-highlights/social.png
+og_image: {{site.baseurl}}/images/blog/2021-04-23-community-highlights/social.png
 ---
 
 The 18th edition of the Home Assistant Community Highlights! Some interesting

@@ -8,7 +8,7 @@ author: Stefan Agner
 author_twitter: falstaff_ch
 comments: true
 categories: Release-Notes
-og_image: /images/blog/2022-05-16-os8/social.png
+og_image: {{site.baseurl}}/images/blog/2022-05-16-os8/social.png
 ---
 
 <a href='https://github.com/home-assistant/operating-system/releases/tag/8.0'>

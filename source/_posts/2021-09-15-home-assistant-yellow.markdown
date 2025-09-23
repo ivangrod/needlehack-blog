@@ -9,7 +9,7 @@ author_twitter: balloob
 comments: true
 categories:
 - Announcements
-og_image: /images/blog/2021-09-home-assistant-yellow/social.png
+og_image: {{site.baseurl}}/images/blog/2021-09-home-assistant-yellow/social.png
 ---
 
 <a href="https://www.crowdsupply.com/nabu-casa/home-assistant-yellow"><img src='/images/blog/2021-09-home-assistant-yellow/overview.png'></a>

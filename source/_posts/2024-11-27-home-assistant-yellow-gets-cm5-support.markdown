@@ -9,7 +9,7 @@ comments: true
 categories: 
 - HAOS
 - Hardware
-og_image: /images/blog/2024-11-cm5/art.jpg
+og_image: {{site.baseurl}}/images/blog/2024-11-cm5/art.jpg
 ---
 
 <img src='/images/blog/2024-11-cm5/art.jpg' alt="Home Assistant Yellow in all its glory">

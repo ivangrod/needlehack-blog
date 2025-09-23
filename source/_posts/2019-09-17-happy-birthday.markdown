@@ -8,7 +8,7 @@ author: Paulus Schoutsen
 author_twitter: balloob
 comments: true
 categories: Announcements
-og_image: /images/blog/2019-09-birthday/social.png
+og_image: {{site.baseurl}}/images/blog/2019-09-birthday/social.png
 ---
 
 <img src='/images/blog/2019-09-birthday/top.png' style='border: 0;box-shadow: none;'>

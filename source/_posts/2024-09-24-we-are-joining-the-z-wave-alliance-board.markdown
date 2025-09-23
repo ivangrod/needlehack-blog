@@ -7,7 +7,7 @@ date_formatted: "September 24, 2024"
 author: Paulus Schoutsen
 comments: true
 categories: Announcements
-og_image: /images/blog/2024-09-zwave-board/art.jpg
+og_image: {{site.baseurl}}/images/blog/2024-09-zwave-board/art.jpg
 ---
 
 <img src='/images/blog/2024-09-zwave-board/art.jpg' style='border: 0;box-shadow: none;' alt="Paulus Schoutsen is joining the Z-Wave Alliance Board">

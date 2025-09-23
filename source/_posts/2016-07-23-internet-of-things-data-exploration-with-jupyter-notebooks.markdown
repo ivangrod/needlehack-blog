@@ -5,7 +5,7 @@ date: 2016-07-23 18:00:00 +0000
 date_formatted: "July 23, 2016"
 author: Anton Kireyeu
 categories: How-To IoT-Data
-og_image: /images/blog/2016-07-data-exploration/graph.png
+og_image: {{site.baseurl}}/images/blog/2016-07-data-exploration/graph.png
 ---
 
 _This is the first blog post by Anton Kireyeu. A new contributor to Home Assistant who will focus on exploring and visualizing Home Assistant data._

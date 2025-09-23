@@ -8,7 +8,7 @@ author_twitter: balloob
 categories:
 - Release-Notes
 - Core
-og_image: /images/blog/2016-04-release-18/social.png
+og_image: {{site.baseurl}}/images/blog/2016-04-release-18/social.png
 ---
 
 It's time for 0.18. This release cycle is 2 days shorter than usual as I'll be traveling to Europe. This also means that it can take some more time before you get feedback on PRs.

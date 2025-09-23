@@ -6,7 +6,7 @@ date_formatted: "December 1, 2019"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Community
-og_image: /images/blog/2019-12-home-assistant-for-everyone/social.png
+og_image: {{site.baseurl}}/images/blog/2019-12-home-assistant-for-everyone/social.png
 ---
 
 With Home Assistant, we want to help people live their life, while helping out in the background. I wrote about this in 2016 when I detailed my view on the [perfect home automation](https://www.home-assistant.io/blog/2016/01/19/perfect-home-automation/). We've been working towards this ever since.

@@ -7,7 +7,7 @@ date_formatted: "December 27, 2023"
 author: Bruno Pantaleão
 comments: true
 categories: iOS Release-Notes
-og_image: /images/blog/2023-12-ios-lets-go/ios-og.png
+og_image: {{site.baseurl}}/images/blog/2023-12-ios-lets-go/ios-og.png
 ---
 
 We have good news for those hoping for more features and faster development of the iOS Companion App! I, Bruno Pantaleão, have joined Nabu Casa as an iOS engineer (of course, also working on watchOS, iPadOS, and macOS apps), and am planning to continue the great work done by Robbie Trencheny, Zac West, and the community, giving the iOS app the attention that it deserves. So let’s talk about this month’s 2023.12 release of the app!

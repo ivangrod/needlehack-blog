@@ -8,7 +8,7 @@ author: Robbie Trencheny
 author_twitter: robbie
 comments: true
 categories: Release-Notes
-og_image: /images/blog/2020-02-android-16-17-release/garage.png
+og_image: {{site.baseurl}}/images/blog/2020-02-android-16-17-release/garage.png
 ---
 
 Over the last week, we've released some awesome new features and improvements to Home Assistant Companion for Android. I wanted to take a moment to highlight some of the recent things that we introduced in 1.6 and 1.7.

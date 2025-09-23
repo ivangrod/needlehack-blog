@@ -6,7 +6,7 @@ date_formatted: "April 24, 2017"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: Community
-og_image: /images/default-social.png
+og_image: {{site.baseurl}}/images/default-social.png
 ---
 
 We have four submissions for our [Hardware Contest 2017][hardware].

@@ -6,7 +6,7 @@ date_formatted: "October 18, 2017"
 author: Phil Hawthorne
 author_twitter: philhawthorne
 categories: Media
-og_image: /images/hasspodcast.jpg
+og_image: {{site.baseurl}}/images/hasspodcast.jpg
 ---
 
 Show notes available on the [Home Assistant Podcast Website](https://hasspodcast.io/HA010/)

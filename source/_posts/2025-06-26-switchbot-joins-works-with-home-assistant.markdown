@@ -7,7 +7,7 @@ date_formatted: "June 26, 2025"
 author: Miranda Bishop
 comments: true
 categories: Works-with-Home-Assistant
-og_image: /images/blog/2025-06-switchbot/art.jpg
+og_image: {{site.baseurl}}/images/blog/2025-06-switchbot/art.jpg
 ---
 
 <img src='/images/blog/2025-06-switchbot/art.jpg' style='border: 0;box-shadow: none;' alt="SwitchBot Joins Works with Home Assistant">

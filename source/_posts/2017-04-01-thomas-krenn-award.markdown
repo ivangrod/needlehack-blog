@@ -5,7 +5,7 @@ date: 2017-04-01 06:00:00 +0000
 date_formatted: "April 01, 2017"
 author: Fabian Affolter
 categories: Community
-og_image: /images/blog/2017-04-award/social.png
+og_image: {{site.baseurl}}/images/blog/2017-04-award/social.png
 ---
 
 You may already know from our social media channels and the release blog post for 0.41: We are now an award-winning Open source project. The jury of the [Thomas-Krenn-Award][award] put us on the 2nd place. This is an awesome achievement for an independent community project.

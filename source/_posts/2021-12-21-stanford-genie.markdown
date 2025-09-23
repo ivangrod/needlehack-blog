@@ -6,7 +6,7 @@ date_formatted: "December 21, 2021"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Video
-og_image: /images/blog/2021-12-stanford-genie/social.png
+og_image: {{site.baseurl}}/images/blog/2021-12-stanford-genie/social.png
 ---
 
 Last week we hosted the [State of the Open Home](/state-of-the-open-home/) and it included a demo of [Genie](https://genie.stanford.edu).

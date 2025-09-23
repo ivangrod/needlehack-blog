@@ -6,7 +6,7 @@ date_formatted: "February 7, 2020"
 author: Franck Nijhof
 author_twitter: frenck
 categories: Community
-og_image: /images/blog/2020-02-07-community-highlights/social.png
+og_image: {{site.baseurl}}/images/blog/2020-02-07-community-highlights/social.png
 ---
 
 Thank god, it's Friday! For most of us, it means we can tinker with our Home Automation projects again 😃

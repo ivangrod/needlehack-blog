@@ -8,7 +8,7 @@ author_twitter: balloob
 categories:
 - Release-Notes
 - Core
-og_image: /images/screenshots/map.png
+og_image: {{site.baseurl}}/images/screenshots/map.png
 ---
 
 A few weeks have past and it is time again for another release: version 0.7.4. This time we're very glad to be able to introduce brand new integration with OwnTracks to allow tracking of people on a map. The geo support consists of three different parts:

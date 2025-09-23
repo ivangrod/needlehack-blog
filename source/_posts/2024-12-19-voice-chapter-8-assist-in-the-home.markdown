@@ -7,7 +7,7 @@ date_formatted: "December 19, 2024"
 author: Mike Hansen
 comments: true
 categories: Assist
-og_image: /images/blog/2024-12-voice-chapter-8/art.png
+og_image: {{site.baseurl}}/images/blog/2024-12-voice-chapter-8/art.png
 ---
 
 <img src='/images/blog/2024-12-voice-chapter-8/art.png' alt="Voice chapter 8 - Assist in the home today">

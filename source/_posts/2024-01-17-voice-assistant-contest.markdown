@@ -7,7 +7,7 @@ date_formatted: "January 17, 2024"
 author: Jean-Loïc Pouffier
 comments: true
 categories: Assist
-og_image: /images/blog/2024-01-11-voice-assistant-contest/banner.png
+og_image: {{site.baseurl}}/images/blog/2024-01-11-voice-assistant-contest/banner.png
 ---
 
 <p><img src='/images/blog/2024-01-11-voice-assistant-contest/banner.png' class='no-shadow' /></p>

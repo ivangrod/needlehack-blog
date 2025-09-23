@@ -6,7 +6,7 @@ date_formatted: "April 2, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: /images/blog/2021-04-02-community-highlights/social.png
+og_image: {{site.baseurl}}/images/blog/2021-04-02-community-highlights/social.png
 ---
 
 I hope everyone survived the April 1 jokes a bit? 🐸 We are already at the 15th

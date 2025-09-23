@@ -7,7 +7,7 @@ date_formatted: "October 12, 2023"
 author: Paulus Schoutsen
 comments: true
 categories: Assist
-og_image: /images/blog/2023-10-12-year-of-the-voice-chapter-4/social.png
+og_image: {{site.baseurl}}/images/blog/2023-10-12-year-of-the-voice-chapter-4/social.png
 ---
 
 <p><img src='/images/blog/2023-10-12-year-of-the-voice-chapter-4/social.png' class='no-shadow' /></p>

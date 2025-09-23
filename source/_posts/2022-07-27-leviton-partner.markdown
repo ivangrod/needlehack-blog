@@ -8,7 +8,7 @@ author: Zack Barett
 author_twitter: zbarettHA
 comments: true
 categories: Works-with-Home-Assistant
-og_image: /images/blog/2022-07-27-leviton-partner/social-image.jpg
+og_image: {{site.baseurl}}/images/blog/2022-07-27-leviton-partner/social-image.jpg
 ---
 
 <img src='/images/blog/2022-07-27-leviton-partner/social-image.jpg' alt="Leviton Partnership Social image" class='no-shadow'>

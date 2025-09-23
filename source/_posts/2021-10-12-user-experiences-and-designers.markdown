@@ -9,7 +9,7 @@ author_twitter: matthiasdebaat
 comments: true
 categories:
 - Organization
-og_image: /images/blog/2021-10-ux/social.png
+og_image: {{site.baseurl}}/images/blog/2021-10-ux/social.png
 ---
 
 <img src='/images/blog/2021-10-ux/social.png' style='border: 0;box-shadow: none;'>

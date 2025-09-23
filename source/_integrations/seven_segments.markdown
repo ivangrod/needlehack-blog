@@ -4,7 +4,7 @@ description: Instructions on how to use OCR for seven segments displays into Hom
 ha_category:
   - Image processing
 ha_release: 0.45
-og_image: /images/screenshots/ssocr.png
+og_image: {{site.baseurl}}/images/screenshots/ssocr.png
 ha_iot_class: Local Polling
 ha_domain: seven_segments
 ha_codeowners:

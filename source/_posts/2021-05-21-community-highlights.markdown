@@ -6,7 +6,7 @@ date_formatted: "May 21, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: /images/blog/2021-05-21-community-highlights/social.png
+og_image: {{site.baseurl}}/images/blog/2021-05-21-community-highlights/social.png
 ---
 
 The 22nd edition of the Home Assistant Community Highlights! Some interesting

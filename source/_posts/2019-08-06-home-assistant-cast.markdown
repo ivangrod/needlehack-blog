@@ -6,7 +6,7 @@ date_formatted: "August 6, 2019"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Announcements
-og_image: /images/blog/2019-08-home-assistant-cast/social.png
+og_image: {{site.baseurl}}/images/blog/2019-08-home-assistant-cast/social.png
 ---
 
 <p class='img'>

@@ -10,7 +10,7 @@ comments: true
 categories:
   - Announcements
   - Works-with-Home-Assistant
-og_image: /images/blog/2022-07-12-partner-program/partner_program_og.jpg
+og_image: {{site.baseurl}}/images/blog/2022-07-12-partner-program/partner_program_og.jpg
 ---
 
 {% note %}

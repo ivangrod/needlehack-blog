@@ -7,7 +7,7 @@ date_formatted: "September 17, 2023"
 author: Paulus Schoutsen
 comments: true
 categories: Announcements
-og_image: /images/frontpage/HA10_-_Website_banner.png
+og_image: {{site.baseurl}}/images/frontpage/HA10_-_Website_banner.png
 ---
 
 TL; DR:

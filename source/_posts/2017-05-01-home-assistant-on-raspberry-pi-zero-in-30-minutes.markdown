@@ -6,7 +6,7 @@ date_formatted: "May 1, 2017"
 author: Avraham David Gelbfish
 author_twitter: adgelbfish
 categories: How-To
-og_image: /images/blog/2017-05-hassbian-pi-zero/home_assistant_plus_rpi_600x315.png
+og_image: {{site.baseurl}}/images/blog/2017-05-hassbian-pi-zero/home_assistant_plus_rpi_600x315.png
 ---
 
 <p class="img">

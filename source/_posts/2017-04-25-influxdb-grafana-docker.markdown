@@ -6,7 +6,7 @@ date_formatted: "April 25, 2017"
 author: Alok Saboo
 author_twitter: alokrsaboo
 categories: How-To
-og_image: /images/blog/2017-04-influxdb-grafana/influxdb-grafana-ha.png
+og_image: {{site.baseurl}}/images/blog/2017-04-influxdb-grafana/influxdb-grafana-ha.png
 ---
 
 Home Assistant collects volumes of (time series) data that are well suited for some fancy graphs. Although the [History](/integrations/history/) component provides some nice plots, I am sure you have always wanted those fancy [Grafana](https://grafana.com/) plots. The problem, however, is that low-powered device such as Raspberry Pi that most of us use for our Home Assistant setup are not well suited for such operation.

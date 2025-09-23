@@ -6,7 +6,7 @@ date_formatted: "September 14, 2020"
 comments: true
 author: Paulus Schoutsen
 categories: Announcements
-og_image: /images/blog/2020-09-14-birthday-week/social.png
+og_image: {{site.baseurl}}/images/blog/2020-09-14-birthday-week/social.png
 ---
 
 ![Celebration graphic](/images/blog/2020-09-14-birthday-week/social.png)

@@ -8,7 +8,7 @@ author_twitter: fabaff
 categories:
 - Release-Notes
 - Core
-og_image: /images/blog/2017-01-0.37/social.png
+og_image: {{site.baseurl}}/images/blog/2017-01-0.37/social.png
 ---
 
 

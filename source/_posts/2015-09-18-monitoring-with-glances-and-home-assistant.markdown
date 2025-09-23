@@ -5,7 +5,7 @@ date: 2015-09-18 11:00:00 +0200
 date_formatted: "September 18, 2015"
 author: Fabian Affolter
 categories: How-To
-og_image: /images/supported_brands/glances.png
+og_image: {{site.baseurl}}/images/supported_brands/glances.png
 ---
 
 <img src='/images/supported_brands/glances.png' style='border:none; box-shadow: none; float: right;' height='80' />

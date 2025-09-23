@@ -7,7 +7,7 @@ date_formatted: "Sep 16, 2024"
 author: Bruno Pantaleão
 comments: true
 categories: iOS Release-Notes
-og_image: /images/blog/2024-09-16/ios-og.jpg
+og_image: {{site.baseurl}}/images/blog/2024-09-16/ios-og.jpg
 ---
 ![Companion App for iOS 2024.9](/images/blog/2024-09-16/ios-og.jpg)
 

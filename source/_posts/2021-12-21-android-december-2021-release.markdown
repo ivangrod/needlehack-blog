@@ -6,7 +6,7 @@ date_formatted: "December 20, 2021"
 comments: true
 author: Daniel Shokouhi
 categories: Release-Notes
-og_image: /images/blog/2021-12-21-android-december-2021/Companion.png
+og_image: {{site.baseurl}}/images/blog/2021-12-21-android-december-2021/Companion.png
 ---
 
 

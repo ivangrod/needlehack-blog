@@ -7,7 +7,7 @@ date_formatted: "November 18, 2024"
 author: Missy Quarry
 comments: true
 categories: Community
-og_image: /images/blog/2024-11-universe/art.jpg
+og_image: {{site.baseurl}}/images/blog/2024-11-universe/art.jpg
 ---
 
 <img src='/images/blog/2024-11-universe/art.jpg' alt="Event Wrap-up">

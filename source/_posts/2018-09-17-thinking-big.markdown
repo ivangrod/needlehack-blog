@@ -6,7 +6,7 @@ date_formatted: "September 17, 2018"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Announcements
-og_image: /images/blog/2018-09-thinking-big/social.png
+og_image: {{site.baseurl}}/images/blog/2018-09-thinking-big/social.png
 ---
 
 Today marks the 5th anniversary of Home Assistant. I want to spend this post not only reflecting on the last 5 years, but also look at what is ahead of us, where we want to go, what we want Home Assistant to be.

@@ -5,7 +5,7 @@ date: 2017-03-28 06:00:00 +0000
 date_formatted: "March 28, 2017"
 author: petkov
 categories: How-To
-og_image: /images/blog/2017-03-bridge/social.png
+og_image: {{site.baseurl}}/images/blog/2017-03-bridge/social.png
 ---
 
 The idea of creating [HTTP to MQTT bridge](https://github.com/petkov/http_to_mqtt) appeared when I was trying to integrate Google Assistant with my Home Assistant after watching [BRUH Automation](https://youtu.be/087tQ7Ly7f4?t=265) video. Right now there is no MQTT service available in [IFTTT](https://ifttt.com/about). Existing integration solution uses [Maker Webhooks](https://ifttt.com/maker_webhooks) which requires that your Home Assistant instance is publicly accessible, which I think brings some security concerns or simply not always possible to set up.

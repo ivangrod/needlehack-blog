@@ -6,7 +6,7 @@ date_formatted: "March 15, 2020"
 author: Franck Nijhof
 author_twitter: frenck
 categories: Community
-og_image: /images/blog/2020-03-15-community-highlights/social.png
+og_image: {{site.baseurl}}/images/blog/2020-03-15-community-highlights/social.png
 ---
 
 Time for the fifth enactment of the Community Highlights!

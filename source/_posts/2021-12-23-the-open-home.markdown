@@ -6,7 +6,7 @@ date_formatted: "December 23, 2021"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Video
-og_image: /images/blog/2021-12-open-home/social.png
+og_image: {{site.baseurl}}/images/blog/2021-12-open-home/social.png
 ---
 
 <img src='/images/blog/2021-12-open-home/header.png' style='box-shadow:none;border:0'>

@@ -8,7 +8,7 @@ author_twitter: zacwest
 categories:
  - Release-Notes
  - iOS
-og_image: /images/blog/2021-12-ios/social.png
+og_image: {{site.baseurl}}/images/blog/2021-12-ios/social.png
 ---
 
 ![Screenshot of the settings screen showing multiple servers](/images/blog/2021-12-ios/social.png)

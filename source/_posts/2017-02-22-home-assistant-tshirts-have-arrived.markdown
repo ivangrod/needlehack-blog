@@ -6,7 +6,7 @@ date_formatted: "February 22, 2017"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Merchandise
-og_image: /images/blog/2017-02-shirts/social.png
+og_image: {{site.baseurl}}/images/blog/2017-02-shirts/social.png
 ---
 
 <p class='img'>

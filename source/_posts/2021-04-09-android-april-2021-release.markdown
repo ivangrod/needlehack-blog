@@ -6,7 +6,7 @@ date_formatted: "April 8, 2021"
 comments: true
 author: Daniel Shokouhi
 categories: Release-Notes
-og_image: /images/blog/2021-04-09-android-april-2021/Companion.png
+og_image: {{site.baseurl}}/images/blog/2021-04-09-android-april-2021/Companion.png
 ---
 
 Hey Everyone! It's time for the April 2021 Android release. Last month we wrote that we would be aligning our releases closer to Home Assistant core so here we are! Another month went by and the Android app has started to see more contributors coming along. Hopefully, you will join us next month as we can always use more contributors to move forward faster.

@@ -6,7 +6,7 @@ date_formatted: "December 13, 2015"
 author: Paulus Schoutsen & Martin Hjelmare
 author_twitter: balloob
 categories: How-To
-og_image: /images/blog/2015-12-lets-encrypt/letsencrypt-secured-fb.png
+og_image: {{site.baseurl}}/images/blog/2015-12-lets-encrypt/letsencrypt-secured-fb.png
 ---
 
 {% note %}

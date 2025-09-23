@@ -6,7 +6,7 @@ date_formatted: "March 12, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: /images/blog/2021-03-12-community-highlights/social.png
+og_image: {{site.baseurl}}/images/blog/2021-03-12-community-highlights/social.png
 ---
 
 The 12th edition of the Home Assistant Community Highlights! Some interesting

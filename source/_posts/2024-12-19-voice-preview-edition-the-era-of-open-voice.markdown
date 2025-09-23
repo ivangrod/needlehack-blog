@@ -9,7 +9,7 @@ comments: true
 categories: 
   - Announcements
   - Assist
-og_image: /images/blog/2024-12-vpe/art.jpg
+og_image: {{site.baseurl}}/images/blog/2024-12-vpe/art.jpg
 ---
 
 <lite-youtube videoid="ZgoaoTpIhm8" videotitle="Voice Chapter 8 - Voice Preview Edition launch"></lite-youtube>

@@ -5,7 +5,7 @@ date: 2016-10-01 01:00:00 -0400
 date_formatted: "October 1, 2016"
 author: Fredrik Lindqvist
 categories: Technology
-og_image: /images/blog/2016-10-hassbian/social.png
+og_image: {{site.baseurl}}/images/blog/2016-10-hassbian/social.png
 ---
 
 Today we're happy to announce our brand new Raspberry Pi image! It is based on Raspbian Lite combined with HASS so we decided to call it Hassbian.

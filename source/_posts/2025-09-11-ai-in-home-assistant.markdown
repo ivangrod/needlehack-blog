@@ -7,7 +7,7 @@ date_formatted: "September 11, 2025"
 author: Paulus Schoutsen
 comments: true
 categories: Assist AI
-og_image: /images/blog/2025-09-ai/art.webp
+og_image: {{site.baseurl}}/images/blog/2025-09-ai/art.webp
 ---
 
 <img src='/images/blog/2025-09-ai/art.webp' style='border: 0;box-shadow: none;' alt="Building the AI-powered local smart home">

@@ -8,7 +8,7 @@ author_twitter: balloob
 categories:
 - Release-Notes
 - Core
-og_image: /images/screenshots/ui2015.png
+og_image: {{site.baseurl}}/images/screenshots/ui2015.png
 ---
 
 As Home Assistant is gaining more and more users we started to feel the pain from not having a proper release mechanism. We had no version numbering and required users to checkout the source using Git to get started. On top of that, as the number of devices that we support keeps raising, so did the number of dependencies that are used. That's why we decided to change the way we roll. From now on:

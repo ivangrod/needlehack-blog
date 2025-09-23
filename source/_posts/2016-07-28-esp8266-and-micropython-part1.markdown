@@ -5,7 +5,7 @@ date: 2016-07-28 06:00:00 +0200
 date_formatted: "July 28, 2016"
 author: Fabian Affolter
 categories: How-To ESP8266 Micropython
-og_image: /images/blog/2016-07-micropython/social.png
+og_image: {{site.baseurl}}/images/blog/2016-07-micropython/social.png
 ---
 
 <img src='/images/blog/2016-07-micropython/micropython.png' style='clear: right; border:none; box-shadow: none; float: right; margin-bottom: 12px;' width='200' />

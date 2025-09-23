@@ -7,7 +7,7 @@ date_formatted: "February 26, 2024"
 author: Stefan Agner
 comments: true
 categories: HAOS
-og_image: /images/blog/2024-02-haos12/haos12.png
+og_image: {{site.baseurl}}/images/blog/2024-02-haos12/haos12.png
 ---
 
 **TL;DR:** Home Assistant OS 12 adds support for Raspberry Pi 5 and ODROID-M1S boards, with the Linux kernel updated to 6.6. Additionally, backups have become faster, and add-ons can now signal when they should not be auto-updated.

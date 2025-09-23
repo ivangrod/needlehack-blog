@@ -6,7 +6,7 @@ date_formatted: "April 17, 2017"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Internet-of-Things
-og_image: /images/blog/2017-04-tradfri/gateway.jpg
+og_image: {{site.baseurl}}/images/blog/2017-04-tradfri/gateway.jpg
 ---
 
 Last month IKEA released a new home automation lineup called [Trådfri][tradfri]. It consists of white bulbs, dimming remotes, color temperature remotes and motion sensors. After almost two weeks of research, we have come to the conclusion that this is going to be the perfect companion hardware to work with Home Assistant. Here is the gist of our breakdown:

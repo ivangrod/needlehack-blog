@@ -5,7 +5,7 @@ description: "A step by step guide to start recording data from Home Assistant i
 date_formatted: "December 07, 2015"
 author: Fabian Affolter
 categories: How-To
-og_image: /images/blog/2015-12-influxdb/grafana-graph.png
+og_image: {{site.baseurl}}/images/blog/2015-12-influxdb/grafana-graph.png
 ---
 
 <img src='/images/supported_brands/influxdb.png' style='clear: right; border:none; box-shadow: none; float: right; margin-bottom: 12px;' width='200' /><img src='/images/supported_brands/grafana.png' style='clear: right; border:none; box-shadow: none; float: right; margin-bottom: 12px;' width='200' />

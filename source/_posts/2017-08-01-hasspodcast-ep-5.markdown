@@ -6,7 +6,7 @@ date_formatted: "August 1, 2017"
 author: Phil Hawthorne
 author_twitter: philhawthorne
 categories: Media
-og_image: /images/hasspodcast.jpg
+og_image: {{site.baseurl}}/images/hasspodcast.jpg
 ---
 
 We cover off AppDaemon/HADashboard and all the fun stuff introduced in 0.49 and 0.50.

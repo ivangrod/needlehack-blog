@@ -7,7 +7,7 @@ date_formatted: "July 23, 2025"
 author: Timothy Nibeaudeau
 comments: true
 categories: Android
-og_image: /images/blog/2025-07-android-companion/art.png
+og_image: {{site.baseurl}}/images/blog/2025-07-android-companion/art.png
 ---
 
 <img src='/images/blog/2025-07-android-companion/art.png' style='border: 0;box-shadow: none;' alt="Companion app for Android: It’s been a while">

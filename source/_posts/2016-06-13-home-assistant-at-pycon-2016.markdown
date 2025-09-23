@@ -6,7 +6,7 @@ date_formatted: "June 13, 2016"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Video
-og_image: /images/blog/2016-06-pycon/crew.jpg
+og_image: {{site.baseurl}}/images/blog/2016-06-pycon/crew.jpg
 ---
 
 It's been already almost two weeks ago that a few of the Home Assistant developers headed towards Portland for [PyCon 2016] - the conference about everything Python. We were there to learn all the nifty tricks to make our code better but most of all, to talk Home Automation.

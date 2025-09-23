@@ -8,7 +8,7 @@ author_twitter: fabaff
 categories:
 - Release-Notes
 - Core
-og_image: /images/blog/2016-12-0.34/social.png
+og_image: {{site.baseurl}}/images/blog/2016-12-0.34/social.png
 ---
 
 Here we go... 0.34. Let's call it the "Santa Claus" release. Rudolph was faster than expected and there's lot's of goodies on the sleigh. Of course, more work on async programming done by [@pvizeli] and [@balloob], new components, new platforms, major improvements, and much more.

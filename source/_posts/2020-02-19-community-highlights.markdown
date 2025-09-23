@@ -6,7 +6,7 @@ date_formatted: "February 19, 2020"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Community
-og_image: /images/blog/2020-02-19-community-highlights/social.png
+og_image: {{site.baseurl}}/images/blog/2020-02-19-community-highlights/social.png
 ---
 
 It's time for the third installment of our revamped community highlights. We got some really great stuff again.

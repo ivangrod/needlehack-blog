@@ -8,7 +8,7 @@ author: Franck Nijhof
 author_twitter: frenck
 comments: true
 categories: Public-Service-Announcement
-og_image: /images/blog/2025-05-deprecation/art.png
+og_image: {{site.baseurl}}/images/blog/2025-05-deprecation/art.png
 ---
 
 <img src='/images/blog/2025-05-deprecation/art.png' style='border: 0;box-shadow: none;' alt="Deprecating Core and Supervised installation methods, and 32-bit systems">

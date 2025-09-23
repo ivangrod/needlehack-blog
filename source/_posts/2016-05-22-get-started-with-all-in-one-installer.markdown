@@ -6,7 +6,7 @@ date_formatted: "May 22, 2016"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Video
-og_image: /images/blog/2016-05-video-all-in-one-installer/preview-video.jpg
+og_image: {{site.baseurl}}/images/blog/2016-05-video-all-in-one-installer/preview-video.jpg
 ---
 
 We are always hard at work at the virtual Home Assistant headquarters to make it easier for you to get started with Home Assistant. That's why [@patchedsoul] recently introduced the all-in-one installer. It allows you to get up and running with a complete Home Assistant setup by entering one line of code into your Raspberry Pi running Raspbian Jessie:

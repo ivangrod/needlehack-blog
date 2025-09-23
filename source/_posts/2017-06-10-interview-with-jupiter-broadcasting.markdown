@@ -6,7 +6,7 @@ date_formatted: "June 10, 2017"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Media
-og_image: /images/blog/2017-06-jupiter-broadcasting/social.jpg
+og_image: {{site.baseurl}}/images/blog/2017-06-jupiter-broadcasting/social.jpg
 ---
 
 Our founder Paulus Schoutsen is interviewed by Chris Fisher for a Linux Action Show special about home automation, [Hass.io] and the new [Home Assistant podcast].

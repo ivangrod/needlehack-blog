@@ -6,7 +6,7 @@ date_formatted: "November 29, 2017"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: How-To
-og_image: /images/blog/2017-11-hassio-virtual/social.png
+og_image: {{site.baseurl}}/images/blog/2017-11-hassio-virtual/social.png
 ---
 
 

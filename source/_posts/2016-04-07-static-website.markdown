@@ -6,7 +6,7 @@ date_formatted: "April 7, 2016"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: How-To
-og_image: /images/blog/2016-04-display/ha-display.png
+og_image: {{site.baseurl}}/images/blog/2016-04-display/ha-display.png
 ---
 
 The frontend of Home Assistant is served with the help of a local web server. If you have [customized](/getting-started/devices/#customizing-devices-and-services) your installation you already use this functionality. The content of your folder `www` in your Home Assistant configuration directory (`.homeassistant`) is available under `/local` (eg. `https://localhost:8123/local/index.html` for an `index.html` file).

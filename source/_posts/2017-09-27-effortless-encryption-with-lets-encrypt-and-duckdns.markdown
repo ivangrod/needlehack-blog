@@ -6,7 +6,7 @@ date_formatted: "September 27, 2017"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: How-To
-og_image: /images/blog/2015-12-lets-encrypt/letsencrypt-secured-fb.png
+og_image: {{site.baseurl}}/images/blog/2015-12-lets-encrypt/letsencrypt-secured-fb.png
 ---
 
 When Let's Encrypt launched we were estatic: finally an easy and free way for our users to securely access their homes remotely. Let's Encrypt signifianctly lowered the bar to get and renew SSL certificates. However, this process could still be quite an obstacle for our users. It required opening ports on the router and remembering to renew the certificate every so often.

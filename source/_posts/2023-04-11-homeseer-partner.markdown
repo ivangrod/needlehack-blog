@@ -7,7 +7,7 @@ date_formatted: "April 11, 2023"
 author: Uwe Bernitt
 comments: true
 categories: Works-with-Home-Assistant
-og_image: /images/blog/2023-04-11-homeseer-partner/social.png
+og_image: {{site.baseurl}}/images/blog/2023-04-11-homeseer-partner/social.png
 ---
 
 <img src='/images/blog/2023-04-11-homeseer-partner/homeseer_top.png' alt="HomeSeer and Works with Home Assistant logos" class='no-shadow'>

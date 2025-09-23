@@ -7,7 +7,7 @@ date_formatted: "July 26, 2024"
 author: Madelena Mak
 comments: true
 categories: Dashboard
-og_image: /images/blog/2024-07-dashboard-chapter-2/dashboard-banner.png
+og_image: {{site.baseurl}}/images/blog/2024-07-dashboard-chapter-2/dashboard-banner.png
 ---
 
 <p class='img'>

@@ -7,7 +7,7 @@ comments: true
 author: Daniel Shokouhi & Tom Brien
 author_twitter: tbrien88
 categories: Release-Notes
-og_image: /images/blog/2020-08-05-mobile-apps-new-features/Companion-new-upcoming.png
+og_image: {{site.baseurl}}/images/blog/2020-08-05-mobile-apps-new-features/Companion-new-upcoming.png
 ---
 
 Hi, it's been a while since we let you know about all the great things you can do with the Home Assistant Companion Apps for Android and iOS, so let's rectify that now as there are so many exciting updates. Before we get started on that though, iOS users should take a moment to read [this blog post](/blog/2020/07/28/ios-app-migration) which has some important information about a small change coming up.

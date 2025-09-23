@@ -6,7 +6,7 @@ date_formatted: "April 29, 2022"
 comments: true
 author: "Zack Barett"
 categories: Community
-og_image: /images/blog/2022-04-30-creator-network/CreatorNetwork_social.jpg
+og_image: {{site.baseurl}}/images/blog/2022-04-30-creator-network/CreatorNetwork_social.jpg
 ---
 
 Hey Everyone! Today we are announcing our new program called the Home Assistant Creator Network! We are super excited to

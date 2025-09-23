@@ -7,7 +7,7 @@ date_formatted: "January 29, 2024"
 author: Bruno Pantaleão
 comments: true
 categories: iOS Release-Notes
-og_image: /images/blog/2024-01-ios-carplay/ios-og.png
+og_image: {{site.baseurl}}/images/blog/2024-01-ios-carplay/ios-og.png
 ---
 
 Hey, this is Bruno. I have recently joined Nabu Casa to work full-time on the Home Assistant iOS app (thanks Home Assistant Cloud subscribers!). Today I have big news: Home Assistant is now available on Apple CarPlay! The release is rolling out and should be hitting your iOS devices soon (version 2024.1).

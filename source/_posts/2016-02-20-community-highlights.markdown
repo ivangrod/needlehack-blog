@@ -6,7 +6,7 @@ date_formatted: "February 20, 2016"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Community Video
-og_image: /images/blog/2016-02-community-highlights/part-of-the-thing.png
+og_image: {{site.baseurl}}/images/blog/2016-02-community-highlights/part-of-the-thing.png
 ---
 
 Home Assistant land has been busy and a lot of people have been creating awesome stuff.

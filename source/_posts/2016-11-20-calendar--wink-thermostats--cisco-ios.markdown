@@ -8,7 +8,7 @@ author_twitter: fabaff
 categories:
 - Release-Notes
 - Core
-og_image: /images/blog/2016-11-0.33/social.png
+og_image: {{site.baseurl}}/images/blog/2016-11-0.33/social.png
 ---
 
 For this release we put a lot of focus on finishing our async upgrade and fix a bunch of bugs in the process.

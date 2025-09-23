@@ -6,7 +6,7 @@ date_formatted: "May 6, 2016"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Talks Video
-og_image: /images/blog/2016-05-openiot/preview-video.png
+og_image: {{site.baseurl}}/images/blog/2016-05-openiot/preview-video.png
 ---
 
 At the beginning of April I gave a talk about Home Assistant at the OpenIoT summit in San Diego. I talk about the Home Assistant architecture and explain how to get started integrating your devices. Big thanks to my employer AppFolio ([we're hiring!]) for letting me attend. [Slides.]

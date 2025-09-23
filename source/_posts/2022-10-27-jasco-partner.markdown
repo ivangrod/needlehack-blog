@@ -8,7 +8,7 @@ author: Paulus Schoutsen
 author_twitter: balloob
 comments: true
 categories: Works-with-Home-Assistant
-og_image: /images/blog/2022-10-27-jasco-partner/social.png
+og_image: {{site.baseurl}}/images/blog/2022-10-27-jasco-partner/social.png
 ---
 
 <img src='/images/blog/2022-10-27-jasco-partner/jasco-top.png' alt="Jasco and Works with Home Assistant logos" class='no-shadow'>

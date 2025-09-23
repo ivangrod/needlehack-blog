@@ -7,7 +7,7 @@ date_formatted: "December 4, 2023"
 author: Marcel van der Veldt
 comments: true
 categories: Matter
-og_image: /images/blog/2023-11-matter-member-meeting/matter-image.jpg
+og_image: {{site.baseurl}}/images/blog/2023-11-matter-member-meeting/matter-image.jpg
 ---
 
 TL;DR: We represented Home Assistant, our community, and the Open Home vision at the Matter member meeting in Geneva. We’re hosting a live stream to talk Matter in January to update you about our progress and answer your questions. Leave your questions in the comments below!

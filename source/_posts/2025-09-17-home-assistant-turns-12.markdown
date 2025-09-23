@@ -7,7 +7,7 @@ date_formatted: "September 17, 2025"
 author: Missy Quarry
 comments: true
 categories: Announcements
-og_image: /images/blog/2025-09-12th-anniversary/art.webp
+og_image: {{site.baseurl}}/images/blog/2025-09-12th-anniversary/art.webp
 ---
 
 <img src='/images/blog/2025-09-12th-anniversary/art.webp' style='border: 0;box-shadow: none;' alt="Home Assistant 12th Anniversary">

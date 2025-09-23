@@ -8,7 +8,7 @@ author_twitter: balloob
 categories:
 - Release-Notes
 - Core
-og_image: /images/blog/2017-05-0.44/components.png
+og_image: {{site.baseurl}}/images/blog/2017-05-0.44/components.png
 ---
 
 <a href='/integrations/#version/0.44'><img src='/images/blog/2017-05-0.44/components.png' style='border: 0;box-shadow: none;'></a>

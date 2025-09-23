@@ -7,7 +7,7 @@ date_formatted: "June 26, 2024"
 author: Mike Hansen
 comments: true
 categories: Assist
-og_image: /images/blog/2024-06-voice-chapter-7/art.jpg
+og_image: {{site.baseurl}}/images/blog/2024-06-voice-chapter-7/art.jpg
 ---
 This chapter might be one of the most feature-packed yet, bringing the highly requested timer feature and major improvements to wake words, along with experimental technology that even outclasses big tech's voice assistants.
 

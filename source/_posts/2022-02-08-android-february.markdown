@@ -6,7 +6,7 @@ date_formatted: "February 11, 2022"
 comments: true
 author: Daniel Shokouhi
 categories: Release-Notes
-og_image: /images/blog/2022-02-android/Companion.png
+og_image: {{site.baseurl}}/images/blog/2022-02-android/Companion.png
 ---
 
 

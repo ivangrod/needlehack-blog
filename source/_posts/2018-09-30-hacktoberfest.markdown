@@ -6,7 +6,7 @@ date_formatted: "September 30, 2018"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: Community
-og_image: /images/blog/2018-09-hacktoberfest/hacktoberfest-2018.png
+og_image: {{site.baseurl}}/images/blog/2018-09-hacktoberfest/hacktoberfest-2018.png
 ---
 
 In October there will the [Hacktoberfest](https://hacktoberfest.digitalocean.com/). To celebrate and support Open Source, [DigitalOcean](https://www.digitalocean.com/), [Twilio](https://www.twilio.com/) and [GitHub](https://github.com/) are again organizing this event. Home Assistant will be part of it like in the last two years.

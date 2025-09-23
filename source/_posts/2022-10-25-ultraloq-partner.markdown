@@ -8,7 +8,7 @@ author: Paulus Schoutsen
 author_twitter: balloob
 comments: true
 categories: Works-with-Home-Assistant
-og_image: /images/blog/2022-10-25-ultraloq-partner/social.png
+og_image: {{site.baseurl}}/images/blog/2022-10-25-ultraloq-partner/social.png
 ---
 
 <img src='/images/works_with/works-with-zwave.png' width="256" align="right" alt="Works via Zigbee with Home Assistant" class='no-shadow'>

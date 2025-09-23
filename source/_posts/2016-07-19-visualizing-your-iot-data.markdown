@@ -6,7 +6,7 @@ date_formatted: "July 19, 2016"
 author: Fabian Affolter
 author_twitter: fabaff
 categories: How-To IoT-Data
-og_image: /images/blog/2016-07-reporting/libreoffice-graph.png
+og_image: {{site.baseurl}}/images/blog/2016-07-reporting/libreoffice-graph.png
 ---
 
 <img src='/images/blog/2016-07-reporting/mpl-sensor.png' style='clear: right; border:none; box-shadow: none; float: right; margin-bottom: 12px;' width='200' />

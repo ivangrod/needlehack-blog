@@ -6,7 +6,7 @@ date_formatted: "June 18, 2021"
 author: Klaas Schoute
 author_twitter: klaasnicolaas
 categories: Community
-og_image: /images/blog/2021-06-18-community-highlights/social.png
+og_image: {{site.baseurl}}/images/blog/2021-06-18-community-highlights/social.png
 ---
 
 The 26th edition of the Home Assistant Community Highlights! Some interesting

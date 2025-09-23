@@ -6,7 +6,7 @@ date_formatted: "November 23, 2020"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Public-Service-Announcement
-og_image: /images/blog/2020-11-23-tplink/forum-post-send-ticket.png
+og_image: {{site.baseurl}}/images/blog/2020-11-23-tplink/forum-post-send-ticket.png
 ---
 
 **Update Nov 26:** TP-Link has now announced that they are working on a new firmware that should solve it. DM them on Twitter for info.

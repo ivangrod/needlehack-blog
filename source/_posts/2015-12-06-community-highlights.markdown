@@ -6,7 +6,7 @@ date_formatted: "December 5, 2015"
 author: Paulus Schoutsen
 author_twitter: balloob
 categories: Community Video
-og_image: /images/blog/2015-12-community/hass-alexa.png
+og_image: {{site.baseurl}}/images/blog/2015-12-community/hass-alexa.png
 ---
 
 From time to time we come along things that are worth sharing with fellow Home Assisters. Here a list of some cool stuff from last week:

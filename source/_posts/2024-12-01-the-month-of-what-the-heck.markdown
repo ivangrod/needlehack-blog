@@ -6,7 +6,7 @@ date_formatted: "November 30, 2024"
 author: Franck Nijhof
 author_twitter: frenck
 categories: Announcements
-og_image: /images/blog/2024-12-01-the-month-of-what-the-heck/social.jpg
+og_image: {{site.baseurl}}/images/blog/2024-12-01-the-month-of-what-the-heck/social.jpg
 ---
 
 <a href='https://community.home-assistant.io/c/month-of-what-the-heck/61'><img src='/images/blog/2024-12-01-the-month-of-what-the-heck/social.jpg' style='border: 0;box-shadow: none;'></a>
