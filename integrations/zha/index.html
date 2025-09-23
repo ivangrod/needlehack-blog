@@ -1,0 +1,2105 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Zigbee Home Automation - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate your Zigbee Home Automation (ZHA) devices within Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/zha/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Zigbee Home Automation">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/zha/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate your Zigbee Home Automation (ZHA) devices within Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Zigbee Home Automation">
+    <meta name="twitter:description" content="Instructions on how to integrate your Zigbee Home Automation (ZHA) devices within Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#introduction">Introduction</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#zigbee-terminology">Zigbee terminology</a></li>
+<li class="toc-entry toc-h3"><a href="#zigbee-concepts">Zigbee concepts</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#compatible-hardware">Compatible hardware</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#recommended-zigbee-radio-adapters-and-modules">Recommended Zigbee radio adapters and modules</a></li>
+<li class="toc-entry toc-h3"><a href="#other-supported-but-not-recommended-zigbee-radio-adapters-or-modules">Other supported but not recommended Zigbee radio adapters or modules</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration-requirements">Configuration requirements</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#zigate-or-sonoff-zbbridge-devices">ZiGate or Sonoff ZBBridge devices</a></li>
+<li class="toc-entry toc-h3"><a href="#global-options">Global Options</a></li>
+<li class="toc-entry toc-h3"><a href="#configuration---yaml">Configuration - YAML</a></li>
+<li class="toc-entry toc-h3"><a href="#ota-updates-of-zigbee-device-firmware">OTA updates of Zigbee device firmware</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#adding-devices">Adding devices</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#using-router-devices-to-add-more-devices">Using router devices to add more devices</a></li>
+<li class="toc-entry toc-h3"><a href="#discovery-via-usb-or-zeroconf">Discovery via USB or Zeroconf</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-zhapermit">Action zha.permit</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zharemove">Action zha.remove</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zhaset_lock_user_code">Action zha.set_lock_user_code</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zhaclear_lock_user_code">Action zha.clear_lock_user_code</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zhaenable_lock_user_code">Action zha.enable_lock_user_code</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zhadisable_lock_user_code">Action zha.disable_lock_user_code</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#zigbee-groups-and-binding-devices">Zigbee groups and binding devices</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#groups">Groups</a></li>
+<li class="toc-entry toc-h3"><a href="#binding">Binding</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#backups-and-migration">Backups and migration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#migrating-to-a-new-zigbee-coordinator-adapter-inside-zha">Migrating to a new Zigbee Coordinator adapter inside ZHA</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#limitations">Limitations</a></li>
+<li class="toc-entry toc-h3"><a href="#knowing-which-devices-are-supported">Knowing which devices are supported</a></li>
+<li class="toc-entry toc-h3"><a href="#how-to-add-support-for-new-and-unsupported-devices">How to add support for new and unsupported devices</a></li>
+<li class="toc-entry toc-h3"><a href="#best-practices-to-avoid-pairingconnection-difficulties">Best practices to avoid pairing/connection difficulties</a></li>
+<li class="toc-entry toc-h3"><a href="#zigbee-interference-avoidance-and-network-rangecoverage-optimization">Zigbee interference avoidance and network range/coverage optimization</a></li>
+<li class="toc-entry toc-h3"><a href="#problems-upgrading-zigbee-device-firmware-via-ota">Problems upgrading Zigbee device firmware via OTA</a></li>
+<li class="toc-entry toc-h3"><a href="#zigbee-network-visualization-in-zha-ui">Zigbee network visualization in ZHA UI</a></li>
+<li class="toc-entry toc-h3"><a href="#reporting-issues">Reporting issues</a></li>
+<li class="toc-entry toc-h3"><a href="#debug-logging">Debug logging</a></li>
+<li class="toc-entry toc-h3"><a href="#add-philips-hue-bulbs-that-have-previously-been-added-to-another-bridge">Add Philips Hue bulbs that have previously been added to another bridge</a></li>
+<li class="toc-entry toc-h3"><a href="#zha-start-up-issue-with-home-assistant-or-home-assistant-container">ZHA Start up issue with Home Assistant or Home Assistant Container</a></li>
+<li class="toc-entry toc-h3"><a href="#cant-connect-to-usb-device-and-using-docker">Can’t connect to USB device and using Docker</a></li>
+<li class="toc-entry toc-h3"><a href="#ezsp-error-and-other-log-messages">EZSP error and other log messages</a></li>
+<li class="toc-entry toc-h3"><a href="#zigbee-30-support">Zigbee 3.0 support</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Zigbee Home Automation
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The Zigbee Home Automation (ZHA) <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> allows you to wirelessly connect many off-the-shelf <a href="https://csa-iot.org/csa-iot_products/" rel="external nofollow">Zigbee-based devices<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> directly to Home Assistant, using one of many compatible hardware adapters called <em>Zigbee coordinators</em>.</p>
+<p>This <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> currently supports the following device types within Home Assistant:</p>
+<ul>
+<li><a href="/integrations/alarm_control_panel/">Alarm control panel</a></li>
+<li><a href="/integrations/binary_sensor/">Binary sensor</a></li>
+<li><a href="/integrations/button/">Button</a></li>
+<li>
+<a href="/integrations/climate/">Climate</a> (beta)</li>
+<li><a href="/integrations/cover/">Cover</a></li>
+<li><a href="/integrations/device_tracker/">Device tracker</a></li>
+<li><a href="/integrations/fan/">Fan</a></li>
+<li><a href="/integrations/light/">Light</a></li>
+<li><a href="/integrations/lock/">Lock</a></li>
+<li>
+<a href="/integrations/number/">Number</a> (i.e. analog input/output)</li>
+<li><a href="/integrations/select/">Select</a></li>
+<li><a href="/integrations/sensor/">Sensor</a></li>
+<li><a href="/integrations/siren/">Siren</a></li>
+<li><a href="/integrations/switch/">Switch</a></li>
+<li><a href="/integrations/update/">Update</a></li>
+</ul>
+<h2>Introduction <a class="title-link" name="introduction" href="#introduction"></a>
+</h2>
+<p>The ZHA integration is a hardware-independent Zigbee gateway implementation that can replace most proprietary Zigbee gateways (or bridges, hubs, or controllers). ZHA creates a single Zigbee network to which you can add most Zigbee-based devices.</p>
+<p>ZHA uses an open-source Python library called <a href="https://github.com/zigpy/zigpy" rel="external nofollow">zigpy<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, so any coordinator that is compatible with zigpy can be used with ZHA. Review <a href="#compatible-hardware">compatible hardware</a> recommendations before purchasing Zigbee devices.</p>
+<h3>Zigbee terminology <a class="title-link" name="zigbee-terminology" href="#zigbee-terminology"></a>
+</h3>
+<ul>
+<li>
+<strong>Zigbee network</strong>: A mesh-network of devices with low-power digital radios using a low-bandwidth communication protocol.</li>
+<li>
+<strong>Zigbee coordinator</strong>: A hardware radio adapter (typically a USB dongle) that plugs directly into the same computer running your Home Assistant installation.</li>
+<li>
+<strong>Zigbee router device</strong>: A hardware device that is always mains-powered (AC) such as outlets or fans.</li>
+<li>
+<strong>Zigbee end device</strong>: A hardware device that is typically battery-powered (DC) such as remotes or motion sensors.</li>
+<li>
+<strong>Zigbee group</strong>: A collection of two or more Zigbee devices of the same type, different from Home Assistant’s <a href="/integrations/group/">Groups</a>.</li>
+</ul>
+<h3>Zigbee concepts <a class="title-link" name="zigbee-concepts" href="#zigbee-concepts"></a>
+</h3>
+<ul>
+<li>A Zigbee network can have <strong>only one</strong> Zigbee coordinator,</li>
+<li>The Zigbee coordinator can have multiple <strong>Zigbee router</strong> or <strong>Zigbee end devices</strong> connected,</li>
+<li>Each Zigbee router device can have multiple <strong>Zigbee end devices</strong> connected to it,</li>
+<li>A Zigbee device can only be connected to a single Zigbee network,</li>
+<li>Zigbee networks depend heavily on having multiple <a href="#using-router-devices-to-add-more-devices">Zigbee Router devices</a> to expand coverage and increase device capacity.</li>
+<li>Router devices help pass messages to other nearby devices in the Zigbee network and therefore can improve range and increase the number of devices you can add.</li>
+</ul>
+<h2>Compatible hardware <a class="title-link" name="compatible-hardware" href="#compatible-hardware"></a>
+</h2>
+<p>The hardware-independent design of this integration provides support for many Zigbee coordinators available from different manufacturers, as long as the coordinator is compatible with the <a href="https://github.com/zigpy/zigpy" rel="external nofollow">zigpy<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> library.</p>
+<h3>Recommended Zigbee radio adapters and modules <a class="title-link" name="recommended-zigbee-radio-adapters-and-modules" href="#recommended-zigbee-radio-adapters-and-modules"></a>
+</h3>
+<ul>
+<li>Silicon Labs EmberZNet based radios using the EZSP protocol (via the <a href="https://github.com/zigpy/bellows" rel="external nofollow">bellows<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> library for zigpy)
+<ul>
+<li>
+<a href="/connectzbt1/">Home Assistant Connect ZBT-1</a> (EFR32MG21-based USB dongle)</li>
+<li>
+<a href="/yellow/">Home Assistant Yellow</a> with integrated MGM210P radio, which is based on the EFR32MG21</li>
+<li><a href="https://itead.cc/product/zigbee-3-0-usb-dongle/" rel="external nofollow">ITead SONOFF Zigbee 3.0 USB Dongle Plus Model “ZBDongle-E” (EFR32MG21 variant)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>
+<a href="https://smlight.tech/product/slzb-07/" rel="external nofollow">SMLIGHT SLZB-07<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (EFR32MG21-based USB dongle)</li>
+</ul>
+</li>
+<li>Texas Instruments based radios (via the <a href="https://github.com/zigpy/zigpy-znp" rel="external nofollow">zigpy-znp<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> library for zigpy)
+<ul>
+<li><a href="https://www.zigbee2mqtt.io/guide/adapters/" rel="external nofollow">CC2652P/CC2652R/CC2652RB USB stick, module, or dev board hardware flashed with Z-Stack coordinator firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.zigbee2mqtt.io/guide/adapters/" rel="external nofollow">CC1352P/CC1352R USB stick, module, or dev board hardware flashed with Z-Stack coordinator firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+</li>
+<li>dresden elektronik deCONZ based Zigbee radios (via the <a href="https://github.com/zigpy/zigpy-deconz" rel="external nofollow">zigpy-deconz<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> library for zigpy)
+<ul>
+<li><a href="https://phoscon.de/conbee3" rel="external nofollow">ConBee III (a.k.a. ConBee 3) USB adapter from dresden elektronik<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+</li>
+</ul>
+<h3>Other supported but not recommended Zigbee radio adapters or modules <a class="title-link" name="other-supported-but-not-recommended-zigbee-radio-adapters-or-modules" href="#other-supported-but-not-recommended-zigbee-radio-adapters-or-modules"></a>
+</h3>
+<p>The following hardware is supported, but <em>not recommended</em>. Specific models and details are noted where available in each section.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>List of hardware that is not recommended</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<div class="alert alert-caution">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-circle-outline"></iconify-icon> Caution</p>
+  <div class="alert-content">
+<ul>
+<li>
+<p>It is <strong>not recommended</strong> to run a coordinator via <strong>Serial-Proxy-Server</strong> <em>(also called Serial-to-IP bridge or Ser2Net remote adapter)</em> over:</p>
+<ul>
+<li>
+<strong>Wi-Fi</strong>,</li>
+<li>
+<strong>WAN</strong>, or</li>
+<li><strong>VPN</strong></li>
+</ul>
+</li>
+<li>
+<p>The coordinator requires a stable, local connection to its serial port interface without drops in communication with the Zigbee gateway application running on the host computer.</p>
+</li>
+<li>
+<p>Serial protocols used by the coordinator do not have enough robustness, resilience, or fault tolerance to handle packet loss and latency delays that can occur over unstable connections.</p>
+</li>
+</ul>
+</div>
+
+
+</div>
+<p><strong>Silicon Labs EmberZNet based radios using legacy hardware using the EZSP protocol (via the <a href="https://github.com/zigpy/bellows" rel="external nofollow">bellows<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> library for zigpy)</strong></p>
+<ul>
+<li>
+<a href="https://elelabs.com/products/elelabs-usb-adapter.html" rel="external nofollow">Elelabs Zigbee USB Adapter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>/POPP ZB-Stick
+<ul>
+<li>It is suggested to <a href="https://github.com/Elelabs/elelabs-zigbee-ezsp-utility" rel="external nofollow">upgrade the EmberZNet NCP application firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://elelabs.com/products/elelabs-zigbee-shield.html" rel="external nofollow">Elelabs Zigbee Raspberry Pi Shield<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>It is suggested to <a href="https://github.com/Elelabs/elelabs-zigbee-ezsp-utility" rel="external nofollow">upgrade the EmberZNet NCP application firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://itead.cc/product/sonoff-zbbridge/" rel="external nofollow">ITead Sonoff ZBBridge<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Note: <a href="https://github.com/home-assistant/home-assistant.io/issues/17170" rel="external nofollow">WiFi-based bridges are not recommended for ZHA with EZSP radios<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+<li>These first need to be flashed with <a href="https://www.digiblur.com/2020/07/how-to-use-sonoff-zigbee-bridge-with.html" rel="external nofollow">Tasmota firmware and Silabs EmberZNet NCP EZSP UART Host firmware to use as Serial-to-IP adapter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://www.nortekcontrol.com/products/2gig/husbzb-1-gocontrol-quickstick-combo/" rel="external nofollow">Nortek GoControl QuickStick Combo Model HUSBZB-1 (Z-Wave &amp; Zigbee Ember 3581 USB Adapter)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>It is suggested to <a href="https://github.com/walthowd/husbzb-firmware" rel="external nofollow">upgrade the EmberZNet NCP application firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://manuals.smabit.eu/len/av2010_10.html" rel="external nofollow">Bitron Video/Smabit BV AV2010/10 USB-Stick<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> with Silicon Labs Ember 3587</li>
+<li>Telegesis ETRX357USB/ETRX357USB-LR/ETRX357USB-LRS+8M
+<ul>
+<li>These first need to be <a href="https://github.com/walthowd/husbzb-firmware" rel="external nofollow">flashed with other EmberZNet firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Texas Instruments based radios using legacy hardware (via the <a href="https://github.com/zigpy/zigpy-znp" rel="external nofollow">zigpy-znp<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> library for zigpy)</strong></p>
+<ul>
+<li>
+<a href="https://www.zigbee2mqtt.io/information/supported_adapters" rel="external nofollow">CC2538 USB stick, module, or dev board hardware flashed with Z-Stack coordinator firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>This is no longer recommended as it can only run deprecated (old/end-of-life) firmware.</li>
+</ul>
+</li>
+<li>
+<a href="https://www.zigbee2mqtt.io/information/supported_adapters" rel="external nofollow">CC2530/CC2531 USB stick, module, or dev board hardware flashed with Z-Stack coordinator firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>This is no longer recommended as it uses deprecated hardware and very old, end-of-life firmware.</li>
+<li>This will not work properly if the Zigbee network has more than 15-20 devices.</li>
+</ul>
+</li>
+</ul>
+<p><strong>dresden elektronik deCONZ based Zigbee radios using legacy hardware (via the <a href="https://github.com/zigpy/zigpy-deconz" rel="external nofollow">zigpy-deconz<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> library for zigpy)</strong></p>
+<ul>
+<li><a href="https://phoscon.de/conbee2" rel="external nofollow">ConBee II (a.k.a. ConBee 2) USB adapter from dresden elektronik<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://phoscon.de/raspbee2" rel="external nofollow">RaspBee II (a.k.a. RaspBee 2) Raspberry Pi Shield from dresden elektronik<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://phoscon.de/conbee" rel="external nofollow">ConBee USB adapter from dresden elektronik<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://phoscon.de/raspbee" rel="external nofollow">RaspBee Raspberry Pi Shield from dresden elektronik<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<p><strong>Digi XBee Zigbee based radios (via the <a href="https://github.com/zigpy/zigpy-xbee" rel="external nofollow">zigpy-xbee<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> library for zigpy)</strong></p>
+<ul>
+<li>
+<a href="https://www.digi.com/products/embedded-systems/digi-xbee/rf-modules/2-4-ghz-rf-modules/xbee3-zigbee-3" rel="external nofollow">Digi XBee Series 3 (xbee3-24)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://www.digi.com/products/embedded-systems/digi-xbee/rf-modules/2-4-ghz-rf-modules/xbee-zigbee" rel="external nofollow">Digi XBee Series S2C<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> modules
+<ul>
+<li>It is suggested to <a href="https://www.digi.com/resources/documentation/Digidocs/90002002/Default.htm#Tasks/t_load_zb_firmware.htm" rel="external nofollow">upgrade XBee Series 3 and S2C to newest firmware using XCTU<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://www.digi.com/support/productdetail?pid=3430" rel="external nofollow">Digi XBee Series 2 (S2)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> modules
+<ul>
+<li>These first need to be <a href="https://www.digi.com/support/productdetail?pid=3430" rel="external nofollow">flashed with Zigbee Coordinator API firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>ZiGate based radios (via the <a href="https://github.com/zigpy/zigpy-zigate" rel="external nofollow">zigpy-zigate<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> library for zigpy and require firmware 3.1d or later)</strong></p>
+<ul>
+<li><a href="https://zigate.fr/produit/zigate-usb/" rel="external nofollow">ZiGate USB<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://zigate.fr/produit/zigatev2-usb-din/" rel="external nofollow">ZiGate USB-DIN<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://zigate.fr/produit/pizigatev2/" rel="external nofollow">PiZiGate (ZiGate Raspberry Pi module)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://zigate.fr/produit/zigate-ethernet/" rel="external nofollow">ZiGate-Ethernet (Ethernet gateway board for PiZiGate)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://zigate.fr/produit/zigatev2-pack-wifi/" rel="external nofollow">ZiGate + WiFi Pack<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+</div>
+  </details>
+</div>
+<p>If you find an opportunity to improve this information, refer to the section on how to <a href="#how-to-add-support-for-new-and-unsupported-devices">add support for new and unsupported devices</a>.</p>
+<h2>Configuration requirements <a class="title-link" name="configuration-requirements" href="#configuration-requirements"></a>
+</h2>
+<p>Be sure to connect a compatible radio module and restart Home Assistant before proceeding with configuration.</p>
+<p>ZHA will automatically create a Zigbee network once it is configured with a Zigbee coordinator; you can then add compatible devices.</p>
+<p>It is highly recommended to review the guidance for <a href="#zigbee-interference-avoidance-and-network-rangecoverage-optimization">Zigbee interference avoidance and network range/coverage optimization)</a>.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Zigbee Home Automation</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=zha" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>Zigbee Home Automation can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=zha" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Zigbee Home Automation</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<p>In the popup:</p>
+<ul>
+<li>Serial Device Path - List of detected serial ports on the system. You need to pick one to which your
+radio is connected</li>
+<li>Submit</li>
+</ul>
+<p>Press <code>Submit</code> and the <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> will try to detect radio type automatically. If unsuccessful, you will get
+a new pop-up asking for a radio type. In the pop-up:</p>
+<ul>
+<li>Radio Type</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Radio Type</th>
+<th>Zigbee Radio Hardware</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ezsp</code></td>
+<td>Silicon Labs EmberZNet protocol (e.g., Home Assistant SkyConnect, Elelabs, HUSBZB-1, Telegesis)</td>
+</tr>
+<tr>
+<td><code>deconz</code></td>
+<td>dresden elektronik deCONZ protocol (e.g., ConBee I/II, RaspBee I/II)</td>
+</tr>
+<tr>
+<td><code>znp</code></td>
+<td>Texas Instruments (e.g., CC253x, CC26x2, CC13x2)</td>
+</tr>
+<tr>
+<td><code>zigate</code></td>
+<td>ZiGate Serial protocol (e.g., ZiGate USB-TTL, PiZiGate, ZiGate WiFi)</td>
+</tr>
+<tr>
+<td><code>xbee</code></td>
+<td>Digi XBee ZB Coordinator Firmware protocol (e.g., Digi XBee Series 2, 2C, 3)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Submit</li>
+</ul>
+<p>Press <code>Submit</code> to save radio type and you will get a new form asking for port settings specific for this
+radio type. In the pop-up:</p>
+<ul>
+<li>Serial device path</li>
+<li>port speed (not applicable for all radios)</li>
+<li>data flow control (not applicable for all radios)</li>
+</ul>
+<p>Most devices need at the very least the serial device path, like <code>/dev/ttyUSB0</code>, but it is recommended to use
+device path from <code>/dev/serial/by-id</code> folder,
+e.g., <code>/dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_C0F003D3-if01-port0</code>
+A list of available device paths can be found in <a href="https://my.home-assistant.io/redirect/hardware" class="my" target="_blank">Settings &gt; System &gt; Hardware</a> &gt; <strong>dot menu</strong> &gt; <strong>All Hardware</strong>.</p>
+<p>Press <code>Submit</code>. The success dialog will appear or an error will be displayed in the popup. An error is likely if Home Assistant can’t access the USB device or your device is not up to date. Refer to <a href="#troubleshooting">Troubleshooting</a> below for more information.</p>
+<h3>ZiGate or Sonoff ZBBridge devices <a class="title-link" name="zigate-or-sonoff-zbbridge-devices" href="#zigate-or-sonoff-zbbridge-devices"></a>
+</h3>
+<p>If you are use ZiGate or Sonoff ZBBridge you have to use some special usb_path configuration:</p>
+<ul>
+<li>ZiGate USB TTL or DIN: <code>/dev/ttyUSB0</code> or <code>auto</code> to auto discover the zigate</li>
+<li>PiZigate : <code>pizigate:/dev/ttyS0</code>
+</li>
+<li>Wifi Zigate : <code>socket://[IP]:[PORT]</code> for example <code>socket://192.168.1.10:9999</code>
+</li>
+<li>Sonoff ZBBridge : <code>socket://[IP]:[PORT]</code> for example <code>socket://192.168.1.11:8888</code>
+</li>
+</ul>
+<h3>Global Options <a class="title-link" name="global-options" href="#global-options"></a>
+</h3>
+<p>There are a few global options available once ZHA has been configured. Press <strong>Configure</strong> to access these settings.</p>
+<p>The options are as follows:</p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Enable enhanced light color/temperature transition from an off-state</span><a name="enable-enhanced-light-colortemperature-transition-from-an-off-state" class="title-link" href="#enable-enhanced-light-colortemperature-transition-from-an-off-state"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>For older non Zigbee 3.0 lights, this still allows a proper transition from an off-state to a new color (without seeing the old color). <em>(default: off)</em></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Enable enhanced brightness slider during light transition</span><a name="enable-enhanced-brightness-slider-during-light-transition" class="title-link" href="#enable-enhanced-brightness-slider-during-light-transition"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>This avoids seeing intermediary brightness state when turning on lights with a transition. <em>(default: on)</em></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Group members assume state of group</span><a name="group-members-assume-state-of-group" class="title-link" href="#group-members-assume-state-of-group"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>When using ZHA groups, turning on a ZHA group light makes the ZHA group members optimistically change their state to “on”, instead of waiting and polling the lights when off. <em>(default: on)</em></p>
+</span></div>
+</div>
+</div>
+</div>
+<h3>Configuration - YAML <a class="title-link" name="configuration---yaml" href="#configuration---yaml"></a>
+</h3>
+<p>For more advanced configuration, you can modify <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> and restart Home Assistant</p>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="zha-configuration-variables" href="#zha-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> database_path </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="database_path" class="title-link" href="#database_path"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><em>Full</em> path to the database which will keep persistent network data.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> enable_quirks </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="enable_quirks" class="title-link" href="#enable_quirks"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Enable quirks mode for devices where manufacturers didn’t follow specs.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> custom_quirks_path </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="custom_quirks_path" class="title-link" href="#custom_quirks_path"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Full path to a directory containing custom quirk modules that will take precedence over any built-in quirks matching a device.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h4>Defining Zigbee channel to use <a class="title-link" name="defining-zigbee-channel-to-use" href="#defining-zigbee-channel-to-use"></a>
+</h4>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>The best practice is to <strong>not change the Zigbee channel</strong> from the ZHA default.</p>
+  </div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p><strong>Before changing the Zigbee channel on an existing network</strong>, review the following sections on this page:</p>
+<ul>
+<li><a href="#best-practices-to-avoid-pairingconnection-difficulties">Best practices to avoid pairing/connection difficulties</a></li>
+<li><a href="#zigbee-interference-avoidance-and-network-rangecoverage-optimization">Zigbee interference avoidance and network range/coverage optimization</a></li>
+</ul>
+<p>These sections both provide helpful advice on improving your Zigbee network performance.</p>
+  </div>
+</div>
+<p>ZHA prefers to use Zigbee channel 15 by default. You can change this using YAML configuration, but this only works
+if there’s no existing network. To change the channel for an existing network, radio has to be factory reset and a new network to be formed. This requires re-pairing of all the devices.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">zha</span><span class="pi">:</span>
+  <span class="na">zigpy_config</span><span class="pi">:</span>
+    <span class="na">network</span><span class="pi">:</span>
+      <span class="na">channel</span><span class="pi">:</span> <span class="m">15</span>             <span class="c1"># What channel the radio should try to use.</span>
+      <span class="na">channels</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">15</span><span class="pi">,</span> <span class="nv">20</span><span class="pi">,</span> <span class="nv">25</span><span class="pi">]</span>  <span class="c1"># Channel mask</span>
+</code></pre></div></div>
+<p>The related troubleshooting segments mentioned above will, among other things, inform that if you have issues with overlapping frequencies between Wi-Fi and Zigbee, then it is usually better to first only try changing and setting a static Wi-Fi channel on your Wi-Fi router or all your Wi-Fi access points (instead of just changing to another Zigbee channel).</p>
+<p>MetaGeek Support has a good reference article about channel selection for <a href="https://support.metageek.com/hc/en-us/articles/203845040-ZigBee-and-WiFi-Coexistence" rel="external nofollow">Zigbee and WiFi coexistence<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>The Zigbee specification standards divide the 2.4 GHz ISM radio band into 16 Zigbee channels (i.e. distinct radio frequencies for Zigbee). For all Zigbee devices to be able to communicate, they must support the same Zigbee channel (i.e. Zigbee radio frequency) that is set on the Zigbee Coordinator as the channel to use for its Zigbee network. Not all Zigbee devices support all Zigbee channels. Channel support usually depends on the age of the hardware and firmware, as well as on the device’s power ratings.</p>
+<p>The general recommendation is to only use channels 15, 20, or 25 in order to avoid interoperability problems with Zigbee devices. Not only because there is less chance of Wi-Fi networks interfering too much with the Zigbee network on other channels, but also because not all Zigbee devices support all channels. Some devices, for example, are limited to only being compatible with ZLL (Zigbee Light Link) channels. It is therefore especially not recommended to use Zigbee channels 11, 24, 25, or 26 on your Zigbee coordinator. These Zigbee channels are commonly only supported by relatively modern Zigbee hardware devices with newer Zigbee firmware. If using those channels, your coordinator may not be usable with older Zigbee devices.</p>
+<h4>Modifying the device type <a class="title-link" name="modifying-the-device-type" href="#modifying-the-device-type"></a>
+</h4>
+<p>As not all device manufacturers follow the Zigbee standard, at times a device can be incorrectly classified. For example, a switch could be classified as a light.</p>
+<p>To correct the device type, also called domain, add the following to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> and restart Home Assistant:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">zha</span><span class="pi">:</span>
+  <span class="na">device_config</span><span class="pi">:</span>
+    <span class="na">84:71:27:ff:fe:93:17:24-1</span><span class="pi">:</span>    <span class="c1"># format: {ieee}-{endpoint_id}</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">switch"</span>              <span class="c1"># corrected device type</span>
+</code></pre></div></div>
+<p><code>{ieee}</code> is the device hardware address which can be read from the Home Assistant UI when looking at <em>Device info</em>. From device info, you can find the <code>{endpoint_id}</code> by viewing the <em>Zigbee device signature</em>.</p>
+<h3>OTA updates of Zigbee device firmware <a class="title-link" name="ota-updates-of-zigbee-device-firmware" href="#ota-updates-of-zigbee-device-firmware"></a>
+</h3>
+<p>The ZHA integration has the ability to perform OTA (over-the-air) firmware updates of Zigbee devices. This feature is enabled by default. As it uses standard <a href="/integrations/update/">Update</a> entities in Home Assistant, users will get a UI notification if and when an OTA firmware update is available for a specific device, with an option to initiate the update or ignore that specific update for the device.</p>
+<p>To see OTA updates for a device, it must support OTA updates and firmware images for the device must be publicly provided by the manufacturer. ZHA currently only includes OTA providers for a few manufacturers that provide these updates publicly.</p>
+<p><strong>Included manufacturers:</strong></p>
+<ul>
+<li>IKEA</li>
+<li>Inovelli</li>
+<li>Ledvance/OSRAM</li>
+<li>SALUS/Computime</li>
+<li>Sonoff/iTead</li>
+<li>Third Reality</li>
+</ul>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>Before updating a device, you should search for any disadvantages or if you even need to install an available update. Some firmware updates can break features you might use (e.g. group binding for IKEA devices). Some updates might also require changes to ZHA. In rare cases, you can even brick devices by installing a firmware update.</p>
+  </div>
+</div>
+<h4>Advanced OTA configuration <a class="title-link" name="advanced-ota-configuration" href="#advanced-ota-configuration"></a>
+</h4>
+<p>OTA for a few manufacturers is enabled by default, currently Ledvance, Sonoff, Inovelli, and ThirdReality. Other manufacturers are supported but disabled by default because their updates may change or remove device functionality, may require you to reconfigure devices, or are contributed by the community and may be minimally tested.</p>
+<p>Refer to the <a href="https://github.com/zigpy/zigpy/wiki/OTA-Configuration" rel="external nofollow">zigpy documentation for OTA configuration<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for more information on additional OTA providers.</p>
+<h2>Adding devices <a class="title-link" name="adding-devices" href="#adding-devices"></a>
+</h2>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>When adding devices, review the following sections on this page:</p>
+<ul>
+<li><a href="#best-practices-to-avoid-pairingconnection-difficulties">Best practices to avoid pairing/connection difficulties</a></li>
+<li><a href="#zigbee-interference-avoidance-and-network-rangecoverage-optimization">Zigbee interference avoidance and network range/coverage optimization</a></li>
+</ul>
+<p>These sections both provide helpful advice on improving your Zigbee network performance.</p>
+  </div>
+</div>
+<p><strong>To add a new Zigbee device:</strong></p>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Select the <strong>Zigbee Home Automation</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span>. Then, select <strong>Configure</strong>.</li>
+<li>To start a scan for new devices, on the bottom right corner of the screen, select <strong>Add device</strong>.</li>
+<li>Reset your Zigbee devices to factory default settings according to the device instructions provided by the manufacturer (e.g., turn on/off lights up to 10 times; switches usually have a reset button/pin). It might take a few seconds for the devices to appear. You can click on <strong>Show logs</strong> for more verbose output.</li>
+<li>Once the device is found, it will appear on that page and will be automatically added to your devices. You can optionally change its name and add it to an area (you can change this later). You can search again to add another device, or you can go back to the list of added devices.</li>
+</ol>
+<h3>Using router devices to add more devices <a class="title-link" name="using-router-devices-to-add-more-devices" href="#using-router-devices-to-add-more-devices"></a>
+</h3>
+<p>Most mains-powered devices, e.g., many always-powered wall plugs or light bulbs in your Zigbee network will automatically act as a Zigbee router device (sometimes also referred to as a Zigbee “signal repeater” or “range extender”).</p>
+<p>Because Zigbee should use a <a href="https://en.wikipedia.org/wiki/Wireless_mesh_network" rel="external nofollow">wireless mesh network<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> to be effective, you will need to add Zigbee router devices to increase the number of Zigbee devices that can be used in your Zigbee network, both in the total number of devices that can be added as well as the total range and coverage of the network. Some Zigbee router devices do a much better job at routing and repeating Zigbee signals and messages than some other devices. You should not have a setup where Zigbee router devices (e.g. light bulbs) are often powered-off.  Zigbee router devices are meant to be always available.</p>
+<p>All Zigbee coordinator firmware will only allow you to directly connect a certain amount of devices. That limit is set for two reasons; firstly, to not overload the Zigbee coordinator, and secondly, to encourage your Zigbee network to quickly begin to utilize a “<a href="https://en.wikipedia.org/wiki/Mesh_networking" rel="external nofollow">mesh networking<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>” topology instead of only a “<a href="https://en.wikipedia.org/wiki/Star_network" rel="external nofollow">star network<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>” topology.</p>
+<p>The total number of Zigbee devices that you can have on a Zigbee network depends on a few things. The Zigbee coordinator hardware and its firmware only play a larger role in Zigbee networks with a lot of devices. More important is the number of directly connected devices (“direct children”) versus the number of routers that are connected to your Zigbee coordinator. The Zigpy library, which the ZHA <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> depends on, has an upper limit that is 32 direct children, but you can still have hundreds of Zigbee devices in total connected indirectly through routes via Zigbee router devices.</p>
+<p>In this theoretical example, a CC2652-based Zigbee coordinator has three CC2530 Zigbee router devices for a total limit of 77 devices:</p>
+<ul>
+<li>Coordinator: 32 Zigbee End devices - 3 routers = 29</li>
+<li>Router one: + 16 devices</li>
+<li>Router two: + 16 devices</li>
+<li>Router three: + 16 devices</li>
+<li>Total device limit = <strong>77 devices</strong>
+</li>
+</ul>
+<p>In practice, you will likely need to add a lot more Zigbee router devices than in this example in order to extend the coverage of the network to reach that many devices.</p>
+<h3>Discovery via USB or Zeroconf <a class="title-link" name="discovery-via-usb-or-zeroconf" href="#discovery-via-usb-or-zeroconf"></a>
+</h3>
+<p>Some devices can be auto-discovered, which can simplify the ZHA setup process. The following devices have been tested with discovery and offer a quick setup experience.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>USB discovery devices</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<ul>
+<li>
+<strong>Bitron</strong>
+<ul>
+<li>
+<a href="https://manuals.smabit.eu/len/av2010_10.html" rel="external nofollow">Bitron Video/SMaBiT BV AV2010/10<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>10C4:8B34</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>ConBee</strong>
+<ul>
+<li>
+<a href="https://phoscon.de/conbee2" rel="external nofollow">ConBee II<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>1CF1:0030</code>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://phoscon.de/conbee3" rel="external nofollow">ConBee III<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>0403:6015</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>ITead</strong>
+<ul>
+<li>
+<a href="https://itead.cc/product/zigbee-3-0-usb-dongle/" rel="external nofollow">ITead SONOFF Zigbee 3.0 USB Dongle Plus V2 Model “ZBDongle-E” (EFR32MG21 variant)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>1A86:55D4</code>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://itead.cc/product/sonoff-zigbee-3-0-usb-dongle-plus" rel="external nofollow">ITead SONOFF Zigbee 3.0 USB Dongle Plus Model “ZBDongle-P” (CC2652P variant)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>10C4:EA60</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Nortek</strong>
+<ul>
+<li>
+<a href="https://www.nortekcontrol.com/products/2gig/husbzb-1-gocontrol-quickstick-combo/" rel="external nofollow">Nortek HUSBZB-1<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>10C4:8A2A</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>slae.sh</strong>
+<ul>
+<li>
+<a href="https://slae.sh/projects/cc2652/" rel="external nofollow">slae.sh CC2652RB development stick<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>10C4:EA60</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>SMLIGHT</strong>
+<ul>
+<li>
+<a href="https://smlight.tech/product/slzb-07/" rel="external nofollow">SMLIGHT SLZB-07<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>10C4:EA60</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Tube</strong>
+<ul>
+<li>
+<a href="https://www.tubeszb.com/" rel="external nofollow">Tube’s EFR32 Pro Ethernet/Serial Coordinator<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>10C4:EA60</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>ZigStar</strong>
+<ul>
+<li>
+<a href="https://zig-star.com/projects/zigbee-stick-v4/" rel="external nofollow">ZigStar Stick (CC2652 + CH340B variant)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>1A86:7523</code>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://zig-star.com/" rel="external nofollow">ZigStar Coordinators<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>1A86:7523</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Zeroconf discovery devices</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_2">
+<ul>
+<li>
+<strong>cod.m</strong>
+<ul>
+<li>
+<a href="https://docs.codm.de/zigbee/coordinator/" rel="external nofollow">cod.m Zigbee Coordinator<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>czc._tcp.local.</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>SMLIGHT</strong>
+<ul>
+<li>
+<a href="https://smlight.tech/product/slzb-06/" rel="external nofollow">SMLIGHT SLZB-06 POE Zigbee LAN WiFi USB Adapter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>slzb-06.local.</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Tube</strong>
+<ul>
+<li>
+<a href="https://www.tubeszb.com/" rel="external nofollow">Tube’s CC2652P2 USB-powered Zigbee to Ethernet Serial Coordinator<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>tube_zb_gw_cc2652p2.local.</code>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://www.tubeszb.com/" rel="external nofollow">Tube’s CC2652P2 PoE-powered Zigbee to Ethernet Serial Coordinator<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>tube_zb_gw_cc2652p2_poe.local.</code>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://www.tubeszb.com/" rel="external nofollow">Tube’s EFR32 Based Zigbee to Ethernet Serial Coordinator<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>tube_zb_gw_efr32.local.</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>XZG</strong>
+<ul>
+<li>
+<a href="https://xzg.xyzroe.cc/" rel="external nofollow">XZG - Universal Firmware for Zigbee Gateway<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>xzg.local.</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>ZigStar</strong>
+<ul>
+<li>
+<a href="https://uzg.zig-star.com" rel="external nofollow">ZigStar UZG Universal Zigbee Gateway (UZG-01)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>uzg-01._tcp.local.</code>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://zig-star.com/projects/zigbee-gw-lan/" rel="external nofollow">ZigStar LAN/POE Coordinators<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Identifier: <code>zigstargw.local.</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<p>Additional devices in the <a href="#compatible-hardware">Compatible hardware</a> section may be discoverable, however, only devices that have been confirmed discoverable are listed above.</p>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<h3>Action zha.permit <a class="title-link" name="action-zhapermit" href="#action-zhapermit"></a>
+</h3>
+<p>To add new devices to the network, call the <code>permit</code> action on the <code>zha</code> domain. Do this by clicking the <strong>Actions</strong> tab in <strong>Developer tools</strong> and typing <code>zha.permit</code> in the <strong>Action</strong> dropdown box. Next, follow the device instructions for adding, scanning or factory reset.</p>
+<p>This action opens network for joining new devices.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>duration</code></td>
+<td>yes</td>
+<td>For how long to allow new devices to join, default 60s</td>
+</tr>
+<tr>
+<td><code>ieee</code></td>
+<td>yes</td>
+<td>The IEEE address of an existing device via which the new device is to be added</td>
+</tr>
+</tbody>
+</table>
+<p>To join a new device using an install code (ZB3 devices) use the following data attributes (must use parameters only
+from the same group:</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Parameter Group</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src_ieee</code></td>
+<td>install_code</td>
+<td>The IEEE address of the joining ZB3 device. Use with <code>install_code</code>
+</td>
+</tr>
+<tr>
+<td><code>install_code</code></td>
+<td>install_code</td>
+<td>Install Code of the joining device. Use with <code>src_ieee</code>
+</td>
+</tr>
+<tr>
+<td><code>qr_code</code></td>
+<td>qr_code</td>
+<td>QR code containing IEEE and Install Code of the joining ZB3 device</td>
+</tr>
+</tbody>
+</table>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Currently <code>qr_code</code> supports QR Install Codes from:
+- Aqara
+- Bosch
+- Consciot
+- Embrighten</p>
+  </div>
+</div>
+<h3>Action zha.remove <a class="title-link" name="action-zharemove" href="#action-zharemove"></a>
+</h3>
+<p>This action removes an existing device from the network. You can find the IEEE address of the device on the device card of Zigbee devices. An example of an IEEE address data parameter format is <code>00:0d::6f:00:05:7d:2d:34</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ieee</code></td>
+<td>no</td>
+<td>IEEE address of the device to remove</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zha.set_lock_user_code <a class="title-link" name="action-zhaset_lock_user_code" href="#action-zhaset_lock_user_code"></a>
+</h3>
+<p>This action sets a lock code on a Zigbee lock.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code_slot</code></td>
+<td>no</td>
+<td>Which lock code slot to store the code. Ex. 1-32 will work for Kwikset 954</td>
+</tr>
+<tr>
+<td><code>user_code</code></td>
+<td>no</td>
+<td>Code to set on the lock. Ex. Kwikset accepts numbers 4-8 digits in length</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zha.clear_lock_user_code <a class="title-link" name="action-zhaclear_lock_user_code" href="#action-zhaclear_lock_user_code"></a>
+</h3>
+<p>This action clears a lock code from a Zigbee lock.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code_slot</code></td>
+<td>no</td>
+<td>Which lock code slot to clear</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zha.enable_lock_user_code <a class="title-link" name="action-zhaenable_lock_user_code" href="#action-zhaenable_lock_user_code"></a>
+</h3>
+<p>This action enables a lock code on a Zigbee lock.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code_slot</code></td>
+<td>no</td>
+<td>Which lock code slot to enable</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zha.disable_lock_user_code <a class="title-link" name="action-zhadisable_lock_user_code" href="#action-zhadisable_lock_user_code"></a>
+</h3>
+<p>This action disables a lock code on a Zigbee lock.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code_slot</code></td>
+<td>no</td>
+<td>Which lock code slot to disable</td>
+</tr>
+</tbody>
+</table>
+<h2>Zigbee groups and binding devices <a class="title-link" name="zigbee-groups-and-binding-devices" href="#zigbee-groups-and-binding-devices"></a>
+</h2>
+<p>ZHA supports the creation of Zigbee groups (different from Home Assistant’s <a href="/integrations/group/">Group</a> integration), as well as binding devices to each other. Groups and device binding can be set up independently of each other, but they can be also used in combination (such as binding a device to another group of devices).</p>
+<h3>Groups <a class="title-link" name="groups" href="#groups"></a>
+</h3>
+<p>A Zigbee group is a collection of two or more Zigbee lights, switches, or fans. A Zigbee group can then be controlled using only one command/entity.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>While using a native Zigbee group instead of Home Assistant’s <a href="/integrations/group/">Group</a> integration can improve the visual responsiveness, the broadcast commands issued can flood the Zigbee network if issued repeatedly.</p>
+  </div>
+</div>
+<h4>To create a Zigbee group <a class="title-link" name="to-create-a-zigbee-group" href="#to-create-a-zigbee-group"></a>
+</h4>
+<ol>
+<li>Select the <strong>Configure</strong> button on the ZHA integration page,</li>
+<li>Choose <strong>Groups</strong> and select <strong>Create Group</strong>,</li>
+<li>Enter a name for the group,</li>
+<li>Select which devices to include in the group:
+<ul>
+<li>At least two devices must be added to a Zigbee Group before a group entity is created.</li>
+<li>The group should consist of products of the same device type (all lights, all switches, or all fans).</li>
+</ul>
+</li>
+</ol>
+<h3>Binding <a class="title-link" name="binding" href="#binding"></a>
+</h3>
+<p>Binding a Zigbee device attaches an endpoint from one device to an endpoint of another device (or group).</p>
+<p>Commands sent between bound devices bypass ZHA (even when ZHA is not active) and directly control the targeted device. Binding devices can allow for faster response times and smoother control.</p>
+<p>Before binding devices, note the following:</p>
+<ul>
+<li>ZHA binds remotes to the Zigbee coordinator by default in order to forward click events to Home Assistant.</li>
+<li>Some remotes can only be bound to a single target; you might need to unbind the remote from the coordinator before binding it to another target.</li>
+<li>Not all devices support binding. Refer to the device manufacturer’s documentation to confirm features.</li>
+</ul>
+<h4>To manage bindings of a Zigbee device <a class="title-link" name="to-manage-bindings-of-a-zigbee-device" href="#to-manage-bindings-of-a-zigbee-device"></a>
+</h4>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p><strong>This section only outlines how to manage bindings in general. It will not cover all use cases.</strong></p>
+<p>Prerequisites and steps can vary depending on the device type, manufacturer, and your desired end result.</p>
+  </div>
+</div>
+<ol>
+<li>Navigate to the Zigbee device’s configuration page,</li>
+<li>In the options menu (the “three dots” icon), select <strong>Manage Zigbee device</strong>,</li>
+<li>Select the <strong>Bindings</strong> tab in the pop-up dialog,</li>
+<li>Choose the device from the dropdown list of <em>Bindable devices</em> (or <em>Bindable groups</em>),</li>
+<li>Confirm the Bind or Unbind action:
+<ul>
+<li>To bind devices: select <strong>Bind</strong> (or <strong>Bind group</strong>), or</li>
+<li>To unbind devices, select <strong>Unbind</strong> (or <strong>Unbind group</strong>).</li>
+</ul>
+</li>
+</ol>
+<h2>Backups and migration <a class="title-link" name="backups-and-migration" href="#backups-and-migration"></a>
+</h2>
+<p>The ZHA <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> performs automatic backups of your Zigbee network allowing you to restore/recover the network from a backup or migrate to a different Zigbee Coordinator (radio adapter).</p>
+<p>After restoring a Home Assistant backup, you can reconfigure ZHA or migrate to a new Zigbee Coordinator without any loss of your settings or devices that were connected. This can be helpful if your current radio fails or a new radio adapter type/model comes out that you want to migrate to.</p>
+<p>Manual backups can also be created from the configuration page under <strong>Network Settings</strong>.</p>
+<h3>Migrating to a new Zigbee Coordinator adapter inside ZHA <a class="title-link" name="migrating-to-a-new-zigbee-coordinator-adapter-inside-zha" href="#migrating-to-a-new-zigbee-coordinator-adapter-inside-zha"></a>
+</h3>
+<p>ZHA supports migrating the Zigbee network between different Zigbee Coordinators based on chips from Silicon Labs, Texas Instruments, or ConBee/RaspBee if the backup was made from inside ZHA.</p>
+<h4>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h4>
+<p>Confirm you meet the following requirements before migrating:</p>
+<ul>
+<li>The previous coordinator is used in the ZHA <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> and <em>not</em> in deCONZ or MQTT.</li>
+<li>The radio type is one of the following:
+<ul>
+<li>ezsp <em>(Silicon Labs EmberZnet)</em>
+</li>
+<li>znp <em>(Texas Instruments Z-Stack ZNP)</em>
+</li>
+<li>deCONZ <em>(ConBee/RaspBee from dresden elektronik)</em>
+<ul>
+<li>Be sure it is running <a href="https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Firmware-Changelog" rel="external nofollow">firmware 0x26700700 (from 2021-08-18)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or later.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>To migrate to a new Zigbee coordinator radio inside ZHA:</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_3">
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>You will not be able to control your existing Zigbee devices until the new coordinator fully joins the network after the migration. <strong>This can take a few minutes.</strong></p>
+<p>If some existing devices do not resume normal functions after some time, try power-cycling them to attempt rejoining to the network.</p>
+  </div>
+</div>
+<ol>
+<li>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong> and select the ZHA <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span>. Then select <strong>Configure</strong>.</li>
+<li>Under <strong>Network settings</strong>, select <strong>Migrate radio</strong>.</li>
+<li>Reconfiguration of ZHA will start. Select <strong>Submit</strong>.</li>
+<li>Under <strong>Migrate or re-configure</strong>, select <strong>Migrate to a new radio</strong>.</li>
+<li>Select <strong>Submit</strong> to begin.
+<ul>
+<li>An automatic backup will be performed, the Zigbee Coordinator radio will be reset, and the backup will be automatically restored.</li>
+<li>For combined Z-Wave and Zigbee radios, like the HUSBZB-1 adapter, only the Zigbee radio portion is reset.</li>
+<li>You may now unplug the old adapter, or you may leave the old radio adapter plugged in (for example, if the adapter is a combined Z-Wave adapter).</li>
+</ul>
+</li>
+<li>Plug in the new Zigbee Coordinator radio adapter.
+<ul>
+<li>Select <strong>Submit</strong> after confirming the new Zigbee Coordinator radio adapter is properly connected.</li>
+<li>To minimize interference:
+<ul>
+<li>Use a USB extension cable,</li>
+<li>Use a USB 2.0 port or a powered USB 2.0 hub,</li>
+<li>Keep the Zigbee stick away from USB 3.0 devices.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Start the backup restore process:
+<ul>
+<li>Select the new Zigbee radio from the list of serial ports and select <strong>Next</strong>.</li>
+<li>A migration can be resumed if a reboot is required, such as when troubleshooting or if new hardware is plugged in.
+<ul>
+<li>To resume, go to <strong>Network Settings</strong>, select <strong>Re-configure the current radio</strong>, choose the new radio and proceed.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Under <strong>Network Formation</strong>, select <strong>Restore an automatic backup</strong>.</li>
+<li>Under <strong>Restore Automation Backup</strong>, choose the latest automatic backup and select <strong>Submit</strong>.</li>
+<li>If the new radio requires overwriting the IEEE address (the unique MAC address), you will see the prompt for <strong>Overwrite Radio IEEE Address</strong>.
+<ul>
+<li>Check the <strong>Permanently replace the radio IEEE address</strong> box and click <strong>Submit</strong>.
+<ul>
+<li>Selecting this option is required for the migration process to complete successfully.</li>
+<li>Overwriting the IEEE address may take a while.</li>
+</ul>
+</li>
+<li>Both the old and new Zigbee Coordinators will now have the same Zigbee IEEE address.</li>
+<li>You should not operate the old adapter in the same area unless you change its Zigbee IEEE address.</li>
+<li>If you do not migrate the Zigbee IEEE address from the old Zigbee Coordinator radio, you will have to reconnect many of your devices to keep them working.</li>
+</ul>
+</li>
+<li>Finally, a <strong>Success!</strong> message should pop up with information that all options were successfully saved.
+<ul>
+<li>Select <strong>Finish</strong> to confirm.</li>
+</ul>
+</li>
+</ol>
+</div>
+  </details>
+</div>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>To help resolve any kinks or compatibility problems, report bugs as issues with debug logs.</p>
+  </div>
+</div>
+<h3>Limitations <a class="title-link" name="limitations" href="#limitations"></a>
+</h3>
+<p>The list of ZHA limitations may not be exhaustive.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>List of ZHA limitations:</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_4">
+<p><strong>ZHA only supports connecting a single dedicated Zigbee coordinator with a single Zigbee network:</strong></p>
+<ul>
+<li>The Zigbee Coordinator cannot already be connected or used by any other application.</li>
+<li>Devices currently or previously connected to another Zigbee implementation will need to be reset to their factory default settings before they can be paired/joined to ZHA.</li>
+<li>Refer to each device manufacturer’s documentation for reset steps.</li>
+</ul>
+<p><strong>A Zigbee device can only be connected to a single Zigbee Coordinator (only one Zigbee gateway):</strong></p>
+<ul>
+<li>This is a limitation in the Zigbee protocol specifications, governed by the <a href="https://csa-iot.org/all-solutions/zigbee/" rel="external nofollow">CSA (Connectivity Standards Alliance)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, applying to all Zigbee implementations and not just the ZHA implementation.</li>
+</ul>
+<p><strong>Support for commissioning Zigbee 3.0 devices via “Install Code” or “QR Code” via the <code>zha.permit</code> action:</strong></p>
+<ul>
+<li>This has so far only been implemented for ‘ezsp’ (Silicon Labs EmberZNet) or ‘znp’ (Texas Instruments) radio type in ZHA.</li>
+<li>Other radio types are missing support in their respective <a href="https://github.com/zigpy/" rel="external nofollow">radio libraries for zigpy<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or manufacturer’s firmware commands/APIs.</li>
+</ul>
+<p><strong>ZHA does <em>not</em> currently support devices that can only use:</strong></p>
+<ul>
+<li>The ZGP (“Zigbee Green Power”) profile:
+<ul>
+<li>This is used in a few batteryless self-powered or energy harvesting devices, (such as Philips Hue Click, Philips Hue Tap, and some “Friends of Hue” partnership switches).</li>
+</ul>
+</li>
+<li>The ZSE (“Zigbee Smart Energy”) profile:
+<ul>
+<li>This is due to the “Zigbee SE” specification not being part of the standard Zigbee 3.0 specification and thus not implemented in most of the Zigbee protocol stacks that are commonly available Zigbee Coordinator radio adapters and modules.</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h3>Knowing which devices are supported <a class="title-link" name="knowing-which-devices-are-supported" href="#knowing-which-devices-are-supported"></a>
+</h3>
+<p>Home Assistant’s ZHA <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> supports all standard Zigbee device types as defined by the <a href="https://csa-iot.org/all-solutions/zigbee/" rel="external nofollow">CSA (Connectivity Standards Alliance, formerly the Zigbee Alliance)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p><strong>There is therefore no official compatibility list of devices that will work out-of-the-box with the ZHA <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span>.</strong></p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>Check out <a href="https://zigbee.blakadder.com" rel="external nofollow">blakadder’s unofficial Zigbee Device Compatibility Repository<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>This unofficial list contains independent community members’ reports <em>(or device-specific pairing tips)</em> for several home automation gateway/bridge/hub software (including open-source Zigbee implementations such as ZHA, Zigbee2MQTT, and Tasmota/Zigbee2Tasmota).</p>
+<p>Anyone can help maintain the site by submitting device compatibility information to it.</p>
+  </div>
+</div>
+<p>Not all hardware manufacturers fully comply with the standard. This can include:</p>
+<ul>
+<li>Implementing unique (but non-standard) features,</li>
+<li>Not showing all expected entities within the Home Assistant <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> overview.</li>
+<li>Showing no entities within Home Assistant at all.</li>
+</ul>
+<p>Developers (or even advanced users) might be able to work around such interoperability issues by adding conversion/translation code in custom device handlers. For more information, refer to <a href="#how-to-add-support-for-new-and-unsupported-devices">How to add support for new and unsupported devices</a>.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p><strong>If a device will not join/pair</strong> at all, review the following sections on this page:</p>
+<ul>
+<li><a href="#best-practices-to-avoid-pairingconnection-difficulties">Best practices to avoid pairing/connection difficulties</a></li>
+<li><a href="#zigbee-interference-avoidance-and-network-rangecoverage-optimization">Zigbee interference avoidance and network range/coverage optimization</a></li>
+</ul>
+<p>These sections both provide helpful advice on improving your Zigbee network performance.</p>
+  </div>
+</div>
+<h3>How to add support for new and unsupported devices <a class="title-link" name="how-to-add-support-for-new-and-unsupported-devices" href="#how-to-add-support-for-new-and-unsupported-devices"></a>
+</h3>
+<p>If your Zigbee device pairs/joins successfully with the ZHA <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> but does not show all of the expected entities:</p>
+<ol>
+<li>Try to re-pair/re-join the device several times.</li>
+<li>Checkout the troubleshooting section.</li>
+<li>Still not working? You may need a custom device handler. This handler will have exception handling code to work around device-specific issues.</li>
+</ol>
+<p>For devices that do not follow the standard defined in the CSA’s ZCL (Zigbee Cluster Library), the ZHA <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> relies on a project called “<a href="https://github.com/zigpy/zha-device-handlers" rel="external nofollow">ZHA Device Handlers (also known as “zha-quirk”)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>”. It contains device-specific Python scripts called “quirks”. These scripts can resolve compliance and interoperability issues by implementing on-the-fly conversion of custom Zigbee configurations or by implementing manufacturer-specific features for specific devices.</p>
+<p>People familiar with other Zigbee gateway solutions for home automation may know similar concepts of using custom Zigbee device handlers/converters for non-standard devices. For example, <a href="https://www.zigbee2mqtt.io/advanced/support-new-devices/01_support_new_devices.html" rel="external nofollow">Zigbee2MQTT (and IoBroker) uses zigbee-herdsman converters<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://developer.smartthings.com/docs/devices/hub-connected/legacy" rel="external nofollow">SmartThings Classics (Legacy) platform has Hub Connected Device Handlers<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>If you do not want to develop such a “quirk” Python script yourself, you can submit a “device support request” as a new issue to the <a href="https://github.com/zigpy/zha-device-handlers/issues" rel="external nofollow">ZHA Device Handlers project repository on GitHub<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>:</p>
+<ol>
+<li>Sign in to GitHub.</li>
+<li>Select <strong>New issue</strong> and follow the instructions.
+<ul>
+<li>New device support requests require the device signature + diagnostic information.</li>
+<li>You may also need to actively help in further testing or provide additional information to the volunteering developers.</li>
+</ul>
+</li>
+</ol>
+<p>Note that submitting a new “device support request” does not guarantee that someone else will develop a custom “quirk” for ZHA. The project relies on volunteering developers. However, without “device support requests”, the developers may not be aware that your specific Zigbee device is not working correctly in ZHA.</p>
+<h3>Best practices to avoid pairing/connection difficulties <a class="title-link" name="best-practices-to-avoid-pairingconnection-difficulties" href="#best-practices-to-avoid-pairingconnection-difficulties"></a>
+</h3>
+<p>If you experience problems pairing a device, verify that you follow best practices to avoid pairing/connection issues:</p>
+<ul>
+<li>Check that your setup and environment are optimized to avoid interference.
+<ul>
+<li>As interference avoidance is an extremely important topic on its own, please read and follow the tips in the separate section below about Zigbee interference avoidance and network range/coverage optimization.</li>
+</ul>
+</li>
+<li>Check that you have enough Zigbee router devices (also known as Zigbee signal repeaters or range extenders) and if you do not have any, invest and add some mains-powered devices that will work as Zigbee routers.
+<ul>
+<li>Aim to start out with mains-powered devices before adding battery-operated devices as a “weak” Zigbee network mesh (e.g., the device is too far from the Zigbee coordinator or a Zigbee router) may prevent some devices from being paired. Zigbee router devices are also needed to increase the maximum of devices that can be connected to your Zigbee mesh network.</li>
+<li>Note that some Zigbee devices are not fully compatible with all brands of Zigbee router devices. Xiaomi/Aqara devices are for example known not to work with Zigbee router devices from Centralite, General Electrics, Iris, Ledvance/OSRAM, LIGHTIFY/Sylvania, Orvibo, PEQ, Securifi, and SmartThings/Samsung. Better results can usually be achieved by using mains-powered devices IKEA and Nue/3A Home or dedicated DIY routing devices based on Texas Instruments CC253x/CC26x2 and XBee Series 2/3 Zigbee radios.</li>
+</ul>
+</li>
+<li>If possible try to pair your Zigbee devices in their intended final location, (and not pair it next to the Zigbee coordinator and then need to move it after).
+<ul>
+<li>Pairing a Zigbee device next to the Zigbee coordinator and then moving it later can result in dropped/lost connections or other issues.
+<ul>
+<li>If the device you want to add is not brand new and as such never paired before then you always have to make sure to first manually reset the device to its factory default settings before you will be able to add/pair it.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Some battery-operated Zigbee devices are known to have problems with pairing if they have Low battery voltage.
+<ul>
+<li>Some people have reported replacing the battery on their newly received Xiaomi/Aqara devices solved pairing issues.</li>
+</ul>
+</li>
+<li>Be patient as the pairing of some Zigbee devices may require multiple attempts and you may sometimes need to try again and again.
+<ul>
+<li>Some devices, like example those from Xiaomi/Aqara, are known to not be 100% compliant with the standard Zigbee specifications and may therefore require many paring attempts over 10-20 minutes or longer.</li>
+</ul>
+</li>
+</ul>
+<h3>Zigbee interference avoidance and network range/coverage optimization <a class="title-link" name="zigbee-interference-avoidance-and-network-rangecoverage-optimization" href="#zigbee-interference-avoidance-and-network-rangecoverage-optimization"></a>
+</h3>
+<p>Sources of interference for radios can lead to transmission/reception loss or connection problems and show symptoms such as errors/failures when sending and receiving Zigbee messages/signals that can cause significant degradation in performance or even prevent devices from communicating at all. Below are some basic but essential tips for getting a good setup starting point to achieve better signal quality, improved coverage, and extended range.</p>
+<p>Following all these optimization tips below should significantly improve the reception of your Zigbee radio adapter. The below insights describe working around the well-known limitations of low-power/low-bandwidth 2.4 GHz digital radios. It can that way resolve or avoid many known issues caused by interference or poor placement of your Zigbee radio adapter or devices.</p>
+<p>All electric devices/appliances, especially computers and computer peripherals, generate <a href="https://en.wikipedia.org/wiki/Electromagnetic_interference" rel="external nofollow">EMI/EMF/RMI (electromagnetic fields that cause electromagnetic interference (often called radio-frequency interference, also commonly called signal noise in layman’s terms)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, which can interfere with signals transmissions on the 2.4 GHz radio band frequency, and in practice partially degrade or even fully jam the wireless communication messages between your Zigbee adapter/devices.</p>
+<p>For example, interference from USB 3.x ports, unshielded USB 3.x devices, and non-shielded USB 3.x peripheral cables are especially infamously known to affect 2.4 GHz radio reception for low-power/low-bandwidth devices. Therefore you should always place your Zigbee adapter far away as possible from any potential sources of EMI/EMI/RMI, preferably by using an adequately long shielded USB extension cable connected to a USB 2.0 port.</p>
+<p>Zigbee also uses <a href="https://en.wikipedia.org/wiki/Mesh_networking" rel="external nofollow">mesh networking topology<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, which means that most mains-powered devices are a “Zigbee Router” that can act as a signal repeater and range extended by transmitting data over long distances by passing data messages through the Zigbee network mesh of intermediate devices to reach more distant Zigbee devices. Thus to have a healthy Zigbee network, you need many Zigbee Router devices relatively close to each other in order to achieve good coverage and range.</p>
+<h4>Actions to optimize Zigbee Coordinator radio hardware <a class="title-link" name="actions-to-optimize-zigbee-coordinator-radio-hardware" href="#actions-to-optimize-zigbee-coordinator-radio-hardware"></a>
+</h4>
+<p>Common root causes of unreliable performance are often seen with outdated Zigbee Coordinator radio adapter hardware, limited by obsolete chips, bad antenna designs, or old/buggy firmware. You can improve most Zigbee setups by using a good Zigbee Coordinator radio adapter and maintaining it.</p>
+<ul>
+<li>
+<p>Buy and use a supported Zigbee Coordinator USB adapter based on newer/modern chip hardware.</p>
+<ul>
+<li>Consider a Zigbee Coordinator USB adapter with an external antenna for more flexibility.</li>
+</ul>
+</li>
+<li>
+<p>Update to a later version of Zigbee Coordinator firmware on the existing radio adapter.</p>
+<ul>
+<li>Most manufacturers usually provide straightforward guides for updating the firmware.</li>
+</ul>
+</li>
+<li>
+<p>Try different physical placement and orientations of the Zigbee Coordinator and its antenna.</p>
+<ul>
+<li>Optimal placement of the Zigbee adapter is close to the middle of the house as possible.</li>
+<li>Try placing Zigbee Coordinator at some distance away from walls, ceilings, and floors.</li>
+<li>Try different orientations of the Zigbee Coordinator adapter or its antenna.</li>
+</ul>
+</li>
+</ul>
+<p>While using an older Zigbee Coordinator radio adapter hardware might work, using obsolete hardware and/or old firmware can prevent reliable operation. It is also generally a good idea to upgrade Zigbee Coordinator firmware before troubleshooting any further if and when run into problems with devices.</p>
+<h4>Actions to avoid or workaround EMI/EMF/RMI interference <a class="title-link" name="actions-to-avoid-or-workaround-emiemfrmi-interference" href="#actions-to-avoid-or-workaround-emiemfrmi-interference"></a>
+</h4>
+<p>Since all Zigbee Coordinator radio adapters are very sensitive/susceptible to all types of EMI/EMF/RMI you should always try to optimize the placement of the Zigbee Coordinator and avoid known sources of interference.</p>
+<ul>
+<li>
+<p>Use a long USB extension cable and place Zigbee Coordinator away from interference and obstacles.</p>
+<ul>
+<li>Ensure the USB extension cable is adequately shielded (thicker cables usually have better shielding).</li>
+<li>Place Zigbee Coordinator away from electrical wires/cables, power supplies, and household appliances.</li>
+<li>Extension cables also makes it easier to try different orientations of the adapter/antenna.</li>
+</ul>
+</li>
+<li>
+<p>Avoid USB 3.0 ports/computers/peripherals as they are known culprits of RFI/EMI/EMF disruption. (See Ref. <a href="https://www.usb.org/sites/default/files/327216.pdf" rel="external nofollow">1<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://www.unit3compliance.co.uk/2-4ghz-intra-system-or-self-platform-interference-demonstration/" rel="external nofollow">2<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>).</p>
+<ul>
+<li>Make sure to only connect the Zigbee USB adapter to a USB 2.0 port (and not to a USB 3.x port).</li>
+<li>If a computer only has USB 3.x ports then buy and connect Zigbee Coordinator via a powered USB 2.0 hub.</li>
+</ul>
+</li>
+<li>
+<p>Shield any unshielded computers/peripherals/devices by adding all-metal enclosures/chassis/casings.</p>
+<ul>
+<li>Use shielded USB cables for all external peripherals/devices, especially USB 3.x peripherals.</li>
+<li>Be aware that metal casings can decrease the performance of an internal/built-in Zigbee Coordinator.</li>
+</ul>
+</li>
+<li>
+<p>Avoid Wi-Fi Routers and Wi-Fi Access Points, alternatively change the Wi-Fi channel or Zigbee channel.</p>
+<ul>
+<li>Place your Zigbee Coordinator away from any Wi-Fi access points and all other sources of WiFi.</li>
+<li>Wi-Fi frequency ranges can overlap with Zigbee, see the section above on defining Zigbee channel use.</li>
+</ul>
+</li>
+</ul>
+<h3>Problems upgrading Zigbee device firmware via OTA <a class="title-link" name="problems-upgrading-zigbee-device-firmware-via-ota" href="#problems-upgrading-zigbee-device-firmware-via-ota"></a>
+</h3>
+<p>Before upgrading any OTA firmware, it is recommended to install fresh batteries in the device. OTA firmware updates are power-intensive, and some devices check for a minimum battery level before starting the upgrade. These devices may refuse to initiate the update process if the battery level is too low. However, not all device firmware includes this check.</p>
+<p>If Zigbee firmware upgrades do not start on a Zigbee End Device (i.e. a battery-powered product), then note that you usually need to “wake up the device” (e.g. trigger state change or pressing a button if available) so that the device becomes awake and is thus able to receive commands to start the OTA upgrade. The reason for this is that battery-powered products are so called “sleepy devices,” so they normally are asleep and only receive commands when the state of the device is changed.</p>
+<p>If the upgrade still does not start, then try manually restarting the device by disconnecting the power/battery for a few seconds and try again; then again make sure to activate the device by triggering state change or pressing a button on it right before sending the update request. Sometimes, it also helps to try keeping the device awake by repeatedly pushing a button or triggering state change until you see the first “Updating… “ message in the user interface.</p>
+<p>Be aware that OTAU (Over-The-Air Upgrade) of Zigbee devices typically takes around 10 minutes per device, if it takes longer then another common reason for Zigbee firmware upgrades not starting, taking a very long time, or even failing, is poor reception or not having a stable Zigbee network mesh. Take action to try to optimize your Zigbee network by avoiding radio frequency interference and adding many Zigbee Router devices (repeaters/extenders) to extend range and coverage. Try to follow all the best practice tips above in the <a href="#zigbee-interference-avoidance-and-network-rangecoverage-optimization">Zigbee interference avoidance and network range/coverage optimization)</a> section under troubleshooting.</p>
+<h3>Zigbee network visualization in ZHA UI <a class="title-link" name="zigbee-network-visualization-in-zha-ui" href="#zigbee-network-visualization-in-zha-ui"></a>
+</h3>
+<p>The ZHA configuration UI has a tab to visualize device links in your Zigbee network topology.</p>
+<p>The network visualization can help to identify devices with poor connection (that is, low values on the link). You will need to look at the ZHA logs to find more detailed information required for troubleshooting.</p>
+<p>The visualization shows multi-hop connections between your paired devices and their reported cumulative values of Received Signal Strength Indicator (RSSI) and Link Quality Indication (LQI).</p>
+<p>The exact method in which these values are reported depends on the Zigbee network stack used on each device. LQI values can be modified at each step as the message propagates through the mesh networking matrix.</p>
+<h4>Why some links are missing in Zigbee network topology maps <a class="title-link" name="why-some-links-are-missing-in-zigbee-network-topology-maps" href="#why-some-links-are-missing-in-zigbee-network-topology-maps"></a>
+</h4>
+<p>Missing links between Zigbee end devices (often battery-powered devices) in the Zigbee network visualization map are common. They are generally not a sign of a faulty device if the device is still reporting state changes. This happens with sleepy Zigbee end devices and does not mean that the device is no longer connected.</p>
+<p>Some end devices (for example, Xiaomi door sensors) sleep for an extended period, causing the parent Zigbee Router to remove them from its child table via a feature called router child aging. Since using child aging and removing them from the child table is a Zigbee 3.0 feature, this does not always occur because not all Zigbee router devices use child aging.</p>
+<p>This is what causes devices to show a missing link. Even though the device is no longer in the child table, the end device can still communicate via the parent Zigbee router.</p>
+<h4>How to interpret RSSI and LQI values <a class="title-link" name="how-to-interpret-rssi-and-lqi-values" href="#how-to-interpret-rssi-and-lqi-values"></a>
+</h4>
+<p>Interpreting RSSI and LQI values can be complex, as metrics of network health and communication quality are provided by the devices themselves, and each device could get to its results in different ways. Unless you are a Zigbee specialist yourself or are guided by one, please ignore those values. They can be misleading. If you delve into this, it is important to understand not to judge RSSI or LQI values on their own. When troubleshooting Zigbee messages that are being dropped, you must interpret the combination of both RSSI and LQI.</p>
+<p>RSSI (Received Signal Strength Indicator) values are an indicator value of the raw signal strength between two devices. RSSI values are negative numbers in -dBm format (0 to -100 power ratio in decibels of the measured power referenced to one milliwatt). Lower negative values indicate less interference and a good signal. RSSI information is only between the endpoint device and the first hop from that device. As such, it may not necessarily show signal strength to the Zigbee Coordinator but instead could be showing signal strength to the nearest Zigbee Router device.</p>
+<ul>
+<li>Generally, anything -60 and above (meaning -50, -40, etc.) in RSSI should be considered a strong signal (not losing messages).</li>
+<li>Usually, anything at -80 and below (meaning -85, -90, etc.) in RSSI should be considered a noisy environment and you risk losing messages.</li>
+</ul>
+<p>LQI (Link Quality Index) values are shown as positive numbers on a scale but can be very hard to interpret for Zigbee and not as useful for troubleshooting. This is because the Zigbee specifications and the (IEEE 802.15.4 specification) do not standardize how to perform LQI measurements. The LQI value provided by the Zigbee devices is not measured using unified standards from all device manufacturers and Zigbee stacks, and often, LQI is only a measure of the last-hop link quality anyway, which is most of the time not useful information as such the values can not always be trusted.</p>
+<p>For example, Zigbee devices based on Silicon Labs EmberZNet stack use positive display numbers for LQI, where higher is better and lower is worse. The Texas Instruments Z-Stack computes LQI for each received packet from the raw “received signal strength index” (RSSI) by linearly scaling it between the minimum and maximum defined RF power levels for the radio that more or less just provides an LQI value that, based on the strength of the received signal. This can be misleading in case you have a noisy environment with interference within the same frequency range (as the RSSI value may be shown as increased even though the true link quality decreases). Other manufacturers and Zigbee stacks measure and calculate LQI values in another way.</p>
+<p>In theory, a positive high LQI value is better, and a lower LQI value is worse, but depending on your devices, that might not always be the reality.</p>
+<ul>
+<li>Best practice is to ignore LQI value.</li>
+</ul>
+<h3>Reporting issues <a class="title-link" name="reporting-issues" href="#reporting-issues"></a>
+</h3>
+<p>For more details on where and how to report issues, please refer to the <a href="/help/reporting_issues/">Reporting issues page</a>.</p>
+<p>When reporting potential bugs related to the ZHA integration on the issues trackers, please always provide the following ZHA/Zigbee-specific information in addition to the information requested by the standard issue template:</p>
+<ol>
+<li>Debug logs for the issue, see <a href="#debug-logging">debug logging</a>.</li>
+<li>Exact model and firmware of the Zigbee radio (Zigbee Coordinator adapter) being used.</li>
+<li>If the issue is related to a specific Zigbee device, provide both the <strong>Zigbee Device Signature</strong> and the <strong>Diagnostics</strong> information.
+<ul>
+<li>Both the <strong>Zigbee Device Signature</strong> and the <strong>Diagnostics</strong> information can be found under <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>. Select the <strong>Zigbee Home Automation</strong> integration. Then, select <strong>Configure</strong> &gt; <strong>Devices</strong> (pick your device). Select <strong>Zigbee Device Signature</strong> and <strong>Download Diagnostics</strong>, respectively.</li>
+</ul>
+</li>
+</ol>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>For troubleshooting, read the following sections on this page. They provide information on improving your Zigbee network performance.</p>
+<ul>
+<li>
+<p><a href="#best-practices-to-avoid-pairingconnection-difficulties">Best practices to avoid pairing/connection difficulties</a></p>
+</li>
+<li>
+<p><a href="#zigbee-interference-avoidance-and-network-rangecoverage-optimization">Zigbee interference avoidance and network range/coverage optimization</a></p>
+</li>
+</ul>
+</div>
+
+
+</div>
+<h3>Debug logging <a class="title-link" name="debug-logging" href="#debug-logging"></a>
+</h3>
+<p>To enable debug logging for the ZHA <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> and radio libraries, add the following <a href="/integrations/logger/">logger</a> configuration to <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span>:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">logger</span><span class="pi">:</span>
+  <span class="na">default</span><span class="pi">:</span> <span class="s">info</span>
+  <span class="na">logs</span><span class="pi">:</span>
+    <span class="na">homeassistant.core</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">homeassistant.components.zha</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">bellows.zigbee.application</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">bellows.ezsp</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">zigpy</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">zigpy_deconz.zigbee.application</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">zigpy_deconz.api</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">zigpy_xbee.zigbee.application</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">zigpy_xbee.api</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">zigpy_zigate</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">zigpy_znp</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">zhaquirks</span><span class="pi">:</span> <span class="s">debug</span>
+</code></pre></div></div>
+<h3>Add Philips Hue bulbs that have previously been added to another bridge <a class="title-link" name="add-philips-hue-bulbs-that-have-previously-been-added-to-another-bridge" href="#add-philips-hue-bulbs-that-have-previously-been-added-to-another-bridge"></a>
+</h3>
+<p>Philips Hue bulbs that have previously been paired to another bridge/gateway will not show up during search in ZHA to add a Zigbee device. <strong>Bulbs must be restored back to their factory default settings</strong>.</p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p><strong>You must factory-reset the device.</strong></p>
+<ul>
+<li>
+<p>Simply “removing” them from your old bridge/gateway is not sufficient.</p>
+</li>
+<li>
+<p>Be sure there are no other Hue bulbs nearby that have just been powered-on when using this method or you will risk resetting them in this process.</p>
+</li>
+</ul>
+</div>
+
+
+</div>
+<p>The following reset methods can be used (depending on the bulb version):</p>
+<ul>
+<li>
+<strong>Zigbee remote:</strong>
+<ul>
+<li>Steps are outlined below for either the <em>Philips Hue Dimmer Switch</em> or <em>Lutron Connected Bulb Remote</em>.</li>
+<li>The remote does not have to be paired with your previous bridge.</li>
+</ul>
+</li>
+<li>
+<strong>Bluetooth via Android app:</strong>
+<ul>
+<li>Newer Philips Hue bulbs can reset via Bluetooth using the official Android app.</li>
+<li>This is an option even if the bulb is already paired to a bridge.</li>
+</ul>
+</li>
+<li>
+<strong>Hue Thief command-line tool</strong>:
+<ul>
+<li>Advanced users can use a third-party tool called <a href="https://github.com/vanviegen/hue-thief/" rel="external nofollow">Hue Thief<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+<li>This requires an EZSP-based Zigbee USB stick.</li>
+</ul>
+</li>
+</ul>
+<h4>Factory-reset using a Zigbee remote <a class="title-link" name="factory-reset-using-a-zigbee-remote" href="#factory-reset-using-a-zigbee-remote"></a>
+</h4>
+<p>Icons or button names may vary between generations of remotes. The remote used for resetting does not have to be paired with your previous bridge.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>To reset using a remote:</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_5">
+<ol>
+<li>Identify which buttons will be used later to perform the reset (based on the brand of remote):
+<ul>
+<li>
+<strong>Philips Hue Dimmer Switch</strong>:
+<ul>
+<li>Use the <strong>(I)/(ON)</strong> and <strong>(O)/(OFF)</strong> buttons.</li>
+<li>Button labels or icons may vary based on the generation of Hue remote.</li>
+</ul>
+</li>
+<li>
+<strong>Lutron Connected Bulb Remote:</strong>
+<ul>
+<li>Use the <strong>2nd (up arrow)</strong> and <strong>4th (light off)</strong> buttons.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Turn on the Hue bulb you want to reset.
+<ul>
+<li><strong>It is important that the bulb has <em>just</em> been powered on.</strong></li>
+</ul>
+</li>
+<li>Hold the remote near your bulb, closer than 10cm (about 4 inches).</li>
+<li>Press-and-hold both buttons identified in the first step and continue holding them once the bulb begins to blink.
+<ul>
+<li>Expect to hold the buttons for about another 10 seconds while the bulb blinks.</li>
+<li>
+<strong>Lutron Connected Bulb Remote:</strong> The green LED on the remote should also begin to blink slowly.</li>
+</ul>
+</li>
+<li>Release both buttons once the bulb turns off.
+<ul>
+<li>
+<strong>Lutron Connected Bulb Remote:</strong> You can release the buttons after the green LED stops flashing on the remote.</li>
+</ul>
+</li>
+<li>The bulb will turn back on immediately after to indicate the factory-reset is complete.
+<ul>
+<li>The bulb is now ready for pairing to ZHA following normal steps for <a href="#adding-devices">adding devices</a>.</li>
+</ul>
+</li>
+</ol>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>A green light on the top left of the Philips Hue Dimmer Switch remote indicates that your bulb has been successfully reset to factory default settings.</p>
+  </div>
+</div>
+</div>
+  </details>
+</div>
+<p>If you are unable to reset the bulb using a method above, remove it from the Hue Bridge (if it was re-discovered by the Hue Bridge) and try the procedure again.</p>
+<h3>ZHA Start up issue with Home Assistant or Home Assistant Container <a class="title-link" name="zha-start-up-issue-with-home-assistant-or-home-assistant-container" href="#zha-start-up-issue-with-home-assistant-or-home-assistant-container"></a>
+</h3>
+<p>On Linux hosts ZHA can fail to start during HA startup or restarts because the Zigbee USB device is being claimed by the host’s modemmanager service. To fix this disable the modemmanager on the host system.</p>
+<p>To remove modemmanager from a Debian/Ubuntu host run this command:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nb">sudo </span>apt-get purge modemmanager
+</code></pre></div></div>
+<h3>Can’t connect to USB device and using Docker <a class="title-link" name="cant-connect-to-usb-device-and-using-docker" href="#cant-connect-to-usb-device-and-using-docker"></a>
+</h3>
+<p>If you are using Docker and can’t connect, you most likely need to forward your device from the host machine to the Docker instance. This can be achieved by adding the device mapping to the end of the startup string or ideally using Docker compose.</p>
+<h4>Docker Compose <a class="title-link" name="docker-compose" href="#docker-compose"></a>
+</h4>
+<p>Install Docker-Compose for your platform (Linux - <code>sudo apt-get install docker-compose</code>).</p>
+<p>Create a <code>docker-compose.yml</code> with the following data:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">homeassistant</span><span class="pi">:</span>
+    <span class="c1"># customizable name</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">home-assistant</span>
+
+    <span class="c1"># must be image for your platform, this is the rpi3 variant</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">homeassistant/raspberrypi3-homeassistant</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">&lt;DIRECTORY HOLDING HOME ASSISTANT CONFIG FILES&gt;:/config</span>
+      <span class="pi">-</span> <span class="s">/etc/localtime:/etc/localtime:ro</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="c1"># your usb device forwarding to the docker image</span>
+      <span class="pi">-</span> <span class="s">/dev/ttyUSB0:/dev/ttyUSB0</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s">host</span>
+</code></pre></div></div>
+<h3>EZSP error and other log messages <a class="title-link" name="ezsp-error-and-other-log-messages" href="#ezsp-error-and-other-log-messages"></a>
+</h3>
+<h4>NCP entered failed state <a class="title-link" name="ncp-entered-failed-state" href="#ncp-entered-failed-state"></a>
+</h4>
+<p>When you see <code>NCP entered failed state. Requesting APP controller restart</code> in logs during normal operation, it indicates a drop in communication between ZHA and the serial interface of the Silabs EmberZNet Zigbee Coordinator.</p>
+<p>The EZSP (EmberZNet Serial Protocol) interface used by Silicon Labs EmberZNet Zigbee Coordinator adapters requires a stable connection to the serial port; therefore, it is not recommended to use a connection over Wi-Fi, WAN, VPN, etc.</p>
+<h3>Zigbee 3.0 support <a class="title-link" name="zigbee-30-support" href="#zigbee-30-support"></a>
+</h3>
+<p>Some coordinators may not support firmware capable of Zigbee 3.0, but they can still be fully functional and feature-complete for your needs.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>It is up to hardware manufacturers to make such firmware available to them. If your coordinator was shipped with an older firmware version, you be able to manually upgrade the firmware.</p>
+  </div>
+</div>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/zha.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fzha%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20zha" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+zha%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/zha//logo.png' srcset='https://brands.home-assistant.io/_/zha/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=zha' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Zigbee Home Automation  integration  was introduced in Home Assistant 0.44, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          25.6%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:download-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Polling.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/zha" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+zha%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/dmulcahey" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/dmulcahey?size=96" alt="@dmulcahey"/> @dmulcahey</a><br /><a href="https://github.com/adminiuga" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/adminiuga?size=96" alt="@adminiuga"/> @adminiuga</a><br /><a href="https://github.com/puddly" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/puddly?size=96" alt="@puddly"/> @puddly</a><br /><a href="https://github.com/TheJulianJES" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/TheJulianJES?size=96" alt="@TheJulianJES"/> @TheJulianJES</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#introduction">Introduction</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#zigbee-terminology">Zigbee terminology</a></li>
+<li class="toc-entry toc-h3"><a href="#zigbee-concepts">Zigbee concepts</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#compatible-hardware">Compatible hardware</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#recommended-zigbee-radio-adapters-and-modules">Recommended Zigbee radio adapters and modules</a></li>
+<li class="toc-entry toc-h3"><a href="#other-supported-but-not-recommended-zigbee-radio-adapters-or-modules">Other supported but not recommended Zigbee radio adapters or modules</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration-requirements">Configuration requirements</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#zigate-or-sonoff-zbbridge-devices">ZiGate or Sonoff ZBBridge devices</a></li>
+<li class="toc-entry toc-h3"><a href="#global-options">Global Options</a></li>
+<li class="toc-entry toc-h3"><a href="#configuration---yaml">Configuration - YAML</a></li>
+<li class="toc-entry toc-h3"><a href="#ota-updates-of-zigbee-device-firmware">OTA updates of Zigbee device firmware</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#adding-devices">Adding devices</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#using-router-devices-to-add-more-devices">Using router devices to add more devices</a></li>
+<li class="toc-entry toc-h3"><a href="#discovery-via-usb-or-zeroconf">Discovery via USB or Zeroconf</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-zhapermit">Action zha.permit</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zharemove">Action zha.remove</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zhaset_lock_user_code">Action zha.set_lock_user_code</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zhaclear_lock_user_code">Action zha.clear_lock_user_code</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zhaenable_lock_user_code">Action zha.enable_lock_user_code</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zhadisable_lock_user_code">Action zha.disable_lock_user_code</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#zigbee-groups-and-binding-devices">Zigbee groups and binding devices</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#groups">Groups</a></li>
+<li class="toc-entry toc-h3"><a href="#binding">Binding</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#backups-and-migration">Backups and migration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#migrating-to-a-new-zigbee-coordinator-adapter-inside-zha">Migrating to a new Zigbee Coordinator adapter inside ZHA</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#limitations">Limitations</a></li>
+<li class="toc-entry toc-h3"><a href="#knowing-which-devices-are-supported">Knowing which devices are supported</a></li>
+<li class="toc-entry toc-h3"><a href="#how-to-add-support-for-new-and-unsupported-devices">How to add support for new and unsupported devices</a></li>
+<li class="toc-entry toc-h3"><a href="#best-practices-to-avoid-pairingconnection-difficulties">Best practices to avoid pairing/connection difficulties</a></li>
+<li class="toc-entry toc-h3"><a href="#zigbee-interference-avoidance-and-network-rangecoverage-optimization">Zigbee interference avoidance and network range/coverage optimization</a></li>
+<li class="toc-entry toc-h3"><a href="#problems-upgrading-zigbee-device-firmware-via-ota">Problems upgrading Zigbee device firmware via OTA</a></li>
+<li class="toc-entry toc-h3"><a href="#zigbee-network-visualization-in-zha-ui">Zigbee network visualization in ZHA UI</a></li>
+<li class="toc-entry toc-h3"><a href="#reporting-issues">Reporting issues</a></li>
+<li class="toc-entry toc-h3"><a href="#debug-logging">Debug logging</a></li>
+<li class="toc-entry toc-h3"><a href="#add-philips-hue-bulbs-that-have-previously-been-added-to-another-bridge">Add Philips Hue bulbs that have previously been added to another bridge</a></li>
+<li class="toc-entry toc-h3"><a href="#zha-start-up-issue-with-home-assistant-or-home-assistant-container">ZHA Start up issue with Home Assistant or Home Assistant Container</a></li>
+<li class="toc-entry toc-h3"><a href="#cant-connect-to-usb-device-and-using-docker">Can’t connect to USB device and using Docker</a></li>
+<li class="toc-entry toc-h3"><a href="#ezsp-error-and-other-log-messages">EZSP error and other log messages</a></li>
+<li class="toc-entry toc-h3"><a href="#zigbee-30-support">Zigbee 3.0 support</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#alarm'>Alarm</a>
+          </li><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#button'>Button</a>
+          </li><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#device-tracker'>Device tracker</a>
+          </li><li>
+            <a href='/integrations/#fan'>Fan</a>
+          </li><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#lock'>Lock</a>
+          </li><li>
+            <a href='/integrations/#number'>Number</a>
+          </li><li>
+            <a href='/integrations/#select'>Select</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#siren'>Siren</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li><li>
+            <a href='/integrations/#update'>Update</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

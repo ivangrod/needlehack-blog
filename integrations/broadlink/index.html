@@ -1,0 +1,1290 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Broadlink - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on setting up Broadlink within Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/broadlink/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Broadlink">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/broadlink/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on setting up Broadlink within Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Broadlink">
+    <meta name="twitter:description" content="Instructions on setting up Broadlink within Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#entities-and-subdomains">Entities and subdomains</a></li>
+<li class="toc-entry toc-h2"><a href="#climate">Climate</a></li>
+<li class="toc-entry toc-h2"><a href="#remote">Remote</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#learning-commands">Learning commands</a></li>
+<li class="toc-entry toc-h3"><a href="#sending-commands">Sending commands</a></li>
+<li class="toc-entry toc-h3"><a href="#deleting-commands">Deleting commands</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#select">Select</a></li>
+<li class="toc-entry toc-h2"><a href="#sensor">Sensor</a></li>
+<li class="toc-entry toc-h2"><a href="#light">Light</a></li>
+<li class="toc-entry toc-h2"><a href="#time">Time</a></li>
+<li class="toc-entry toc-h2"><a href="#switch">Switch</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#setting-up-custom-irrf-switches">Setting up custom IR/RF switches</a></li>
+<li class="toc-entry toc-h3"><a href="#using-e-control-remotes">Using e-Control remotes</a></li>
+<li class="toc-entry toc-h3"><a href="#using-ios-and-windows-to-obtain-codes">Using iOS and Windows to obtain codes</a></li>
+<li class="toc-entry toc-h3"><a href="#using-windows-to-obtain-codes-with-broadlink-manager">Using Windows to obtain codes with Broadlink Manager</a></li>
+<li class="toc-entry toc-h3"><a href="#using-node-red-to-obtain-codes">Using Node-RED to obtain codes</a></li>
+<li class="toc-entry toc-h3"><a href="#using-node-red-to-transmit-codes">Using Node-RED to transmit codes</a></li>
+<li class="toc-entry toc-h3"><a href="#using-broadlink_cli-to-obtain-codes">Using broadlink_cli to obtain codes</a></li>
+<li class="toc-entry toc-h3"><a href="#conversion-of-codes-from-other-projects">Conversion of codes from other projects</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Broadlink
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <strong>Broadlink</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> allows you to control and monitor Broadlink universal remotes, smart plugs, power strips, switches and sensors.</p>
+<p>The manufacturer’s app is required in order to connect new devices to the network.</p>
+<p>The following devices are supported:</p>
+<ul>
+<li>Thermostats: <code>Hysen HY02B05H</code> and <code>Floureon HY03WE</code>
+</li>
+<li>Power Strips: <code>MP1-1K3S2U</code> and <code>MP1-1K4S</code>
+</li>
+<li>Sensors: <code>e-Sensor</code>
+</li>
+<li>Smart Plugs: <code>SP mini</code>, <code>SP mini+</code>, <code>SP mini 3</code>, <code>SP1</code>, <code>SP2</code>, <code>SP2-CL</code>, <code>SP2-UK/BR/IN</code>, <code>SP3</code>, <code>SP3-EU</code>, <code>SP3S-EU</code>, <code>SP3S-US</code>, <code>SP4L-EU</code> and <code>SP4M-US</code>
+</li>
+<li>Universal Remotes: <code>RM mini</code>, <code>RM mini 3</code>, <code>RM pro</code>, <code>RM pro+</code>, <code>RM plus</code>, <code>RM4 mini</code>, <code>RM4 pro</code>, <code>RM4C mini</code>, <code>RM4C pro</code> and <code>RM4 TV mate</code>
+</li>
+<li>Wi-Fi Controlled Switches: <code>BG1</code>, <code>SC1</code>
+</li>
+<li>Smart Light Bulbs: <code>LB1</code>,<code>LB2</code>
+</li>
+</ul>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Broadlink</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=broadlink" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>Broadlink can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=broadlink" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Broadlink</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h2>Entities and subdomains <a class="title-link" name="entities-and-subdomains" href="#entities-and-subdomains"></a>
+</h2>
+<p>There is no more need to set up platforms, except for custom IR/RF switches. Once the device is configured, all entities will be created automatically.</p>
+<p>The <span class="terminology">entities<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> have the same name as the device by default. To change the name, icon or entity id, select the entity on the frontend and select the settings icon in the upper right. You can also disable the entity there if you don’t think it is useful. Don’t forget to select <strong>Update</strong> to save your changes when you’re done.</p>
+<p>The <span class="terminology">entities<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> are divided into four subdomains:</p>
+<ul>
+<li><a href="#climate">Climate</a></li>
+<li><a href="#remote">Remote</a></li>
+<li><a href="#select">Select</a></li>
+<li><a href="#sensor">Sensor</a></li>
+<li><a href="#switch">Switch</a></li>
+<li><a href="#light">Light</a></li>
+<li><a href="#time">Time</a></li>
+</ul>
+<h2>Climate <a class="title-link" name="climate" href="#climate"></a>
+</h2>
+<p>The <code>climate</code> entities allow you to monitor and control Broadlink thermostats.</p>
+<h2>Remote <a class="title-link" name="remote" href="#remote"></a>
+</h2>
+<p>The <code>remote</code> <span class="terminology">entities<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> allow you to learn and send codes with universal remotes. They are created automatically when you configure devices with IR/RF capabilities.</p>
+<h3>Learning commands <a class="title-link" name="learning-commands" href="#learning-commands"></a>
+</h3>
+<p>Use <code>remote.learn_command</code> to learn IR and RF codes. These codes are grouped by device and stored as commands in the <a href="#learned-codes-storage-location">storage folder</a>. They can be sent with the <code>remote.send_command</code> action later.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>ID of the remote.</td>
+</tr>
+<tr>
+<td><code>device</code></td>
+<td>no</td>
+<td>Name of the device to be controlled.</td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>no</td>
+<td>Names of the commands to be learned.</td>
+</tr>
+<tr>
+<td><code>command_type</code></td>
+<td>yes</td>
+<td>Command type. <code>ir</code> (default) or <code>rf</code>.</td>
+</tr>
+<tr>
+<td><code>alternative</code></td>
+<td>yes</td>
+<td>Toggle command indicator.</td>
+</tr>
+</tbody>
+</table>
+<h4>Learning IR codes <a class="title-link" name="learning-ir-codes" href="#learning-ir-codes"></a>
+</h4>
+<p>To learn IR codes, call <code>remote.learn_command</code> with the device name and command to be learned:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">learn_tv_power</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.learn_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device</span><span class="pi">:</span> <span class="s">television</span>
+          <span class="na">command</span><span class="pi">:</span> <span class="s">power</span>
+</code></pre></div></div>
+<p>When the LED blinks, point the remote at the Broadlink device and press the button you want to learn.</p>
+<p>After this, you can call <code>remote.send_command</code> with the same data to send the code. You can also access the code in the storage folder to build a custom IR/RF switch or send it with the prefix <code>b64:</code>.</p>
+<h4>Learning RF codes <a class="title-link" name="learning-rf-codes" href="#learning-rf-codes"></a>
+</h4>
+<p>Learning RF codes takes place in two steps. First call <code>remote.learn_command</code> with the <code>command_type: rf</code> option:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">learn_car_unlock</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.learn_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.garage</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device</span><span class="pi">:</span> <span class="s">car</span>
+          <span class="na">command</span><span class="pi">:</span> <span class="s">unlock</span>
+          <span class="na">command_type</span><span class="pi">:</span> <span class="s">rf</span>
+</code></pre></div></div>
+<p>When the LED blinks for the first time, press and hold the button to sweep the frequency. Then wait for the LED to blink again and press the button a second time to capture the code.</p>
+<p>The codes will be stored in the same way as the IR codes. You don’t need to specify <code>command_type</code> to send them because this information is stored in the first byte of the code.</p>
+<p><em>Tip:</em> Click Notifications in the sidebar after using the action and follow the instructions to make sure you are pressing the button at the right time.</p>
+<h4>Learning a sequence of commands <a class="title-link" name="learning-a-sequence-of-commands" href="#learning-a-sequence-of-commands"></a>
+</h4>
+<p>In order to streamline the learning process, you may want to provide a list of commands to be learned sequentially:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">learn_tv_commands</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.learn_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device</span><span class="pi">:</span> <span class="s">television</span>
+          <span class="na">command</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">turn on</span>
+            <span class="pi">-</span> <span class="s">turn off</span>
+            <span class="pi">-</span> <span class="s">volume up</span>
+            <span class="pi">-</span> <span class="s">volume down</span>
+</code></pre></div></div>
+<p>After using this action, you will be prompted to press the buttons in the same order as provided. Check the notifications to stay on track and make sure you are pressing the right button at the right time.</p>
+<h4>Learning an alternative code <a class="title-link" name="learning-an-alternative-code" href="#learning-an-alternative-code"></a>
+</h4>
+<p>Some protocols require a toggle bit to distinguish one button press from another. In such cases, learning an alternative code will significantly increase the response rate of the device.</p>
+<p>The toggle bit is common when a button is used for multiple purposes, such as the power button, which can turn the television on and off, and the volume button, which can be used with a short press or a long press.</p>
+<p>If the code works sometimes, and sometimes it doesn’t, you can try to relearn it with the <code>alternative: true</code> option:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">learn_tv_power_button</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.learn_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device</span><span class="pi">:</span> <span class="s">television</span>
+          <span class="na">command</span><span class="pi">:</span> <span class="s">power</span>
+          <span class="na">alternative</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<p>When the LED blinks for the first time, press the button you want to learn. Then wait for the LED to blink again and press the same button. By doing so, two different codes will be learned for the same command, and they will be sent alternately at each call.</p>
+<h4>Learned codes storage location <a class="title-link" name="learned-codes-storage-location" href="#learned-codes-storage-location"></a>
+</h4>
+<p>The learned codes are stored in <code>/config/.storage/</code> in a JSON file called <code>broadlink_remote_MACADDRESS_codes</code>. You can open this file with a text editor and copy the codes to set up <a href="#setting-up-custom-irrf-switches">custom IR/RF switches</a> or to send them as <a href="#sending-a-base64-code">base64 codes</a>, but beware: the files in the .storage folder <em>should never be edited manually</em>.</p>
+<h3>Sending commands <a class="title-link" name="sending-commands" href="#sending-commands"></a>
+</h3>
+<p>After learning IR and RF codes with the <code>remote.learn_command</code> action, you can use <code>remote.send_command</code> to send them. You can also use this action to send base64 codes taken from elsewhere.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>ID of the remote.</td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>no</td>
+<td>Names of the commands to be sent or base64 codes prefixed with <code>b64:</code>.</td>
+</tr>
+<tr>
+<td><code>device</code></td>
+<td>yes</td>
+<td>Name of the device to be controlled (optional for base64 codes).</td>
+</tr>
+<tr>
+<td><code>num_repeats</code></td>
+<td>yes</td>
+<td>Number of times to repeat the commands.</td>
+</tr>
+<tr>
+<td><code>delay_secs</code></td>
+<td>yes</td>
+<td>Interval in seconds between one send and another.</td>
+</tr>
+</tbody>
+</table>
+<h4>Sending a command <a class="title-link" name="sending-a-command" href="#sending-a-command"></a>
+</h4>
+<p>To send a command that you’ve learned, call <code>remote.send_command</code> with the device name and the command to be sent:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">tv_power</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device</span><span class="pi">:</span> <span class="s">television</span>
+          <span class="na">command</span><span class="pi">:</span> <span class="s">power</span>
+</code></pre></div></div>
+<h4>Sending a command repeatedly <a class="title-link" name="sending-a-command-repeatedly" href="#sending-a-command-repeatedly"></a>
+</h4>
+<p>Use <code>num_repeats:</code> to send the same command multiple times:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">turn_up_tv_volume_20</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device</span><span class="pi">:</span> <span class="s">television</span>
+          <span class="na">command</span><span class="pi">:</span> <span class="s">volume up</span>
+          <span class="na">num_repeats</span><span class="pi">:</span> <span class="m">20</span>
+</code></pre></div></div>
+<h4>Sending a sequence of commands <a class="title-link" name="sending-a-sequence-of-commands" href="#sending-a-sequence-of-commands"></a>
+</h4>
+<p>You can provide a list of commands to be sent sequentially:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">turn_on_ac</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device</span><span class="pi">:</span> <span class="s">air conditioner</span>
+          <span class="na">command</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">turn on</span>
+            <span class="pi">-</span> <span class="s">turn off display</span>
+</code></pre></div></div>
+<h4>Sending a base64 code <a class="title-link" name="sending-a-base64-code" href="#sending-a-base64-code"></a>
+</h4>
+<p>Sometimes you may want to send a base64 code obtained elsewhere. Use the <code>b64:</code> prefix for this:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">turn_on_tv</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">command</span><span class="pi">:</span> <span class="s">b64:JgAcAB0dHB44HhweGx4cHR06HB0cHhwdHB8bHhwADQUAAAAAAAAAAAAAAAA=</span>
+</code></pre></div></div>
+<h4>Sending a sequence of base64 codes <a class="title-link" name="sending-a-sequence-of-base64-codes" href="#sending-a-sequence-of-base64-codes"></a>
+</h4>
+<p>You can send a sequence of base64 codes just like normal commands:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">turn_on_ac</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">command</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">b64:JgAcAB0dHB44HhweGx4cHR06HB0cHhwdHB8bHhwADQUAAAAAAAAAAAAAAAA=</span>
+            <span class="pi">-</span> <span class="s">b64:JgAaABweOR4bHhwdHB4dHRw6HhsdHR0dOTocAA0FAAAAAAAAAAAAAAAAAAA=</span>
+</code></pre></div></div>
+<h4>Mixing commands and base64 codes <a class="title-link" name="mixing-commands-and-base64-codes" href="#mixing-commands-and-base64-codes"></a>
+</h4>
+<p>You can mix commands and base64 codes:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">turn_on_ac</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device</span><span class="pi">:</span> <span class="s">television</span>
+          <span class="na">command</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">turn on</span>
+            <span class="pi">-</span> <span class="s">b64:JgAaABweOR4bHhwdHB4dHRw6HhsdHR0dOTocAA0FAAAAAAAAAAAAAAAAAAA=</span>
+</code></pre></div></div>
+<h3>Deleting commands <a class="title-link" name="deleting-commands" href="#deleting-commands"></a>
+</h3>
+<p>You can use <code>remote.delete_command</code> to remove commands that you’ve learned with the <code>remote.learn_command</code> action.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>ID of the remote.</td>
+</tr>
+<tr>
+<td><code>device</code></td>
+<td>no</td>
+<td>Name of the device.</td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>no</td>
+<td>Names of the commands to be deleted.</td>
+</tr>
+</tbody>
+</table>
+<h4>Deleting a command <a class="title-link" name="deleting-a-command" href="#deleting-a-command"></a>
+</h4>
+<p>To delete a command, call <code>remote.delete_command</code> with the device name and the command to be deleted:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">delete_tv_power</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.delete_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device</span><span class="pi">:</span> <span class="s">television</span>
+          <span class="na">command</span><span class="pi">:</span> <span class="s">power</span>
+</code></pre></div></div>
+<h4>Deleting multiple commands <a class="title-link" name="deleting-multiple-commands" href="#deleting-multiple-commands"></a>
+</h4>
+<p>You can provide a list of commands to be deleted:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">delete_tv_commands</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">remote.delete_command</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device</span><span class="pi">:</span> <span class="s">television</span>
+          <span class="na">command</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">power</span>
+            <span class="pi">-</span> <span class="s">source</span>
+            <span class="pi">-</span> <span class="s">menu</span>
+</code></pre></div></div>
+<h2>Select <a class="title-link" name="select" href="#select"></a>
+</h2>
+<p>The <code>select</code> <span class="terminology">entities<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> allow you to control the weekday of your Broadlink devices. These entities are created automatically when you configure supported devices.</p>
+<h2>Sensor <a class="title-link" name="sensor" href="#sensor"></a>
+</h2>
+<p>The <code>sensor</code> <span class="terminology">entities<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> allow you to monitor Broadlink sensors. These entities are created automatically when you configure a device that has sensors.</p>
+<h2>Light <a class="title-link" name="light" href="#light"></a>
+</h2>
+<p>The <code>light</code> <span class="terminology">entities<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> allow you to control Broadlink lights. You can turn them on and off, change brightness, adjust the color or set a color temperature. These entities are created automatically when you configure a device that has lights.</p>
+<h2>Time <a class="title-link" name="time" href="#time"></a>
+</h2>
+<p>The <code>time</code> <span class="terminology">entities<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> allow you to control the time of Broadlink devices. These entities are created automatically when you configure supported devices.</p>
+<h2>Switch <a class="title-link" name="switch" href="#switch"></a>
+</h2>
+<p>The <code>switch</code> <span class="terminology">entities<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> allow you to control and monitor Broadlink smart plugs, power strips and switches. You can turn them on and off, and you can monitor their state and power consumption, when available. These entities are created automatically when you configure a device that has switches.</p>
+<p>You can also define custom IR/RF switches to be controlled with universal remote devices.</p>
+<h3>Setting up custom IR/RF switches <a class="title-link" name="setting-up-custom-irrf-switches" href="#setting-up-custom-irrf-switches"></a>
+</h3>
+<p>The first step is to configure the device normally via the configuration flow. Then add these lines to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">switch</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">broadlink</span>
+    <span class="na">mac</span><span class="pi">:</span> <span class="s">MAC_ADDRESS</span>
+    <span class="na">switches</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Philips TV</span>
+        <span class="na">command_on</span><span class="pi">:</span> <span class="s">JgAcAB0dHB44HhweGx4cHR06HB0cHhwdHB8bHhwADQUAAAAAAAAAAAAAAAA=</span>
+        <span class="na">command_off</span><span class="pi">:</span> <span class="s">JgAaABweOR4bHhwdHB4dHRw6HhsdHR0dOTocAA0FAAAAAAAAAAAAAAAAAAA=</span>
+</code></pre></div></div>
+<p>The above example creates <code>switch.philips_tv</code>, which sends IR/RF codes using the universal remote with the MAC address provided.</p>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="broadlink-configuration-variables" href="#broadlink-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> mac </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="mac" class="title-link" href="#mac"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The MAC address of the universal remote.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> switches </span><span class="config-vars-type">list</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="switches" class="title-link" href="#switches"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The list that contains all custom switches.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The name of the switch.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> command_on </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="command_on" class="title-link" href="#command_on"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A base64 code to be sent as “turn on” command.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> command_off </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="command_off" class="title-link" href="#command_off"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A base64 code to be sent as “turn off” command.</p>
+</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>You can configure multiple switches for the same remote:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">switch</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">broadlink</span>
+    <span class="na">mac</span><span class="pi">:</span> <span class="s">MAC_ADDRESS</span>
+    <span class="na">switches</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Philips TV</span>
+        <span class="na">command_on</span><span class="pi">:</span> <span class="s">JgAcAB0dHB44HhweGx4cHR06HB0cHhwdHB8bHhwADQUAAAAAAAAAAAAAAAA=</span>
+        <span class="na">command_off</span><span class="pi">:</span> <span class="s">JgAaABweOR4bHhwdHB4dHRw6HhsdHR0dOTocAA0FAAAAAAAAAAAAAAAAAAA=</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">LG TV</span>
+        <span class="na">command_on</span><span class="pi">:</span> <span class="s">JgBYAAABIJISExETETcSEhISEhQQFBETETcROBESEjcRNhM1EjcTNRMTERISNxEUERMSExE2EjYSNhM2EhIROBE3ETcREhITEgAFGwABH0oSAAwzAAEfShEADQU=</span>
+        <span class="na">command_off</span><span class="pi">:</span> <span class="s">JgBYAAABIJISExETETcSEhISEhQQFBETETcROBESEjcRNhM1EjcTNRMTERISNxEUERMSExE2EjYSNhM2EhIROBE3ETcREhITEgAFGwABH0oSAAwzAAEfShEADQU=</span>
+</code></pre></div></div>
+<p>The above example creates <code>switch.philips_tv</code> and <code>switch.lg_tv</code>, which are related to the same universal remote.</p>
+<p><strong>IMPORTANT</strong>: Always use unique names for your switches. A good choice is to prefix the name with the area in which the device is located, e.g. Bedroom TV.</p>
+<h3>Using e-Control remotes <a class="title-link" name="using-e-control-remotes" href="#using-e-control-remotes"></a>
+</h3>
+<p>If you already have your remotes learned on e-Control app you can use this method to “copy” them to Home Assistant.</p>
+<p>First get or learn all the remotes you want to add to Home Assistant in e-Control</p>
+<ol>
+<li>
+<p>Download</p>
+<p>Get the script from <a href="https://github.com/clach04/Broadlink-e-control-db-dump" rel="external nofollow">here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+</li>
+<li>
+<p>Dump the data from the app</p>
+<p>Open the e-Control app on your mobile device. On the left side menu choose “Share” and then “Share to other phones in WLAN”. It will generate the files you will need for the script.</p>
+</li>
+<li>
+<p>Get data from your Android device</p>
+<p>Connect your Android device to your computer and browse the SD card/External Storage folder “/broadlink/newremote/SharedData/”. You need to get the following files and put them in the same folder as this script:</p>
+<p>jsonSubIr
+jsonButton
+jsonIrCode</p>
+</li>
+<li>
+<p>Install Requirements</p>
+<p>Run <code>pip install simplejson</code>. You must install <code>simplejson</code> in the same Python version you will use to run the scripts. You can ensure that the current version is installed by attempting to install again and confirming that you see “Requirement already satisfied”.</p>
+</li>
+<li>
+<p>Get the data from the device</p>
+<p>Navigate to the folder you downloaded and run <code>python getBroadlinkSharedData.py</code>. Follow the steps on screen. NOTE: These scripts were only tested with Python 2.7.</p>
+</li>
+<li>
+<p>Install python-broadlink library:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">git clone https://github.com/mjg59/python-broadlink.git
+<span class="nb">cd </span>python-broadlink
+<span class="nb">sudo </span>python setup.py <span class="nb">install</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Test the codes
+Use the <code>sendcode</code> script you have already downloaded to test the codes you got from the device.
+You need to edit the script with your RM Pro IP Address and MAC Address and with the code in HEX format.
+When run the script, you know the code works when get message.
+Code sent…
+Not every code works.</p>
+</li>
+<li>
+<p>Convert the HEX codes to base64.
+Use <a href="https://tomeko.net/online_tools/hex_to_base64.php?lang=en1" rel="external nofollow">this<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> tool to convert the hex codes to base64 for use with Home Assistant.</p>
+</li>
+</ol>
+<h3>Using iOS and Windows to obtain codes <a class="title-link" name="using-ios-and-windows-to-obtain-codes" href="#using-ios-and-windows-to-obtain-codes"></a>
+</h3>
+<ol>
+<li>
+<p>Use the e-Control app to learn the codes from all of your suitable remotes. Depending on the remote, try to add useful names for the buttons and/or the remotes. This will mean that you should only have to run this process once and will help with getting them quickly into Home Assistant. Dump the files in the app by navigating to the hamburger icon, select <code>share and select</code>, then choose <code>Share to other phones on WLAN</code>.</p>
+</li>
+<li>
+<p>Install Requirements</p>
+<ul>
+<li>Download and install Python 2.7 on your windows PC.</li>
+<li>Run <code>pip install simplejson</code>. You must install <code>simplejson</code> in the same Python version you will use to run the scripts. You can ensure that the current version is installed by attempting to install again and confirming that you see “Requirement already satisfied”.</li>
+<li>Download and install <a href="https://www.imactools.com/iphonebackupviewer/" rel="external nofollow">iBackup Viewer<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+<li>Download <a href="https://github.com/NightRang3r/Broadlink-e-control-db-dump" rel="external nofollow">these<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> GitHub files. Make sure you place them in the \Python27 path in Windows. Be sure that the getBroadlinkSharedData.py from the download is in this directory.</li>
+</ul>
+</li>
+<li>
+<p>Plug your iPhone into your Windows PC, open iTunes and create a non-encrypted backup of your device.</p>
+</li>
+<li>
+<p>Open iBackup viewer then select the iOS backup that you created. Navigate to the App icon and then scroll until you find e-control.app, select this. Select and extract the files jsonButton, jsonIrCode and jsonSublr; they will be located in the Documents/SharedData section. Put these in the same location as the getBroadlinkSharedData.py.</p>
+</li>
+<li>
+<p>Now open a Command Prompt and navigate to the directory where the aforementioned files are located e.g., <code>C:\Python27</code>. Now run the command <code>python getBroadlinkSharedData.py</code>, you should see something like this:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">C:<span class="se">\P</span>ython27&gt;python getBroadlinkSharedData.py
+ID: 1 | Name: TV
+ID: 2 | Name: Upstairs
+ID: 3 | Name: Sort <span class="k">in </span>order
+ID: 4 | Name: Soundbar
+ID: 5 | Name: TV
+ID: 6 | Name: Xbox One
+ID: 7 | Name: User-Defined Aircon
+ID: 8 | Name: Sort <span class="k">in </span>order
+ID: 9 | Name: User-Defined Aircon
+ID: 10 | Name: Kids Fan
+ID: 11 | Name: Downstairs
+ID: 12 | Name: Ceiling Fan
+ID: 13 | Name: Samsung TV
+ID: 14 | Name: Xbox One
+ID: 15 | Name: SONY SoundBar
+ID: 16 | Name: Fire TV
+ID: 17 | Name: New RF Remote
+</code></pre></div></div>
+<p>Select the remote ID you would like to extract:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">Select accessory ID: 5
+<span class="o">[</span>+] You selected:  TV
+<span class="o">[</span>+] Dumping codes to TV.txt
+</code></pre></div></div>
+</li>
+<li>
+<p>Now there should be a file with the name of the remote you chose in the same directory ending in <code>.txt</code>. Open that up and it will contain the Base64 code required for Home Assistant. To ensure these codes work correctly you may need to add <code>==</code> to the end of the code in your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file (or wherever you have your switches).</p>
+</li>
+</ol>
+<h3>Using Windows to obtain codes with Broadlink Manager <a class="title-link" name="using-windows-to-obtain-codes-with-broadlink-manager" href="#using-windows-to-obtain-codes-with-broadlink-manager"></a>
+</h3>
+<ol>
+<li>Install Broadlink Manager from this SourceForge link <a href="https://sourceforge.net/projects/broadlink-manager/" rel="external nofollow">here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+<li>Open the application and hit “scan” to activate your broadlink device.</li>
+<li>Hit “Learn New Command” and follow instructions on screen.</li>
+<li>The “OnRawData Base64” is the value to be used with Home Assistant.</li>
+</ol>
+<h3>Using Node-RED to obtain codes <a class="title-link" name="using-node-red-to-obtain-codes" href="#using-node-red-to-obtain-codes"></a>
+</h3>
+<ol>
+<li>
+<p>Install the Broadlink Control palette in Node-RED (click the Hamburger menu at top right corner&gt; Settings&gt; Palette&gt; Install and type Broadlink. Click install on the node-red-contrib-broadlink-control.</p>
+</li>
+<li>
+<p>Once installed, verify that the new palette titled broadlink is available in the nodes menu.</p>
+</li>
+<li>
+<p>Drag the RM node to an empty flow and double click to configure the node.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">a. give your RM device a name <span class="k">for </span>easy identification
+b. click on the pencil to edit the device information
+c. enter the MAC address of the Broadlink RM PRO or RM Mini
+d. enter the IP address of the Broadlink RM PRO or RM mini
+e. leave the Catalog field empty.
+</code></pre></div></div>
+</li>
+<li>
+<p>Click Update, and the device field should show the MAC address of the newly added device. If not, just select it.</p>
+</li>
+<li>
+<p>In the Action field, select Learn, then click Done.</p>
+</li>
+<li>
+<p>Drag an Inject node to the left of the RM node and link them. The type of inject doesn’t matter. Leave it to the defaults.</p>
+</li>
+<li>
+<p>Drag a Template node on the Flow to the right of the RM node and link it to the RM node.</p>
+</li>
+<li>
+<p>Double click the Template node to edit it, select:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">Property: msg.payload
+Format: Mustache template
+Template field: enter <span class="s1">'{{payload.data}}'</span><span class="nb">.</span>
+Output as: Plain text
+</code></pre></div></div>
+</li>
+<li>
+<p>Drag a Debug node to the right of the Template node and link them.</p>
+</li>
+<li>
+<p>Show the debug messages, deploy the flow and click on the inject button.</p>
+</li>
+<li>
+<p>A message will show in the debug window:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">3/23/2019, 9:56:53 AMnode: RM_Mini1
+msg : string[47]
+<span class="s2">"Please tap the remote button within 30 seconds."</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Point the IR remote control at the RM device and click the desired button for about 2 seconds. An array of numbers will show in the debug window. For example:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="s1">'38,0,132,3,19,18,19,18,19,18,19,17,20,54,20,54,20,54,19,18,19,18,19,18,19,17,20,17,20,17,20,54,20,17,19,18,19,18,19,18,19,17,20,17,20,54,20,17,20,54,19,55,19,54,20,54,20,54,19,55,19,0,6,6,150,146,20,54,20,54,20,54,19,18,19,18,19,18,19,17,20,17,20,54,20,54,19,55,19,18,19,17,20,17,20,17,20,17,20,17,20,54,19,18,19,18,19,18,19,17,20,17,20,17,20,54,19,18,19,55,19,54,20,54,20,54,20,54,19,55,19,0,6,6,150,146,20,54,20,54,19,55,19,18,19,17,20,17,20,17,20,17,20,54,19,55,19,54,20,17,20,17,20,17,20,17,20,17,19,18,19,55,19,17,20,17,20,17,20,17,20,17,19,18,19,55,19,18,19,54,20,54,20,54,19,55,19,54,20,54,20,0,6,5,150,146,20,54,20,54,20,54,19,18,19,18,19,18,19,17,20,17,20,54,20,54,19,55,19,18,19,17,20,17,20,17,20,17,20,17,20,54,19,18,19,18,19,18,19,17,20,17,20,17,20,54,19,18,19,55,19,54,20,54,20,54,19,55,19,54,20,0,6,6,149,147,20,54,19,55,19,54,20,17,20,17,20,17,20,17,20,17,19,55,19,54,20,54,20,17,20,17,20,17,19,18,19,18,19,18,19,54,20,17,20,17,20,17,20,17,19,18,19,18,19,54,20,17,20,54,20,54,20,54,19,...'</span>
+</code></pre></div></div>
+</li>
+</ol>
+<p>This is the code we need to transmit again to replicate the same remote function.</p>
+<h3>Using Node-RED to transmit codes <a class="title-link" name="using-node-red-to-transmit-codes" href="#using-node-red-to-transmit-codes"></a>
+</h3>
+<ol>
+<li>
+<p>Drag another RM node on the same flow we created earlier. The RM node should be configured to the RM device created earlier by default.</p>
+</li>
+<li>
+<p>In the Action field, select - Set from msg.payload -.</p>
+</li>
+<li>
+<p>Drag an Inject node and give it a meaningful name relevant to the remote control button function, like “TV On” or “TV Source”.</p>
+</li>
+<li>
+<p>Drag a template node and double click it to configure:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">Property: msg.payload
+Format: Mustache template
+Template: enter the following:
+<span class="s1">'{
+   "action" : "send",
+   "data" : [ 38, 0, 34, 1, 40, 15, 40, 15 ] // Here you must enter the entire code from point 12 above, without the trailing "."
+}'</span>
+In the Output as field, <span class="s2">"select Parsed JSON"</span><span class="nb">.</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Click Done.</p>
+</li>
+<li>
+<p>Drag a debug node and connect it to the output of the RM node.</p>
+</li>
+<li>
+<p>Connect the Inject node to the Template node, and the template node to the RM node.</p>
+</li>
+<li>
+<p>Click Deploy to activate the flow, and then click the inject button. The debug window should show a debug message. For example:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="o">{</span><span class="s2">"action"</span>:<span class="s2">"send"</span>,<span class="s2">"data"</span>:   <span class="o">[</span>38,0,152,0,0,1,39,148,19,18,18,19,18,55,19,18,18,19,18,19,18,19,18,55,18,56,18,19,18,55,18,19,18,56,18,18,19,55,18,19,18,19,18,18,18,56,18,19,18,18,19,55,18,56,18,18,19,18,18,19,18,19,18,55,19,18,18,19,18,19,18,19,18,18,18,19,18,19,18,55,19,55,18,19,18,19,18,18,19,18,18,56,18,19,18,18,19,55,18,56,18,18,19,18,18,19,18,19,18,19,18,18,19,18,18,56,18,55,18,19,18,19,18,19,18,18,19,55,18,19,18,55,19,18,18,56,18,19,18,18,19,18,18,19,18,19,18,19,18,18,18,56,18,0,13,5],<span class="s2">"status"</span>:<span class="s2">"OK"</span><span class="o">}</span>
+</code></pre></div></div>
+</li>
+</ol>
+<p>The “status” : “OK” at the end is a feedback that the Broadlink RM device is connected and has transmitted the payload.</p>
+<p>Now you can add as many template nodes, each having a specific code, and add any type of input nodes to activate the template and transmit the code.</p>
+<h3>Using broadlink_cli to obtain codes <a class="title-link" name="using-broadlink_cli-to-obtain-codes" href="#using-broadlink_cli-to-obtain-codes"></a>
+</h3>
+<p>It is also possible to obtain codes using <code>broadlink_cli</code> from <a href="https://github.com/mjg59/python-broadlink" rel="external nofollow">python-broadlink<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> project.</p>
+<p>First use discovery to find your Broadlink device:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nv">$ </span>./broadlink_discovery
+Discovering...
+<span class="c">###########################################</span>
+RM2
+<span class="c"># broadlink_cli --type 0x2787 --host 192.168.1.137 --mac 34ea34b45d2c</span>
+Device file data <span class="o">(</span>to be used with <span class="nt">--device</span> @filename <span class="k">in </span>broadlink_cli<span class="o">)</span> :
+0x2787 192.168.1.137 34ea34b45d2c
+temperature <span class="o">=</span> 27.1
+</code></pre></div></div>
+<p>Then use this info in a cli-command. IR and RF learning are supported.</p>
+<h4>Learning IR codes <a class="title-link" name="learning-ir-codes-1" href="#learning-ir-codes-1"></a>
+</h4>
+<p>Use <code>--learn</code> to obtain IR codes:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">./broadlink_cli <span class="nt">--learn</span> <span class="nt">--device</span> <span class="s2">"0x2787 192.168.1.137 34ea34b45d2c"</span>
+Learning...
+</code></pre></div></div>
+<p>Press a button on the remote and you get the code:</p>
+<div class="language-txt highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="txt">260058000001219512131114113910141114111411141114103911391114103911391139103911391039113911141039111411391015103911141114113910141139111410391114110005250001274b11000c520001274b11000d05
+Base64: b'JgBYAAABIZUSExEUETkQFBEUERQRFBEUEDkROREUEDkRORE5EDkRORA5ETkRFBA5ERQRORAVEDkRFBEUETkQFBE5ERQQOREUEQAFJQABJ0sRAAxSAAEnSxEADQU='
+</code></pre></div></div>
+<h4>Learning RF codes <a class="title-link" name="learning-rf-codes-1" href="#learning-rf-codes-1"></a>
+</h4>
+<p>Use <code>--rfscanlearn</code> to obtain RF codes:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nv">$ </span>./broadlink_cli <span class="nt">--rfscanlearn</span> <span class="nt">--device</span> <span class="s2">"0x2787 192.168.1.137 34ea34b45d2c"</span>
+Learning RF Frequency, press and hold the button to learn...
+</code></pre></div></div>
+<p>Press and hold a button on the remote.</p>
+<p>You will know it succeeded when you see the following text:</p>
+<div class="language-txt highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="txt">Found RF Frequency - 1 of 2!
+You can now let go of the button
+Press enter to continue...
+</code></pre></div></div>
+<p>If the attempt fails, you will see the error:</p>
+<div class="language-txt highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="txt">RF Frequency not found
+</code></pre></div></div>
+<p>If a failure occurs, you may need to simply keep pressing the button during the <code>Learning RF Frequency</code> step, as some remotes appear to not continuously transmit when buttons are held.</p>
+<p>After a success, do one of the following two options:</p>
+<ol>
+<li>
+<p>To learn a single button press RF code, press enter and follow the prompt:</p>
+<div class="language-txt highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="txt">To complete learning, single press the button you want to learn
+</code></pre></div></div>
+<p>Short press the button and you get the code:</p>
+<div class="language-txt highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="txt">Found RF Frequency - 2 of 2!
+b2002c0111211011211121112111212110112122101121112111202210211121112110221011211121112121102210112121111021112221101121211100017b10211111211121102111212210112121111121102111212210211121102210211111211121102122102111112121101121112122101121211000017c10211111211022102111212210112121111022102112202210211121102210221011211022102122102210112121101122102122101121211100017b10211111211121102210212210112122101121102210212210221021112110221011211121112121102210112121111121102122101121221000017b1121101121112111211121211110212210112111211121211121102210211121101121112111212111211011222110112111212111112121100005dc000000000000000000000000
+Base64: b'sgAsAREhEBEhESERIREhIRARISIQESERIREgIhAhESERIRAiEBEhESERISEQIhARISERECERIiEQESEhEQABexAhEREhESEQIREhIhARISERESEQIREhIhAhESEQIhAhEREhESEQISIQIRERISEQESERISIQESEhEAABfBAhEREhECIQIREhIhARISERECIQIRIgIhAhESEQIhAiEBEhECIQISIQIhARISEQESIQISIQESEhEQABexAhEREhESEQIhAhIhARISIQESEQIhAhIhAiECERIRAiEBEhESERISEQIhARISERESEQISIQESEiEAABexEhEBEhESERIREhIREQISIQESERIREhIREhECIQIREhEBEhESERISERIRARIiEQESERISERESEhEAAF3AAAAAAAAAAAAAAAAA=='
+</code></pre></div></div>
+</li>
+<li>
+<p>To learn a button hold RF code, hold the button you wish to learn for 1-2 seconds then immediately press enter.</p>
+<ul>
+<li>You will see the same prompts for a short press as shown above. You should see it return a different base64 code.</li>
+<li>Test the base64 code to ensure it performs the button ‘hold’ command as expected, rather than the button ‘press’ command.</li>
+<li>This might take some trial and error to get the hold timing right before hitting enter to scan for the code.</li>
+</ul>
+</li>
+</ol>
+<h3>Conversion of codes from other projects <a class="title-link" name="conversion-of-codes-from-other-projects" href="#conversion-of-codes-from-other-projects"></a>
+</h3>
+<p>For old/awkward devices another possibility is to try to get codes by using data gathered by the LIRC project.</p>
+<p>Assuming that your (or similar) device is in one of these databases:</p>
+<ul>
+<li><a href="https://sourceforge.net/p/lirc-remotes/code/ci/master/tree/" rel="external nofollow">https://sourceforge.net/p/lirc-remotes/code/ci/master/tree/<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://github.com/probonopd/irdb/tree/master/" rel="external nofollow">https://github.com/probonopd/irdb/tree/master/<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<p>You can grab <code>irdb2broadlinkha.sh</code> from <a href="https://github.com/molexx/irdb2broadlinkha" rel="external nofollow">irdb2broadlinkha<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> project and try to convert codes to format suitable for Home Assistant.</p>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    <li>
+      <a href="/docs/configuration/" class="topic">
+        Configuration file
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/broadlink.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fbroadlink%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20broadlink" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+broadlink%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/broadlink//logo.png' srcset='https://brands.home-assistant.io/_/broadlink/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=broadlink' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Broadlink  integration  was introduced in Home Assistant 0.35, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          6.6%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:download-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Polling.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/broadlink" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+broadlink%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/danielhiversen" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/danielhiversen?size=96" alt="@danielhiversen"/> @danielhiversen</a><br /><a href="https://github.com/felipediel" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/felipediel?size=96" alt="@felipediel"/> @felipediel</a><br /><a href="https://github.com/L-I-Am" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/L-I-Am?size=96" alt="@L-I-Am"/> @L-I-Am</a><br /><a href="https://github.com/eifinger" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/eifinger?size=96" alt="@eifinger"/> @eifinger</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#entities-and-subdomains">Entities and subdomains</a></li>
+<li class="toc-entry toc-h2"><a href="#climate">Climate</a></li>
+<li class="toc-entry toc-h2"><a href="#remote">Remote</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#learning-commands">Learning commands</a></li>
+<li class="toc-entry toc-h3"><a href="#sending-commands">Sending commands</a></li>
+<li class="toc-entry toc-h3"><a href="#deleting-commands">Deleting commands</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#select">Select</a></li>
+<li class="toc-entry toc-h2"><a href="#sensor">Sensor</a></li>
+<li class="toc-entry toc-h2"><a href="#light">Light</a></li>
+<li class="toc-entry toc-h2"><a href="#time">Time</a></li>
+<li class="toc-entry toc-h2"><a href="#switch">Switch</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#setting-up-custom-irrf-switches">Setting up custom IR/RF switches</a></li>
+<li class="toc-entry toc-h3"><a href="#using-e-control-remotes">Using e-Control remotes</a></li>
+<li class="toc-entry toc-h3"><a href="#using-ios-and-windows-to-obtain-codes">Using iOS and Windows to obtain codes</a></li>
+<li class="toc-entry toc-h3"><a href="#using-windows-to-obtain-codes-with-broadlink-manager">Using Windows to obtain codes with Broadlink Manager</a></li>
+<li class="toc-entry toc-h3"><a href="#using-node-red-to-obtain-codes">Using Node-RED to obtain codes</a></li>
+<li class="toc-entry toc-h3"><a href="#using-node-red-to-transmit-codes">Using Node-RED to transmit codes</a></li>
+<li class="toc-entry toc-h3"><a href="#using-broadlink_cli-to-obtain-codes">Using broadlink_cli to obtain codes</a></li>
+<li class="toc-entry toc-h3"><a href="#conversion-of-codes-from-other-projects">Conversion of codes from other projects</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#remote'>Remote</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

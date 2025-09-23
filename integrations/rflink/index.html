@@ -1,0 +1,1599 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>RFLink - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate RFLink gateway into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/rflink/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="RFLink">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/rflink/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate RFLink gateway into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="RFLink">
+    <meta name="twitter:description" content="Instructions on how to integrate RFLink gateway into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#device-support">Device support</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#full-example">Full example</a></li>
+<li class="toc-entry toc-h3"><a href="#tcp-mode">TCP mode</a></li>
+<li class="toc-entry toc-h3"><a href="#adding-devices-automatically">Adding devices Automatically</a></li>
+<li class="toc-entry toc-h3"><a href="#ignoring-devices">Ignoring devices</a></li>
+<li class="toc-entry toc-h3"><a href="#invert-cover">Invert cover</a></li>
+<li class="toc-entry toc-h3"><a href="#device-incorrectly-identified">Device Incorrectly Identified</a></li>
+<li class="toc-entry toc-h3"><a href="#technical-overview">Technical Overview</a></li>
+<li class="toc-entry toc-h3"><a href="#debug-logging">Debug Logging</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#binary-sensor">Binary sensor</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sensor-state">Sensor state</a></li>
+<li class="toc-entry toc-h3"><a href="#device-support-for-binary-sensors">Device support for binary sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#additional-configuration-examples">Additional configuration examples</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#cover">Cover</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#setting-up-a-somfy-rts-device">Setting up a Somfy RTS device</a></li>
+<li class="toc-entry toc-h3"><a href="#setting-up-a-kaku-asun-650-device">Setting up a KAKU ASUN-650 device</a></li>
+<li class="toc-entry toc-h3"><a href="#setting-up-a-non-rts-cover">Setting up a non-RTS cover</a></li>
+<li class="toc-entry toc-h3"><a href="#device-support-for-covers">Device support for covers</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#additional-configuration-examples-1">Additional configuration examples</a></li>
+<li class="toc-entry toc-h2"><a href="#light">Light</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#light-state">Light state</a></li>
+<li class="toc-entry toc-h3"><a href="#light-types">Light types</a></li>
+<li class="toc-entry toc-h3"><a href="#hidingignoring-lights">Hiding/ignoring lights</a></li>
+<li class="toc-entry toc-h3"><a href="#device-support-for-lights">Device support for lights</a></li>
+<li class="toc-entry toc-h3"><a href="#additional-configuration-examples-2">Additional configuration examples</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#sensor">Sensor</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sensor-types">Sensor types</a></li>
+<li class="toc-entry toc-h3"><a href="#hidingignoring-sensors">Hiding/ignoring sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#device-support-for-sensors">Device support for sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#additional-configuration-examples-3">Additional configuration examples</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#switch">Switch</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#switch-state">Switch state</a></li>
+<li class="toc-entry toc-h3"><a href="#device-support-for-switches">Device support for switches</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        RFLink
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <code>rflink</code> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> supports devices that use <a href="https://www.rflink.nl/download.php" rel="external nofollow">RFLink gateway firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, for example, the <a href="https://www.nodo-shop.nl/21-rflink-" rel="external nofollow">Nodo RFLink Gateway<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. RFLink Gateway is an Arduino Mega firmware that allows two-way communication with a multitude of RF wireless devices using cheap hardware (Arduino + transceiver).</p>
+<p>This <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> is tested with the following hardware/software:</p>
+<ul>
+<li>Nodo RFLink Gateway V1.4/RFLink R46</li>
+</ul>
+<h3>Device support <a class="title-link" name="device-support" href="#device-support"></a>
+</h3>
+<p>The 433 MHz spectrum is used by many manufacturers. Mostly using their own protocol/standard, they use this spectrum to communicate with devices such as light switches, blinds, weather stations, alarms, and various other sensors.</p>
+<p>The RFLink Gateway supports a number of RF frequencies, using a wide range of low-cost hardware. <a href="https://www.rflink.nl" rel="external nofollow">Their website<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> provides details for various RF transmitters, receivers, and transceiver modules for 433MHz, 868MHz, and 2.4 GHz.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Versions later than R44 add support for IKEA Ansluta, Philips Living Colors Gen1, and MySensors devices.</p>
+  </div>
+</div>
+<p>A complete list of devices supported by RFLink can be found <a href="https://www.rflink.nl/devlist.php" rel="external nofollow">here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>Even though many devices are supported by RFLink, not all have been tested/implemented. If you have a device supported by RFLink but not by this integration, please consider testing and adding support yourself.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To enable RFLink in your installation, add the following to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file.
+After changing the <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file, <a href="/docs/configuration/#reloading-the-configuration-to-apply-changes">restart Home Assistant</a> to apply the changes.   The integration is now shown on the integrations page under <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>. Its entities are listed on the integration card itself and on the <a href="https://my.home-assistant.io/redirect/entities" class="my" target="_blank"><strong>Entities</strong></a> tab.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">rflink</span><span class="pi">:</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="s">/dev/serial/by-id/usb-id01234</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="rflink-configuration-variables" href="#rflink-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> port </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="port" class="title-link" href="#port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The path to RFLink USB/serial device or TCP port in TCP mode.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> host </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="host" class="title-link" href="#host"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Switches to TCP mode, connects to host instead of to USB/serial.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> wait_for_ack </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="wait_for_ack" class="title-link" href="#wait_for_ack"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Wait for RFLink to acknowledge commands sent before sending new command (slower but more reliable).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> ignore_devices </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="ignore_devices" class="title-link" href="#ignore_devices"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>List of device IDs to ignore. Supports wildcards (<code>*</code>, <code>?</code>).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> reconnect_interval </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 10</span>)</span><a name="reconnect_interval" class="title-link" href="#reconnect_interval"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Time in seconds between reconnect attempts.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> tcp_keepalive_idle_timer </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 3600</span>)</span><a name="tcp_keepalive_idle_timer" class="title-link" href="#tcp_keepalive_idle_timer"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Time in seconds to wait since last data packet was seen before a TCP KEEPALIVE is sent. Value of 0 will disable this feature.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h3>Full example <a class="title-link" name="full-example" href="#full-example"></a>
+</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">rflink</span><span class="pi">:</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="s">/dev/serial/by-id/usb-id01234</span>
+  <span class="na">wait_for_ack</span><span class="pi">:</span> <span class="kc">false</span>
+  <span class="na">ignore_devices</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">newkaku_000001_01</span>
+    <span class="pi">-</span> <span class="s">digitech_*</span>
+</code></pre></div></div>
+<h3>TCP mode <a class="title-link" name="tcp-mode" href="#tcp-mode"></a>
+</h3>
+<p>TCP mode allows you to connect to an RFLink device over a TCP/IP network. This is useful if placing the RFLink device next to the HA server is not optimal or desired (eg: bad reception).</p>
+<p>The following command can be used to expose the USB/serial interface over TCP on a different host (Linux). The arguments are separated by spaces, further info on all arguments can be found for example <a href="https://manpages.debian.org/stretch/socat/socat.1.en.html" rel="external nofollow">on the Debian manpages<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<ul>
+<li>
+<code>/dev/ttyACM0,b57600,rawer</code> specifies the device location, a <code>b57600</code> 57600 baud rate, and <code>rawer</code> causes socat to ignore control sequences sent via the port (for example, it makes socat pass all information ‘rawest form’, rather than picking up control characters such as control-C which would close socat).</li>
+<li>
+<code>TCP-LISTEN:1234,reuseaddr,range=192.168.0.0/16</code> listens on IPV4 on the specified port (1234, change as suits your needs), the details behind the <code>reuseaddr</code> option <a href="https://stackoverflow.com/a/3233022/1049701" rel="external nofollow">are fairly complex<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> but it allows faster reconnects from the client (Home Assistant) in case of connection drops. An important security option is <code>range=192.168.0.0/16</code>, which specifies that socat should only accept connections from a certain range of IP addresses - the /16 subnet mask specifies a range from 192.168.0.0 to 192.168.255.255. Change this as required for your LAN network.</li>
+</ul>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">socat /dev/ttyACM0,b57600,rawer TCP-LISTEN:1234,reuseaddr,range<span class="o">=</span>192.168.0.0/16
+</code></pre></div></div>
+<p>Other methods of exposing the serial interface over TCP are possible (eg: ESP8266 or using Arduino Wifi shield). Essentially the serial stream should be directly mapped to the TCP stream.</p>
+<p>Tested with Wifi serial bridge <a href="https://github.com/jeelabs/esp-link/releases/tag/v2.2.3" rel="external nofollow">esp-link V2.2.3<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> running on a NodeMCU (ESP8266 Wifi module) with ESP8266 TXD0 (pin D10) and RXD0 (pin D9) connected to Arduino MEGA 2560 RX (Pin 2) and TX (Pin 3) respectively.</p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>Due to different logic levels, a voltage level shifter is required between the 3.3V NodeMCU and 5V Arduino MEGA 2560 pins. The BSS138 bidirectional logic level converter has been tested for serial pins and the <a href="https://aliexpress.com/item/32238089139.html" rel="external nofollow">link<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> is recommended for the CC2500 transceiver (used for IKEA Ansluta and Philips Living Colors)</p>
+  </div>
+</div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>When re-flashing the Arduino MEGA, disconnect the ESP8266 to avoid programming difficulties.</p>
+  </div>
+</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">rflink</span><span class="pi">:</span>
+  <span class="na">host</span><span class="pi">:</span> <span class="s">192.168.0.10</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">1234</span>
+  <span class="na">tcp_keepalive_idle_timer</span><span class="pi">:</span> <span class="m">600</span>
+</code></pre></div></div>
+<h3>Adding devices Automatically <a class="title-link" name="adding-devices-automatically" href="#adding-devices-automatically"></a>
+</h3>
+<p>In order to have your devices discovered automatically, you need to add the following to the configuration.
+When pressing the button on the physical remote, RFLink detects the signal and the device should be added automatically to Home Assistant.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">light</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">automatic_add</span><span class="pi">:</span> <span class="kc">true</span>
+<span class="na">sensor</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">automatic_add</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<p><a href="#switch">RFLink Switches</a> and <a href="#binary-sensor">RFLink Binary Sensors</a> cannot be added automatically.</p>
+<p>The RFLink integration does not know the difference between a binary sensor, a switch and a light. Therefore, all switchable devices are automatically added as light by default. However, once the ID of a switch is known, it can be used to configure it as a switch or a binary sensor type in Home Assistant, for example, to add it to a different group or configure a nice name.</p>
+<h3>Ignoring devices <a class="title-link" name="ignoring-devices" href="#ignoring-devices"></a>
+</h3>
+<p>The RFLink platform can be configured to completely ignore a device on a platform level. This is useful when you have neighbors which also use 433 MHz technology.</p>
+<p>For example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">rflink</span><span class="pi">:</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="s">/dev/serial/by-id/usb-id01234</span>
+  <span class="na">wait_for_ack</span><span class="pi">:</span> <span class="kc">false</span>
+  <span class="na">ignore_devices</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">newkaku_000001_01</span>
+    <span class="pi">-</span> <span class="s">digitech_*</span>
+    <span class="pi">-</span> <span class="s">kaku_1_*</span>
+</code></pre></div></div>
+<p>This configuration will ignore the button <code>1</code> of the <code>newkaku</code> device with ID <code>000001</code>, all devices of the <code>digitech</code> protocol and all switches of the <code>kaku</code> protocol device with codewheel ID <code>1</code>.</p>
+<h3>Invert cover <a class="title-link" name="invert-cover" href="#invert-cover"></a>
+</h3>
+<p>Devices can be configure to work in inverted mode by adding option in <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span>:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry for inverted RTS cover</span>
+<span class="na">cover</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="c1"># Rfloader created remote control which is used by Home Assistant</span>
+      <span class="na">RTS_0a0a0a_1</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Blind</span><span class="nv"> </span><span class="s">office"</span>
+        <span class="na">aliases</span><span class="pi">:</span> 
+          <span class="pi">-</span> <span class="s">rts_0f1f2f_01</span> <span class="c1"># ID of the remote control (Somfy smove in this case)</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">inverted</span>
+</code></pre></div></div>
+<p>This configuration uses <code>0a0a0a</code> to control the inverted shutter (send UP to close and Down to open) and listen commands sent by <code>0f1f2f</code> remote control.</p>
+<h3>Device Incorrectly Identified <a class="title-link" name="device-incorrectly-identified" href="#device-incorrectly-identified"></a>
+</h3>
+<p>If you find a device is recognized differently, with different protocols or the ON OFF is swapped or detected as two ON commands, it can  be overcome with the RFLink ‘RF Signal Learning’ mechanism from RFLink Rev 46 (11 March 2017). <a href="https://www.rflink.nl/faq.php#RFFind" rel="external nofollow">Link to further detail.<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+<h3>Technical Overview <a class="title-link" name="technical-overview" href="#technical-overview"></a>
+</h3>
+<ul>
+<li>The<code>rflink</code> Python module is an asyncio transport/protocol which is setup to fire a callback for every (valid/supported) packet received by the RFLink gateway.</li>
+<li>This integration uses this callback to distribute ‘rflink packet events’ over <a href="/docs/configuration/events/">Home Assistant’s event bus</a> which can be subscribed to by entities/platform implementations.</li>
+<li>The platform implementation takes care of creating new devices (if enabled) for unseen incoming packet IDs.</li>
+<li>Device entities take care of matching to the packet ID, interpreting and performing actions based on the packet contents. Common entity logic is maintained in this main component.</li>
+</ul>
+<h3>Debug Logging <a class="title-link" name="debug-logging" href="#debug-logging"></a>
+</h3>
+<p>For debugging purposes or context when investigating issues you can enable debug logging for RFLink with the following configuration snippet:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">logger</span><span class="pi">:</span>
+  <span class="na">default</span><span class="pi">:</span> <span class="s">error</span>
+  <span class="na">logs</span><span class="pi">:</span>
+    <span class="na">rflink</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">homeassistant.components.rflink</span><span class="pi">:</span> <span class="s">debug</span>
+</code></pre></div></div>
+<p>This will give you output looking like this:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">17-03-07 20:12:05 DEBUG <span class="o">(</span>MainThread<span class="o">)</span> <span class="o">[</span>rflink.protocol] received data: 20<span class="p">;</span>00<span class="p">;</span>Nod
+17-03-07 20:12:05 DEBUG <span class="o">(</span>MainThread<span class="o">)</span> <span class="o">[</span>rflink.protocol] received data: o RadioFrequencyLink - R
+17-03-07 20:12:05 DEBUG <span class="o">(</span>MainThread<span class="o">)</span> <span class="o">[</span>rflink.protocol] received data: FLink Gateway V1.1 - R45
+17-03-07 20:12:05 DEBUG <span class="o">(</span>MainThread<span class="o">)</span> <span class="o">[</span>rflink.protocol] received data: <span class="p">;</span>
+17-03-07 20:12:05 DEBUG <span class="o">(</span>MainThread<span class="o">)</span> <span class="o">[</span>rflink.protocol] got packet: 20<span class="p">;</span>00<span class="p">;</span>Nodo RadioFrequencyLink - RFLink Gateway V1.1 - R45<span class="p">;</span>
+17-03-07 20:12:05 DEBUG <span class="o">(</span>MainThread<span class="o">)</span> <span class="o">[</span>rflink.protocol] decoded packet: <span class="o">{</span><span class="s1">'firmware'</span>: <span class="s1">'RFLink Gateway'</span>, <span class="s1">'revision'</span>: <span class="s1">'45'</span>, <span class="s1">'node'</span>: <span class="s1">'gateway'</span>, <span class="s1">'protocol'</span>: <span class="s1">'unknown'</span>, <span class="s1">'hardware'</span>: <span class="s1">'Nodo RadioFrequencyLink'</span>, <span class="s1">'version'</span>: <span class="s1">'1.1'</span><span class="o">}</span>
+17-03-07 20:12:05 DEBUG <span class="o">(</span>MainThread<span class="o">)</span> <span class="o">[</span>rflink.protocol] got event: <span class="o">{</span><span class="s1">'version'</span>: <span class="s1">'1.1'</span>, <span class="s1">'firmware'</span>: <span class="s1">'RFLink Gateway'</span>, <span class="s1">'revision'</span>: <span class="s1">'45'</span>, <span class="s1">'hardware'</span>: <span class="s1">'Nodo RadioFrequencyLink'</span>, <span class="s1">'id'</span>: <span class="s1">'rflink'</span><span class="o">}</span>
+17-03-07 20:12:05 DEBUG <span class="o">(</span>MainThread<span class="o">)</span> <span class="o">[</span>homeassistant.components.rflink] event of <span class="nb">type </span>unknown: <span class="o">{</span><span class="s1">'version'</span>: <span class="s1">'1.1'</span>, <span class="s1">'firmware'</span>: <span class="s1">'RFLink Gateway'</span>, <span class="s1">'revision'</span>: <span class="s1">'45'</span>, <span class="s1">'hardware'</span>: <span class="s1">'Nodo RadioFrequencyLink'</span>, <span class="s1">'id'</span>: <span class="s1">'rflink'</span><span class="o">}</span>
+</code></pre></div></div>
+<h2>Binary sensor <a class="title-link" name="binary-sensor" href="#binary-sensor"></a>
+</h2>
+<p>The RFLink integration does not know the difference between a <code>binary_sensor</code>, a <code>switch</code>, and a <code>light</code>. Therefore, all switchable devices are automatically added as <code>light</code> by default.</p>
+<p>RFLink binary_sensor/switch/light IDs are composed of: protocol, id, switch/channel. For example: <code>newkaku_0000c6c2_1</code>.</p>
+<p>Once the ID of a binary sensor is known, it can be used to configure it as a binary sensor type in Home Assistant, for example, to hide it or configure a nice name.</p>
+<p>Configuring a device as a binary sensor:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">binary_sensor</span><span class="pi">:</span>
+   <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+     <span class="na">devices</span><span class="pi">:</span>
+       <span class="na">pt2262_00174754_0</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="rflink-configuration-variables" href="#rflink-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class=""><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> devices </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="devices" class="title-link" href="#devices"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of binary sensors.</p>
+</span></div>
+<div class="nested"><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> rflink_ids </span><span class="config-vars-type">map</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="rflink_ids" class="title-link" href="#rflink_ids"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>RFLink ID of the device</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: RFLink ID</span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> aliases </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="aliases" class="title-link" href="#aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Alternative RFLink IDs this device is known by.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> device_class </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="device_class" class="title-link" href="#device_class"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Sets the <a href="/integrations/binary_sensor/#device-class">class of the device</a>, changing the device state and icon that is displayed on the frontend.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> off_delay </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="off_delay" class="title-link" href="#off_delay"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>For sensors that only sends ‘On’ state updates, this variable sets a delay after which the sensor state will be updated back to ‘Off’.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> force_update </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="force_update" class="title-link" href="#force_update"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Sends update events even if the value has not changed. Useful for sensors that only sends <code>On</code>.</p>
+</span></div>
+</div>
+</div>
+</div></div>
+</div></div>
+</div>
+<h3>Sensor state <a class="title-link" name="sensor-state" href="#sensor-state"></a>
+</h3>
+<p>Initially, the state of a binary sensor is unknown. When a sensor update is received, the state is known and will be shown in the frontend.</p>
+<h3>Device support for binary sensors <a class="title-link" name="device-support-for-binary-sensors" href="#device-support-for-binary-sensors"></a>
+</h3>
+<p>See <a href="#device-support">device support</a></p>
+<h3>Additional configuration examples <a class="title-link" name="additional-configuration-examples" href="#additional-configuration-examples"></a>
+</h3>
+<p>Multiple sensors with custom name and device class and set off_delay</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">binary_sensor</span><span class="pi">:</span>
+   <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+     <span class="na">devices</span><span class="pi">:</span>
+       <span class="na">pt2262_00174754_0</span><span class="pi">:</span>
+         <span class="na">name</span><span class="pi">:</span> <span class="s">PIR Entrance</span>
+         <span class="na">device_class</span><span class="pi">:</span> <span class="s">motion</span>
+         <span class="na">off_delay</span><span class="pi">:</span> <span class="m">5</span>
+       <span class="na">pt2262_00174758_0</span><span class="pi">:</span>
+         <span class="na">name</span><span class="pi">:</span> <span class="s">PIR Living Room</span>
+         <span class="na">device_class</span><span class="pi">:</span> <span class="s">motion</span>
+         <span class="na">off_delay</span><span class="pi">:</span> <span class="m">5</span>
+</code></pre></div></div>
+<h2>Cover <a class="title-link" name="cover" href="#cover"></a>
+</h2>
+<p>After configuring the RFLink hub, covers will be automatically discovered and added. Except the Somfy RTS devices.</p>
+<h3>Setting up a Somfy RTS device <a class="title-link" name="setting-up-a-somfy-rts-device" href="#setting-up-a-somfy-rts-device"></a>
+</h3>
+<p>You have to add the Somfy RTS manually with the supplied RFlinkLoader (Windows only).</p>
+<p>Press the Learn button on the original Somfy remote enter the following code within 3 seconds. Your blinds will go up and down shortly:</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="text">10;RTS;02FFFF;0412;3;PAIR;
+</code></pre></div></div>
+<p>Your blinds will go up and down again. This means your RFLink is now paired with your RTS motor.
+To check this enter the following code again and see if there is a record.</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="text">10;RTSSHOW;
+</code></pre></div></div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="text">RTS Record: 0 Address: FFFFFF RC: FFFF
+RTS Record: 1 Address: FFFFFF RC: FFFF
+RTS Record: 2 Address: FFFFFF RC: FFFF
+RTS Record: 3 Address: 02FFFF RC: 0018
+RTS Record: 4 Address: FFFFFF RC: FFFF
+RTS Record: 5 Address: FFFFFF RC: FFFF
+RTS Record: 6 Address: FFFFFF RC: FFFF
+RTS Record: 7 Address: FFFFFF RC: FFFF
+RTS Record: 8 Address: FFFFFF RC: FFFF
+RTS Record: 9 Address: FFFFFF RC: FFFF
+RTS Record: 10 Address: FFFFFF RC: FFFF
+RTS Record: 11 Address: FFFFFF RC: FFFF
+RTS Record: 12 Address: FFFFFF RC: FFFF
+RTS Record: 13 Address: FFFFFF RC: FFFF
+RTS Record: 14 Address: FFFFFF RC: FFFF
+RTS Record: 15 Address: FFFFFF RC: FFFF
+</code></pre></div></div>
+<p>After configuring the RFLink Somfy RTS you have to add the cover to the <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file like any other RFlink device.</p>
+<p>RFLink cover IDs are composed of: protocol, id, and gateway. For example: <code>RTS_0100F2_0</code>.</p>
+<p>Once the ID of a cover is known, it can be used to configure the cover in Home Assistant, for example, to add it to a different group or set a nice name.</p>
+<p>Configuring devices as a cover:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">cover</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">RTS_0100F2_0</span><span class="pi">:</span> <span class="pi">{}</span>
+      <span class="na">bofumotor_455201_0f</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="rflink-configuration-variables" href="#rflink-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> device_defaults </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="device_defaults" class="title-link" href="#device_defaults"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The defaults for the devices.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> fire_event </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="fire_event" class="title-link" href="#fire_event"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set default <code>fire_event</code> for RFLink cover devices.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> signal_repetitions </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 1</span>)</span><a name="signal_repetitions" class="title-link" href="#signal_repetitions"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set default <code>signal_repetitions</code> for RFLink cover devices.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> devices </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="devices" class="title-link" href="#devices"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of covers.</p>
+</span></div>
+<div class="nested"><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> rflink_ids </span><span class="config-vars-type">map</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="rflink_ids" class="title-link" href="#rflink_ids"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>RFLink ID of the device</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: RFLink ID</span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> aliases </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="aliases" class="title-link" href="#aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Alternative RFLink IDs this device is known by.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> fire_event </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="fire_event" class="title-link" href="#fire_event"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Fire a <code>button_pressed</code> event if this device is turned on or off.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> signal_repetitions </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="signal_repetitions" class="title-link" href="#signal_repetitions"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The number of times every RFLink command should repeat.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> group </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="group" class="title-link" href="#group"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Allow light to respond to group commands (ALLON/ALLOFF).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> group_aliases </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="group_aliases" class="title-link" href="#group_aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>aliases</code> which only respond to group commands.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> no_group_aliases </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="no_group_aliases" class="title-link" href="#no_group_aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>aliases</code> which do not respond to group commands.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> type </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="type" class="title-link" href="#type"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The option to invert (<code>inverted</code>) on/off commands sent to the RFLink device or not (<code>standard</code>).</p>
+</span></div>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<h3>Setting up a KAKU ASUN-650 device <a class="title-link" name="setting-up-a-kaku-asun-650-device" href="#setting-up-a-kaku-asun-650-device"></a>
+</h3>
+<p>In RFLink, the ON and DOWN command are used to close the cover and the OFF and UP command are used to open the cover. The KAKU (COCO) ASUN-650 works the other way around, it uses the ON command to open the cover and the OFF command to close the cover.</p>
+<p>The RFLink cover device has a property named <code>type</code> that takes 2 values:</p>
+<ul>
+<li>
+<code>standard</code>: Do not invert the on/off commands sent to the RFLink device.</li>
+<li>
+<code>inverted</code>: Invert the on/off commands sent to the RFLink device.</li>
+</ul>
+<p>The following configuration example shows how to use the <code>type</code> property:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry that shows how to</span>
+<span class="c1"># use the type property.</span>
+<span class="na">cover</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">newkaku_xxxxxxxx_x</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">kaku_inverted_by_type</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">inverted</span>
+      <span class="na">newkaku_xxxxxxxx_y</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">kaku_not_inverted_by_type</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">standard</span>
+      <span class="na">newkaku_xxxxxxxx_z</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">kaku_inverted_by_default</span>
+      <span class="na">nonkaku_yyyyyyyy_x</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">non_kaku_inverted_by_type</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">inverted</span>
+      <span class="na">nonkaku_yyyyyyyy_y</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">non_kaku_not_inverted_by_type</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">standard</span>
+      <span class="na">nonkaku_yyyyyyyy_z</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">non_kaku_not_inverted_by_default</span>
+</code></pre></div></div>
+<p>The configuration above shows that the <code>type</code> property may be omitted. When the ID starts with <code>newkaku</code>, the integration will make sure that the on and off commands are inverted. When the ID does not start with <code>newkaku</code>, the on and off commands are not inverted.</p>
+<h3>Setting up a non-RTS cover <a class="title-link" name="setting-up-a-non-rts-cover" href="#setting-up-a-non-rts-cover"></a>
+</h3>
+<p>Configure <code>automatic_add</code> for the light domain (yes, the light domain)</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">light</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">automatic_add</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<p>When you press the remote buttons, a new light will show up in <a href="https://my.home-assistant.io/redirect/entities" class="my" target="_blank">the list of entities</a>.</p>
+<p>Also you can enable rflink logs and look for the device_id, for example: <code>dooya_v4_654321_0f</code> or <code>brelmotor_3b35c7_47</code>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">logger</span><span class="pi">:</span>
+  <span class="na">logs</span><span class="pi">:</span>
+    <span class="na">rflink</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">homeassistant.components.rflink</span><span class="pi">:</span> <span class="s">debug</span>
+</code></pre></div></div>
+<p>Once the <code>device_id</code> is known, the light domain configuration can be removed and configure the device as a cover:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">cover</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">dooya_v4_654321_0f</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Room</span><span class="nv"> </span><span class="s">blinds"</span>
+</code></pre></div></div>
+<h3>Device support for covers <a class="title-link" name="device-support-for-covers" href="#device-support-for-covers"></a>
+</h3>
+<p>See <a href="#device-support">device support</a>.</p>
+<h2>Additional configuration examples <a class="title-link" name="additional-configuration-examples-1" href="#additional-configuration-examples-1"></a>
+</h2>
+<p>Multiple covers with custom names and aliases</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">cover</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">RTS_0A8720_0</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">enanos</span>
+        <span class="na">aliases</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">rts_31e53f_01</span>
+          <span class="pi">-</span> <span class="s">rts_32e53f_01</span>
+      <span class="na">RTS_30E542_0</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">comedor</span>
+        <span class="na">aliases</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">rts_33e53f_01</span>
+          <span class="pi">-</span> <span class="s">rts_fa872e_01</span>
+      <span class="na">RTS_33E542_0</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">dormitorio</span>
+        <span class="na">aliases</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">rts_30e53f_01</span>
+          <span class="pi">-</span> <span class="s">rts_32e53f_01</span>
+      <span class="na">RTS_32E542_0</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">habitaciones</span>
+        <span class="na">fire_event</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<h2>Light <a class="title-link" name="light" href="#light"></a>
+</h2>
+<p>After configuring the RFLink hub, lights will be automatically discovered and added.</p>
+<p>RFLink binary_sensor/switch/light IDs are composed of: protocol, id, switch/channel. For example: <code>newkaku_0000c6c2_1</code>.</p>
+<p>Once the ID of a light is known, it can be used to configure the light in HA, for example to add it to a different group or configure a nice name.</p>
+<p>Configuring devices as a light:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">light</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">NewKaku_02a48800_0</span><span class="pi">:</span> <span class="pi">{}</span>
+      <span class="na">newkaku_0000c6c2_1</span><span class="pi">:</span> <span class="pi">{}</span>
+      <span class="na">Ansluta_ce30_0</span><span class="pi">:</span> <span class="pi">{}</span>
+      <span class="na">Maclean_0d82_01</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="rflink-configuration-variables" href="#rflink-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> device_defaults </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="device_defaults" class="title-link" href="#device_defaults"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The defaults for the devices.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> fire_event </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="fire_event" class="title-link" href="#fire_event"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set default <code>fire_event</code> for RFLink switch devices (see below).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> signal_repetitions </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 1</span>)</span><a name="signal_repetitions" class="title-link" href="#signal_repetitions"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set default <code>signal_repetitions</code> for RFLink switch devices (see below).</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> automatic_add </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="automatic_add" class="title-link" href="#automatic_add"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Automatically add new/unconfigured devices to Home Assistant if detected.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> devices </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="devices" class="title-link" href="#devices"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of lights.</p>
+</span></div>
+<div class="nested"><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> rflink_ids </span><span class="config-vars-type">map</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="rflink_ids" class="title-link" href="#rflink_ids"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>RFLink ID of the device</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: RFLink ID</span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> type </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: switchable</span>)</span><a name="type" class="title-link" href="#type"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Override automatically detected type of the light device, can be: switchable, dimmable, hybrid or toggle. See <a href="#light-types">Light Types</a> below.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> aliases </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="aliases" class="title-link" href="#aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Alternative RFLink IDs this device is known by.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> group_aliases </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="group_aliases" class="title-link" href="#group_aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>aliases</code> which only respond to group commands.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> no_group_aliases </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="no_group_aliases" class="title-link" href="#no_group_aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>aliases</code> which do not respond to group commands.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> fire_event </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="fire_event" class="title-link" href="#fire_event"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Fire a <code>button_pressed</code> event when this device is turned on or off.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> signal_repetitions </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 1</span>)</span><a name="signal_repetitions" class="title-link" href="#signal_repetitions"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Repeat every RFLink command this number of times.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> group </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="group" class="title-link" href="#group"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Allow light to respond to group commands (ALLON/ALLOFF).</p>
+</span></div>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<h3>Light state <a class="title-link" name="light-state" href="#light-state"></a>
+</h3>
+<p>Initially the state of a light is unknown. When the light is turned on or off (via frontend or remote) the state is known and will be shown in the frontend.</p>
+<p>Sometimes a light is controlled by multiple remotes, each remote has its own code programmed in the light. To allow tracking of the state when switched via other remotes add the corresponding remote codes as aliases:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">light</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">newkaku_0000c6c2_1</span><span class="pi">:</span>
+        <span class="na">aliases</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">newkaku_000000001_2</span>
+          <span class="pi">-</span> <span class="s">kaku_000001_a</span>
+</code></pre></div></div>
+<p>Any on/off command from any alias ID updates the current state of the light. However when sending a command through the frontend only the primary ID is used.</p>
+<h3>Light types <a class="title-link" name="light-types" href="#light-types"></a>
+</h3>
+<p>Light devices can come in different forms. Some only switch on and off, other support dimming. Dimmable devices might not always respond nicely to repeated <code>on</code> command as they turn into a pulsating state until <code>on</code> is pressed again (for example KlikAanKlikUit). The RFLink integration support three types of lights to make things work in every situation:</p>
+<ul>
+<li>
+<em>Hybrid</em>: This type sends a <code>dim</code> followed by an <code>on</code> command; and <code>off</code> commands. This will make dimmable devices turn on at the requested dim level and on/off devices on. One caveat is this type is not compatible with signal repetition as multiple <code>on</code> signals will cause dimmers to go into disco mode.</li>
+<li>
+<em>Switchable</em>: Device type that sends only <code>on</code> and <code>off</code> commands. It works for both on/off and dimmable type switches. However, dimmable devices might have issues with signal repetition (see above).</li>
+<li>
+<em>Dimmable</em>: Sends only <code>dim</code> and <code>off</code> commands. This does not work on on/off type devices as they don’t understand the <code>dim</code> command. For dimmers this does not cause issues with signal repetitions.</li>
+<li>
+<em>Toggle</em>: Device type that sends only <code>on</code> commands to turn on or off the device. Some switches like for example Livolo light switches use the same ‘on’ command to switch on and switch off the lights. If the light is on and ‘on’ gets sent, the light will turn off and if the light is off and ‘on’ gets sent, the light will turn on. If the device has an unknown state, it will assume it is off by default.</li>
+</ul>
+<p>By default new lights are assigned the <code>switchable</code> type. Protocol supporting dimming are assigned the <code>hybrid</code> type. Currently only <code>newkaku</code> protocol is detected as dimmable. Please refer to Device Support to get your dimmers supported.</p>
+<h3>Hiding/ignoring lights <a class="title-link" name="hidingignoring-lights" href="#hidingignoring-lights"></a>
+</h3>
+<p>Lights are added automatically when the RFLink gateway intercepts a wireless command in the ether. To prevent cluttering the frontend use any of these methods:</p>
+<ul>
+<li>Disable automatically adding of unconfigured new sensors (set <code>automatic_add</code> to <code>false</code>).</li>
+<li>Hide unwanted devices using <a href="/getting-started/customizing-devices/">customizations</a>
+</li>
+<li><a href="#ignoring-devices">Ignore devices on a platform level</a></li>
+</ul>
+<h3>Device support for lights <a class="title-link" name="device-support-for-lights" href="#device-support-for-lights"></a>
+</h3>
+<p>See <a href="#device-support">device support</a></p>
+<h3>Additional configuration examples <a class="title-link" name="additional-configuration-examples-2" href="#additional-configuration-examples-2"></a>
+</h3>
+<p>Multiple lights with <code>signal_repetitions</code> and custom names</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">light</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">device_defaults</span><span class="pi">:</span>
+      <span class="na">fire_event</span><span class="pi">:</span> <span class="kc">true</span>
+      <span class="na">signal_repetitions</span><span class="pi">:</span> <span class="m">2</span>
+    <span class="na">automatic_add</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">NewKaku_02a48800_0</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Kitchen</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">hybrid</span>
+      <span class="na">newkaku_0000c6c2_1</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Living room</span>
+        <span class="na">aliases</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">newkaku_000000001_2</span>
+          <span class="pi">-</span> <span class="s">kaku_000001_a</span>
+      <span class="na">Ansluta_ce30_0</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Kitchen Under Counter Lights</span>
+      <span class="na">Maclean_0d82_01</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Bedroom Lamp</span>
+</code></pre></div></div>
+<h2>Sensor <a class="title-link" name="sensor" href="#sensor"></a>
+</h2>
+<p>After configuring the RFLink hub, sensors will be automatically discovered and added.</p>
+<p>RFLink sensor IDs are composed of: protocol, ID and type (optional). For example: <code>alectov1_0334_temp</code>. Some sensors emit multiple types of data. Each will be created as its own.</p>
+<p>Once the ID of a sensor is known, it can be used to configure the sensor in Home Assistant, for example to add it to a different group or configure a nice name.</p>
+<p>Configuring a device as a sensor:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">sensor</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">alectov1_0334_temp</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="rflink-configuration-variables" href="#rflink-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> automatic_add </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="automatic_add" class="title-link" href="#automatic_add"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Automatically add new/unconfigured devices to Home Assistant if detected.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> devices </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="devices" class="title-link" href="#devices"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of sensors.</p>
+</span></div>
+<div class="nested"><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> rflink_ids </span><span class="config-vars-type">map</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="rflink_ids" class="title-link" href="#rflink_ids"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>RFLink ID of the device</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: RFLink ID</span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> sensor_type </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="sensor_type" class="title-link" href="#sensor_type"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Override automatically detected type of sensor. For list of <a href="#sensor-types">values</a> see below.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> unit_of_measurement </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="unit_of_measurement" class="title-link" href="#unit_of_measurement"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Override automatically detected unit of sensor.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> aliases </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="aliases" class="title-link" href="#aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Alternative RFLink IDs this device is known by.</p>
+</span></div>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<h3>Sensor types <a class="title-link" name="sensor-types" href="#sensor-types"></a>
+</h3>
+<p>Sensor type values:</p>
+<ul>
+<li>average_windspeed</li>
+<li>barometric_pressure</li>
+<li>battery</li>
+<li>co2_air_quality</li>
+<li>command</li>
+<li>current_phase_1</li>
+<li>current_phase_2</li>
+<li>current_phase_3</li>
+<li>distance</li>
+<li>doorbell_melody</li>
+<li>firmware</li>
+<li>hardware</li>
+<li>humidity</li>
+<li>humidity_status</li>
+<li>kilowatt</li>
+<li>light_intensity</li>
+<li>meter_value</li>
+<li>noise_level</li>
+<li>rain_rate</li>
+<li>revision</li>
+<li>temperature</li>
+<li>timestamp</li>
+<li>total_rain</li>
+<li>uv_intensity</li>
+<li>version</li>
+<li>voltage</li>
+<li>watt</li>
+<li>weather_forecast</li>
+<li>windchill</li>
+<li>winddirection</li>
+<li>windgusts</li>
+<li>windspeed</li>
+<li>windtemp</li>
+</ul>
+<h3>Hiding/ignoring sensors <a class="title-link" name="hidingignoring-sensors" href="#hidingignoring-sensors"></a>
+</h3>
+<p>Sensors are added automatically when the RFLink gateway intercepts a wireless command in the ether. To prevent cluttering the frontend use any of these methods:</p>
+<ul>
+<li>Disable automatically adding of unconfigured new sensors (set <code>automatic_add</code> to <code>false</code>).</li>
+<li><a href="#ignoring-devices">Ignore devices on a platform level</a></li>
+</ul>
+<h3>Device support for sensors <a class="title-link" name="device-support-for-sensors" href="#device-support-for-sensors"></a>
+</h3>
+<p>See <a href="#device-support">device support</a></p>
+<h3>Additional configuration examples <a class="title-link" name="additional-configuration-examples-3" href="#additional-configuration-examples-3"></a>
+</h3>
+<p>Multiple sensors with <code>automatic_add</code> disabled and <code>aliases</code></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">sensor</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">automatic_add</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">oregontemp_0d93_temp</span><span class="pi">:</span>
+        <span class="na">sensor_type</span><span class="pi">:</span> <span class="s">temperature</span>
+      <span class="na">oregontemp_0d93_bat</span><span class="pi">:</span>
+        <span class="na">sensor_type</span><span class="pi">:</span> <span class="s">battery</span>
+      <span class="na">tunex_c001_temp</span><span class="pi">:</span>
+        <span class="na">sensor_type</span><span class="pi">:</span> <span class="s">temperature</span>
+        <span class="na">aliases</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">xiron_4001_temp</span>
+      <span class="na">tunex_c001_hum</span><span class="pi">:</span>
+        <span class="na">sensor_type</span><span class="pi">:</span> <span class="s">humidity</span>
+        <span class="na">aliases</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">xiron_4001_hum</span>
+      <span class="na">tunex_c001_bat</span><span class="pi">:</span>
+        <span class="na">sensor_type</span><span class="pi">:</span> <span class="s">battery</span>
+        <span class="na">aliases</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">xiron_4001_bat</span>
+</code></pre></div></div>
+<h2>Switch <a class="title-link" name="switch" href="#switch"></a>
+</h2>
+<p>The RFLink integration does not know the difference between a <code>switch</code>, a <code>binary_sensor</code>, and a <code>light</code>. Therefore, all switchable devices are automatically added as <code>light</code> by default.</p>
+<p>RFLink binary_sensor/switch/light IDs are composed of: protocol, id, switch/channel. For example: <code>newkaku_0000c6c2_1</code>.</p>
+<p>Once the ID of a switch is known, it can be used to configure it as a switch type in HA and, for example, to add it to a different group or configure a nice name.</p>
+<p>Configuring devices as switch :</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">switch</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">newkaku_0000c6c2_1</span><span class="pi">:</span> <span class="pi">{}</span>
+      <span class="na">conrad_00785c_0a</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="rflink-configuration-variables" href="#rflink-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> device_defaults </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="device_defaults" class="title-link" href="#device_defaults"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The defaults for the devices.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> fire_event </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="fire_event" class="title-link" href="#fire_event"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set default <code>fire_event</code> for RFLink switch devices (see below).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> signal_repetitions </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 1</span>)</span><a name="signal_repetitions" class="title-link" href="#signal_repetitions"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set default <code>signal_repetitions</code> for RFLink switch devices (see below).</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> devices </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="devices" class="title-link" href="#devices"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of switches.</p>
+</span></div>
+<div class="nested"><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> rflink_ids </span><span class="config-vars-type">map</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="rflink_ids" class="title-link" href="#rflink_ids"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>RFLink ID of the device</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: RFLink ID</span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> aliases </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="aliases" class="title-link" href="#aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Alternative RFLink IDs this device is known by.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> group_aliases </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="group_aliases" class="title-link" href="#group_aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>aliases</code> which only respond to group commands.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> no_group_aliases </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="no_group_aliases" class="title-link" href="#no_group_aliases"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>aliases</code> which do not respond to group commands.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> fire_event </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="fire_event" class="title-link" href="#fire_event"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Fire a <code>button_pressed</code> event if this device is turned on or off.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> signal_repetitions </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 1</span>)</span><a name="signal_repetitions" class="title-link" href="#signal_repetitions"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set default <code>signal_repetitions</code> for RFLink switch devices (see below).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> group </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="group" class="title-link" href="#group"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Allow switch to respond to group commands (ALLON/ALLOFF).</p>
+</span></div>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<h3>Switch state <a class="title-link" name="switch-state" href="#switch-state"></a>
+</h3>
+<p>Initially, the state of a switch is unknown. When the switch is turned on or off (via frontend or wireless remote) the state is known and will be shown in the frontend.</p>
+<p>Sometimes a switch is controlled by multiple wireless remotes. Each remote has its own code programmed in the switch. To allow tracking of the state when switched via other remotes, add the corresponding remote codes as aliases:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">switch</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">newkaku_0000c6c2_1</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Ceiling fan</span>
+        <span class="na">aliases</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">newkaku_000000001_2</span>
+          <span class="pi">-</span> <span class="s">kaku_000001_a</span>
+</code></pre></div></div>
+<p>Any on/off command from any alias ID updates the current state of the switch. However, when sending a command through the frontend only the primary ID is used.</p>
+<h3>Device support for switches <a class="title-link" name="device-support-for-switches" href="#device-support-for-switches"></a>
+</h3>
+<p>See <a href="#device-support">device support</a></p>
+<h4>Additional configuration examples <a class="title-link" name="additional-configuration-examples-4" href="#additional-configuration-examples-4"></a>
+</h4>
+<p>Multiple switches with signal repetitions and custom names</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">switch</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">rflink</span>
+    <span class="na">device_defaults</span><span class="pi">:</span>
+      <span class="na">fire_event</span><span class="pi">:</span> <span class="kc">true</span>
+      <span class="na">signal_repetitions</span><span class="pi">:</span> <span class="m">2</span>
+    <span class="na">devices</span><span class="pi">:</span>
+      <span class="na">newkaku_0000c6c2_1</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Ceiling fan</span>
+      <span class="na">conrad_00785c_0a</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Motion sensor kitchen</span>
+</code></pre></div></div>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    <li>
+      <a href="/docs/configuration/" class="topic">
+        Configuration file
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/rflink.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Frflink%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20rflink" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+rflink%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/rflink//logo.png' srcset='https://brands.home-assistant.io/_/rflink/logo@2x.png 2x' /></div>
+
+  <div class='section'>The RFLink  integration  was introduced in Home Assistant 0.38, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          904</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:circle-half-full'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Assumed State.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-legacy'>💾 Legacy integration</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/rflink" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+rflink%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/javicalle" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/javicalle?size=96" alt="@javicalle"/> @javicalle</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#device-support">Device support</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#full-example">Full example</a></li>
+<li class="toc-entry toc-h3"><a href="#tcp-mode">TCP mode</a></li>
+<li class="toc-entry toc-h3"><a href="#adding-devices-automatically">Adding devices Automatically</a></li>
+<li class="toc-entry toc-h3"><a href="#ignoring-devices">Ignoring devices</a></li>
+<li class="toc-entry toc-h3"><a href="#invert-cover">Invert cover</a></li>
+<li class="toc-entry toc-h3"><a href="#device-incorrectly-identified">Device Incorrectly Identified</a></li>
+<li class="toc-entry toc-h3"><a href="#technical-overview">Technical Overview</a></li>
+<li class="toc-entry toc-h3"><a href="#debug-logging">Debug Logging</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#binary-sensor">Binary sensor</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sensor-state">Sensor state</a></li>
+<li class="toc-entry toc-h3"><a href="#device-support-for-binary-sensors">Device support for binary sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#additional-configuration-examples">Additional configuration examples</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#cover">Cover</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#setting-up-a-somfy-rts-device">Setting up a Somfy RTS device</a></li>
+<li class="toc-entry toc-h3"><a href="#setting-up-a-kaku-asun-650-device">Setting up a KAKU ASUN-650 device</a></li>
+<li class="toc-entry toc-h3"><a href="#setting-up-a-non-rts-cover">Setting up a non-RTS cover</a></li>
+<li class="toc-entry toc-h3"><a href="#device-support-for-covers">Device support for covers</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#additional-configuration-examples-1">Additional configuration examples</a></li>
+<li class="toc-entry toc-h2"><a href="#light">Light</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#light-state">Light state</a></li>
+<li class="toc-entry toc-h3"><a href="#light-types">Light types</a></li>
+<li class="toc-entry toc-h3"><a href="#hidingignoring-lights">Hiding/ignoring lights</a></li>
+<li class="toc-entry toc-h3"><a href="#device-support-for-lights">Device support for lights</a></li>
+<li class="toc-entry toc-h3"><a href="#additional-configuration-examples-2">Additional configuration examples</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#sensor">Sensor</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sensor-types">Sensor types</a></li>
+<li class="toc-entry toc-h3"><a href="#hidingignoring-sensors">Hiding/ignoring sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#device-support-for-sensors">Device support for sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#additional-configuration-examples-3">Additional configuration examples</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#switch">Switch</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#switch-state">Switch state</a></li>
+<li class="toc-entry toc-h3"><a href="#device-support-for-switches">Device support for switches</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

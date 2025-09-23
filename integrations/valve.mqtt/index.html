@@ -1,0 +1,975 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>MQTT Valve - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate MQTT valves into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/valve.mqtt/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="MQTT Valve">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/valve.mqtt/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate MQTT valves into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="MQTT Valve">
+    <meta name="twitter:description" content="Instructions on how to integrate MQTT valves into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#valve-controlled-by-states">Valve controlled by states</a></li>
+<li class="toc-entry toc-h3"><a href="#valve-controlled-by-position">Valve controlled by position</a></li>
+<li class="toc-entry toc-h3"><a href="#optimistic-operation">Optimistic operation</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#full-configuration-for-a-value-that-does-not-report-position">Full configuration for a value that does not report position</a></li>
+<li class="toc-entry toc-h3"><a href="#sample-configuration-of-a-valve-that-reports-the-position">Sample configuration of a valve that reports the position</a></li>
+<li class="toc-entry toc-h3"><a href="#configuration-for-disabling-valve-commands">Configuration for disabling valve commands</a></li>
+<li class="toc-entry toc-h3"><a href="#testing-your-configuration">Testing your configuration</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        MQTT Valve
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <code>mqtt</code> valve platform allows you to control an MQTT valve (such a gas or water valve).</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>A valve entity can be have the following states: <code>open</code>, <code>opening</code>, <code>closed</code> or <code>closing</code>.</p>
+<h3>Valve controlled by states <a class="title-link" name="valve-controlled-by-states" href="#valve-controlled-by-states"></a>
+</h3>
+<p>If a <code>state_topic</code> is configured, the entity’s state will be updated only after an MQTT message is received on <code>state_topic</code> matching <code>state_open</code>, <code>state_opening</code>, <code>state_closed</code> or <code>state_closing</code>. Commands configured through <code>payload_open</code>, <code>payload_closed</code>, and <code>payload_stop</code> will be published to <code>command_topic</code> to control the valve.</p>
+<p>To use an MQTT valve in your installation, add the following to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file.
+After changing the <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file, <a href="/docs/configuration/#reloading-the-configuration-to-apply-changes">restart Home Assistant</a> to apply the changes.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry for a value that is set by open or close command</span>
+<span class="na">mqtt</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">valve</span><span class="pi">:</span>
+      <span class="na">command_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heater/valve/set"</span>
+      <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heater/valve/state"</span>
+</code></pre></div></div>
+<p>Alternatively, a more advanced approach is to set it up via <a href="/integrations/mqtt/#mqtt-discovery">MQTT discovery</a>.</p>
+<h3>Valve controlled by position <a class="title-link" name="valve-controlled-by-position" href="#valve-controlled-by-position"></a>
+</h3>
+<p>If the valve supports reporting its position (the <code>reports_position</code> config option is set to <code>true</code>), a numeric state is expected on <code>state_topic</code>, but state updates are still allowed for <code>state_opening</code> and <code>state_closing</code>. Also, a JSON format is supported. It allows both <code>state</code> and <code>position</code> to be reported together.</p>
+<p>Example of a JSON state update:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"opening"</span><span class="p">,</span><span class="w"> </span><span class="nl">"position"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>The wanted position value or <code>payload_stop</code> will be published to <code>command_topic</code> to control the valve when the actions <code>valve.open</code>, <code>value.close</code>, or <code>value.set_position</code> are called.</p>
+<p>To use your MQTT valve in your installation, add the following to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry for a valve that reports position</span>
+<span class="na">mqtt</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">valve</span><span class="pi">:</span>
+      <span class="na">command_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heater/valve/set"</span>
+      <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heater/valve/state"</span>
+      <span class="na">reports_position</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<h3>Optimistic operation <a class="title-link" name="optimistic-operation" href="#optimistic-operation"></a>
+</h3>
+<p>If a <code>state_topic</code> is not defined, the valve will work in optimistic mode. In this mode, the valve will immediately change state (<code>open</code> or <code>closed</code>) after every command sent by Home Assistant. It won’t wait for an update from the device. Optimistic mode can be forced by setting <code>optimistic</code> to <code>true</code>, even if a <code>state_topic</code> is defined. Try to enable it if you are experiencing an incorrect valve operation.</p>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="valve-mqtt-configuration-variables" href="#valve-mqtt-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> availability </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="availability" class="title-link" href="#availability"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of MQTT topics subscribed to receive availability (online/offline) updates. Must not be used together with <code>availability_topic</code>.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_available </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: online</span>)</span><a name="payload_available" class="title-link" href="#payload_available"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the available state.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_not_available </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: offline</span>)</span><a name="payload_not_available" class="title-link" href="#payload_not_available"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the unavailable state.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> topic </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="topic" class="title-link" href="#topic"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>An MQTT topic subscribed to receive availability (online/offline) updates.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> value_template </span><span class="config-vars-type"><a href="/docs/configuration/templating/">template</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="value_template" class="title-link" href="#value_template"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines a <a href="/docs/configuration/templating/#using-value-templates-with-mqtt">template</a> to extract the device’s availability from the <code>topic</code>. To determine the devices’s availability, the result of this template will be compared to <code>payload_available</code> and <code>payload_not_available</code>.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> availability_mode </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: latest</span>)</span><a name="availability_mode" class="title-link" href="#availability_mode"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>When <code>availability</code> is configured, this controls the conditions needed to set the entity to <code>available</code>. Valid entries are <code>all</code>, <code>any</code>, and <code>latest</code>. If set to <code>all</code>, <code>payload_available</code> must be received on all configured availability topics before the entity is marked as online. If set to <code>any</code>, <code>payload_available</code> must be received on at least one configured availability topic before the entity is marked as online. If set to <code>latest</code>, the last <code>payload_available</code> or <code>payload_not_available</code> received on any configured availability topic controls the availability.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> availability_template </span><span class="config-vars-type"><a href="/docs/configuration/templating/">template</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="availability_template" class="title-link" href="#availability_template"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines a <a href="/docs/configuration/templating/#using-value-templates-with-mqtt">template</a> to extract the device’s availability from the <code>availability_topic</code>. To determine the devices’s availability, the result of this template will be compared to <code>payload_available</code> and <code>payload_not_available</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> availability_topic </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="availability_topic" class="title-link" href="#availability_topic"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The MQTT topic subscribed to receive birth and LWT messages from the MQTT valve device. If an <code>availability</code> topic is not defined, the valve availability state will always be <code>available</code>. If an <code>availability</code> topic is defined, the valve availability state will be <code>unavailable</code> by default. Must not be used together with <code>availability</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> command_template </span><span class="config-vars-type"><a href="/docs/configuration/templating/">template</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="command_template" class="title-link" href="#command_template"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines a <a href="/docs/configuration/templating/#using-command-templates-with-mqtt">template</a> to generate the payload to send to <code>command_topic</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> command_topic </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="command_topic" class="title-link" href="#command_topic"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The MQTT topic to publish commands to control the valve. The value sent can be a value defined by <code>payload_open</code>, <code>payload_close</code> or <code>payload_stop</code>. If <code>reports_position</code> is set to <code>true</code>, a numeric value will be published instead.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> device </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="device" class="title-link" href="#device"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Information about the device this valve is a part of to tie it into the <a href="https://developers.home-assistant.io/docs/en/device_registry_index.html">device registry</a>. Only works when <a href="#unique_id"><code>unique_id</code></a> is set. At least one of the identifiers or connections must be present to identify the device.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> configuration_url </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="configuration_url" class="title-link" href="#configuration_url"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A link to the webpage that can manage the configuration of this device. Can be either an <code>http://</code>, <code>https://</code> or an internal <code>homeassistant://</code> URL.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> connections </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="connections" class="title-link" href="#connections"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of connections of the device to the outside world as a list of tuples <code>[connection_type, connection_identifier]</code>. For example, the MAC address of a network interface: <code>"connections": [["mac", "02:5b:26:a8:dc:12"]]</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> hw_version </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="hw_version" class="title-link" href="#hw_version"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The hardware version of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> identifiers </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="identifiers" class="title-link" href="#identifiers"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of IDs that uniquely identify the device. For example, a serial number.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> manufacturer </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="manufacturer" class="title-link" href="#manufacturer"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The manufacturer of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> model </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="model" class="title-link" href="#model"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The model of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> model_id </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="model_id" class="title-link" href="#model_id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The model identifier of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The name of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> serial_number </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="serial_number" class="title-link" href="#serial_number"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The serial number of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> suggested_area </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="suggested_area" class="title-link" href="#suggested_area"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Suggest an area if the device isn’t in one yet.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> sw_version </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="sw_version" class="title-link" href="#sw_version"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The firmware version of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> via_device </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="via_device" class="title-link" href="#via_device"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Identifier of a device that routes messages between this device and Home Assistant. Examples of such devices are hubs, or parent devices of a sub-device. This is used to show device topology in Home Assistant.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> device_class </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="device_class" class="title-link" href="#device_class"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Sets the <a href="/integrations/valve/#device_class">class of the device</a>, changing the device state and icon that is displayed on the frontend. The <code>device_class</code> can be <code>null</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> enabled_by_default </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="enabled_by_default" class="title-link" href="#enabled_by_default"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Flag which defines if the entity should be enabled when first added.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> encoding </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: utf-8</span>)</span><a name="encoding" class="title-link" href="#encoding"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The encoding of the payloads received and published messages. Set to <code>""</code> to disable decoding of incoming payload.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> entity_category </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="entity_category" class="title-link" href="#entity_category"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <a href="https://developers.home-assistant.io/docs/core/entity#generic-properties">category</a> of the entity.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> entity_picture </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="entity_picture" class="title-link" href="#entity_picture"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Picture URL for the entity.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> icon </span><span class="config-vars-type"><a href="/integrations/homeassistant/#icon">icon</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="icon" class="title-link" href="#icon"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><a href="/docs/configuration/customizing-devices/#icon">Icon</a> for the entity.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> json_attributes_template </span><span class="config-vars-type"><a href="/docs/configuration/templating/">template</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="json_attributes_template" class="title-link" href="#json_attributes_template"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines a <a href="/docs/configuration/templating/#using-value-templates-with-mqtt">template</a> to extract the JSON dictionary from messages received on the <code>json_attributes_topic</code>. A usage example can be found in the <a href="/integrations/sensor.mqtt/#json-attributes-template-configuration">MQTT sensor</a> documentation.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> json_attributes_topic </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="json_attributes_topic" class="title-link" href="#json_attributes_topic"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The MQTT topic subscribed to receive a JSON dictionary payload and then set as sensor attributes. A usage example can be found in <a href="/integrations/sensor.mqtt/#json-attributes-topic-configuration">MQTT sensor</a> documentation.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: MQTT valve</span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The name of the valve. Can be set to <code>null</code> if only the device name is relevant.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> object_id </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="object_id" class="title-link" href="#object_id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Used instead of <code>name</code> to have the <code>entity_id</code> generated automatically.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> optimistic </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="optimistic" class="title-link" href="#optimistic"></a>
+</div>
+<div class="config-vars-description-and-children">
+<span class="config-vars-description"><p>Flag that defines if a switch works in optimistic mode.</p>
+</span><div class="config-vars-default">
+Default: <p><code>false</code> if the state or position topic is defined; <code>true</code> otherwise.</p>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_available </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: online</span>)</span><a name="payload_available" class="title-link" href="#payload_available"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the online state.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_close </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: CLOSE</span>)</span><a name="payload_close" class="title-link" href="#payload_close"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The command payload that closes the valve. Is only used when <code>reports_position</code> is set to <code>false</code> (default). The <code>payload_close</code> is not allowed if <code>reports_position</code> is set to <code>true</code>. Can be set to <code>null</code> to disable the valve’s close option.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_not_available </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: offline</span>)</span><a name="payload_not_available" class="title-link" href="#payload_not_available"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the offline state.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_open </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: OPEN</span>)</span><a name="payload_open" class="title-link" href="#payload_open"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The command payload that opens the valve. Is only used when <code>reports_position</code> is set to <code>false</code> (default). The <code>payload_open</code> is not allowed if <code>reports_position</code> is set to <code>true</code>. Can be set to <code>null</code> to disable the valve’s open option.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_stop </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="payload_stop" class="title-link" href="#payload_stop"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The command payload that stops the valve. When not configured, the valve will not support the <code>valve.stop</code> action.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> platform </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="platform" class="title-link" href="#platform"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Must be <code>valve</code>. Only allowed and required in <a href="/integrations/mqtt/#device-discovery-payload">MQTT auto discovery device messages</a>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> position_closed </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 0</span>)</span><a name="position_closed" class="title-link" href="#position_closed"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Number which represents closed position. The valve’s position will be scaled to the(<code>position_closed</code>…<code>position_open</code>) range when an action is performed and scaled back when a value is received.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> position_open </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 100</span>)</span><a name="position_open" class="title-link" href="#position_open"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Number which represents open position. The valve’s position will be scaled to (<code>position_closed</code>…<code>position_open</code>) range when an is performed and scaled back when a value is received.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> qos </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 0</span>)</span><a name="qos" class="title-link" href="#qos"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The maximum QoS level to be used when receiving and publishing messages.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> reports_position </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="reports_position" class="title-link" href="#reports_position"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set to <code>true</code> if the value reports the position or supports setting the position. Enabling the <code>reports_position</code> option will cause the position to be published instead of a payload defined by <code>payload_open</code>, <code>payload_close</code> or <code>payload_stop</code>. When receiving messages, <code>state_topic</code> will accept numeric payloads or one of the following state messages: <code>open</code>, <code>opening</code>, <code>closed</code>, or <code>closing</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> retain </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="retain" class="title-link" href="#retain"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines if published messages should have the retain flag set.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> state_closed </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: closed</span>)</span><a name="state_closed" class="title-link" href="#state_closed"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the closed state. Is only allowed when <code>reports_position</code> is set to <code>False</code> (default).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> state_closing </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: closing</span>)</span><a name="state_closing" class="title-link" href="#state_closing"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the closing state.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> state_open </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: open</span>)</span><a name="state_open" class="title-link" href="#state_open"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the open state. Is only allowed when <code>reports_position</code> is set to <code>False</code> (default).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> state_opening </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: opening</span>)</span><a name="state_opening" class="title-link" href="#state_opening"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the opening state.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> state_topic </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="state_topic" class="title-link" href="#state_topic"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The MQTT topic subscribed to receive valve state messages. State topic accepts a state payload (<code>open</code>, <code>opening</code>, <code>closed</code>, or <code>closing</code>) or, if <code>reports_position</code> is supported, a numeric value representing the position. In a JSON format with variables <code>state</code> and <code>position</code> both values can received together. A “None” state value resets to an <code>unknown</code> state. An empty string is ignored.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> unique_id </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="unique_id" class="title-link" href="#unique_id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>An ID that uniquely identifies this valve. If two valves have the same unique ID, Home Assistant will raise an exception. Required when used with device-based discovery.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> value_template </span><span class="config-vars-type"><a href="/docs/configuration/templating/">template</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="value_template" class="title-link" href="#value_template"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines a <a href="/docs/configuration/templating/#using-value-templates-with-mqtt">template</a> that can be used to extract the payload for the <code>state_topic</code> topic. The rendered value should be a defined state payload or, if reporting a <code>position</code> is supported and <code>reports_position</code> is set to <code>true</code>, a numeric value is expected representing the position. See also <code>state_topic</code>.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>MQTT valve expects position values to be in the range of 0 to 100, where 0 indicates a closed position and 100 indicates a fully open position.
+If <code>position_open</code> or <code>position_closed</code> are set to a different range (for example, 40 to 140), when sending a command to the device, the range will be adjusted to the device range. For example, position 0 will send a value of 40 to device. When the device receives a position payload, it will be adjusted back to the 0 to 100 range. In our example, the device value of 40 will report valve position 0.
+<code>position_open</code> and <code>position_closed</code> can also be used to reverse the direction of the device: If <code>position_closed</code> is set to 100 and <code>position_open</code> is set to <code>0</code>, the device operation will be inverted. For example, when setting the position to 40, a value of 60 will be sent to the device.</p>
+  </div>
+</div>
+<h2>Examples <a class="title-link" name="examples" href="#examples"></a>
+</h2>
+<p>This section provides some examples showing how you can use this platform.</p>
+<h3>Full configuration for a value that does not report position <a class="title-link" name="full-configuration-for-a-value-that-does-not-report-position" href="#full-configuration-for-a-value-that-does-not-report-position"></a>
+</h3>
+<p>The example below shows a full configuration for a valve that does not report position.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">mqtt</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">valve</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">MQTT</span><span class="nv"> </span><span class="s">valve"</span>
+      <span class="na">command_template</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{"x":</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">}'</span>
+      <span class="na">command_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heater/valve/set"</span>
+      <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heater/valve/state"</span>
+      <span class="na">availability</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heater/valve/availability"</span>
+      <span class="na">qos</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">reports_position</span><span class="pi">:</span> <span class="kc">false</span>
+      <span class="na">retain</span><span class="pi">:</span> <span class="kc">true</span>
+      <span class="na">payload_open</span><span class="pi">:</span> <span class="s2">"</span><span class="s">OPEN"</span>
+      <span class="na">payload_close</span><span class="pi">:</span> <span class="s2">"</span><span class="s">CLOSE"</span>
+      <span class="na">payload_stop</span><span class="pi">:</span> <span class="s2">"</span><span class="s">STOP"</span>
+      <span class="na">state_open</span><span class="pi">:</span> <span class="s2">"</span><span class="s">open"</span>
+      <span class="na">state_opening</span><span class="pi">:</span> <span class="s2">"</span><span class="s">opening"</span>
+      <span class="na">state_closed</span><span class="pi">:</span> <span class="s2">"</span><span class="s">closed"</span>
+      <span class="na">state_closing</span><span class="pi">:</span> <span class="s2">"</span><span class="s">closing"</span>
+      <span class="na">payload_available</span><span class="pi">:</span> <span class="s2">"</span><span class="s">online"</span>
+      <span class="na">payload_not_available</span><span class="pi">:</span> <span class="s2">"</span><span class="s">offline"</span>
+      <span class="na">optimistic</span><span class="pi">:</span> <span class="kc">false</span>
+      <span class="na">value_template</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">value_json.x</span><span class="nv"> </span><span class="s">}}"</span>
+</code></pre></div></div>
+<h3>Sample configuration of a valve that reports the position <a class="title-link" name="sample-configuration-of-a-valve-that-reports-the-position" href="#sample-configuration-of-a-valve-that-reports-the-position"></a>
+</h3>
+<p>The example below shows a sample configuration for a valve that reports the position using JSON messages.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">mqtt</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">valve</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">MQTT</span><span class="nv"> </span><span class="s">valve"</span>
+      <span class="na">command_template</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{"x":</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">}'</span>
+      <span class="na">command_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heater/valve/set"</span>
+      <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heater/valve/state"</span>
+      <span class="na">availability</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heater/valve/availability"</span>
+      <span class="na">reports_position</span><span class="pi">:</span> <span class="kc">true</span>
+      <span class="na">value_template</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">value_json.x</span><span class="nv"> </span><span class="s">}}"</span>
+</code></pre></div></div>
+<h3>Configuration for disabling valve commands <a class="title-link" name="configuration-for-disabling-valve-commands" href="#configuration-for-disabling-valve-commands"></a>
+</h3>
+<p>The example below shows a configuration for a valve that does not have a close command.
+Setting the <code>payload_close</code> to empty or to <code>null</code> disables the close command and will not show the close button.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">mqtt</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">valve</span><span class="pi">:</span>
+      <span class="na">payload_open</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+      <span class="na">payload_close</span><span class="pi">:</span> 
+      <span class="na">payload_stop</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+</code></pre></div></div>
+<p>An MQTT valve will support <code>open</code> and <code>close</code> commands if a <code>command_topic</code> is set. The MQTT valve supports <code>stop</code> if <code>payload_stop</code> is set.</p>
+<h3>Testing your configuration <a class="title-link" name="testing-your-configuration" href="#testing-your-configuration"></a>
+</h3>
+<p>To test, you can use the command line tool <code>mosquitto_pub</code> shipped with <code>mosquitto</code> or the <code>mosquitto-clients</code> package to send MQTT messages. This allows you to operate your valve manually:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">mosquitto_pub <span class="nt">-h</span> 127.0.0.1 <span class="nt">-t</span> home-assistant/valve/set <span class="nt">-m</span> <span class="s2">"CLOSE"</span>
+</code></pre></div></div>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/valve.mqtt.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fvalve.mqtt%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20mqtt" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+mqtt%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/mqtt//logo.png' srcset='https://brands.home-assistant.io/_/mqtt/logo@2x.png 2x' /></div>
+
+  <div class='section'>The MQTT Valve  integration  was introduced in Home Assistant 2024.1, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          46.8%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      &nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Configurable.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/mqtt" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+mqtt%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+      <div class="section">
+        This integration is community maintained.<br />
+        If you are a developer and would like to help, feel free to contribute!
+      </div>
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#valve-controlled-by-states">Valve controlled by states</a></li>
+<li class="toc-entry toc-h3"><a href="#valve-controlled-by-position">Valve controlled by position</a></li>
+<li class="toc-entry toc-h3"><a href="#optimistic-operation">Optimistic operation</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#full-configuration-for-a-value-that-does-not-report-position">Full configuration for a value that does not report position</a></li>
+<li class="toc-entry toc-h3"><a href="#sample-configuration-of-a-valve-that-reports-the-position">Sample configuration of a valve that reports the position</a></li>
+<li class="toc-entry toc-h3"><a href="#configuration-for-disabling-valve-commands">Configuration for disabling valve commands</a></li>
+<li class="toc-entry toc-h3"><a href="#testing-your-configuration">Testing your configuration</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#valve'>Valve</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

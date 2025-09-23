@@ -1,0 +1,1155 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Recorder - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to configure the data recorder for Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/recorder/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Recorder">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/recorder/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to configure the data recorder for Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Recorder">
+    <meta name="twitter:description" content="Instructions on how to configure the data recorder for Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#disk-space-requirements">Disk space requirements</a></li>
+<li class="toc-entry toc-h2"><a href="#advanced-configuration">Advanced configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#configure-filter">Configure filter</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-purge">Action purge</a></li>
+<li class="toc-entry toc-h3"><a href="#action-purge_entities">Action purge_entities</a></li>
+<li class="toc-entry toc-h3"><a href="#action-disable">Action disable</a></li>
+<li class="toc-entry toc-h3"><a href="#action-enable">Action enable</a></li>
+<li class="toc-entry toc-h3"><a href="#action-get_statistics">Action get_statistics</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#handling-disk-corruption-and-hardware-failures">Handling disk corruption and hardware failures</a></li>
+<li class="toc-entry toc-h2"><a href="#custom-database-engines">Custom database engines</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#database-startup">Database startup</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#installation-notes">Installation notes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#mariadb-and-mysql">MariaDB and MySQL</a></li>
+<li class="toc-entry toc-h3"><a href="#postgresql">PostgreSQL</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Recorder
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>This integration is by default enabled as dependency of the <a href="/integrations/history/"><code>history</code></a> integration.</p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>This integration constantly saves data. If you use the default configuration, the data will be saved on the media Home Assistant is installed on. In case of Raspberry Pi with an SD card, it might affect your system’s reaction time and life expectancy of the storage medium (the SD card). It is therefore recommended to set the <a href="/integrations/recorder#commit_interval">commit_interval</a> to higher value, e.g. 30s, limit the amount of stored data (e.g., by excluding devices) or store the data elsewhere (e.g., another system).</p>
+  </div>
+</div>
+<p>Home Assistant uses <a href="https://www.sqlalchemy.org/" rel="external nofollow">SQLAlchemy<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, which is an Object Relational Mapper (ORM). This makes it possible to use a number of database solutions.</p>
+<p>The supported database solutions are:</p>
+<ul>
+<li>
+<a href="https://mariadb.org/" rel="external nofollow">MariaDB<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> ≥ 10.3</li>
+<li>
+<a href="https://www.mysql.com/" rel="external nofollow">MySQL<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> ≥ 8.0</li>
+<li>
+<a href="https://www.postgresql.org/" rel="external nofollow">PostgreSQL<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> ≥ 12</li>
+<li>
+<a href="https://www.sqlite.org/" rel="external nofollow">SQLite<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> ≥ 3.40.1</li>
+</ul>
+<p>Although SQLAlchemy supports database solutions in addition to the ones supported by Home Assistant, it will behave differently on different databases, and features relied on by the recorder may work differently, or not at all, in different databases.</p>
+<p>The default, and recommended, database engine is <a href="https://www.sqlite.org/" rel="external nofollow">SQLite<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> which does not require any configuration. The database is stored in your Home Assistant configuration directory (’/config/’) and is named <code>home-assistant_v2.db</code>.</p>
+<div class="alert alert-caution">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-circle-outline"></iconify-icon> Caution</p>
+  <div class="alert-content">
+<p>Changing database used by the recorder may result in losing your existing history. Migrating data is not supported.</p>
+  </div>
+</div>
+<p>To change the defaults for the <code>recorder</code> integration in your installation, add the following to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file:</p>
+<h2>Disk space requirements <a class="title-link" name="disk-space-requirements" href="#disk-space-requirements"></a>
+</h2>
+<p>A bare minimum requirement is to have at least as much free temporary space available as the size of your database at all times. A table rebuild, repair, or repack may happen at any time, which can result in a copy of the data on disk during the operation. Meeting the bare minimum requirement is essential during a version upgrade, where the schema may change, as this operation almost always requires making a temporary copy of part of the database.</p>
+<p>For example, if your database is 1.5 GiB on disk, you must always have at least 1.5 GiB free.</p>
+<h2>Advanced configuration <a class="title-link" name="advanced-configuration" href="#advanced-configuration"></a>
+</h2>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">recorder</span><span class="pi">:</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="recorder-configuration-variables" href="#recorder-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class=""><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> recorder </span><span class="config-vars-type">map</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="recorder" class="title-link" href="#recorder"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Enables the recorder integration. Only allowed once.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> db_url </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="db_url" class="title-link" href="#db_url"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The URL that points to your database. Examples of these can be found <a href="#custom-database-engines">here</a>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> db_max_retries </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 10</span>)</span><a name="db_max_retries" class="title-link" href="#db_max_retries"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The max amount of times, the recorder retries to connect to the database.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> db_retry_wait </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 3</span>)</span><a name="db_retry_wait" class="title-link" href="#db_retry_wait"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The time in seconds, that the recorder sleeps when trying to connect to the database.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> auto_purge </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="auto_purge" class="title-link" href="#auto_purge"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Automatically purge the database every night at 04:12 local time. Purging keeps the database from growing indefinitely, which takes up disk space and can make Home Assistant slow. If you disable <code>auto_purge</code> it is recommended that you create an automation to call the <a href="#action-purge"><code>recorder.purge</code></a> periodically.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> auto_repack </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="auto_repack" class="title-link" href="#auto_repack"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Automatically repack the database every second sunday after the auto purge. Without a repack, the database may not decrease in size even after purging, which takes up disk space and can make Home Assistant slow. If you disable <code>auto_repack</code> it is recommended that you create an automation to call the <a href="#action-purge"><code>recorder.purge</code></a> periodically. This flag has no effect if <code>auto_purge</code> is disabled.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> purge_keep_days </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 10</span>)</span><a name="purge_keep_days" class="title-link" href="#purge_keep_days"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Specify the number of history days to keep in recorder database after a purge.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> commit_interval </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 5</span>)</span><a name="commit_interval" class="title-link" href="#commit_interval"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>How often (in seconds) the events and state changes are committed to the database. The default of <code>5</code> allows events to be committed almost right away without trashing the disk when an event storm happens. Increasing this will reduce disk I/O and may prolong disk (SD card) lifetime with the trade-off being that the database will lag (the logbook and history will not lag, because the changes are streamed to them immediatelly). If this is set to <code>0</code> (zero), commit are made as soon as possible after an event is processed.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> exclude </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="exclude" class="title-link" href="#exclude"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Configure which integrations should be excluded from recordings. (<a href="#configure-filter">Configure Filter</a>)</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> domains </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="domains" class="title-link" href="#domains"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The list of domains to be excluded from recordings.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> entity_globs </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="entity_globs" class="title-link" href="#entity_globs"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Exclude all entities matching a listed pattern from recordings (e.g., <code>sensor.weather_*</code>).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> entities </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="entities" class="title-link" href="#entities"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The list of entity ids to be excluded from recordings.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> event_types </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="event_types" class="title-link" href="#event_types"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The list of event types to be excluded from recordings.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> include </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="include" class="title-link" href="#include"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Configure which integrations should be included in recordings. If set, all other entities will not be recorded. (<a href="#configure-filter">Configure Filter</a>)</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> domains </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="domains" class="title-link" href="#domains"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The list of domains to be included in the recordings.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> entity_globs </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="entity_globs" class="title-link" href="#entity_globs"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Include all entities matching a listed pattern from recordings (e.g., <code>sensor.weather_*</code>).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> entities </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="entities" class="title-link" href="#entities"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The list of entity ids to be included in the recordings.</p>
+</span></div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+<h3>Configure filter <a class="title-link" name="configure-filter" href="#configure-filter"></a>
+</h3>
+<p>By default, no entity will be excluded. To limit which entities are being exposed to <code>recorder</code>, you can use the <code>include</code> and <code>exclude</code> parameters.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example filter to include specified domains and exclude specified entities</span>
+<span class="na">recorder</span><span class="pi">:</span>
+  <span class="na">include</span><span class="pi">:</span>
+    <span class="na">domains</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">alarm_control_panel</span>
+      <span class="pi">-</span> <span class="s">light</span>
+    <span class="na">entity_globs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">binary_sensor.*_occupancy</span>
+  <span class="na">exclude</span><span class="pi">:</span>
+    <span class="na">entities</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">light.kitchen_light</span>
+</code></pre></div></div>
+<p>Filters are applied as follows:</p>
+<ol>
+<li>No filter
+<ul>
+<li>All entities included</li>
+</ul>
+</li>
+<li>Only includes
+<ul>
+<li>Entity listed in entities include: include</li>
+<li>Otherwise, entity matches domain include: include</li>
+<li>Otherwise, entity matches glob include: include</li>
+<li>Otherwise: exclude</li>
+</ul>
+</li>
+<li>Only excludes
+<ul>
+<li>Entity listed in exclude: exclude</li>
+<li>Otherwise, entity matches domain exclude: exclude</li>
+<li>Otherwise, entity matches glob exclude: exclude</li>
+<li>Otherwise: include</li>
+</ul>
+</li>
+<li>Domain and/or glob includes (may also have excludes)
+<ul>
+<li>Entity listed in entities include: include</li>
+<li>Otherwise, entity listed in entities exclude: exclude</li>
+<li>Otherwise, entity matches glob include: include</li>
+<li>Otherwise, entity matches glob exclude: exclude</li>
+<li>Otherwise, entity matches domain include: include</li>
+<li>Otherwise: exclude</li>
+</ul>
+</li>
+<li>Domain and/or glob excludes (no domain and/or glob includes)
+<ul>
+<li>Entity listed in entities include: include</li>
+<li>Otherwise, entity listed in exclude: exclude</li>
+<li>Otherwise, entity matches glob exclude: exclude</li>
+<li>Otherwise, entity matches domain exclude: exclude</li>
+<li>Otherwise: include</li>
+</ul>
+</li>
+<li>No Domain and/or glob includes or excludes
+<ul>
+<li>Entity listed in entities include: include</li>
+<li>Otherwise: exclude</li>
+</ul>
+</li>
+</ol>
+<p>The following characters can be used in entity globs:</p>
+<p><code>*</code> - The asterisk represents zero, one, or multiple characters
+<code>?</code> - The question mark represents zero or one character</p>
+<p>If you only want to hide events from your logbook, take a look at the <a href="/integrations/logbook/">logbook integration</a>. But if you have privacy concerns about certain events or want them in neither the history or logbook, you should use the <code>exclude</code>/<code>include</code> options of the <code>recorder</code> integration. That way they aren’t even in your database, you can reduce storage and keep the database small by excluding certain often-logged events (like <code>sensor.last_boot</code>).</p>
+<h4>Common filtering examples <a class="title-link" name="common-filtering-examples" href="#common-filtering-examples"></a>
+</h4>
+<p>Defining domains and entities to <code>exclude</code> (i.e. blocklist) is convenient when you are basically happy with the information recorded, but just want to remove some entities or domains.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry with exclude</span>
+<span class="na">recorder</span><span class="pi">:</span>
+  <span class="na">purge_keep_days</span><span class="pi">:</span> <span class="m">5</span>
+  <span class="na">db_url</span><span class="pi">:</span> <span class="s">sqlite:////home/user/.homeassistant/test</span>
+  <span class="na">exclude</span><span class="pi">:</span>
+    <span class="na">domains</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">automation</span>
+      <span class="pi">-</span> <span class="s">update</span>
+    <span class="na">entity_globs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">sensor.sun*</span>
+      <span class="pi">-</span> <span class="s">weather.*</span>
+    <span class="na">entities</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">sensor.date</span>
+      <span class="pi">-</span> <span class="s">sensor.last_boot</span> <span class="c1"># Comes from 'systemmonitor' sensor platform</span>
+      <span class="pi">-</span> <span class="s">sun.sun</span> <span class="c1"># Don't record sun data</span>
+    <span class="na">event_types</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">call_service</span> <span class="c1"># Don't record actions</span>
+</code></pre></div></div>
+<p>Defining domains and entities to record by using the <code>include</code> configuration (i.e. allowlist) is convenient if you have a lot of entities in your system and your <code>exclude</code> lists possibly get very large, so it might be better just to define the entities or domains to record.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry with include</span>
+<span class="na">recorder</span><span class="pi">:</span>
+  <span class="na">include</span><span class="pi">:</span>
+    <span class="na">domains</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">sensor</span>
+      <span class="pi">-</span> <span class="s">switch</span>
+      <span class="pi">-</span> <span class="s">media_player</span>
+</code></pre></div></div>
+<p>You can also use the <code>include</code> list to define the domains/entities to record, and exclude some of those within the <code>exclude</code> list. This makes sense if you, for instance, include the <code>sensor</code> domain, but want to exclude some specific sensors. Instead of adding every sensor entity to the <code>include</code> <code>entities</code> list just include the <code>sensor</code> domain and exclude the sensor entities you are not interested in.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry with include and exclude</span>
+<span class="na">recorder</span><span class="pi">:</span>
+  <span class="na">include</span><span class="pi">:</span>
+    <span class="na">domains</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">sensor</span>
+      <span class="pi">-</span> <span class="s">switch</span>
+      <span class="pi">-</span> <span class="s">media_player</span>
+  <span class="na">exclude</span><span class="pi">:</span>
+    <span class="na">entities</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">sensor.last_boot</span>
+      <span class="pi">-</span> <span class="s">sensor.date</span>
+    <span class="na">entity_globs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">sensor.weather_*</span>
+</code></pre></div></div>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<h3>Action purge <a class="title-link" name="action-purge" href="#action-purge"></a>
+</h3>
+<p>Perform the action <code>recorder.purge</code> to start a purge task which deletes events and states older than x days, according to <code>keep_days</code> action data.
+Note that purging will not immediately decrease disk space usage but it will significantly slow down further growth.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>keep_days</code></td>
+<td>yes</td>
+<td>The number of history days to keep in recorder database (defaults to the integration <code>purge_keep_days</code> configuration)</td>
+</tr>
+<tr>
+<td><code>repack</code></td>
+<td>yes</td>
+<td>When using SQLite or PostgreSQL this will rewrite the entire database. When using MySQL or MariaDB it will optimize or recreate the events and states tables. This is a heavy operation that can cause slowdowns and increased disk space usage while it runs. Only supported by SQLite, PostgreSQL, MySQL and MariaDB.</td>
+</tr>
+<tr>
+<td><code>apply_filter</code></td>
+<td>yes</td>
+<td>Apply entity_id and event_type filter in addition to time based purge. Useful in combination with <code>include</code> / <code>exclude</code> filter to remove falsely added states and events. Combine with <code>repack: true</code> to reduce database size.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action purge_entities <a class="title-link" name="action-purge_entities" href="#action-purge_entities"></a>
+</h3>
+<p>Perform the action <code>recorder.purge_entities</code> to start a task that purges events and states from the recorder database that match any of the specified <code>entity_id</code>, <code>domains</code>, and <code>entity_globs</code> fields. At least one of the three selection criteria fields must be provided.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>A list of entity_ids that should be purged from the recorder database.</td>
+</tr>
+<tr>
+<td><code>domains</code></td>
+<td>yes</td>
+<td>A list of domains that should be purged from the recorder database.</td>
+</tr>
+<tr>
+<td><code>entity_globs</code></td>
+<td>yes</td>
+<td>A list of regular expressions that identify entities to purge from the recorder database.</td>
+</tr>
+<tr>
+<td><code>keep_days</code></td>
+<td>yes</td>
+<td>Number of history days to keep in the database of matching rows. The default of 0 days will remove all matching rows.</td>
+</tr>
+</tbody>
+</table>
+<h4>Example automation to remove data rows for specific entities <a class="title-link" name="example-automation-to-remove-data-rows-for-specific-entities" href="#example-automation-to-remove-data-rows-for-specific-entities"></a>
+</h4>
+<p>The below automation will remove history for <code>sensor.power_sensor_0</code> older than 5 days at <code>04:15:00</code> every day.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Purge</span><span class="nv"> </span><span class="s">noisy</span><span class="nv"> </span><span class="s">power</span><span class="nv"> </span><span class="s">sensors"</span>
+<span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">time</span>
+    <span class="na">at</span><span class="pi">:</span> <span class="s2">"</span><span class="s">04:15:00"</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">recorder.purge_entities</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">keep_days</span><span class="pi">:</span> <span class="m">5</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.power_sensor_0</span>
+</code></pre></div></div>
+<h3>Action disable <a class="title-link" name="action-disable" href="#action-disable"></a>
+</h3>
+<p>Perform the action <code>recorder.disable</code> to stop saving events and states to the database.</p>
+<h3>Action enable <a class="title-link" name="action-enable" href="#action-enable"></a>
+</h3>
+<p>Perform the action <code>recorder.enable</code> to start again saving events and states to the database. This is the opposite of <code>recorder.disable</code>.</p>
+<h3>Action get_statistics <a class="title-link" name="action-get_statistics" href="#action-get_statistics"></a>
+</h3>
+<p>Perform the action <code>recorder.get_statistics</code> to retrieve statistics for one or more entities from the recorder database. This action is useful for automations or scripts that need to access historical statistics, such as mean, min, max, or sum values, for supported entities like sensors.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Statistics are only available for entities that store <span class="terminology">Long-term statistics<span class="terminology-tooltip">Home Assistant saves long-term statistics for a sensor if the entity has a state_class of measurement, total, or total_increasing. For short-term statistics, a snapshot is taken every 5 minutes. For long-term statistics, an hourly aggregate is stored of the short-term statistics. Short-term statistics are automatically purged after a predefined period (default is 10 days). Long-term statistics are never purged.<a class="terminology-link" href="/blog/2021/08/04/release-20218/#long-term-statistics"> [Learn more]</a></span></span></p>
+  </div>
+</div>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>statistic_ids</code></td>
+<td>no</td>
+<td>The entity IDs or statistic IDs to get statistics for.</td>
+</tr>
+<tr>
+<td><code>start_time</code></td>
+<td>no</td>
+<td>The start time for the statistics query.</td>
+</tr>
+<tr>
+<td><code>end_time</code></td>
+<td>yes</td>
+<td>The end time for the statistics query. If omitted, returns all statistics from start time onward.</td>
+</tr>
+<tr>
+<td><code>period</code></td>
+<td>no</td>
+<td>The time period to group statistics by (<code>5minute</code>, <code>hour</code>, <code>day</code>, <code>week</code>, or <code>month</code>).</td>
+</tr>
+<tr>
+<td><code>types</code></td>
+<td>no</td>
+<td>The types of statistics values to return (<code>change</code>, <code>last_reset</code>, <code>max</code>, <code>mean</code>, <code>min</code>, <code>state</code>, or <code>sum</code>).</td>
+</tr>
+<tr>
+<td><code>units</code></td>
+<td>yes</td>
+<td>Optional unit conversion mapping. An object where keys are <a href="https://www.home-assistant.io/integrations/sensor#device-class">device classes</a> and values are the desired target units. This allows retrieving statistics converted to different units than what’s stored in the database.</td>
+</tr>
+</tbody>
+</table>
+<h4>Example using get_statistics <a class="title-link" name="example-using-get_statistics" href="#example-using-get_statistics"></a>
+</h4>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">recorder.get_statistics</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">statistic_ids</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">sensor.energy_meter</span>
+    <span class="pi">-</span> <span class="s">sensor.water_usage</span>
+  <span class="na">start_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2025-06-10</span><span class="nv"> </span><span class="s">00:00:00"</span>
+  <span class="na">end_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2025-06-11</span><span class="nv"> </span><span class="s">23:00:00"</span>
+  <span class="na">period</span><span class="pi">:</span> <span class="s">hour</span>
+  <span class="na">types</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">sum</span>
+    <span class="pi">-</span> <span class="s">mean</span>
+  <span class="na">units</span><span class="pi">:</span>
+    <span class="na">energy</span><span class="pi">:</span> <span class="s">kWh</span>
+    <span class="na">volume</span><span class="pi">:</span> <span class="s">L</span>
+<span class="na">response_variable</span><span class="pi">:</span> <span class="s">consumption_stats</span>
+</code></pre></div></div>
+<h2>Handling disk corruption and hardware failures <a class="title-link" name="handling-disk-corruption-and-hardware-failures" href="#handling-disk-corruption-and-hardware-failures"></a>
+</h2>
+<p>When using SQLite, if the system encounters unrecoverable disk corruption, it will move the database aside and create a new database to keep the system online. In this case, having at least 2.5x the database size available in free disk space is essential. Starting a new database is the system’s last resort recovery option and is usually caused by failing flash storage, an inadequate power supply, an unclean shutdown, or another hardware failure.</p>
+<p>In this event, it may be possible to recover the old database by following the <a href="https://www.sqlite.org/recovery.html" rel="external nofollow">SQLite recovery guide<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<h2>Custom database engines <a class="title-link" name="custom-database-engines" href="#custom-database-engines"></a>
+</h2>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>SQLite is the most tested, and newer version of Home Assistant are highly optimized to perform well when using SQLite.</p>
+<p>When choosing another option, you should be comfortable in the role of the database administrator, including making backups of the external database.</p>
+  </div>
+</div>
+<p>Here are examples to use with the <a href="#db_url"><code>db_url</code></a> configuration option.</p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">SQLite</span><a name="sqlite" class="title-link" href="#sqlite"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>sqlite:////PATH/TO/DB_NAME</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">MariaDB (omit pymysql)</span><a name="mariadb-omit-pymysql" class="title-link" href="#mariadb-omit-pymysql"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>mysql://user:password@SERVER_IP/DB_NAME?charset=utf8mb4</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">MariaDB (omit pymysql, using TLS encryption)</span><a name="mariadb-omit-pymysql-using-tls-encryption" class="title-link" href="#mariadb-omit-pymysql-using-tls-encryption"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>mysql://user:password@SERVER_IP/DB_NAME?charset=utf8mb4;ssl=true</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">MariaDB (omit pymysql, Socket)</span><a name="mariadb-omit-pymysql-socket" class="title-link" href="#mariadb-omit-pymysql-socket"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>mysql://user:password@SERVER_IP/DB_NAME?unix_socket=/var/run/mysqld/mysqld.sock&amp;charset=utf8mb4</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">MySQL</span><a name="mysql" class="title-link" href="#mysql"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>mysql://user:password@SERVER_IP/DB_NAME?charset=utf8mb4</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">MySQL (using TLS encryption)</span><a name="mysql-using-tls-encryption" class="title-link" href="#mysql-using-tls-encryption"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>mysql://user:password@SERVER_IP/DB_NAME?charset=utf8mb4;ssl=true</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">MySQL (Socket)</span><a name="mysql-socket" class="title-link" href="#mysql-socket"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>mysql://user:password@localhost/DB_NAME?unix_socket=/var/run/mysqld/mysqld.sock&amp;charset=utf8mb4</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">MariaDB</span><a name="mariadb" class="title-link" href="#mariadb"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>mysql+pymysql://user:password@SERVER_IP/DB_NAME?charset=utf8mb4</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">MariaDB (Socket)</span><a name="mariadb-socket" class="title-link" href="#mariadb-socket"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>mysql+pymysql://user:password@localhost/DB_NAME?unix_socket=/var/run/mysqld/mysqld.sock&amp;charset=utf8mb4</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">PostgreSQL</span><a name="postgresql" class="title-link" href="#postgresql"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>postgresql://user:password@SERVER_IP/DB_NAME</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">PostgreSQL (Socket)</span><a name="postgresql-socket" class="title-link" href="#postgresql-socket"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>postgresql://@/DB_NAME</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">PostgreSQL (Custom socket dir)</span><a name="postgresql-custom-socket-dir" class="title-link" href="#postgresql-custom-socket-dir"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><code>postgresql://@/DB_NAME?host=/path/to/dir</code></p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Some installations of MariaDB/MySQL may require an ALTERNATE_PORT (3rd-party hosting providers or parallel installations) to be added to the SERVER_IP, e.g., <code>mysql://user:password@SERVER_IP:ALTERNATE_PORT/DB_NAME?charset=utf8mb4</code>.</p>
+  </div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>When using a MariaDB or MySQL server, adding <code>+pymysql</code> to the URL will use the pure Python MySQL library, which is slower but may be required if the C MySQL library is not available.</p>
+<p>When using the official Docker image, the C MySQL library will always be available. <code>pymysql</code> is most commonly used with <code>venv</code> where the C MySQL library is not installed.</p>
+  </div>
+</div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>Unix Socket connections always bring performance advantages over TCP, if the database is on the same host as the <code>recorder</code> instance (i.e., <code>localhost</code>).</p>
+  </div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>If you want to use Unix Sockets for PostgreSQL you need to modify the <code>pg_hba.conf</code>. See <a href="#postgresql">PostgreSQL</a></p>
+  </div>
+</div>
+<h3>Database startup <a class="title-link" name="database-startup" href="#database-startup"></a>
+</h3>
+<p>If you are running a database server instance on the same server as Home Assistant then you must ensure that this action starts before Home Assistant. For a Linux instance running Systemd (Raspberry Pi, Debian, Ubuntu and others) you should edit the service file.
+To help facilitate this, db_max_retry and db_retry_wait variables have been added to ensure the recorder retries the connection to your database enough times, for your database to start up.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nb">sudo </span>nano /etc/systemd/system/home-assistant@homeassistant.service
+</code></pre></div></div>
+<p>and add the action for the database, for example, PostgreSQL:</p>
+<div class="language-txt highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="txt">[Unit]
+Description=Home Assistant
+After=network.target postgresql.service
+</code></pre></div></div>
+<p>Save the file then reload <code>systemctl</code>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nb">sudo </span>systemctl daemon-reload
+</code></pre></div></div>
+<h2>Installation notes <a class="title-link" name="installation-notes" href="#installation-notes"></a>
+</h2>
+<p>Not all Python bindings for the chosen database engine can be installed directly. This section contains additional details that should help you to get it working.</p>
+<h3>MariaDB and MySQL <a class="title-link" name="mariadb-and-mysql" href="#mariadb-and-mysql"></a>
+</h3>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>MariaDB versions before 10.5.17, 10.6.9, 10.7.5, and 10.8.4 suffer from a performance regression which can result in the system becoming overloaded while querying history data or purging the database.</p>
+  </div>
+</div>
+<p>Make sure the default character set of your database server is set to <code>utf8mb4</code> (see <a href="https://mariadb.com/kb/en/setting-character-sets-and-collations/#example-changing-the-default-character-set-to-utf-8" rel="external nofollow">MariaDB documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>).
+If you are in a virtual environment, don’t forget to activate it before installing the <code>mysqlclient</code> Python package described below.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">pi@homeassistant:~ <span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-u</span> homeassistant <span class="nt">-H</span> <span class="nt">-s</span>
+homeassistant@homeassistant:~<span class="nv">$ </span><span class="nb">source</span> /srv/homeassistant/bin/activate
+<span class="o">(</span>homeassistant<span class="o">)</span> homeassistant@homeassistant:~<span class="nv">$ </span>pip3 <span class="nb">install </span>mysqlclient
+</code></pre></div></div>
+<p>For MariaDB you may have to install a few dependencies. If you’re using MariaDB 10.3, the package <code>libmariadb-dev-compat</code> must also be installed. Please install the correct packages based on your MariaDB version.</p>
+<p>On the Python side we use the <code>mysqlclient</code>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nb">sudo </span>apt-get <span class="nb">install </span>libmariadbclient-dev libssl-dev
+pip3 <span class="nb">install </span>mysqlclient
+</code></pre></div></div>
+<p>For MySQL you may have to install a few dependencies. You can choose between <code>pymysql</code> and <code>mysqlclient</code>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nb">sudo </span>apt-get <span class="nb">install </span>default-libmysqlclient-dev libssl-dev
+pip3 <span class="nb">install </span>mysqlclient
+</code></pre></div></div>
+<p>After installing the dependencies, it is required to create the database manually. During the startup, Home Assistant will look for the database specified in the <code>db_url</code>. If the database doesn’t exist, it will not automatically create it for you.</p>
+<p>The database engine must be <code>InnoDB</code> as <code>MyIASM</code> is not supported.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">SET GLOBAL default_storage_engine <span class="o">=</span> <span class="s1">'InnoDB'</span><span class="p">;</span>
+CREATE DATABASE DB_NAME CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci<span class="p">;</span>
+</code></pre></div></div>
+<p>Where <code>DB_NAME</code> is the name of your database</p>
+<p>Once Home Assistant finds the database, with the right level of permissions, all the required tables will then be automatically created and the data will be populated accordingly.</p>
+<h3>PostgreSQL <a class="title-link" name="postgresql" href="#postgresql"></a>
+</h3>
+<p>Create the PostgreSQL database with <code>utf8</code> encoding. The PostgreSQL default encoding is <code>SQL_ASCII</code>. From the <code>postgres</code> user account;</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">createdb <span class="nt">-E</span> utf8 DB_NAME
+</code></pre></div></div>
+<p>Where <code>DB_NAME</code> is the name of your database</p>
+<p>If the Database in use is not <code>utf8</code>, adding <code>?client_encoding=utf8</code> to the <code>db_url</code> may solve any issue.</p>
+<p>For PostgreSQL you may have to install a few dependencies:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nb">sudo </span>apt-get <span class="nb">install </span>postgresql-server-dev-X.Y
+pip3 <span class="nb">install </span>psycopg2
+</code></pre></div></div>
+<p>For using Unix Sockets, first create your user from the <code>postgres</code> user account;</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">createuser USER_NAME
+</code></pre></div></div>
+<p>Where <code>USER_NAME</code> is the name of the user running the Home Assistant instance (see <a href="/docs/configuration/securing/">securing your installation</a>).</p>
+<p>Then add the following line to your <a href="https://www.postgresql.org/docs/current/static/auth-pg-hba-conf.html" rel="external nofollow"><code>pg_hba.conf</code><iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>:</p>
+<p><code>local  DB_NAME USER_NAME peer</code></p>
+<p>Where <code>DB_NAME</code> is the name of your database and <code>USER_NAME</code> is the name of the user running the Home Assistant instance (see <a href="/docs/configuration/securing/">securing your installation</a>).</p>
+<p>Reload the PostgreSQL configuration after that:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-i</span> <span class="nt">-u</span> postgres psql <span class="nt">-c</span> <span class="s2">"SELECT pg_reload_conf();"</span>
+ pg_reload_conf
+<span class="nt">----------------</span>
+ t
+<span class="o">(</span>1 row<span class="o">)</span>
+</code></pre></div></div>
+<p>A service restart will work as well.</p>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/recorder.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Frecorder%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20recorder" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+recorder%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/recorder//logo.png' srcset='https://brands.home-assistant.io/_/recorder/logo@2x.png 2x' /></div>
+
+  <div class='section'>The Recorder  system  was introduced in Home Assistant pre 0.7, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          13.3%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-internal'>🏠 Internal integration</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/recorder" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+recorder%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            This integration is being maintained by the Home Assistant project.
+          </div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#disk-space-requirements">Disk space requirements</a></li>
+<li class="toc-entry toc-h2"><a href="#advanced-configuration">Advanced configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#configure-filter">Configure filter</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-purge">Action purge</a></li>
+<li class="toc-entry toc-h3"><a href="#action-purge_entities">Action purge_entities</a></li>
+<li class="toc-entry toc-h3"><a href="#action-disable">Action disable</a></li>
+<li class="toc-entry toc-h3"><a href="#action-enable">Action enable</a></li>
+<li class="toc-entry toc-h3"><a href="#action-get_statistics">Action get_statistics</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#handling-disk-corruption-and-hardware-failures">Handling disk corruption and hardware failures</a></li>
+<li class="toc-entry toc-h2"><a href="#custom-database-engines">Custom database engines</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#database-startup">Database startup</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#installation-notes">Installation notes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#mariadb-and-mysql">MariaDB and MySQL</a></li>
+<li class="toc-entry toc-h3"><a href="#postgresql">PostgreSQL</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#history'>History</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

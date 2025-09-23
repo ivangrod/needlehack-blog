@@ -1,0 +1,902 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Sleep as Android - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate Sleep as Android with Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/sleep_as_android/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Sleep as Android">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/sleep_as_android/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate Sleep as Android with Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Sleep as Android">
+    <meta name="twitter:description" content="Instructions on how to integrate Sleep as Android with Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#about-sleep-as-android">About Sleep as Android</a></li>
+<li class="toc-entry toc-h2"><a href="#how-you-can-use-this-integration">How you can use this integration</a></li>
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#alarm-clock">Alarm clock</a></li>
+<li class="toc-entry toc-h3"><a href="#smart-wake-up">Smart wake-up</a></li>
+<li class="toc-entry toc-h3"><a href="#user-notifications">User notifications</a></li>
+<li class="toc-entry toc-h3"><a href="#sleep-health">Sleep health</a></li>
+<li class="toc-entry toc-h3"><a href="#lullaby">Lullaby</a></li>
+<li class="toc-entry toc-h3"><a href="#sleep-phase">Sleep phase</a></li>
+<li class="toc-entry toc-h3"><a href="#sleep-tracking">Sleep tracking</a></li>
+<li class="toc-entry toc-h3"><a href="#sound-recognition">Sound recognition</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#automation">Automation</a></li>
+<li class="toc-entry toc-h2"><a href="#control-sleep-as-android-via-home-assistant">Control Sleep as Android via Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a></li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Sleep as Android
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <strong>Sleep as Android</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> connects the Sleep as Android app to Home Assistant, allowing you to trigger automations based on alarm clock or sleep cycle events.</p>
+<h2>About Sleep as Android <a class="title-link" name="about-sleep-as-android" href="#about-sleep-as-android"></a>
+</h2>
+<p><a href="https://sleep.urbandroid.org/" rel="external nofollow"><strong>Sleep as Android</strong><iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> is a smart alarm clock with sleep cycle tracking capabilities and numerous other features to analyze and improve sleeping habits. It is available exclusively for Android devices and can be downloaded from <a href="https://play.google.com/store/apps/details?id=com.urbandroid.sleep" rel="external nofollow">Google Play<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<h2>How you can use this integration <a class="title-link" name="how-you-can-use-this-integration" href="#how-you-can-use-this-integration"></a>
+</h2>
+<p>The Sleep as Android integration allows you to trigger sleep-related automations. You can trigger actions when sleep tracking starts or stops, such as dimming the lights or adjusting thermostat settings. Alarm events allow you to respond to snoozing or dismissing alarms — like starting a morning routine or sending a notification if the alarm was skipped. Additionally, you can react to specific sleep phases or sound detections (for example, snoring or baby crying), or monitor critical conditions such as sleep apnea.</p>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<p>This integration uses webhooks to receive events from Sleep as Android. By default, webhook triggers can only be accessed from devices on the same network as Home Assistant. If you want to receive events while away from your home network, remote access must be enabled, either by adding a <a href="/docs/configuration/remote/">remote URL</a> or via <a href="https://www.nabucasa.com/config/webhooks/">Nabu Casa Cloud<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>Steps to set up the integration:</p>
+<ol>
+<li>Preferably, open Home Assistant on the device you want to connect to the Sleep as Android integration and initiate the setup.</li>
+<li>You will be presented a URL during the setup process. Mark the URL and copy it to the clipboard.</li>
+<li>Open the Sleep as Android app and go to <iconify-icon inline icon="mdi:cog" title="Cog"></iconify-icon> <strong>Settings</strong> &gt; <strong>Services</strong> &gt; <strong>Automation</strong> &gt; <strong>Webhooks</strong>.</li>
+<li>Turn on the switch to enable webhooks and paste the webhook URL from your clipboard into the URL field.</li>
+</ol>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>To receive updates from Sleep as Android while away from home, your Home Assistant instance must be remotely accessible.<br>
+You can enable this by configuring a remote URL for Home Assistant or by using Home Assistant Cloud.</p>
+<p>When setting up the Sleep as Android integration, the webhook is created using your external or cloud URL if remote access is available at that time.<br>
+If your instance is not remotely accessible during setup, the webhook will use your internal URL instead.<br>
+In this case, you will need to manually update the webhook to use your remote URL once remote access is configured.</p>
+  </div>
+</div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>If you scroll to the top and select <strong>Events</strong>, you can individually select and deselect the events the Sleep as Android app should trigger.</p>
+  </div>
+</div>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Sleep as Android</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=sleep_as_android" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=sleep_as_android" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Sleep as Android</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h2>Sensors <a class="title-link" name="sensors" href="#sensors"></a>
+</h2>
+<ul>
+<li>
+<strong>Next alarm</strong>: The scheduled time of your upcoming alarm.</li>
+<li>
+<strong>Alarm label</strong>: The label or description assigned to the next alarm.</li>
+</ul>
+<h2>Events <a class="title-link" name="events" href="#events"></a>
+</h2>
+<p>The integration offers various event entities that will display the most recent events from Sleep as Android.</p>
+<h3>Alarm clock <a class="title-link" name="alarm-clock" href="#alarm-clock"></a>
+</h3>
+<p>Events related to the alarm clock feature.</p>
+<table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alert_dismiss</code></td>
+<td>Alarm dismissed</td>
+</tr>
+<tr>
+<td><code>alert_start</code></td>
+<td>Alarm started</td>
+</tr>
+<tr>
+<td><code>rescheduled</code></td>
+<td>Alarm rescheduled</td>
+</tr>
+<tr>
+<td><code>skip_next</code></td>
+<td>Alarm skipped</td>
+</tr>
+<tr>
+<td><code>snooze_clicked</code></td>
+<td>Snoozing</td>
+</tr>
+<tr>
+<td><code>snooze_canceled</code></td>
+<td>Snoozing canceled</td>
+</tr>
+</tbody>
+</table>
+<h3>Smart wake-up <a class="title-link" name="smart-wake-up" href="#smart-wake-up"></a>
+</h3>
+<p>Events related to the smart wake-up feature.</p>
+<table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>before_smart_period</code></td>
+<td>45min before smart wake-up</td>
+</tr>
+<tr>
+<td><code>smart_period</code></td>
+<td>Smart wake-up started</td>
+</tr>
+</tbody>
+</table>
+<h3>User notifications <a class="title-link" name="user-notifications" href="#user-notifications"></a>
+</h3>
+<p>Events related to user notifications.</p>
+<table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wake_up_check</code></td>
+<td>Wake-up check</td>
+</tr>
+<tr>
+<td><code>show_skip_next_alarm</code></td>
+<td>Skip next alarm</td>
+</tr>
+<tr>
+<td><code>time_to_bed_alarm_alert</code></td>
+<td>Time to bed</td>
+</tr>
+</tbody>
+</table>
+<h3>Sleep health <a class="title-link" name="sleep-health" href="#sleep-health"></a>
+</h3>
+<p>Events related to sleep health.</p>
+<table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>antisnoring</code></td>
+<td>Anti-snoring triggered</td>
+</tr>
+<tr>
+<td><code>apnea_alarm</code></td>
+<td>Sleep apnea detected</td>
+</tr>
+</tbody>
+</table>
+<h3>Lullaby <a class="title-link" name="lullaby" href="#lullaby"></a>
+</h3>
+<p>Events related to the Lullaby feature.</p>
+<table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>start</code></td>
+<td>Lullaby started playing</td>
+</tr>
+<tr>
+<td><code>stop</code></td>
+<td>Lullaby stopped playing</td>
+</tr>
+<tr>
+<td><code>volume_down</code></td>
+<td>Lullaby started lowering volume</td>
+</tr>
+</tbody>
+</table>
+<h3>Sleep phase <a class="title-link" name="sleep-phase" href="#sleep-phase"></a>
+</h3>
+<p>Events when entering a new sleep phase.</p>
+<table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>awake</code></td>
+<td>Woke up</td>
+</tr>
+<tr>
+<td><code>deep_sleep</code></td>
+<td>Deep sleep</td>
+</tr>
+<tr>
+<td><code>light_sleep</code></td>
+<td>Light sleep</td>
+</tr>
+<tr>
+<td><code>not_awake</code></td>
+<td>Fell asleep</td>
+</tr>
+<tr>
+<td><code>rem</code></td>
+<td>REM sleep</td>
+</tr>
+</tbody>
+</table>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>Be cautious when automating based on sleep phase events, especially deep and light sleep, as these can trigger lots of events throughout the night, and they may not precisely correlate with the resulting sleep graph as Sleep as Android can only detect phases reliably using whole-night data.</p>
+  </div>
+</div>
+<h3>Sleep tracking <a class="title-link" name="sleep-tracking" href="#sleep-tracking"></a>
+</h3>
+<p>Events related to the sleep tracking feature.</p>
+<table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>paused</code></td>
+<td>Tracking paused</td>
+</tr>
+<tr>
+<td><code>resumed</code></td>
+<td>Tracking resumed</td>
+</tr>
+<tr>
+<td><code>started</code></td>
+<td>Tracking started</td>
+</tr>
+<tr>
+<td><code>stopped</code></td>
+<td>Tracking stopped</td>
+</tr>
+</tbody>
+</table>
+<h3>Sound recognition <a class="title-link" name="sound-recognition" href="#sound-recognition"></a>
+</h3>
+<p>Events triggered when a specific sound is detected during sleep tracking.</p>
+<table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>baby</code></td>
+<td>Baby crying</td>
+</tr>
+<tr>
+<td><code>cough</code></td>
+<td>Coughing or sneezing</td>
+</tr>
+<tr>
+<td><code>laugh</code></td>
+<td>Laughter</td>
+</tr>
+<tr>
+<td><code>snore</code></td>
+<td>Snoring</td>
+</tr>
+<tr>
+<td><code>talk</code></td>
+<td>Talking</td>
+</tr>
+</tbody>
+</table>
+<h2>Automation <a class="title-link" name="automation" href="#automation"></a>
+</h2>
+<p>Here’s an example automation: when your Sleep as Android alarm starts ringing, your bedroom blinds will automatically open.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">alias</span><span class="pi">:</span> <span class="s">Open window blinds on Alarm</span>
+<span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">event.sleep_as_android_alarm_clock</span>
+    <span class="na">attribute</span><span class="pi">:</span> <span class="s">event_type</span>
+    <span class="na">to</span><span class="pi">:</span> <span class="s">alert_start</span>
+    <span class="na">not_from</span><span class="pi">:</span> <span class="s">unavailable</span>
+<span class="na">conditions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">person.user1</span>
+    <span class="na">state</span><span class="pi">:</span> <span class="s">home</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">cover.open_cover</span>
+    <span class="na">target</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">cover.bedroom_blinds</span>
+<span class="na">mode</span><span class="pi">:</span> <span class="s">single</span>
+</code></pre></div></div>
+<h2>Control Sleep as Android via Home Assistant <a class="title-link" name="control-sleep-as-android-via-home-assistant" href="#control-sleep-as-android-via-home-assistant"></a>
+</h2>
+<p>The <strong>Sleep as Android</strong> app can be automated through its <a href="https://sleep.urbandroid.org/docs/devs/intent_api.html" rel="external nofollow">Intent API<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, allowing you to perform actions such as:</p>
+<ul>
+<li>Enable or disable alarms</li>
+<li>Snooze or dismiss alarms</li>
+<li>Start, stop, or pause sleep tracking</li>
+<li>Stop lullaby playback</li>
+</ul>
+<p>Thanks to the <strong>Home Assistant Companion App for Android</strong>, which supports <a href="/docs/notifications/notification-commands#broadcast-intent">broadcasting intents</a>, you can trigger these actions directly from Home Assistant.</p>
+<p>To make this even easier, you can import the following blueprint. It supports nearly all Sleep as Android actions, so you can automate your sleep routine without writing any custom scripts:</p>
+<p><a href="https://my.home-assistant.io/redirect/blueprint_import?blueprint_url=https%3A%2F%2Fcommunity.home-assistant.io%2Ft%2Fsleep-as-android-trigger-app-actions%2F920845" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/blueprint_import.svg"></a></p>
+<h2>Data updates <a class="title-link" name="data-updates" href="#data-updates"></a>
+</h2>
+<p>This integration receives push updates from the Sleep as Android app whenever an event is triggered. If no events occur, the displayed data may become outdated.</p>
+<h2>Known limitations <a class="title-link" name="known-limitations" href="#known-limitations"></a>
+</h2>
+<ul>
+<li>
+<p>If Home Assistant is unreachable when an event is pushed, for example when you are away from your home network without remote access, the Sleep as Android integration will miss the update. The app does not retry sending it.</p>
+</li>
+<li>
+<p>The integration does not support controlling the Sleep as Android app, such as setting alarm times or turning off alarms.</p>
+</li>
+</ul>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<p>The <strong>Sleep as Android</strong> integration receives updates via a push from your Sleep as Android app to a webhook.  If you encounter issues, verify that your Home Assistant is reachable from your mobile phone.</p>
+<p>In any case, when reporting an issue, please enable <a href="/docs/configuration/troubleshooting/#debug-logs-and-diagnostics">debug logging</a>, restart the integration, and as soon as the issue reoccurs, stop the debug logging again (<em>download of debug log file will start automatically</em>). Further, if still possible, please also download the <a href="/integrations/diagnostics">diagnostics</a> data. If you have collected the debug log and the diagnostics data, provide them with the issue report.</p>
+<h2>Removing the integration <a class="title-link" name="removing-the-integration" href="#removing-the-integration"></a>
+</h2>
+<p>This integration can be removed by following these steps:</p>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>
+<p>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</p>
+</li>
+<li>
+<p>From the list of devices, select the integration instance you want to remove.</p>
+</li>
+<li>
+<p>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</p>
+</li>
+<li>
+<p>Open the Sleep as Android app and go to <iconify-icon inline icon="mdi:cog" title="Cog"></iconify-icon> <strong>Settings</strong> &gt; <strong>Services</strong> &gt; <strong>Automation</strong> &gt; <strong>Webhooks</strong>. Turn off webhooks and remove the URL.</p>
+</li>
+</ol>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/sleep_as_android.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fsleep_as_android%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20sleep_as_android" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+sleep_as_android%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/sleep_as_android//logo.png' srcset='https://brands.home-assistant.io/_/sleep_as_android/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=sleep_as_android' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Sleep as Android  integration  was introduced in Home Assistant 2025.9, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          556</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-silver'>🥈 Silver quality</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/sleep_as_android" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+sleep_as_android%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/tr4nt0r" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/tr4nt0r?size=96" alt="@tr4nt0r"/> @tr4nt0r</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#about-sleep-as-android">About Sleep as Android</a></li>
+<li class="toc-entry toc-h2"><a href="#how-you-can-use-this-integration">How you can use this integration</a></li>
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#alarm-clock">Alarm clock</a></li>
+<li class="toc-entry toc-h3"><a href="#smart-wake-up">Smart wake-up</a></li>
+<li class="toc-entry toc-h3"><a href="#user-notifications">User notifications</a></li>
+<li class="toc-entry toc-h3"><a href="#sleep-health">Sleep health</a></li>
+<li class="toc-entry toc-h3"><a href="#lullaby">Lullaby</a></li>
+<li class="toc-entry toc-h3"><a href="#sleep-phase">Sleep phase</a></li>
+<li class="toc-entry toc-h3"><a href="#sleep-tracking">Sleep tracking</a></li>
+<li class="toc-entry toc-h3"><a href="#sound-recognition">Sound recognition</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#automation">Automation</a></li>
+<li class="toc-entry toc-h2"><a href="#control-sleep-as-android-via-home-assistant">Control Sleep as Android via Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a></li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#event'>Event</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

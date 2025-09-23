@@ -1,0 +1,830 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>MQTT device tracker - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to use MQTT to track devices in Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/device_tracker.mqtt/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="MQTT device tracker">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/device_tracker.mqtt/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to use MQTT to track devices in Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="MQTT device tracker">
+    <meta name="twitter:description" content="Instructions on how to use MQTT to track devices in Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#using-the-discovery-protocol">Using the discovery protocol</a></li>
+<li class="toc-entry toc-h3"><a href="#yaml-configuration">YAML configuration</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        MQTT device tracker
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <code>mqtt</code> device tracker <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> allows you to define new device_trackers through <a href="#yaml-configuration">manual YAML configuration</a> in <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> and also to automatically discover device_trackers <a href="#using-the-discovery-protocol">using the MQTT Discovery protocol</a>.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To use an MQTT device tracker in your installation, add the following to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file.
+After changing the <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file, <a href="/docs/configuration/#reloading-the-configuration-to-apply-changes">restart Home Assistant</a> to apply the changes.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">mqtt</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">device_tracker</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">annetherese_n4"</span>
+      <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">location/annetherese"</span>
+  <span class="pi">-</span> <span class="na">device_tracker</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">paulus_oneplus"</span>
+      <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">location/paulus"</span>
+</code></pre></div></div>
+<p>Alternatively, a more advanced approach is to set it up via <a href="/integrations/mqtt/#mqtt-discovery">MQTT discovery</a>.</p>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="device_tracker-mqtt-configuration-variables" href="#device_tracker-mqtt-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> availability </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="availability" class="title-link" href="#availability"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of MQTT topics subscribed to receive availability (online/offline) updates. Must not be used together with <code>availability_topic</code>.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_available </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: online</span>)</span><a name="payload_available" class="title-link" href="#payload_available"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the available state.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_not_available </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: offline</span>)</span><a name="payload_not_available" class="title-link" href="#payload_not_available"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the unavailable state.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> topic </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="topic" class="title-link" href="#topic"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>An MQTT topic subscribed to receive availability (online/offline) updates.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> value_template </span><span class="config-vars-type"><a href="/docs/configuration/templating/">template</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="value_template" class="title-link" href="#value_template"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines a <a href="/docs/configuration/templating/#using-value-templates-with-mqtt">template</a> to extract device’s availability from the <code>topic</code>. To determine the devices’s availability result of this template will be compared to <code>payload_available</code> and <code>payload_not_available</code>.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> availability_mode </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: latest</span>)</span><a name="availability_mode" class="title-link" href="#availability_mode"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>When <code>availability</code> is configured, this controls the conditions needed to set the entity to <code>available</code>. Valid entries are <code>all</code>, <code>any</code>, and <code>latest</code>. If set to <code>all</code>, <code>payload_available</code> must be received on all configured availability topics before the entity is marked as online. If set to <code>any</code>, <code>payload_available</code> must be received on at least one configured availability topic before the entity is marked as online. If set to <code>latest</code>, the last <code>payload_available</code> or <code>payload_not_available</code> received on any configured availability topic controls the availability.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> availability_template </span><span class="config-vars-type"><a href="/docs/configuration/templating/">template</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="availability_template" class="title-link" href="#availability_template"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines a <a href="/docs/configuration/templating/#using-value-templates-with-mqtt">template</a> to extract device’s availability from the <code>availability_topic</code>. To determine the devices’s availability result of this template will be compared to <code>payload_available</code> and <code>payload_not_available</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> availability_topic </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="availability_topic" class="title-link" href="#availability_topic"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The MQTT topic subscribed to receive availability (online/offline) updates. Must not be used together with <code>availability</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> device </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="device" class="title-link" href="#device"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Information about the device this device tracker is a part of that ties it into the <a href="https://developers.home-assistant.io/docs/en/device_registry_index.html">device registry</a>. At least one of identifiers or connections must be present to identify the device.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> configuration_url </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="configuration_url" class="title-link" href="#configuration_url"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A link to the webpage that can manage the configuration of this device. Can be either an <code>http://</code>, <code>https://</code> or an internal <code>homeassistant://</code> URL.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> connections </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="connections" class="title-link" href="#connections"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of connections of the device to the outside world as a list of tuples <code>[connection_type, connection_identifier]</code>. For example the MAC address of a network interface: <code>"connections": [["mac", "02:5b:26:a8:dc:12"]]</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> hw_version </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="hw_version" class="title-link" href="#hw_version"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The hardware version of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> identifiers </span><span class="config-vars-type">list | string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="identifiers" class="title-link" href="#identifiers"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A list of IDs that uniquely identify the device. For example a serial number.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> manufacturer </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="manufacturer" class="title-link" href="#manufacturer"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The manufacturer of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> model </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="model" class="title-link" href="#model"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The model of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> model_id </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="model_id" class="title-link" href="#model_id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The model identifier of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The name of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> suggested_area </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="suggested_area" class="title-link" href="#suggested_area"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Suggest an area if the device isn’t in one yet.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> sw_version </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="sw_version" class="title-link" href="#sw_version"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The firmware version of the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> via_device </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="via_device" class="title-link" href="#via_device"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Identifier of a device that routes messages between this device and Home Assistant. Examples of such devices are hubs, or parent devices of a sub-device. This is used to show device topology in Home Assistant.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> icon </span><span class="config-vars-type"><a href="/integrations/homeassistant/#icon">icon</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="icon" class="title-link" href="#icon"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><a href="/docs/configuration/customizing-devices/#icon">Icon</a> for the entity.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> json_attributes_template </span><span class="config-vars-type"><a href="/docs/configuration/templating/">template</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="json_attributes_template" class="title-link" href="#json_attributes_template"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines a <a href="/docs/configuration/templating/#using-value-templates-with-mqtt">template</a> to extract the JSON dictionary from messages received on the <code>json_attributes_topic</code>. Usage example can be found in <a href="/integrations/sensor.mqtt/#json-attributes-template-configuration">MQTT sensor</a> documentation.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> json_attributes_topic </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="json_attributes_topic" class="title-link" href="#json_attributes_topic"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The MQTT topic subscribed to receive a JSON dictionary message containing device tracker attributes. This topic can be used to set the location of the device tracker under the following conditions:</p>
+<ul>
+<li>If the attributes in the JSON message include <code>longitude</code>, <code>latitude</code>, and <code>gps_accuracy</code> (optional).</li>
+<li>If the device tracker is within a configured <a href="/integrations/zone/">zone</a>.</li>
+</ul>
+<p>If these conditions are met, it is not required to configure <code>state_topic</code>.</p>
+<p>Be aware that any location message received at <code>state_topic</code>  overrides the location received via <code>json_attributes_topic</code> until a message configured with <code>payload_reset</code> is received at <code>state_topic</code>. For a more generic usage example of the <code>json_attributes_topic</code>, refer to the <a href="/integrations/sensor.mqtt/#json-attributes-topic-configuration">MQTT sensor</a> documentation.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The name of the MQTT device_tracker.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> object_id </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="object_id" class="title-link" href="#object_id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Used <code>object_id</code> instead of <code>name</code> for automatic generation of <code>entity_id</code>. This only works when the entity is added for the first time. When set, this overrides a user-customized Entity ID in case the entity was deleted and added again.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_available </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: online</span>)</span><a name="payload_available" class="title-link" href="#payload_available"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the available state.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_home </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: home</span>)</span><a name="payload_home" class="title-link" href="#payload_home"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload value that represents the ‘home’ state for the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_not_available </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: offline</span>)</span><a name="payload_not_available" class="title-link" href="#payload_not_available"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload that represents the unavailable state.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_not_home </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: not_home</span>)</span><a name="payload_not_home" class="title-link" href="#payload_not_home"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload value that represents the ‘not_home’ state for the device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> payload_reset </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: “None”</span>)</span><a name="payload_reset" class="title-link" href="#payload_reset"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The payload value that will have the device’s location automatically derived from Home Assistant’s zones.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> platform </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="platform" class="title-link" href="#platform"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Must be <code>device_tracker</code>. Only allowed and required in <a href="/integrations/mqtt/#device-discovery-payload">MQTT auto discovery device messages</a>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> qos </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 0</span>)</span><a name="qos" class="title-link" href="#qos"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The maximum QoS level to be used when receiving and publishing messages.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> source_type </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="source_type" class="title-link" href="#source_type"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Attribute of a device tracker that affects state when being used to track a <a href="/integrations/person/">person</a>. Valid options are <code>gps</code>, <code>router</code>, <code>bluetooth</code>, or <code>bluetooth_le</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> state_topic </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="state_topic" class="title-link" href="#state_topic"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The MQTT topic subscribed to receive device tracker state changes. The states defined in <code>state_topic</code> override the location states defined by the <code>json_attributes_topic</code>. This state override is turned inactive if the <code>state_topic</code> receives a message containing <code>payload_reset</code>. The <code>state_topic</code> can only be omitted if <code>json_attributes_topic</code> is used. An empty payload is ignored. Valid payloads are <code>not_home</code>, <code>home</code> or any other custom location or zone name. Payloads for <code>not_home</code>, <code>home</code> can be overridden with the <code>payload_not_home</code>and <code>payload_home</code> config options.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> unique_id </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="unique_id" class="title-link" href="#unique_id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>An ID that uniquely identifies this device_tracker. If two device_trackers have the same unique ID, Home Assistant will raise an exception. Required when used with device-based discovery.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> value_template </span><span class="config-vars-type"><a href="/docs/configuration/templating/">template</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="value_template" class="title-link" href="#value_template"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines a <a href="/docs/configuration/templating/#using-value-templates-with-mqtt">template</a> that returns a device tracker state.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Examples <a class="title-link" name="examples" href="#examples"></a>
+</h2>
+<h3>Using the discovery protocol <a class="title-link" name="using-the-discovery-protocol" href="#using-the-discovery-protocol"></a>
+</h3>
+<p>The device_tracker can be created via publishing to a discovery topic that follows the following <a href="/integrations/mqtt/#mqtt-discovery#discovery-topic">MQTT Discovery</a> topic name format: <code>&lt;discovery_prefix&gt;/device_tracker/[&lt;node_id&gt;/]&lt;object_id&gt;/config</code>.</p>
+<p>You can use the command line tool <code>mosquitto_pub</code> shipped with <code>mosquitto</code> or the <code>mosquitto-clients</code> package to send MQTT messages.</p>
+<p>To create the device_tracker:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">mosquitto_pub <span class="nt">-h</span> 127.0.0.1 <span class="nt">-t</span> homeassistant/device_tracker/a4567d663eaf/config <span class="nt">-m</span> <span class="s1">'{"state_topic": "homeassistant/device_tracker/a4567d663eaf/state", "name": "My Tracker", "payload_home": "home", "payload_not_home": "not_home"}'</span>
+</code></pre></div></div>
+<p>To set the state of the device tracker to “home”:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">mosquitto_pub <span class="nt">-h</span> 127.0.0.1 <span class="nt">-t</span> homeassistant/device_tracker/a4567d663eaf/state <span class="nt">-m</span> <span class="s1">'home'</span>
+</code></pre></div></div>
+<p>To set the state of the device tracker to a named location:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">mosquitto_pub <span class="nt">-h</span> 127.0.0.1 <span class="nt">-t</span> homeassistant/device_tracker/a4567d663eaf/state <span class="nt">-m</span> <span class="s1">'location_name'</span>
+</code></pre></div></div>
+<p>If the device supports GPS coordinates then they can be sent to Home Assistant by specifying an attributes topic (i.e. “json_attributes_topic”) in the configuration payload:</p>
+<ul>
+<li>Attributes topic: <code>homeassistant/device_tracker/a4567d663eaf/attributes</code>
+</li>
+<li>Example attributes payload:</li>
+</ul>
+<p>Example message to be received at topic <code>homeassistant/device_tracker/a4567d663eaf/attributes</code>:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">32.87336</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-117.22743</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"gps_accuracy"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>To create the device_tracker with GPS coordinates support:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">mosquitto_pub <span class="nt">-h</span> 127.0.0.1 <span class="nt">-t</span> homeassistant/device_tracker/a4567d663eaf/config <span class="nt">-m</span> <span class="s1">'{"json_attributes_topic": "homeassistant/device_tracker/a4567d663eaf/attributes", "name": "My Tracker"}'</span>
+</code></pre></div></div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Using <code>state_topic</code> is optional when using <code>json_attributes_topic</code> to determine the state of the device tracker.</p>
+  </div>
+</div>
+<p>To set the state of the device tracker to specific coordinates:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">mosquitto_pub <span class="nt">-h</span> 127.0.0.1 <span class="nt">-t</span> homeassistant/device_tracker/a4567d663eaf/attributes <span class="nt">-m</span> <span class="s1">'{"latitude": 32.87336, "longitude": -117.22743, "gps_accuracy": 1.2}'</span>
+</code></pre></div></div>
+<h3>YAML configuration <a class="title-link" name="yaml-configuration" href="#yaml-configuration"></a>
+</h3>
+<p>The following example shows how to configure the same device tracker through configuration.yaml</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">mqtt</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">device_tracker</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">My</span><span class="nv"> </span><span class="s">Tracker"</span>
+      <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">a4567d663eaf/state"</span>
+      <span class="na">payload_home</span><span class="pi">:</span> <span class="s2">"</span><span class="s">home"</span>
+      <span class="na">payload_not_home</span><span class="pi">:</span> <span class="s2">"</span><span class="s">not_home"</span>
+</code></pre></div></div>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    <li>
+      <a href="/docs/configuration/" class="topic">
+        Configuration file
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/device_tracker.mqtt.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fdevice_tracker.mqtt%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20mqtt" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+mqtt%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/mqtt//logo.png' srcset='https://brands.home-assistant.io/_/mqtt/logo@2x.png 2x' /></div>
+
+  <div class='section'>The MQTT device tracker  integration  was introduced in Home Assistant 0.7.3, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          46.8%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      &nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Configurable.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/mqtt" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+mqtt%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+      <div class="section">
+        This integration is community maintained.<br />
+        If you are a developer and would like to help, feel free to contribute!
+      </div>
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#using-the-discovery-protocol">Using the discovery protocol</a></li>
+<li class="toc-entry toc-h3"><a href="#yaml-configuration">YAML configuration</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#presence-detection'>Presence detection</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

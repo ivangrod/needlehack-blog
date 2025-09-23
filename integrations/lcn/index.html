@@ -1,0 +1,1959 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>LCN - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate LCN components with Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/lcn/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="LCN">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/lcn/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate LCN components with Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="LCN">
+    <meta name="twitter:description" content="Instructions on how to integrate LCN components with Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-device-types">Supported device types</a></li>
+<li class="toc-entry toc-h2"><a href="#setting-up-devices-and-entites">Setting up devices and entites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration-panel">Configuration panel</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#configuring-devices">Configuring devices</a></li>
+<li class="toc-entry toc-h3"><a href="#configuring-entities">Configuring entities</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#platforms">Platforms</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#binary-sensor">Binary sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#climate">Climate</a></li>
+<li class="toc-entry toc-h3"><a href="#cover">Cover</a></li>
+<li class="toc-entry toc-h3"><a href="#light">Light</a></li>
+<li class="toc-entry toc-h3"><a href="#scene">Scene</a></li>
+<li class="toc-entry toc-h3"><a href="#sensor">Sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#switch">Switch</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#additional-features">Additional features</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#transponder-fingerprint-sensor-and-code-lock">Transponder, fingerprint sensor and code lock</a></li>
+<li class="toc-entry toc-h3"><a href="#remote-control">Remote control</a></li>
+<li class="toc-entry toc-h3"><a href="#lcn-commands-addressed-to-pchk-host-home-assistant">LCN commands addressed to PCHK host (Home Assistant)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#event-lcn_transmitter">Event: lcn_transmitter</a></li>
+<li class="toc-entry toc-h3"><a href="#event-lcn_transponder">Event: lcn_transponder</a></li>
+<li class="toc-entry toc-h3"><a href="#event-lcn_fingerprint">Event: lcn_fingerprint</a></li>
+<li class="toc-entry toc-h3"><a href="#event-lcn_codelock">Event: lcn_codelock</a></li>
+<li class="toc-entry toc-h3"><a href="#event-lcn_send_keys">Event: lcn_send_keys</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#device-triggers">Device triggers</a></li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-output_abs">Action: output_abs</a></li>
+<li class="toc-entry toc-h3"><a href="#action-output_rel">Action: output_rel</a></li>
+<li class="toc-entry toc-h3"><a href="#action-output_toggle">Action: output_toggle</a></li>
+<li class="toc-entry toc-h3"><a href="#action-relays">Action: relays</a></li>
+<li class="toc-entry toc-h3"><a href="#action-led">Action: led</a></li>
+<li class="toc-entry toc-h3"><a href="#action-var_abs">Action: var_abs</a></li>
+<li class="toc-entry toc-h3"><a href="#action-var_rel">Action: var_rel</a></li>
+<li class="toc-entry toc-h3"><a href="#action-var_reset">Action: var_reset</a></li>
+<li class="toc-entry toc-h3"><a href="#action-lock_regulator">Action: lock_regulator</a></li>
+<li class="toc-entry toc-h3"><a href="#action-send_keys">Action: send_keys</a></li>
+<li class="toc-entry toc-h3"><a href="#action-lock_keys">Action: lock_keys</a></li>
+<li class="toc-entry toc-h3"><a href="#action-dyn_text">Action: dyn_text</a></li>
+<li class="toc-entry toc-h3"><a href="#action-pck">Action: pck</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#lcn-constants">LCN constants</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ports">Ports</a></li>
+<li class="toc-entry toc-h3"><a href="#motors">Motors</a></li>
+<li class="toc-entry toc-h3"><a href="#variables-and-units">Variables and units</a></li>
+<li class="toc-entry toc-h3"><a href="#states">States</a></li>
+<li class="toc-entry toc-h3"><a href="#keys">Keys</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        LCN
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <strong>LCN</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> for Home Assistant allows you to connect to <a href="https://www.lcn.eu/" rel="external nofollow">LCN<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> hardware devices.</p>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<ul>
+<li>The integration requires one unused license of the coupling software LCN-PCHK (version &gt;2.8) and an LCN hardware coupler.</li>
+<li>Alternatively, an LCN-VISU or LCN-PKE coupler can be used which offers at least two PCHK licenses.
+With this setup, sending and receiving commands to and from LCN modules is possible.</li>
+</ul>
+<p>The <code>lcn</code> integration allows connections to more than one hardware coupler. For each coupler, a new integration entry needs to be created.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>LCN</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=lcn" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=lcn" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>LCN</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<p>To set up the integration, you need to provide the following information:</p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Name</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name to identify the integration entry</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">IP address</span><a name="ip-address" class="title-link" href="#ip-address"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>IP address or hostname of the PCHK server</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Port</span><a name="port" class="title-link" href="#port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Port used by the PCHK server</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Username</span><a name="username" class="title-link" href="#username"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Username for authorization on the PCHK server</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Password</span><a name="password" class="title-link" href="#password"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Password for authorization on the PCHK server</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Segment coupler scan attempts</span><a name="segment-coupler-scan-attempts" class="title-link" href="#segment-coupler-scan-attempts"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Number of attempts to find a segment coupler in your installation. Increase this number, if not all segment couplers are identified correctly. If no segment coupler is in your installation, leave this number at 0.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Dimming mode</span><a name="dimming-mode" class="title-link" href="#dimming-mode"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The number of steps used for dimming outputs of all LCN modules. This setting is system-specific and depends on the capabilities of the installed LCN modules.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Request acknowledgement from modules</span><a name="request-acknowledgement-from-modules" class="title-link" href="#request-acknowledgement-from-modules"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>LCN modules can transmit a confirmation message for received commands. Commands are resent if this confirmation is not received. However, the activation of acknowledgements increases the bus traffic, which can lead to message losses if there are many modules in the installation.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Supported device types <a class="title-link" name="supported-device-types" href="#supported-device-types"></a>
+</h2>
+<p>There is currently support for the following device types within Home Assistant:</p>
+<ul>
+<li><a href="#binary-sensor">Binary sensor</a></li>
+<li><a href="#climate">Climate</a></li>
+<li><a href="#cover">Cover</a></li>
+<li><a href="#light">Light</a></li>
+<li><a href="#scene">Scene</a></li>
+<li><a href="#sensor">Sensor</a></li>
+<li><a href="#switch">Switch</a></li>
+</ul>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The implemented platforms do not cover the whole functionality of the LCN system.
+Therefore the <code>lcn</code> integration offers a variety of <a href="#events">events</a>, <a href="#device-triggers">device triggers</a> and <a href="#actions">actions</a>.
+They are ideal to be used in automation scripts or for the <code>template</code> platforms.</p>
+  </div>
+</div>
+<h2>Setting up devices and entites <a class="title-link" name="setting-up-devices-and-entites" href="#setting-up-devices-and-entites"></a>
+</h2>
+<p>The <code>lcn</code> hardware modules and groups are represented by Home Assistant <em>devices</em>. The periphery of each <code>lcn</code> module is represented by Home Assistant <em>entities</em>. Peripheries are, for example, the output ports, relays, and variables of a module. Refer to the description of each <a href="#platforms">platform</a> to learn about which entity should be used for which periphery.</p>
+<p>The configuration of the <code>lcn</code> devices and entities is completely done using a web user interface (configuration panel).</p>
+<p>Once the integration is added to Home Assistant, you can access the <code>lcn</code> configuration panel by selecting the <strong>Configure</strong> button next to the respective integration entry on the <a href="https://my.home-assistant.io/redirect/integration/?domain=lcn">LCN integration page</a>.</p>
+<p><img src="/images/integrations/lcn/lcn_integration_configuration.png" alt="Integration configuration"></p>
+<h2>Configuration panel <a class="title-link" name="configuration-panel" href="#configuration-panel"></a>
+</h2>
+<p>From the LCN Configuration Panel, you can configure your LCN modules, groups, and entities within Home Assistant.</p>
+<p><img src="/images/integrations/lcn/lcn_device_page.png" alt="LCN Configuration Panel"></p>
+<h3>Configuring devices <a class="title-link" name="configuring-devices" href="#configuring-devices"></a>
+</h3>
+<p>You can add and remove modules and groups directly from the configuration panel. Once added, they will appear in Home Assistant as devices, which can be used to trigger <a href="#actions">specific actions</a> within scripts or automations. For examples, refer to the <a href="/docs/scripts/perform-actions/">Performing actions</a> page.</p>
+<p>The <strong>Modules / Groups</strong> tab provides an overview of your configured LCN modules and groups, showing their name, ID, and segment ID. The LCN Configuration Panel attempts to derive names from the LCN modules; if a module has no name or is part of a group, a standard name is assigned.</p>
+<h4>Scanning modules <a class="title-link" name="scanning-modules" href="#scanning-modules"></a>
+</h4>
+<p>To initiate a scan for LCN modules on the bus, in the top-right corner, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu and select <strong>Scan Modules</strong>.</p>
+<ul>
+<li>
+<strong>Result</strong>: This process polls each module for its name and serial number.</li>
+<li>When all module responses have been received, they will be listed in the device list.</li>
+<li>Scanning modules may take several seconds. The pop-up dialog will close automatically once the process is complete.</li>
+</ul>
+<h4>Adding devices <a class="title-link" name="adding-devices" href="#adding-devices"></a>
+</h4>
+<p>If module scanning fails or a module is unavailable on the bus, you can manually add it. Groups can also be created manually.</p>
+<ol>
+<li>
+<p>To add a module or group manually, select the <strong>Create Module/Group</strong> button.</p>
+</li>
+<li>
+<p>Select whether you want to add a module or group and enter the desired <code>segment id</code> and module/group <code>id</code>.</p>
+<p><img src="/images/integrations/lcn/lcn_create_device.png" alt="Create module/group dialog"></p>
+</li>
+<li>
+<p>To add the new device, select <strong>Create</strong>.</p>
+</li>
+</ol>
+<h4>Deleting devices <a class="title-link" name="deleting-devices" href="#deleting-devices"></a>
+</h4>
+<p>To delete a single device, select the trash can icon next to it.</p>
+<ul>
+<li>
+<strong>Result</strong>: This will remove the device from the device list and from Home Assistant, including any associated entities.</li>
+</ul>
+<p>To delete multiple devices at once, enable selection mode.  Select the desired entries, then, in the top-right corner, select  <strong>Delete Selected</strong>.</p>
+<h3>Configuring entities <a class="title-link" name="configuring-entities" href="#configuring-entities"></a>
+</h3>
+<p>Entities configured for all devices are listed on the <strong>Entities</strong> tab.</p>
+<p>To view entities for a specific device (module or group), in the <strong>Modules / Groups</strong> tab, select the device entry.</p>
+<ul>
+<li>
+<strong>Result</strong>: The <strong>Entities</strong> tab opens, showing entities of the selected device.</li>
+<li>To apply custom filters, enable the filter option.</li>
+</ul>
+<p><img src="/images/integrations/lcn/lcn_entities_page.png" alt="Create module/group dialog"></p>
+<h4>Adding entities <a class="title-link" name="adding-entities" href="#adding-entities"></a>
+</h4>
+<ol>
+<li>To create a new entity, select <strong>Create Entity</strong>.</li>
+<li>From the dropdown menu, select the module or group for which to create the entity.
+<ul>
+<li>
+<p>If a single module or group filter is applied, it will be pre-selected.</p>
+<p><img src="/images/integrations/lcn/lcn_create_entity.png" alt="Create entity dialog"></p>
+</li>
+</ul>
+</li>
+<li>Choose the domain (platform) for the entity and enter a name.
+<ul>
+<li>You can change this name later within the Home Assistant entity settings.</li>
+</ul>
+</li>
+<li>Depending on the selected domain, additional options will be shown. To add the entity to the list and to Home Assistant, enter the required information and select <strong>Create</strong> .</li>
+</ol>
+<h4>Deleting entities <a class="title-link" name="deleting-entities" href="#deleting-entities"></a>
+</h4>
+<p>To delete a single entity, select the trash can icon next to it.</p>
+<ul>
+<li>
+<strong>Result</strong>: This removes the entity from the list and from Home Assistant.</li>
+</ul>
+<p>To delete multiple entities, enable selection mode, select the desired entries, and select <strong>Delete Selected</strong> in the upper right.</p>
+<h4>Displaying entity properties <a class="title-link" name="displaying-entity-properties" href="#displaying-entity-properties"></a>
+</h4>
+<p>Once an entity is created, you can view and configure its properties.</p>
+<p>Select the entity in the entity list.</p>
+<ul>
+<li>This opens the Home Assistant dialog for entity properties, allowing you to configure the entity as you would from the general Home Assistant entity configuration panel.</li>
+</ul>
+<h2>Platforms <a class="title-link" name="platforms" href="#platforms"></a>
+</h2>
+<h3>Binary sensor <a class="title-link" name="binary-sensor" href="#binary-sensor"></a>
+</h3>
+<p>The <code>lcn</code> binary sensor platform allows the monitoring of the following <a href="https://www.lcn.eu/" rel="external nofollow">LCN<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> binary data sources:</p>
+<ul>
+<li>Binary hardware sensors</li>
+</ul>
+<p>The binary sensor can be used in automation scripts or in conjunction with <code>template</code> platforms.</p>
+<h3>Climate <a class="title-link" name="climate" href="#climate"></a>
+</h3>
+<p>The <code>lcn</code> climate platform allows the control of the <a href="https://www.lcn.eu/" rel="external nofollow">LCN<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> climate regulators.
+This platform depends on the correct configuration of the module’s regulators, which has to be done in the LCN-PRO programming software.
+You need to specify at least the variable for the current temperature and a setpoint variable for the target temperature.
+If the control is set lockable, the regulator can be turned on/off.</p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>If you intend to leave the regulation to Home Assistant, you should consider using the <a href="/integrations/generic_thermostat/">Generic Thermostat</a> in conjunction with <a href="#sensor">LCN Sensor</a> and <a href="#switch">LCN Switch</a>.</p>
+  </div>
+</div>
+<h3>Cover <a class="title-link" name="cover" href="#cover"></a>
+</h3>
+<p>The <code>lcn</code> cover platform allows the control of <a href="https://www.lcn.eu/" rel="external nofollow">LCN<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> relays and output ports which have been configured as motor controllers.
+Refer to the <a href="#motors">motors table</a> to learn about which motor uses which module periphery.</p>
+<p>Only for the module with firmware earlier than 190C:<br>
+The configuration allows the optional definition of reverse time. This is the time which is waited during the switching of the motor currents.
+The reverse time should only be defined when using the module’s output ports for driving the cover. For all other configuration, the reverse time has to be defined in the LCN Pro software.
+For the reverse time, you may choose one of the following constants: <code>RT70</code> (70ms), <code>RT600</code> (600ms), <code>RT1200</code> (1,2s).</p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>If you are using the module’s output ports for motor control, ensure that you have configured the output ports as motor controllers in the LCN Pro software!
+Otherwise, the output ports are not mutually interlocked and you run the risk of destroying the motor.</p>
+  </div>
+</div>
+<h3>Light <a class="title-link" name="light" href="#light"></a>
+</h3>
+<p>The <code>lcn</code> light platform allows the control of the following <a href="https://www.lcn.eu/" rel="external nofollow">LCN<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> ports:</p>
+<ul>
+<li>(Dimmable) output ports</li>
+<li>Relays</li>
+</ul>
+<h3>Scene <a class="title-link" name="scene" href="#scene"></a>
+</h3>
+<p>The <code>lcn</code> scene platform allows the activation of previously programmed <a href="https://www.lcn.eu/" rel="external nofollow">LCN<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> scenes.</p>
+<h3>Sensor <a class="title-link" name="sensor" href="#sensor"></a>
+</h3>
+<p>The <code>lcn</code> sensor platform allows the monitoring of the following <a href="https://www.lcn.eu/" rel="external nofollow">LCN<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> data sources:</p>
+<ul>
+<li>Variables</li>
+<li>Regulator setpoints</li>
+<li>Thresholds</li>
+<li>S0 inputs</li>
+<li>LED states</li>
+<li>Logic operation states</li>
+</ul>
+<p>The sensor can be used in automation scripts or in conjunction with <code>template</code> platforms.</p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>Ensure that the LCN module is configured properly to provide the requested value.
+Otherwise, the module might show unexpected behavior or return error messages.</p>
+  </div>
+</div>
+<h3>Switch <a class="title-link" name="switch" href="#switch"></a>
+</h3>
+<p>The <code>lcn</code> switch platform allows the control of the following <a href="https://www.lcn.eu/" rel="external nofollow">LCN<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> ports:</p>
+<ul>
+<li>Output ports</li>
+<li>Relays</li>
+<li>Lock state of regulators</li>
+<li>Lock state of keys</li>
+</ul>
+<h2>Additional features <a class="title-link" name="additional-features" href="#additional-features"></a>
+</h2>
+<h3>Transponder, fingerprint sensor and code lock <a class="title-link" name="transponder-fingerprint-sensor-and-code-lock" href="#transponder-fingerprint-sensor-and-code-lock"></a>
+</h3>
+<p>To use LCN transponders, fingerprint sensors or code locks ensure that the corresponding module’s I-port property
+is enabled in the LCN-PRO software and properly configured.
+LCN transponders, fingerprints and code locks are identified by a six value hexadecimal code (e.g. <em>123abc</em>).
+If a code is received a corresponding event (<a href="#event-lcn_transponder">transponder event</a>, <a href="#event-lcn_fingerprint">fingerprint event</a>, <a href="#event-lcn_codelock">codelock event</a>)
+is fired and can be used to trigger an automation.
+Alternatively, you can use the corresponding <a href="#device-triggers">device triggers</a>.</p>
+<p>Example:</p>
+<p>This example shows how the <code>event_data</code> can be extracted and used in a condition using Home Assistant’s templating engine.
+Trigger on a transponder event and ensure that the received code is in the given list:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">lcn_transponder</span>
+  <span class="na">conditions</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">trigger.event.data.code</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">['aabbcc',</span><span class="nv"> </span><span class="s">'ddeeff',</span><span class="nv"> </span><span class="s">'112233']</span><span class="nv"> </span><span class="s">}}"</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="s">...</span>
+</code></pre></div></div>
+<p>Further examples can be found in the <a href="#events">event section</a>.</p>
+<h3>Remote control <a class="title-link" name="remote-control" href="#remote-control"></a>
+</h3>
+<p>To use LCN remote controls (e.g., LCN-RT or LCN-RT16) ensure that the corresponding module’s I-port property
+is enabled in the LCN-PRO software and its behavior is properly configured as “IR access control”.
+With this configuration each remote control is identified by a six value hexadecimal code (e.g. <em>123abc</em>).
+If a command from a remote control is received a corresponding event (<a href="#event-lcn_transponder">transponder event</a>)
+is fired and can be used to trigger an automation. Along with the transmitted code, the pressed key and the key action
+are transmitted.
+Alternatively, you can use the corresponding <a href="#device-triggers">device triggers</a>.</p>
+<p>Examples can be found in the <a href="#events">event section</a>.</p>
+<h3>LCN commands addressed to PCHK host (Home Assistant) <a class="title-link" name="lcn-commands-addressed-to-pchk-host-home-assistant" href="#lcn-commands-addressed-to-pchk-host-home-assistant"></a>
+</h3>
+<p>A LCN module can not only be programmed to send commands to other modules/groups but also to the PCHK host configured
+in the LCN integration. These commands are directly passed to Home Assistant and can be evaluated. Only the <em>send keys</em>
+(former) command is supported.</p>
+<p>Within LCN-PRO program the <em>send keys</em> command (only “A-C former command” is supported) to a key. For the target address
+manually enter the PCHK host id (default: 4). Select the keys and key actions as desired.</p>
+<p>When a <em>send keys</em> command is received, the LCN integration will fire a <a href="#event-lcn_send_keys">send keys event</a> for each
+key configured. These events can be used to trigger an automation.
+Alternatively, you can use the corresponding <a href="#device-triggers">device triggers</a>.</p>
+<p>Examples can be found in the <a href="#events">event section</a>.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Only commands sent from physical buttons of a module are evaluated. The “Test command” button in the LCN-PRO software
+is not evaluated and therefore cannot be used for testing purposes.</p>
+  </div>
+</div>
+<h2>Events <a class="title-link" name="events" href="#events"></a>
+</h2>
+<p>There are several functionalities of the LCN system which are not exposed as regular entities by the integration, but as events.
+Examples are button presses from remote controls (transmitters), transponder findings, fingerprint sensors and so called <em>send keys</em> events.</p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>If you find it difficult to deal with events in scripted automations, you can also use <a href="#device-triggers">device triggers</a>
+which offer automation design via the UI.</p>
+  </div>
+</div>
+<p>All events have some common attributes in their <code>event_data</code> which identify the sending LCN hardware module (e.g., the module the transponder is connected to):</p>
+<table>
+<thead>
+<tr>
+<th>Event payload</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>Internal device id of LCN module</td>
+<td>string</td>
+</tr>
+<tr>
+<td><code>segment_id</code></td>
+<td>Module’s segment id</td>
+<td>5..128</td>
+</tr>
+<tr>
+<td><code>module_id</code></td>
+<td>Module id</td>
+<td>5..254</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, every event has its own special attributes which are described below.
+All special attributes are optional and can be used as supplementary filters.</p>
+<h3>Event: lcn_transmitter <a class="title-link" name="event-lcn_transmitter" href="#event-lcn_transmitter"></a>
+</h3>
+<p>The <code>lcn_transmitter</code> event is fired if a LCN remote control command is received.</p>
+<table>
+<thead>
+<tr>
+<th>Special payload</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td>Transmitter code</td>
+<td>string (6 hex values)</td>
+</tr>
+<tr>
+<td><code>level</code></td>
+<td>Key level</td>
+<td>0..4</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td>Key</td>
+<td>0..4</td>
+</tr>
+<tr>
+<td><code>action</code></td>
+<td>Key action</td>
+<td>
+<code>hit</code>, <code>make</code>, <code>break</code>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<p>The trigger will fire if any key on the remote control with code <em>123abc</em> is <code>hit</code> as long as the
+receiver hardware is connected to module 7 in segment 0.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">lcn_transmitter</span>
+      <span class="na">event_data</span><span class="pi">:</span>
+        <span class="na">segment_id</span><span class="pi">:</span> <span class="m">0</span>
+        <span class="na">module_id</span><span class="pi">:</span> <span class="m">7</span>
+        <span class="na">code</span><span class="pi">:</span> <span class="s">123abc</span>
+        <span class="na">action</span><span class="pi">:</span> <span class="s">hit</span>
+</code></pre></div></div>
+<h3>Event: lcn_transponder <a class="title-link" name="event-lcn_transponder" href="#event-lcn_transponder"></a>
+</h3>
+<p>The <code>lcn_transponder</code> event is fired if a LCN transponder command is received.</p>
+<table>
+<thead>
+<tr>
+<th>Special payload</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td>Transponder code</td>
+<td>string (6 hex values)</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<p>The trigger will fire if the transponder with code <em>123abc</em> was detected at
+any hardware module.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">lcn_transponder</span>
+      <span class="na">event_data</span><span class="pi">:</span>
+        <span class="na">code</span><span class="pi">:</span> <span class="s">123abc</span>
+</code></pre></div></div>
+<h3>Event: lcn_fingerprint <a class="title-link" name="event-lcn_fingerprint" href="#event-lcn_fingerprint"></a>
+</h3>
+<p>The <code>lcn_fingerprint</code> event is fired if a LCN fingerprint command is received.</p>
+<table>
+<thead>
+<tr>
+<th>Special payload</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td>Fingerprint code</td>
+<td>string (6 hex values)</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<p>The trigger will fire if the fingerprint with code <em>123abc</em> was detected at
+any hardware module.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">lcn_fingerprint</span>
+      <span class="na">event_data</span><span class="pi">:</span>
+        <span class="na">code</span><span class="pi">:</span> <span class="s">123abc</span>
+</code></pre></div></div>
+<h3>Event: lcn_codelock <a class="title-link" name="event-lcn_codelock" href="#event-lcn_codelock"></a>
+</h3>
+<p>The <code>lcn_codelock</code> event is fired if a LCN code lock command is received.</p>
+<table>
+<thead>
+<tr>
+<th>Special payload</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td>Code lock code</td>
+<td>string (6 hex values)</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<p>The trigger will fire if the code lock with code <em>123abc</em> was activated at
+any hardware module.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">lcn_codelock</span>
+      <span class="na">event_data</span><span class="pi">:</span>
+        <span class="na">code</span><span class="pi">:</span> <span class="s">123abc</span>
+</code></pre></div></div>
+<h3>Event: lcn_send_keys <a class="title-link" name="event-lcn_send_keys" href="#event-lcn_send_keys"></a>
+</h3>
+<p>The <code>lcn_send_keys</code> event is fired if the PCHK host receives a <em>send keys</em> command.</p>
+<table>
+<thead>
+<tr>
+<th>Special payload</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td>LCN Key</td>
+<td>a1..c8</td>
+</tr>
+<tr>
+<td><code>action</code></td>
+<td>Key action</td>
+<td>
+<code>hit</code>, <code>make</code>, <code>break</code>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<p>The trigger will fire if the PCHK host receives a command that issues a <code>hit</code> of
+key <code>a1</code>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">lcn_send_keys</span>
+      <span class="na">event_data</span><span class="pi">:</span>
+        <span class="na">key</span><span class="pi">:</span> <span class="s">a1</span>
+        <span class="na">action</span><span class="pi">:</span> <span class="s">hit</span>
+</code></pre></div></div>
+<h2>Device triggers <a class="title-link" name="device-triggers" href="#device-triggers"></a>
+</h2>
+<p>To simplify using events in automations the LCN integration exposes them as device triggers.
+Those device triggers can be selected from the automation editor within Home Assistant.</p>
+<p>After creating a new automation select <em>Device</em> as trigger type and search for the module which is
+supposed to cause the event in the device list. You may select the trigger type and configure its
+attributes. If an attribute is optional it is considered as a supplementary filter for the trigger.
+For an explanation of the attributes refer to the corresponding <a href="#events">events</a>.</p>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<p>In order to directly interact with the LCN system, and invoke commands which are not covered by the implemented platforms, the following actions can be used.
+Refer to the <a href="/docs/scripts/service-calls">Performing actions</a> page for examples on how to use them.</p>
+<p>When actions are linked to a particular device, the device is identified by its <code>device_id</code>. This <code>device_id</code> is a unique identifier supplied by Home Assistant.</p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>A simple method to obtain the <code>device_id</code> for LCN modules in automations and scripts is to use a template with the <code>device_id()</code> function as detailed <a href="/docs/configuration/templating/#devices">here</a>. This allows for finding the <code>device_id</code> using the module name as shown in the frontend or configured in the LCN-PRO software.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.pck</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">device_id('Module</span><span class="nv"> </span><span class="s">name')</span><span class="nv"> </span><span class="s">}}"</span>
+  <span class="na">pck</span><span class="pi">:</span> <span class="s">PIN4</span>
+</code></pre></div></div>
+  </div>
+</div>
+<h3>Action: output_abs <a class="title-link" name="action-output_abs" href="#action-output_abs"></a>
+</h3>
+<p>Set absolute brightness of output port in percent.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td>No</td>
+<td>Output port of module</td>
+<td><a href="#ports">OUTPUT_PORT</a></td>
+</tr>
+<tr>
+<td><code>brightness</code></td>
+<td>Yes</td>
+<td>Absolute brightness in percent</td>
+<td>0..100</td>
+</tr>
+<tr>
+<td><code>transition</code></td>
+<td>Yes</td>
+<td>Transition (ramp) time in seconds</td>
+<td>0..486</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.output_abs</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">output</span><span class="pi">:</span> <span class="s">output1</span>
+  <span class="na">brightness</span><span class="pi">:</span> <span class="m">100</span>
+  <span class="na">transition</span><span class="pi">:</span> <span class="m">0</span>
+</code></pre></div></div>
+<h3>Action: output_rel <a class="title-link" name="action-output_rel" href="#action-output_rel"></a>
+</h3>
+<p>Set relative brightness of output port in percent.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td>No</td>
+<td>Output port of module</td>
+<td><a href="#ports">OUTPUT_PORT</a></td>
+</tr>
+<tr>
+<td><code>brightness</code></td>
+<td>Yes</td>
+<td>Relative brightness in percent</td>
+<td>-100..100</td>
+</tr>
+<tr>
+<td><code>transition</code></td>
+<td>Yes</td>
+<td>Transition (ramp) time in seconds</td>
+<td>0..486</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.output_rel</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">output</span><span class="pi">:</span> <span class="s">output1</span>
+  <span class="na">brightness</span><span class="pi">:</span> <span class="m">30</span>
+</code></pre></div></div>
+<h3>Action: output_toggle <a class="title-link" name="action-output_toggle" href="#action-output_toggle"></a>
+</h3>
+<p>Toggle output port.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td>No</td>
+<td>Output port of module</td>
+<td><a href="#ports">OUTPUT_PORT</a></td>
+</tr>
+<tr>
+<td><code>transition</code></td>
+<td>Yes</td>
+<td>Transition (ramp) time in seconds</td>
+<td>0..486</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.output_toggle</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">output</span><span class="pi">:</span> <span class="s">output1</span>
+  <span class="na">transition</span><span class="pi">:</span> <span class="m">0</span>
+</code></pre></div></div>
+<h3>Action: relays <a class="title-link" name="action-relays" href="#action-relays"></a>
+</h3>
+<p>Set the relays status. The relays states are defined as a string with eight characters.
+Each character represents the state change of a relay (1=on, 0=off, t=toggle, -=nochange).</p>
+<p>Example states:  <code>t---001-</code></p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>No</td>
+<td>Relay states as string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.relays</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">state</span><span class="pi">:</span> <span class="s">t---001-</span>
+</code></pre></div></div>
+<h3>Action: led <a class="title-link" name="action-led" href="#action-led"></a>
+</h3>
+<p>Set the LED status.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>No</td>
+<td>LED state as string</td>
+<td><a href="#states">LED_STATE</a></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.led</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">led</span><span class="pi">:</span> <span class="s">led6</span>
+  <span class="na">state</span><span class="pi">:</span> <span class="s">blink</span>
+</code></pre></div></div>
+<h3>Action: var_abs <a class="title-link" name="action-var_abs" href="#action-var_abs"></a>
+</h3>
+<p>Set the absolute value of a variable or setpoint.
+If <code>value</code> is not defined, it is assumed to be 0.
+If <code>unit_of_measurement</code> is not defined, it is assumed to be <code>native</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>variable</code></td>
+<td>No</td>
+<td>Variable name</td>
+<td>
+<a href="#variables-and-units">VARIABLE</a>, <a href="#variables-and-units">SETPOINT</a>
+</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>Yes</td>
+<td>Variable value</td>
+<td><em>any positive number</em></td>
+</tr>
+<tr>
+<td><code>unit_of_measurement</code></td>
+<td>Yes</td>
+<td>Variable unit</td>
+<td><a href="#variables-and-units">VAR_UNIT</a></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.var_abs</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">variable</span><span class="pi">:</span> <span class="s">var1</span>
+  <span class="na">value</span><span class="pi">:</span> <span class="m">75</span>
+  <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="err">%</span>
+</code></pre></div></div>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>Ensure that the LCN module is configured properly to provide access to the defined variable.
+Otherwise the module might show unexpected behaviors or return error messages.</p>
+  </div>
+</div>
+<h3>Action: var_rel <a class="title-link" name="action-var_rel" href="#action-var_rel"></a>
+</h3>
+<p>Set the relative value of a variable or setpoint.
+If <code>value</code> is not defined, it is assumed to be 0.
+If <code>unit_of_measurement</code> is not defined, it is assumed to be <code>native</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>variable</code></td>
+<td>No</td>
+<td>Variable name</td>
+<td>
+<a href="#variables-and-units">VARIABLE</a>, <a href="#variables-and-units">SETPOINT</a>, <a href="#variables-and-units">THRESHOLD</a>
+</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>Yes</td>
+<td>Variable value</td>
+<td><em>any positive or negative number</em></td>
+</tr>
+<tr>
+<td><code>unit_of_measurement</code></td>
+<td>Yes</td>
+<td>Variable unit</td>
+<td><a href="#variables-and-units">VAR_UNIT</a></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.var_rel</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">variable</span><span class="pi">:</span> <span class="s">var1</span>
+  <span class="na">value</span><span class="pi">:</span> <span class="m">10</span>
+  <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="err">%</span>
+</code></pre></div></div>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>Ensure that the LCN module is configured properly to provide access to the defined variable.
+Otherwise the module might show unexpected behavior or return error messages.</p>
+  </div>
+</div>
+<h3>Action: var_reset <a class="title-link" name="action-var_reset" href="#action-var_reset"></a>
+</h3>
+<p>Reset value of variable or setpoint.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>variable</code></td>
+<td>No</td>
+<td>Variable name</td>
+<td>
+<a href="#variables-and-units">VARIABLE</a>, <a href="#variables-and-units">SETPOINT</a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.var_reset</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">variable</span><span class="pi">:</span> <span class="s">var1</span>
+</code></pre></div></div>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>Ensure that the LCN module is configured properly to provide access to the defined variable.
+Otherwise the module might show unexpected behavior or return error messages.</p>
+  </div>
+</div>
+<h3>Action: lock_regulator <a class="title-link" name="action-lock_regulator" href="#action-lock_regulator"></a>
+</h3>
+<p>Locks a regulator setpoint.
+If <code>state</code> is not defined, it is assumed to be <code>False</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>setpoint</code></td>
+<td>No</td>
+<td>Setpoint name</td>
+<td><a href="#variables-and-units">SETPOINT</a></td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>Yes</td>
+<td>Lock state</td>
+<td>true, false</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.lock_regulator</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">setpoint</span><span class="pi">:</span> <span class="s">r1varsetpoint</span>
+  <span class="na">state</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<h3>Action: send_keys <a class="title-link" name="action-send_keys" href="#action-send_keys"></a>
+</h3>
+<p>Send keys (which executes bound commands).
+The keys attribute is a string with one or more key identifiers. Example: <code>a1a5d8</code>
+If <code>state</code> is not defined, it is assumed to be <code>hit</code>.
+The command allows the sending of keys immediately or deferred. For a deferred sending the attributes <code>time</code> and <code>time_unit</code> have to be specified. For deferred sending, the only key state allowed is <code>hit</code>.
+If <code>time_unit</code> is not defined, it is assumed to be <code>seconds</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>keys</code></td>
+<td>No</td>
+<td>Keys string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>Yes</td>
+<td>Keys state</td>
+<td><a href="#states">KEY_STATE</a></td>
+</tr>
+<tr>
+<td><code>time</code></td>
+<td>Yes</td>
+<td>Deferred time</td>
+<td>0..</td>
+</tr>
+<tr>
+<td><code>time_unit</code></td>
+<td>Yes</td>
+<td>Time unit</td>
+<td><a href="#variables-and-units">TIME_UNIT</a></td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<p>Send keys immediately:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.send_keys</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">keys</span><span class="pi">:</span> <span class="s">a1a5d8</span>
+  <span class="na">state</span><span class="pi">:</span> <span class="s">hit</span>
+</code></pre></div></div>
+<p>Send keys deferred:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.send_keys</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">keys</span><span class="pi">:</span> <span class="s">a1a5d8</span>
+  <span class="na">time</span><span class="pi">:</span> <span class="m">5</span>
+  <span class="na">time_unit</span><span class="pi">:</span> <span class="s">s</span>
+</code></pre></div></div>
+<h3>Action: lock_keys <a class="title-link" name="action-lock_keys" href="#action-lock_keys"></a>
+</h3>
+<p>Locks keys.
+If the table is not defined, it is assumed to be table <code>a</code>.
+The key lock states are defined as a string with eight characters. Each character represents the state change of a key lock (1=on, 0=off, t=toggle, -=nochange).
+The command allows the locking of keys for a specified time period. For a time period, the attributes <code>time</code> and <code>time_unit</code> have to be specified. For a time period, only table <code>a</code> is allowed.
+If <code>time_unit</code> is not defined, it is assumed to be <code>seconds</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>table</code></td>
+<td>Yes</td>
+<td>Table with keys to lock</td>
+<td></td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>No</td>
+<td>Key lock states as string</td>
+<td><a href="#states">KEY_STATE</a></td>
+</tr>
+<tr>
+<td><code>time</code></td>
+<td>Yes</td>
+<td>Time period to lock</td>
+<td>0..</td>
+</tr>
+<tr>
+<td><code>time_unit</code></td>
+<td>Yes</td>
+<td>Time unit</td>
+<td><a href="#variables-and-units">TIME_UNIT</a></td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<p>Lock keys forever:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.lock_keys</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">table</span><span class="pi">:</span> <span class="s">a</span>
+  <span class="na">state</span><span class="pi">:</span> <span class="s">1---t0--</span>
+</code></pre></div></div>
+<p>Lock keys for a specified time period:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.lock_keys</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">state</span><span class="pi">:</span> <span class="s">1---t0--</span>
+  <span class="na">time</span><span class="pi">:</span> <span class="m">10</span>
+  <span class="na">time_unit</span><span class="pi">:</span> <span class="s">s</span>
+</code></pre></div></div>
+<h3>Action: dyn_text <a class="title-link" name="action-dyn_text" href="#action-dyn_text"></a>
+</h3>
+<p>Send dynamic text to LCN-GTxD displays.
+The displays support four rows for text messages.
+Each row can be set independently and can store up to 60 characters (encoded in UTF-8).</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>row</code></td>
+<td>No</td>
+<td>Text row 1-4</td>
+<td></td>
+</tr>
+<tr>
+<td><code>text</code></td>
+<td>No</td>
+<td>Text to send for the specified row</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.dyn_text</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">row</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">text</span><span class="pi">:</span> <span class="s2">"</span><span class="s">text</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">row</span><span class="nv"> </span><span class="s">1"</span>
+</code></pre></div></div>
+<h3>Action: pck <a class="title-link" name="action-pck" href="#action-pck"></a>
+</h3>
+<p>Send arbitrary PCK command. Only the command part of the PCK command has to be specified in the <code>pck</code> string.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>Home Assistant device id</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pck</code></td>
+<td>No</td>
+<td>PCK command</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">lcn.pck</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">device_id</span><span class="pi">:</span> <span class="s">91aa039a2fb6e0b9f9ec7eb219a6b7d2</span>
+  <span class="na">pck</span><span class="pi">:</span> <span class="s">PIN4</span>
+</code></pre></div></div>
+<h2>LCN constants <a class="title-link" name="lcn-constants" href="#lcn-constants"></a>
+</h2>
+<p>The <a href="#actions">actions</a> use several predefined constants as parameters.</p>
+<h3>Ports <a class="title-link" name="ports" href="#ports"></a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUTPUT_PORT</td>
+<td>
+<code>output1</code>, <code>output2</code>, <code>output3</code>, <code>output4</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Motors <a class="title-link" name="motors" href="#motors"></a>
+</h3>
+<p>The motor values specify which hardware relay or outputs configuration will be used:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Motor</th>
+<th align="center">Relay on/off</th>
+<th align="center">Relay up/down</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>motor1</code></td>
+<td align="center"><code>relay1</code></td>
+<td align="center"><code>relay2</code></td>
+</tr>
+<tr>
+<td align="center"><code>motor2</code></td>
+<td align="center"><code>relay3</code></td>
+<td align="center"><code>relay4</code></td>
+</tr>
+<tr>
+<td align="center"><code>motor3</code></td>
+<td align="center"><code>relay5</code></td>
+<td align="center"><code>relay6</code></td>
+</tr>
+<tr>
+<td align="center"><code>motor4</code></td>
+<td align="center"><code>relay7</code></td>
+<td align="center"><code>relay8</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">Motor</th>
+<th align="center">Output up</th>
+<th align="center">Output down</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>outputs</code></td>
+<td align="center"><code>output1</code></td>
+<td align="center"><code>output2</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Variables and units <a class="title-link" name="variables-and-units" href="#variables-and-units"></a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VARIABLE</td>
+<td>
+<code>var1</code>, <code>var2</code>, <code>var3</code>, <code>var4</code>, <code>var5</code>, <code>var6</code>, <code>var7</code>, <code>var8</code>, <code>var9</code>, <code>var10</code>, <code>var11</code>, <code>var12</code>, <code>tvar</code>, <code>r1var</code>, <code>r2var</code>
+</td>
+</tr>
+<tr>
+<td>SETPOINT</td>
+<td>
+<code>r1varsetpoint</code>, <code>r2varsetpoint</code>
+</td>
+</tr>
+<tr>
+<td>THRESHOLD</td>
+<td>
+<code>thrs1</code>, <code>thrs2</code>, <code>thrs3</code>, <code>thrs4</code>, <code>thrs5</code>, <code>thrs2_1</code>, <code>thrs2_2</code>, <code>thrs2_3</code>, <code>thrs2_4</code>, <code>thrs3_1</code>, <code>thrs3_2</code>, <code>thrs3_3</code>, <code>thrs3_4</code>, <code>thrs4_1</code>, <code>thrs4_2</code>, <code>thrs4_3</code>, <code>thrs4_4</code>
+</td>
+</tr>
+<tr>
+<td>VAR_UNIT</td>
+<td>
+<code>native</code>, <code>°C</code>, <code>°K</code>, <code>°F</code>, <code>lux_t</code>, <code>lux_i</code>, <code>m/s</code>, <code>%</code>, <code>ppm</code>, <code>volt</code>, <code>ampere</code>, <code>degree</code>
+</td>
+</tr>
+<tr>
+<td>TIME_UNIT</td>
+<td>
+<code>seconds</code>, <code>minutes</code>, <code>hours</code>, <code>days</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>States <a class="title-link" name="states" href="#states"></a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LED_STATE</td>
+<td>
+<code>on</code>, <code>off</code>, <code>blink</code>, <code>flicker</code>
+</td>
+</tr>
+<tr>
+<td>KEY_STATE</td>
+<td>
+<code>hit</code>, <code>make</code>, <code>break</code>, <code>dontsend</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Keys <a class="title-link" name="keys" href="#keys"></a>
+</h3>
+<p>Whenever a key has to be provided, it is defined by a joint string consisting of the table identifier (<code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>) and the corresponding key number.
+Examples: <code>a1</code>, <code>a5</code>, <code>d8</code>.</p>
+<h2>Removing the integration <a class="title-link" name="removing-the-integration" href="#removing-the-integration"></a>
+</h2>
+<p>This integration follows standard integration removal, no extra steps are required.</p>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>Removing the integration will delete all device and entity configuration done via the UI panel.</p>
+  </div>
+</div>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/lcn.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Flcn%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20lcn" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+lcn%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/lcn//logo.png' srcset='https://brands.home-assistant.io/_/lcn/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=lcn' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The LCN  integration  was introduced in Home Assistant 0.85, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          94</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-bronze'>🥉 Bronze quality</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/lcn" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+lcn%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/alengwenus" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/alengwenus?size=96" alt="@alengwenus"/> @alengwenus</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-device-types">Supported device types</a></li>
+<li class="toc-entry toc-h2"><a href="#setting-up-devices-and-entites">Setting up devices and entites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration-panel">Configuration panel</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#configuring-devices">Configuring devices</a></li>
+<li class="toc-entry toc-h3"><a href="#configuring-entities">Configuring entities</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#platforms">Platforms</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#binary-sensor">Binary sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#climate">Climate</a></li>
+<li class="toc-entry toc-h3"><a href="#cover">Cover</a></li>
+<li class="toc-entry toc-h3"><a href="#light">Light</a></li>
+<li class="toc-entry toc-h3"><a href="#scene">Scene</a></li>
+<li class="toc-entry toc-h3"><a href="#sensor">Sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#switch">Switch</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#additional-features">Additional features</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#transponder-fingerprint-sensor-and-code-lock">Transponder, fingerprint sensor and code lock</a></li>
+<li class="toc-entry toc-h3"><a href="#remote-control">Remote control</a></li>
+<li class="toc-entry toc-h3"><a href="#lcn-commands-addressed-to-pchk-host-home-assistant">LCN commands addressed to PCHK host (Home Assistant)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#event-lcn_transmitter">Event: lcn_transmitter</a></li>
+<li class="toc-entry toc-h3"><a href="#event-lcn_transponder">Event: lcn_transponder</a></li>
+<li class="toc-entry toc-h3"><a href="#event-lcn_fingerprint">Event: lcn_fingerprint</a></li>
+<li class="toc-entry toc-h3"><a href="#event-lcn_codelock">Event: lcn_codelock</a></li>
+<li class="toc-entry toc-h3"><a href="#event-lcn_send_keys">Event: lcn_send_keys</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#device-triggers">Device triggers</a></li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-output_abs">Action: output_abs</a></li>
+<li class="toc-entry toc-h3"><a href="#action-output_rel">Action: output_rel</a></li>
+<li class="toc-entry toc-h3"><a href="#action-output_toggle">Action: output_toggle</a></li>
+<li class="toc-entry toc-h3"><a href="#action-relays">Action: relays</a></li>
+<li class="toc-entry toc-h3"><a href="#action-led">Action: led</a></li>
+<li class="toc-entry toc-h3"><a href="#action-var_abs">Action: var_abs</a></li>
+<li class="toc-entry toc-h3"><a href="#action-var_rel">Action: var_rel</a></li>
+<li class="toc-entry toc-h3"><a href="#action-var_reset">Action: var_reset</a></li>
+<li class="toc-entry toc-h3"><a href="#action-lock_regulator">Action: lock_regulator</a></li>
+<li class="toc-entry toc-h3"><a href="#action-send_keys">Action: send_keys</a></li>
+<li class="toc-entry toc-h3"><a href="#action-lock_keys">Action: lock_keys</a></li>
+<li class="toc-entry toc-h3"><a href="#action-dyn_text">Action: dyn_text</a></li>
+<li class="toc-entry toc-h3"><a href="#action-pck">Action: pck</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#lcn-constants">LCN constants</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ports">Ports</a></li>
+<li class="toc-entry toc-h3"><a href="#motors">Motors</a></li>
+<li class="toc-entry toc-h3"><a href="#variables-and-units">Variables and units</a></li>
+<li class="toc-entry toc-h3"><a href="#states">States</a></li>
+<li class="toc-entry toc-h3"><a href="#keys">Keys</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#scene'>Scene</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

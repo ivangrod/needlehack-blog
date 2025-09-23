@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Micropython | Home Assistant]]></title>
+  <link href="https://ivangrod.github.io/needlehack-blog/blog/categories/micropython/atom.xml" rel="self"/>
+  <link href="https://ivangrod.github.io/needlehack-blog/"/>
+  <updated>2025-09-23T16:44:51+00:00</updated>
+  <id>https://ivangrod.github.io/needlehack-blog/</id>
+  <author>
+    <name><![CDATA[Home Assistant]]></name>
+    
+  </author>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Grazer Linuxtage 2017: Python Everywhere]]></title>
+    <link href="https://ivangrod.github.io/needlehack-blog/blog/2017/05/07/grazer-linuxtage-2017-talk-python-everywhere/"/>
+    <updated>2017-05-07T02:00:00+00:00</updated>
+    <id>https://ivangrod.github.io/needlehack-blog/blog/2017/05/07/grazer-linuxtage-2017-talk-python-everywhere</id>
+    <content type="html"><![CDATA[<p>I like Python. It’s a clean easy to read, easy to learn language. Yet when you use it for some time you still find more features to improve your coding. What I probably like most about Python is the community and the great libraries that already exist. Often solving a problem means including a pre-existing library and writing some glue code. That makes it quick to get things up and running.</p>
+<p>I just gave a talk on how you can run Python to automate your home (yes with Home-Assistant) but also with <a href="https://micropython.org">MicroPython</a>. Micropython allows you to run Python on your DIY sensors and switches around your home. Python everywhere - even on the chips that give Home-Assistant the data to be awesome.</p>
+<div class='videoWrapper'>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KNFZSSCPUyM" frameborder="0" allowfullscreen></iframe>
+</div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ESP8266 and MicroPython - Part 2]]></title>
+    <link href="https://ivangrod.github.io/needlehack-blog/blog/2016/08/31/esp8266-and-micropython-part2/"/>
+    <updated>2016-08-31T04:17:25+00:00</updated>
+    <id>https://ivangrod.github.io/needlehack-blog/blog/2016/08/31/esp8266-and-micropython-part2</id>
+    <content type="html"><![CDATA[<img src='/images/blog/2016-07-micropython/micropython.png' style='clear: right; border:none; box-shadow: none; float: right; margin-bottom: 12px;' width='200' />
+So, part 1 of [ESP8266 and MicroPython](/blog/2016/07/28/esp8266-and-micropython-part1/) was pretty lame, right? Instead of getting information out of Home Assistant we are going a step forward and create our own sensor which is sending details about its state to a Home Assistant instance.
+<!--more-->
+<p>Beside <a href="https://en.wikipedia.org/wiki/POST_(HTTP)">HTTP POST</a> requests, MQTT is the quickest way (from the author’s point of view) to publish information with DIY devices.</p>
+<p>You have to make a decision: Do you want to pull or to <a href="https://en.wikipedia.org/wiki/Polling_(computer_science)">poll</a> the information for the sensor? For slowly changing values like temperature it’s perfectly fine to wait a couple of seconds to retrieve the value. If it’s a motion detector the state change should be available instantly in Home Assistant or it could be missed. This means the sensor must take initiative and send the data to Home Assistant.</p>
+<p>An example for pulling is <a href="/integrations/arest#sensor">aREST</a>. This is a great way to work with the ESP8266 based units and the Ardunio IDE.</p>
+<h2>MQTT</h2>
+<p>You can find a simple examples for publishing and subscribing with MQTT in the <a href="https://github.com/micropython/micropython-lib">MicroPython</a> library overview in the section for <a href="https://github.com/micropython/micropython-lib/tree/master/micropython/umqtt.simple">umqtt</a>.</p>
+<p>The example below is adopted from the work of <a href="https://github.com/davea">@davea</a> as we don’t want to re-invent the wheel. The configuration feature is crafty and simplyfies the code with the usage of a file called <code>/config.json</code> which stores the configuration details. The ESP8266 device will send the value of a pin every 5 seconds.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="python"><span class="kn">import</span> <span class="n">machine</span>
+<span class="kn">import</span> <span class="n">time</span>
+<span class="kn">import</span> <span class="n">ubinascii</span>
+<span class="kn">import</span> <span class="n">webrepl</span>
+
+<span class="kn">from</span> <span class="n">umqtt.simple</span> <span class="kn">import</span> <span class="n">MQTTClient</span>
+
+<span class="c1"># These defaults are overwritten with the contents of /config.json by load_config()
+</span><span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">broker</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">192.168.1.19</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">sensor_pin</span><span class="sh">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">client_id</span><span class="sh">"</span><span class="p">:</span> <span class="sa">b</span><span class="sh">"</span><span class="s">esp8266_</span><span class="sh">"</span> <span class="o">+</span> <span class="n">ubinascii</span><span class="p">.</span><span class="nf">hexlify</span><span class="p">(</span><span class="n">machine</span><span class="p">.</span><span class="nf">unique_id</span><span class="p">()),</span>
+    <span class="sh">"</span><span class="s">topic</span><span class="sh">"</span><span class="p">:</span> <span class="sa">b</span><span class="sh">"</span><span class="s">home</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">sensor_pin</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="k">def</span> <span class="nf">setup_pins</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">sensor_pin</span>
+    <span class="n">sensor_pin</span> <span class="o">=</span> <span class="n">machine</span><span class="p">.</span><span class="nc">ADC</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">[</span><span class="sh">'</span><span class="s">sensor_pin</span><span class="sh">'</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">load_config</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="n">ujson</span> <span class="k">as</span> <span class="n">json</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">/config.json</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">loads</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="nf">read</span><span class="p">())</span>
+    <span class="nf">except </span><span class="p">(</span><span class="nb">OSError</span><span class="p">,</span> <span class="nb">ValueError</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Couldn</span><span class="sh">'</span><span class="s">t load /config.json</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">save_config</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">CONFIG</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Loaded config from /config.json</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">save_config</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="n">ujson</span> <span class="k">as</span> <span class="n">json</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">/config.json</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">w</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="nf">dumps</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">))</span>
+    <span class="k">except</span> <span class="nb">OSError</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Couldn</span><span class="sh">'</span><span class="s">t save /config.json</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="nc">MQTTClient</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">[</span><span class="sh">'</span><span class="s">client_id</span><span class="sh">'</span><span class="p">],</span> <span class="n">CONFIG</span><span class="p">[</span><span class="sh">'</span><span class="s">broker</span><span class="sh">'</span><span class="p">])</span>
+    <span class="n">client</span><span class="p">.</span><span class="nf">connect</span><span class="p">()</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Connected to {}</span><span class="sh">"</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">[</span><span class="sh">'</span><span class="s">broker</span><span class="sh">'</span><span class="p">]))</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">sensor_pin</span><span class="p">.</span><span class="nf">read</span><span class="p">()</span>
+        <span class="n">client</span><span class="p">.</span><span class="nf">publish</span><span class="p">(</span><span class="sh">'</span><span class="s">{}/{}</span><span class="sh">'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">[</span><span class="sh">'</span><span class="s">topic</span><span class="sh">'</span><span class="p">],</span>
+                                          <span class="n">CONFIG</span><span class="p">[</span><span class="sh">'</span><span class="s">client_id</span><span class="sh">'</span><span class="p">]),</span>
+                                          <span class="nf">bytes</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">))</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">Sensor state: {}</span><span class="sh">'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+        <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="nf">load_config</span><span class="p">()</span>
+    <span class="nf">setup_pins</span><span class="p">()</span>
+    <span class="nf">main</span><span class="p">()</span>
+</code></pre></div></div>
+<p>Subscribe to the topic <code>home/#</code> or create a <a href="/integrations/sensor.mqtt/">MQTT sensor</a> to check if the sensor values are published.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">mosquitto_sub <span class="nt">-h</span> 192.168.1.19 <span class="nt">-v</span> <span class="nt">-t</span> <span class="s2">"home/#"</span>
+</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">sensor</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">mqtt</span>
+    <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">home/esp8266_[last</span><span class="nv"> </span><span class="s">part</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">MAC</span><span class="nv"> </span><span class="s">address]"</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">MicroPython"</span>
+</code></pre></div></div>
+<p><a href="https://github.com/davea">@davea</a> created <a href="https://github.com/davea/sonoff-mqtt">sonoff-mqtt</a>. This code will work on ESP8622 based devices too and shows how to use a button to control a relay.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ESP8266 and MicroPython - Part 1]]></title>
+    <link href="https://ivangrod.github.io/needlehack-blog/blog/2016/07/28/esp8266-and-micropython-part1/"/>
+    <updated>2016-07-28T04:00:00+00:00</updated>
+    <id>https://ivangrod.github.io/needlehack-blog/blog/2016/07/28/esp8266-and-micropython-part1</id>
+    <content type="html"><![CDATA[<img src='/images/blog/2016-07-micropython/micropython.png' style='clear: right; border:none; box-shadow: none; float: right; margin-bottom: 12px;' width='200' />
+The first release of Micropython for ESP8266 was delivered a couple of weeks ago. The [documentation](http://docs.micropython.org/en/latest/) covers a lot of ground. This post is providing only a little summary which should get you started.
+<p>Until a couple of weeks ago, the pre-built MicroPython binary for the ESP8266 was only available to backers of the Kickstarter campaign. This has changed now and it is available to the public for <a href="https://micropython.org/download/#esp8266">download</a>.</p>
+<!--more-->
+<p>The easiest way is to use <a href="https://github.com/espressif/esptool">esptool.py</a> for firmware handling tasks. First erase the flash:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nv">$ </span><span class="nb">sudo </span>python esptool.py <span class="nt">--port</span> /dev/ttyUSB0 erase_flash
+esptool.py v1.0.2-dev
+Connecting...
+Erasing flash <span class="o">(</span>this may take a <span class="k">while</span><span class="o">)</span>...
+</code></pre></div></div>
+<p>and then load the firmware. You may adjust the file name of the firmware binary.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nv">$ </span><span class="nb">sudo </span>python esptool.py <span class="nt">--port</span> /dev/ttyUSB0 <span class="nt">--baud</span> 460800 write_flash <span class="nt">--flash_size</span><span class="o">=</span>8m 0 esp8266-2016-07-10-v1.8.2.bin
+esptool.py v1.2-dev
+Connecting...
+Running Cesanta flasher stub...
+Flash params <span class="nb">set </span>to 0x0020
+Writing 540672 @ 0x0... 540672 <span class="o">(</span>100 %<span class="o">)</span>
+Wrote 540672 bytes at 0x0 <span class="k">in </span>13.1 seconds <span class="o">(</span>330.8 kbit/s<span class="o">)</span>...
+Leaving...
+</code></pre></div></div>
+<p>Now reset the device. You should then be able to use the <a href="http://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html#getting-a-micropython-repl-prompt">REPL (Read Evaluate Print Loop)</a>. On Linux there is <code>minicom</code> or <code>picocom</code>, on a Mac you can use <code>screen</code> (eg. <code>screen /dev/tty.SLAB_USBtoUART 115200</code>), and on Windows there is Putty to open a serial connection and get the REPL prompt.</p>
+<p>The <a href="http://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html#webrepl-a-prompt-over-wifi">WebREPL</a> work over a wireless connection and allows easy access to a prompt in your browser. An instance of the WebREPL client is hosted at <a href="http://micropython.org/webrepl">http://micropython.org/webrepl</a>. Alternatively, you can create a local clone of their <a href="https://github.com/micropython/webrepl">GitHub repository</a>. This is necessary if your want to use the command-line tool <code>webrepl_cli.py</code> which is mentionend later in this post.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nv">$ </span><span class="nb">sudo </span>minicom <span class="nt">-D</span> /dev/ttyUSB0
+<span class="c">#4 ets_task(4020e374, 29, 3fff70e8, 10)</span>
+WebREPL daemon started on ws://192.168.4.1:8266
+Started webrepl <span class="k">in </span>setup mode
+could not open file <span class="s1">'main.py'</span> <span class="k">for </span>reading
+
+<span class="c">#5 ets_task(4010035c, 3, 3fff6360, 4)</span>
+MicroPython v1.8.2-9-g805c2b9 on 2016-07-10<span class="p">;</span> ESP module with ESP8266
+Type <span class="s2">"help()"</span> <span class="k">for </span>more information.
+<span class="o">&gt;&gt;&gt;</span>
+</code></pre></div></div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon='mdi:information-outline'></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The public build of the firmware may be different than the firmware distributed to the backers of the Kickstarter campaign. Especially in regard of the <a href="http://docs.micropython.org/en/latest/esp8266/quickref.html">available modules</a>, turned on debug messages, and alike. Also, the WebREPL may not be started by default.</p>
+  </div>
+</div>
+<p>Connect a LED to pin 5 (or another pin of your choosing) to check if the ESP8266 is working as expected.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="n">machine</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pin</span> <span class="o">=</span> <span class="n">machine</span><span class="p">.</span><span class="nc">Pin</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">machine</span><span class="p">.</span><span class="n">Pin</span><span class="p">.</span><span class="n">OUT</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pin</span><span class="p">.</span><span class="nf">high</span><span class="p">()</span>
+</code></pre></div></div>
+<p>You can toogle the LED by changing its state with <code>pin.high()</code> and <code>pin.low()</code>.</p>
+<p>Various ESP8266 development board are shipped with an onboard photocell or a light dependent resistors (LDR) connected to the analog pin of your ESP8266 check if you are able to obtain a value.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="n">machine</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">brightness</span> <span class="o">=</span> <span class="n">machine</span><span class="p">.</span><span class="nc">ADC</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">brightness</span><span class="p">.</span><span class="nf">read</span><span class="p">()</span>
+</code></pre></div></div>
+<p>Make sure that you are familiar with REPL and WebREPL because this will be needed soon. Keep in mind the password for the WebREPL access.</p>
+<p>Read the <a href="http://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/network_basics.html">instructions</a> about how to setup your wireless connection. Basically you need to upload a <code>boot.py</code> file to the microcontroller and this file is taking care of the connection setup. Below you find a sample which is more or less the same as shown in the <a href="http://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/network_basics.html#configuration-of-the-wifi">documentation</a>.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="python"><span class="k">def</span> <span class="nf">do_connect</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="n">network</span>
+
+    <span class="n">SSID</span> <span class="o">=</span> <span class="sh">'</span><span class="s">SSID</span><span class="sh">'</span>
+    <span class="n">PASSWORD</span> <span class="o">=</span> <span class="sh">'</span><span class="s">PASSWORD</span><span class="sh">'</span>
+
+    <span class="n">sta_if</span> <span class="o">=</span> <span class="n">network</span><span class="p">.</span><span class="nc">WLAN</span><span class="p">(</span><span class="n">network</span><span class="p">.</span><span class="n">STA_IF</span><span class="p">)</span>
+    <span class="n">ap_if</span> <span class="o">=</span> <span class="n">network</span><span class="p">.</span><span class="nc">WLAN</span><span class="p">(</span><span class="n">network</span><span class="p">.</span><span class="n">AP_IF</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ap_if</span><span class="p">.</span><span class="nf">active</span><span class="p">():</span>
+        <span class="n">ap_if</span><span class="p">.</span><span class="nf">active</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sta_if</span><span class="p">.</span><span class="nf">isconnected</span><span class="p">():</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">connecting to network...</span><span class="sh">'</span><span class="p">)</span>
+        <span class="n">sta_if</span><span class="p">.</span><span class="nf">active</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">sta_if</span><span class="p">.</span><span class="nf">connect</span><span class="p">(</span><span class="n">SSID</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="p">)</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">sta_if</span><span class="p">.</span><span class="nf">isconnected</span><span class="p">():</span>
+            <span class="k">pass</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">Network configuration:</span><span class="sh">'</span><span class="p">,</span> <span class="n">sta_if</span><span class="p">.</span><span class="nf">ifconfig</span><span class="p">())</span>
+</code></pre></div></div>
+<p>Upload this file with <code>webrepl_cli.py</code> or the WebREPL:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">python webrepl_cli.py boot.py 192.168.4.1:/boot.py
+</code></pre></div></div>
+<p>If you reboot, you should see your current IP address in the terminal.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="o">&gt;&gt;&gt;</span> Network configuration: <span class="o">(</span><span class="s1">'192.168.0.10'</span>, <span class="s1">'255.255.255.0'</span>, <span class="s1">'192.168.0.1'</span>, <span class="s1">'192.168.0.1'</span><span class="o">)</span>
+</code></pre></div></div>
+<p>First let’s create a little consumer for Home Assistant sensor’s state. The code to place in <code>main.py</code> is a mixture of code from above and the <a href="https://developers.home-assistant.io/docs/api/rest/">RESTful API</a> of Home Assistant. If the temperature in the kitchen is higher than 20 °C then the LED connected to pin 5 is switched on.</p>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon='mdi:alert-outline'></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>If a module is missing then you need to download it from the <a href="https://github.com/micropython/micropython-lib">MicroPython Library overview</a> and upload it to the ESP8266 with <code>webrepl_cli.py</code> manually.</p>
+  </div>
+</div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="python"><span class="c1"># Sample code to request the state of a Home Assistant entity.
+</span>
+<span class="n">API_PASSWORD</span> <span class="o">=</span> <span class="sh">'</span><span class="s">YOUR_PASSWORD</span><span class="sh">'</span>
+<span class="n">URL</span> <span class="o">=</span> <span class="sh">'</span><span class="s">http://192.168.0.5:8123/api/states/</span><span class="sh">'</span>
+<span class="n">ENTITY</span> <span class="o">=</span> <span class="sh">'</span><span class="s">sensor.kitchen_temperature</span><span class="sh">'</span>
+<span class="n">TIMEOUT</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">PIN</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="k">def</span> <span class="nf">get_data</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="n">urequests</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sh">'</span><span class="s">{}{}</span><span class="sh">'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="n">ENTITY</span><span class="p">)</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">x-ha-access</span><span class="sh">'</span><span class="p">:</span> <span class="n">API_PASSWORD</span><span class="p">,</span>
+               <span class="sh">'</span><span class="s">content-type</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">application/json</span><span class="sh">'</span><span class="p">}</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">urequests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">resp</span><span class="p">.</span><span class="nf">json</span><span class="p">()[</span><span class="sh">'</span><span class="s">state</span><span class="sh">'</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="n">machine</span>
+    <span class="kn">import</span> <span class="n">time</span>
+
+    <span class="n">pin</span> <span class="o">=</span> <span class="n">machine</span><span class="p">.</span><span class="nc">Pin</span><span class="p">(</span><span class="n">PIN</span><span class="p">,</span> <span class="n">machine</span><span class="p">.</span><span class="n">Pin</span><span class="p">.</span><span class="n">OUT</span><span class="p">)</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nf">int</span><span class="p">(</span><span class="nf">get_data</span><span class="p">())</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="p">:</span>
+                <span class="n">pin</span><span class="p">.</span><span class="nf">high</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pin</span><span class="p">.</span><span class="nf">low</span><span class="p">()</span>
+        <span class="k">except</span> <span class="nb">TypeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="n">TIMEOUT</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">Get the state of {}</span><span class="sh">'</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">ENTITY</span><span class="p">))</span>
+    <span class="nf">main</span><span class="p">()</span>
+</code></pre></div></div>
+<p>Upload <code>main.py</code> the same way as <code>boot.py</code>. After a reboot (<code>&gt;&gt;&gt; import machine</code> and <code>&gt;&gt;&gt; machine.reboot()</code>) or power-cycling your physical notifier is ready.</p>
+<p>If you run into trouble, press “Ctrl+c” in the REPL to stop the execution of the code, enter <code>&gt;&gt;&gt; import webrepl</code> and <code>&gt;&gt;&gt; webrepl.start()</code>, and upload your fixed file.</p>
+]]></content>
+  </entry>
+  
+</feed>

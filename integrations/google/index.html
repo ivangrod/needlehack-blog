@@ -1,0 +1,900 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Google Calendar - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to use Google Calendar in Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/google/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Google Calendar">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/google/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to use Google Calendar in Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Google Calendar">
+    <meta name="twitter:description" content="Instructions on how to use Google Calendar in Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#scenario-1-you-already-have-credentials">Scenario 1: You already have credentials</a></li>
+<li class="toc-entry toc-h3"><a href="#scenario-2-you-do-not-have-credentials-set-up-yet">Scenario 2: You do not have credentials set up yet</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#video-tutorial">Video tutorial</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#calendar-entities">Calendar entities</a></li>
+<li class="toc-entry toc-h2"><a href="#calendar-event-automations">Calendar event automations</a></li>
+<li class="toc-entry toc-h2"><a href="#calendar-entity-attributes">Calendar entity attributes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-googlecreate_event">Action google.create_event</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#more-configuration">More configuration</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Google Calendar
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <em>Google Calendar</em> integration allows you to connect your <a href="https://calendar.google.com" rel="external nofollow">Google Calendar<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> to Home Assistant. The integration adds calendar entities that are shown on the <em>Calendar</em> dashboard, and can be used for automations based on any event, or limited to specific matching criteria.</p>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<p>You need to configure developer credentials to allow Home Assistant to access your Google Account. The current recommended approach is to create <em>Web Auth</em> credentials for Google Calendar since
+the same credentials work for all Google integrations. Previously, this integration only supported
+<em>Device Auth</em> and those credentials are no longer recommended. You can continue to use <em>Device Auth</em>
+credentials but they will only work with Google Calendar.</p>
+<h3>Scenario 1: You already have credentials <a class="title-link" name="scenario-1-you-already-have-credentials" href="#scenario-1-you-already-have-credentials"></a>
+</h3>
+<p>In this case, all you need to do is enable the API:</p>
+<ol>
+<li>Go the Google Developers Console <a href="https://console.cloud.google.com/apis/library/calendar-json.googleapis.com" rel="external nofollow">Google Calendar API<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> .</li>
+<li>Confirm the project and <strong>Enable</strong> the API.</li>
+<li>Continue with the steps described in the <a href="#configuration">Configuration</a> section.</li>
+</ol>
+<h3>Scenario 2: You do not have credentials set up yet <a class="title-link" name="scenario-2-you-do-not-have-credentials-set-up-yet" href="#scenario-2-you-do-not-have-credentials-set-up-yet"></a>
+</h3>
+<p>In this case, you need to generate a client secret first:</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>To generate client ID and client secret</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>This section explains how to generate a client ID and client secret on
+<a href="https://console.developers.google.com/apis/credentials" rel="external nofollow">Google Developers Console<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<ol>
+<li>First, go to the Google Developers Console to enable <a href="https://console.cloud.google.com/apis/library/calendar-json.googleapis.com" rel="external nofollow">Google Calendar API<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> .</li>
+<li>Select <strong>Create project</strong>, enter a project name and select <strong>Create</strong>.</li>
+<li>
+<strong>Enable</strong> the Google Calendar API.</li>
+<li>Navigate to <strong>APIs &amp; Services</strong> (left sidebar) &gt; <a href="https://console.cloud.google.com/apis/credentials" rel="external nofollow">Credentials<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+<li>In the left sidebar, select <strong>OAuth consent screen</strong>.</li>
+<li>It will take you to the Overview page and ask for <strong>Project Configuration</strong>:
+<ul>
+<li>Complete the App Information:
+<ul>
+<li>Set the <strong>App name</strong> (the name of the application asking for consent) to anything you want, for example, <em>Home Assistant</em>.</li>
+<li>For a <strong>Support email</strong>, choose your email address from the dropdown menu.</li>
+<li>Click <strong>Next</strong>.</li>
+</ul>
+</li>
+<li>For Audience, select <strong>External</strong> then click  <strong>Next</strong>.</li>
+<li>Under Contact Information, enter your email address (the same as above is fine). Click <strong>Next</strong>.</li>
+<li>Read the policy and check the box if you agree. Click <strong>Continue</strong>.</li>
+<li>Click <strong>Create</strong>.</li>
+</ul>
+</li>
+<li>In the left sidebar, select <strong>Audience</strong>:
+<ul>
+<li>Under <strong>Publishing status &gt; Testing</strong>, select <strong>Publish app</strong>.
+<blockquote>
+<p>Otherwise, your credentials will expire every 7 days.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>In the left sidebar, select <strong>Clients</strong>:
+<ul>
+<li>Click <strong>+ Create Client</strong>.</li>
+<li>For Application type, choose <strong>Web Application</strong> and give this client ID a name (like “Home Assistant Client”).</li>
+<li>Add <code>https://my.home-assistant.io/redirect/oauth</code> to <strong>Authorized redirect URIs</strong> then select <strong>Create</strong>.
+<blockquote>
+<p><strong>Note</strong>: This is not a placeholder. It is the URI that must be used.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>From the resulting dialog take a note of <strong>Client ID</strong> and <strong>Client Secret</strong> you <strong>can not retrieve it again</strong> after closing the dialog.
+<ul>
+<li>Once you have noted these strings, select <strong>Close</strong>.</li>
+<li>Congratulations! You are now the keeper of a client secret. Guard it in your treasure box. In most cases, your new credentials will be active within a few minutes. However, Google states that activation may take up to five hours in some circumstances.</li>
+</ul>
+</li>
+</ol>
+</div>
+  </details>
+</div>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Google Calendar</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=google" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=google" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Google Calendar</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<p>The integration setup will next give you instructions to enter the <a href="/integrations/application_credentials/">Application Credentials</a> (OAuth Client ID and Client Secret) and authorize Home Assistant to connect to Google Calendar.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>OAuth and device authorization steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<ol>
+<li>
+<p>Continue through the steps of selecting the account you want to authorize.</p>
+</li>
+<li>
+<p><strong>NOTE</strong>: You may get a message telling you that the app has not been verified and you will need to acknowledge that in order to proceed.</p>
+</li>
+<li>
+<p>You can now see the details of what you are authorizing Home Assistant to access with two options at the bottom. Select <strong>Continue</strong>.</p>
+</li>
+<li>
+<p>The page will now display <strong>Link account to Home Assistant?</strong>, note <strong>Your instance URL</strong>. If this is not correct, refer to <a href="/integrations/my">My Home Assistant</a>. If everything looks good, select <strong>Link Account</strong>.</p>
+</li>
+<li>
+<p>You may close the window, and return back to Home Assistant where you should see a <strong>Success!</strong> message from Home Assistant.</p>
+</li>
+</ol>
+</div>
+  </details>
+</div>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<p>If the setup process fails and you see an error message such as <em>Authentication code expired, please try again</em> you may want to try the flow again. You may also check the logs for additional error messages that may indicate a misconfiguration such as an invalid client id or secret.</p>
+<p>If you have an error with your credentials, you can delete them in the <a href="/integrations/application_credentials/">application credentials</a> user interface.</p>
+<h3>Video tutorial <a class="title-link" name="video-tutorial" href="#video-tutorial"></a>
+</h3>
+<p>This video tutorial explains how to set up Google Calendar in Home Assistant and how you can trigger an automation based on a calendar event.</p>
+<p><lite-youtube videoid="r2WbpxKDOD4" videotitle="How To Use Calendar Events in Home Assistant - Tutorial" posterquality="maxresdefault"></lite-youtube></p>
+<h2>Calendar entities <a class="title-link" name="calendar-entities" href="#calendar-entities"></a>
+</h2>
+<p>Each Google Calendar from <em>My Calendars</em> (<a href="https://support.google.com/calendar/answer/37095" rel="external nofollow">more info<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) is represented as a <a href="/integrations/calendar">calendar</a> entity in Home Assistant.</p>
+<p>For example, your calendar named <em>Personal</em> is created as entity <code>calendar.personal</code>. You may rename an entity, or disable any entities which you don’t need.</p>
+<h2>Calendar event automations <a class="title-link" name="calendar-event-automations" href="#calendar-event-automations"></a>
+</h2>
+<p>Individual Calendar <em>Events</em> are what is powering automations such as:</p>
+<ul>
+<li>Turn on a light at the <em>start</em> of the event named <em>Front Yard Light</em>
+</li>
+<li>Send a notification <em>5 minutes before the start of any event</em>
+</li>
+<li>Stop the media player <em>30 minutes after</em> the <em>end</em> of the event named <em>Exercise</em>.</li>
+</ul>
+<p>See <a href="/integrations/calendar#automation">calendar automations</a> for an overview, and read more about <a href="/docs/automation/templating/#calendar">calendar trigger variables</a> for the available information you can use in a condition or action such as the event <code>summary</code>, <code>description</code>, <code>location</code> and more.</p>
+<h2>Calendar entity attributes <a class="title-link" name="calendar-entity-attributes" href="#calendar-entity-attributes"></a>
+</h2>
+<p>The calendar entity has additional attributes related to a single next upcoming event.</p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>Using the entity state and attributes is more error prone and less flexible than using Calendar Automations. The calendar entity itself may only track a single upcoming active event and can’t handle multiple events with the same start time, or overlapping events.</p>
+  </div>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Attributes</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<ul>
+<li>
+<strong>all_day</strong>: <code>true</code>/<code>false</code> if this is an all day event. Will be <code>false</code> if there is no event found.</li>
+<li>
+<strong>message</strong>: The event summary.</li>
+<li>
+<strong>description</strong>: The event description.</li>
+<li>
+<strong>location</strong>: The event location.</li>
+<li>
+<strong>start_time</strong>: Start time of event.</li>
+<li>
+<strong>end_time</strong>: End time of event.</li>
+</ul>
+</div>
+  </details>
+</div>
+<h3>Action google.create_event <a class="title-link" name="action-googlecreate_event" href="#action-googlecreate_event"></a>
+</h3>
+<p>You can use the <code>google.create_event</code> action to create a new calendar event in a calendar.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Create event action details</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>This will only be available if you have given Home Assistant <code>read-write</code> access in configuration options.</p>
+  </div>
+</div>
+<p>A calendar <code>target</code> is selected with a <a href="/docs/blueprint/selectors/#target-selector">Target Selector</a> and the <code>data</code> payload supports the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>summary</code></td>
+<td>no</td>
+<td>Acts as the title of the event.</td>
+<td>Bowling</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>yes</td>
+<td>The description of the event.</td>
+<td>Birthday bowling</td>
+</tr>
+<tr>
+<td><code>start_date_time</code></td>
+<td>yes</td>
+<td>The date and time the event should start.</td>
+<td>2019-03-10 20:00:00</td>
+</tr>
+<tr>
+<td><code>end_date_time</code></td>
+<td>yes</td>
+<td>The date and time the event should end.</td>
+<td>2019-03-10 23:00:00</td>
+</tr>
+<tr>
+<td><code>start_date</code></td>
+<td>yes</td>
+<td>The date the whole day event should start.</td>
+<td>2019-03-10</td>
+</tr>
+<tr>
+<td><code>end_date</code></td>
+<td>yes</td>
+<td>The date the whole day event should end.</td>
+<td>2019-03-11</td>
+</tr>
+<tr>
+<td><code>in</code></td>
+<td>yes</td>
+<td>Days or weeks that you want to create the event in.</td>
+<td>“days”: 2</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td>yes</td>
+<td>The location of the event.</td>
+<td>Bowling center</td>
+</tr>
+</tbody>
+</table>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>You either use <code>start_date_time</code> and <code>end_date_time</code>, or <code>start_date</code> and <code>end_date</code>, or <code>in</code>.</p>
+  </div>
+</div>
+<p>This is a full example of an action in YAML:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">google.create_event</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">calendar.device_automation_schedules</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">summary</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Example"</span>
+  <span class="na">start_date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2022-10-1"</span>
+  <span class="na">end_date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2022-10-2"</span>
+</code></pre></div></div>
+</div>
+  </details>
+</div>
+<h2>More configuration <a class="title-link" name="more-configuration" href="#more-configuration"></a>
+</h2>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>More Configuration</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_2">
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>It is not recommended to new users to use these settings as they are not
+compatible with other Home Assistant features, but this documentation is available
+for existing users.</p>
+  </div>
+</div>
+<p>The integration supports additional configuration from a file <code>google_calendars.yaml</code> which is available for existing users before version <code>2022.06</code>. This file is no longer automatically populated.</p>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="google-configuration-variables" href="#google-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> cal_id </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="cal_id" class="title-link" href="#cal_id"></a>
+</div>
+<div class="config-vars-description-and-children">
+<span class="config-vars-description"><p>The Google <em>generated</em> unique id for this calendar.</p>
+</span><div class="config-vars-default">
+Default: <p><strong>DO NOT CHANGE THE DEFAULT VALUE</strong></p>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> entities </span><span class="config-vars-type">list</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="entities" class="title-link" href="#entities"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Yes, you can have multiple sensors for a calendar!</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> device_id </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="device_id" class="title-link" href="#device_id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The name that all your automations/scripts will use to reference this device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>What is the name of your sensor that you’ll see in the frontend.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> search </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="search" class="title-link" href="#search"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>If set will only trigger for matched events.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> offset </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: !!</span>)</span><a name="offset" class="title-link" href="#offset"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A set of characters that precede a number in the event title for designating a pre-trigger state change on the sensor. This should be in the format of HH:MM or MM.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> ignore_availability </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="ignore_availability" class="title-link" href="#ignore_availability"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Should we respect <code>free</code>/<code>busy</code> flags?</p>
+</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </details>
+</div>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/google.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fgoogle%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20google" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+google%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/google//logo.png' srcset='https://brands.home-assistant.io/_/google/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=google' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Google Calendar  integration  was introduced in Home Assistant 0.33, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          7.4%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:cloud-upload'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Cloud Polling.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/google" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+google%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/allenporter" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/allenporter?size=96" alt="@allenporter"/> @allenporter</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#scenario-1-you-already-have-credentials">Scenario 1: You already have credentials</a></li>
+<li class="toc-entry toc-h3"><a href="#scenario-2-you-do-not-have-credentials-set-up-yet">Scenario 2: You do not have credentials set up yet</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#video-tutorial">Video tutorial</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#calendar-entities">Calendar entities</a></li>
+<li class="toc-entry toc-h2"><a href="#calendar-event-automations">Calendar event automations</a></li>
+<li class="toc-entry toc-h2"><a href="#calendar-entity-attributes">Calendar entity attributes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-googlecreate_event">Action google.create_event</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#more-configuration">More configuration</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#calendar'>Calendar</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

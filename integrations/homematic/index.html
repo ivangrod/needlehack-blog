@@ -1,0 +1,1155 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Homematic - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions for integrating Homematic into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/homematic/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Homematic">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/homematic/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions for integrating Homematic into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Homematic">
+    <meta name="twitter:description" content="Instructions for integrating Homematic into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#example-configuration-with-multiple-protocols-and-some-other-options-set">Example configuration with multiple protocols and some other options set</a></li>
+<li class="toc-entry toc-h3"><a href="#the-resolvenames-option">The resolvenames option</a></li>
+<li class="toc-entry toc-h3"><a href="#multiple-hosts">Multiple hosts</a></li>
+<li class="toc-entry toc-h3"><a href="#reading-attributes-of-entities">Reading attributes of entities</a></li>
+<li class="toc-entry toc-h3"><a href="#variables">Variables</a></li>
+<li class="toc-entry toc-h3"><a href="#events">Events</a></li>
+<li class="toc-entry toc-h3"><a href="#actions">Actions</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#notifications">Notifications</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#configuration-1">Configuration</a></li>
+<li class="toc-entry toc-h3"><a href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Homematic
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <a href="https://www.eq-3.com/products/homematic.html" rel="external nofollow">Homematic<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> provides bi-directional communication with your CCU/Homegear. It uses an XML-RPC connection to set values on devices and subscribes to receive events the devices and the CCU emit.
+If you are using Homegear with paired <a href="https://intertechno.at/" rel="external nofollow">Intertechno<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> devices, uni-directional communication is possible as well.</p>
+<p>There is currently support for the following device types within Home Assistant:</p>
+<ul>
+<li>Binary sensor</li>
+<li>Climate</li>
+<li>Cover</li>
+<li>Light</li>
+<li>Lock</li>
+<li>Notifications</li>
+<li>Sensor</li>
+<li>Switch</li>
+</ul>
+<p>Device support is available for most of the wired and wireless devices, as well as a lot of IP devices. If you have a setup with mixed protocols, you have to configure additional <a href="/integrations/homematic#interfaces">interfaces</a> with the appropriate ports. The default is using port 2001, which are wireless devices. Wired devices usually are available through port 2000 and IP devices through port 2010. The virtual thermostatgroups the CCU provides use port 9292 <strong>and</strong> require you to set the <code>path</code> setting to <code>/groups</code>. When using SSL on a CCU3, by default the same ports as usual with a prepended 4 are available. So 2001 becomes 42001, 2010 becomes 42010 etc..</p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>Since CCU Version 3, the internal firewalls are enabled by default. You have to grant full access for the <code>XML-RPC API</code> or specify the IP-address of the Home Assistant instance and allowlist it, inside the CCU’s security settings.</p>
+  </div>
+</div>
+<p>If you want to see if a specific device you have is supported, head over to the <a href="https://github.com/danielperna84/pyhomematic/tree/master/pyhomematic/devicetypes" rel="external nofollow">pyhomematic<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> repository and browse through the source code. A dictionary with the device identifiers (e.g., HM-Sec-SC-2) can be found within the relevant modules near the bottom. If your device is not supported, feel free to contribute.</p>
+<p>We automatically detect all devices we currently support and try to generate useful names. If you enable name-resolving, we try to fetch names from Metadata (Homegear), via JSON-RPC or the XML-API you may have installed on your CCU. Since this may fail this is disabled by default.
+You can manually rename the created entities by using Home Assistant’s <a href="/docs/configuration/customizing-devices/">Customizing</a> feature. The Homematic integration is also supported by the <a href="https://developers.home-assistant.io/docs/entity_registry_index/">Entity Registry</a>, which allows you to change the friendly name and the entity ID directly in the Home Assistant UI.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To set up the integration, add the following information to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file.
+After changing the <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file, <a href="/docs/configuration/#reloading-the-configuration-to-apply-changes">restart Home Assistant</a> to apply the changes.   The integration is now shown on the integrations page under <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>. Its entities are listed on the integration card itself and on the <a href="https://my.home-assistant.io/redirect/entities" class="my" target="_blank"><strong>Entities</strong></a> tab.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">homematic</span><span class="pi">:</span>
+  <span class="na">interfaces</span><span class="pi">:</span>
+    <span class="na">wireless</span><span class="pi">:</span>
+      <span class="na">host</span><span class="pi">:</span> <span class="s">127.0.0.1</span>
+</code></pre></div></div>
+<p>Configuration variables (global):</p>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="homematic-configuration-variables" href="#homematic-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> interfaces </span><span class="config-vars-type">list</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="interfaces" class="title-link" href="#interfaces"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Configuration for each XML-RPC interface to integrate into Home Assistant.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> hosts </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="hosts" class="title-link" href="#hosts"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Configuration for each Hub (CCU/Homegear) to integrate into Home Assistant.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> local_ip </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 0.0.0.0</span>)</span><a name="local_ip" class="title-link" href="#local_ip"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>IP of device running Home Assistant. Override auto-detected value for exotic network setups.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> local_port </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="local_port" class="title-link" href="#local_port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Port for connection with Home Assistant. By default it is randomly assigned.</p>
+</span></div>
+</div>
+</div>
+</div>
+<p>Configuration variables (interface):</p>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="homematic-configuration-variables" href="#homematic-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> host </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="host" class="title-link" href="#host"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>IP address or hostname of CCU/Homegear device or Home Assistant add-on.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> port </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="port" class="title-link" href="#port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Port of CCU/Homegear XML-RPC Server. Wireless: 2001, wired: 2000, IP: 2010, thermostatgroups: 9292. With enabled SSL on the CCU3 usually a 4 is prepended to the Port. e.g., 2001 becomes 42001 with enabled SSL.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> ssl </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="ssl" class="title-link" href="#ssl"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set to <code>true</code> if SSL support is enabled on the CCU3.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> verify_ssl </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="verify_ssl" class="title-link" href="#verify_ssl"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set to <code>true</code> if a valid certificate is being used. The default is <code>false</code> as usually a self-signed certificate is configured.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> callback_ip </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="callback_ip" class="title-link" href="#callback_ip"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set this, if Home Assistant is reachable under a different IP from the CCU (NAT, Docker etc.).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> callback_port </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="callback_port" class="title-link" href="#callback_port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set this, if Home Assistant is reachable under a different port from the CCU (NAT, Docker etc.).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> resolvenames </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="resolvenames" class="title-link" href="#resolvenames"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Try to fetch device names. Defaults to <code>false</code> if not specified.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> jsonport </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="jsonport" class="title-link" href="#jsonport"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Port of CCU JSON-RPC Server. The default is 80, but it may be different when running CCU virtually via Docker or with enabled SSL.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> username </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="username" class="title-link" href="#username"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>When fetching names via JSON-RPC, you need to specify a user with guest-access to the CCU. Admin-access is required if you work with variables on the CCU.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> password </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="password" class="title-link" href="#password"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>When fetching names via JSON-RPC, you need to specify the password of the user you have configured above.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> path </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="path" class="title-link" href="#path"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set to <code>/groups</code> when using port 9292.</p>
+</span></div>
+</div>
+</div>
+</div>
+<p>Configuration variables (host):</p>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="homematic-configuration-variables" href="#homematic-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> host </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="host" class="title-link" href="#host"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>IP address of CCU/Homegear device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> port </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="port" class="title-link" href="#port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Port of CCU/Homegear XML-RPC Server. Wireless: 2001, wired: 2000, IP: 2010</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> username </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="username" class="title-link" href="#username"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>When fetching names via JSON-RPC, you need to specify a user with guest-access to the CCU.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> password </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="password" class="title-link" href="#password"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>When fetching names via JSON-RPC, you need to specify the password of the user you have configured above.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h3>Example configuration with multiple protocols and some other options set <a class="title-link" name="example-configuration-with-multiple-protocols-and-some-other-options-set" href="#example-configuration-with-multiple-protocols-and-some-other-options-set"></a>
+</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">homematic</span><span class="pi">:</span>
+  <span class="na">interfaces</span><span class="pi">:</span>
+    <span class="na">rf</span><span class="pi">:</span>
+      <span class="na">host</span><span class="pi">:</span> <span class="s">127.0.0.1</span>
+      <span class="na">resolvenames</span><span class="pi">:</span> <span class="s2">"</span><span class="s">json"</span>
+      <span class="na">username</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Admin"</span>
+      <span class="na">password</span><span class="pi">:</span> <span class="s2">"</span><span class="s">secret"</span>
+    <span class="na">wired</span><span class="pi">:</span>
+      <span class="na">host</span><span class="pi">:</span> <span class="s">127.0.0.1</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="m">2000</span>
+      <span class="na">resolvenames</span><span class="pi">:</span> <span class="s2">"</span><span class="s">json"</span>
+      <span class="na">username</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Admin"</span>
+      <span class="na">password</span><span class="pi">:</span> <span class="s2">"</span><span class="s">secret"</span>
+    <span class="na">ip</span><span class="pi">:</span>
+      <span class="na">host</span><span class="pi">:</span> <span class="s">127.0.0.1</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="m">2010</span>
+    <span class="na">groups</span><span class="pi">:</span>
+      <span class="na">host</span><span class="pi">:</span> <span class="s">127.0.0.1</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="m">9292</span>
+      <span class="na">resolvenames</span><span class="pi">:</span> <span class="s2">"</span><span class="s">json"</span>
+      <span class="na">username</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Admin"</span>
+      <span class="na">password</span><span class="pi">:</span> <span class="s2">"</span><span class="s">secret"</span>
+      <span class="na">path</span><span class="pi">:</span> <span class="s">/groups</span>
+  <span class="na">hosts</span><span class="pi">:</span>
+    <span class="na">ccu2</span><span class="pi">:</span>
+      <span class="na">host</span><span class="pi">:</span> <span class="s">127.0.0.1</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="m">2001</span>
+      <span class="na">username</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Admin"</span>
+      <span class="na">password</span><span class="pi">:</span> <span class="s2">"</span><span class="s">secret"</span>
+
+</code></pre></div></div>
+<h3>The resolvenames option <a class="title-link" name="the-resolvenames-option" href="#the-resolvenames-option"></a>
+</h3>
+<p>We use three approaches to fetch the names of devices. Each assumes you have properly named your devices in your existing Homematic setup. As a general advice: Use ASCII for your devices names. Home Assistant won’t include non-ASCII characters in entity-names.</p>
+<ol>
+<li>
+<code>json</code>: The CCU allows to fetch details of the paired devices via JSON-RPC. For this to work, you need to add valid credentials to your integration configuration. Guest-access is sufficient to query for device names.</li>
+<li>
+<code>xml</code>: If you use a CCU, there is an add-on called the “XML-API”. With it installed, you are able to fetch all kinds of information from you CCU using XML-RPC. We can leverage this and fetch the names of devices set within the CCU. We don’t support authentication with this method. The <code>json</code> method should be preferred over <code>xml</code>. Support for the XML-API is only available for downwards compatibility and may be disabled in a future release.</li>
+<li>
+<code>metadata</code>: Homegear provides device-names through the metadata devices internally have. When using an HM-CFG-LAN interface, you typically use a configuration software (“HomeMatic-Komponenten konfigurieren” is the name of the shortcut on your desktop by default) to pair and configure your devices. If you have paired devices, you’ll see them listed in a table. The leftmost column (Name) is prefilled with default names. You can click such a name and enter whatever you like.</li>
+</ol>
+<p>Resolving names can take some time. So when you start Home Assistant you won’t see you devices at first. For a setup with 20+ devices it can take up to a minute until all devices show up in the UI.</p>
+<h3>Multiple hosts <a class="title-link" name="multiple-hosts" href="#multiple-hosts"></a>
+</h3>
+<p>In order to allow communication with multiple hosts or different protocols in parallel (wireless, wired and IP), multiple connections will be established, each to the configured destination. The name you choose for the host has to be unique and limited to ASCII letters.
+Using multiple hosts has the drawback, that the actions (explained below) may not work as expected. Only one connection can be used for actions, which limits the devices/variables an action can use to the scope/protocol of the host.
+This does <em>not</em> affect the entities in Home Assistant. They all use their own connection and work as expected.</p>
+<h3>Reading attributes of entities <a class="title-link" name="reading-attributes-of-entities" href="#reading-attributes-of-entities"></a>
+</h3>
+<p>Most devices have, besides their state, additional attributes like their battery state or valve position. These can be accessed using templates in automations, or even as their own entities using the <a href="/integrations/template">template sensor</a> integration. Here’s an example of a template sensor that exposes the valve position of a thermostat.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">template</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">sensor</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Bedroom</span><span class="nv"> </span><span class="s">valve"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">state_attr('climate.leq123456',</span><span class="nv"> </span><span class="s">'level')</span><span class="nv"> </span><span class="s">}}"</span>
+</code></pre></div></div>
+<h3>Variables <a class="title-link" name="variables" href="#variables"></a>
+</h3>
+<p>It is possible to read and set values of system variables you have setup on the CCU/Homegear. The supported types for setting values are float- and bool-variables. With the CCU a user with Admin-access is required.
+The states of the variables are available through the attributes of your hub entity (e.g., <code>homematic.ccu2</code>). Use templates (as mentioned above) to make your variables available to automations or as entities.
+The values of variables are polled from the CCU/Homegear in an interval of 30 seconds. Setting the value of a variable happens instantly and is directly pushed.</p>
+<h3>Events <a class="title-link" name="events" href="#events"></a>
+</h3>
+<p>When Homematic devices change their state or some other internal value, the CCU/Homegear sends event messages to Home Assistant. These events are automatically parsed and the entities in Home Assistant are updated. However, you can also manually use these events to trigger automations. Two event-types are available:</p>
+<ul>
+<li>
+<code>homematic.keypress</code>: For devices with buttons, see information below</li>
+<li>
+<code>homematic.impulse</code>: For impulse sensors</li>
+</ul>
+<h4>Devices with buttons <a class="title-link" name="devices-with-buttons" href="#devices-with-buttons"></a>
+</h4>
+<p>Devices with buttons (e.g., HM-Sen-MDIR-WM55, remote controls) may not be fully visible in the UI. This is intended, as buttons don’t serve any value here and all they do is trigger events.
+As an example:
+The HM-Sen-MDIR-WM55 motion detector will be displayed as 2 entities. A motion sensor and a brightness sensor. On top of that we have 2 sets (one set per button) of 4 events: PRESS_SHORT, PRESS_LONG, PRESS_CONT, PRESS_LONG_RELEASE. Be aware, that there are devices which don’t provide all of these events. But in general: if you can press it, it usually at least has PRESS_SHORT.</p>
+<p>Here’s an example of how to use these events for automations:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">homematic.keypress</span>
+      <span class="na">event_data</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Kitchen</span><span class="nv"> </span><span class="s">Switch"</span>
+        <span class="na">channel</span><span class="pi">:</span> <span class="m">1</span>
+        <span class="na">param</span><span class="pi">:</span> <span class="s">PRESS_SHORT</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">switch.turn_on</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.Kitchen_Ambience</span>
+</code></pre></div></div>
+<p>The channel parameter is equal to the channel of the button you are configuring the automation for. You can view the available channels in the UI you use to pair your devices.
+The name depends on if you chose to resolve names or not. If not, it will be the device ID (e.g., LEQ1234657). If you chose to resolve names (and that is successful), it will be the name you have set in your CCU or in the metadata (e.g., “Kitchen Switch”).</p>
+<p>You can test whether your button works within Home Assistant if you look at the terminal output. When pressing a button, lines similar to those should appear:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">2018-01-27 11:51:32 INFO <span class="o">(</span>Thread-12<span class="o">)</span> <span class="o">[</span>pyhomematic.devicetypes.generic] HMGeneric.event: <span class="nv">address</span><span class="o">=</span>MEQ1234567:6, <span class="nv">interface_id</span><span class="o">=</span>homeassistant-CCU2, <span class="nv">key</span><span class="o">=</span>PRESS_SHORT, <span class="nv">value</span><span class="o">=</span>True
+2018-01-27 11:51:32 INFO <span class="o">(</span>MainThread<span class="o">)</span> <span class="o">[</span>homeassistant.core] Bus:Handling &lt;Event homematic.keypress[L]: <span class="nv">param</span><span class="o">=</span>PRESS_SHORT, <span class="nv">name</span><span class="o">=</span>your_nice_name, <span class="nv">channel</span><span class="o">=</span>6&gt;
+2018-01-27 11:51:32 INFO <span class="o">(</span>Thread-12<span class="o">)</span> <span class="o">[</span>pyhomematic.devicetypes.generic] HMGeneric.event: <span class="nv">address</span><span class="o">=</span>MEQ1234567:6, <span class="nv">interface_id</span><span class="o">=</span>homeassistant-CCU2, <span class="nv">key</span><span class="o">=</span>INSTALL_TEST, <span class="nv">value</span><span class="o">=</span>True
+</code></pre></div></div>
+<p>It may happen that “your_nice_name” is not resolved correctly; the according message (#2 in the above example) will be missing. This might be due to secure communication between your HM interface and the HM device. You can change the communication from “secure” to “standard” within your HM-interface to solve that issue (in “Einstellungen” - “Geräte” find your device and change “Übertragungsmodus” from secure to standard) - not recommended for devices that should have secure communication.</p>
+<h4>homematic.keypress events for Homematic IP devices <a class="title-link" name="homematickeypress-events-for-homematic-ip-devices" href="#homematickeypress-events-for-homematic-ip-devices"></a>
+</h4>
+<p>To get the <code>homematic.keypress</code> event for some Homematic IP devices like WRC2 / WRC6 (wall switch) or SPDR (passage sensor) or the KRC4 (key ring remote control) you have to temporary create an empty program for each channel in the CCU:</p>
+<ol>
+<li>In the menu of your CCU’s admin panel go to <code>Programs and connections</code> &gt; <code>Programs &amp; CCU connection</code>
+</li>
+<li>Go to <code>New</code> in the footer menu</li>
+<li>Click the plus icon below <code>Condition: If...</code> and press the button <code>Device selection</code>
+</li>
+<li>Select one of the device’s channels you need (1-2 / 1-6 for WRC2 / WRC6 and 2-3 for SPDR)</li>
+<li>Select short or long key press</li>
+<li>Save the program with the <code>OK</code> button</li>
+<li>Trigger the program by pressing the button as configured in step 5. Your device might indicate success via a green LED or similar. When you select the device in <code>Status and control</code> &gt; <code>Devices</code> on the CCU, the <code>Last Modified</code> field should no longer be empty</li>
+<li>When your channel is working now, you can edit it to select the other channels one by one</li>
+<li>At the end, you can delete this program from the CCU</li>
+</ol>
+<h3>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h3>
+<ul>
+<li>
+<em>homematic.virtualkey</em>: Simulate a keypress (or other valid action) on CCU/Homegear with device or virtual keys.</li>
+<li>
+<em>homematic.reconnect</em>: Reconnect to CCU/Homegear without restarting Home Assistant (useful when CCU has been restarted)</li>
+<li>
+<em>homematic.set_variable_value</em>: Set the value of a system variable.</li>
+<li>
+<em>homematic.set_device_value</em>: Control a device manually (even devices without support). Equivalent to setValue-method from XML-RPC.</li>
+<li>
+<em>homematic.put_paramset</em>: Manually change a device’s paramset (even devices without support). Equivalent to putParamset-method from XML-RPC.</li>
+</ul>
+<h4>Examples <a class="title-link" name="examples" href="#examples"></a>
+</h4>
+<p>Simulate a button being pressed:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.virtualkey</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">BidCoS-RF"</span>
+      <span class="na">channel</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">param</span><span class="pi">:</span> <span class="s">PRESS_LONG</span>
+</code></pre></div></div>
+<p>Open KeyMatic:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.virtualkey</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">LEQ1234567"</span>
+      <span class="na">channel</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">param</span><span class="pi">:</span> <span class="s">OPEN</span>
+</code></pre></div></div>
+<p>Set boolean variable to true:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.set_variable_value</span>
+    <span class="na">target</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">homematic.ccu2</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Variablename"</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<h4>Advanced examples <a class="title-link" name="advanced-examples" href="#advanced-examples"></a>
+</h4>
+<p>If you are familiar with the internals of Homematic devices, you can manually set values on the devices. This can serve as a workaround if support for a device is currently not available, or only limited functionality has been implemented.
+Using this action provides you direct access to the setValue-method of the primary connection. If you have multiple hosts, you may select the one hosting a specific device by providing the proxy-parameter with a value equivalent to the name you have chosen. In the example configuration from above, <code>rf</code>, <code>wired</code>, and <code>ip</code> would be valid values.</p>
+<p>Manually turn on a switch actor:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.set_device_value</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">LEQ1234567"</span>
+      <span class="na">channel</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">param</span><span class="pi">:</span> <span class="s">STATE</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<p>Manually set temperature on thermostat:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.set_device_value</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">LEQ1234567"</span>
+      <span class="na">channel</span><span class="pi">:</span> <span class="m">4</span>
+      <span class="na">param</span><span class="pi">:</span> <span class="s">SET_TEMPERATURE</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="m">23.0</span>
+</code></pre></div></div>
+<p>Manually set the active profile on thermostat:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.set_device_value</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">LEQ1234567"</span>
+      <span class="na">channel</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">param</span><span class="pi">:</span> <span class="s">ACTIVE_PROFILE</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">value_type</span><span class="pi">:</span> <span class="s">int</span>
+</code></pre></div></div>
+<p>Set the week program of a wall thermostat:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.put_paramset</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">interface</span><span class="pi">:</span> <span class="s">wireless</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">LEQ1234567"</span>
+      <span class="na">paramset_key</span><span class="pi">:</span> <span class="s">MASTER</span>
+      <span class="na">paramset</span><span class="pi">:</span>
+        <span class="na">WEEK_PROGRAM_POINTER</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+<p>Set the week program of a wall thermostat with explicit <code>rx_mode</code> (BidCos-RF only):</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.put_paramset</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">interface</span><span class="pi">:</span> <span class="s">wireless</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">LEQ1234567"</span>
+      <span class="na">paramset_key</span><span class="pi">:</span> <span class="s">MASTER</span>
+      <span class="na">rx_mode</span><span class="pi">:</span> <span class="s">WAKEUP</span>
+      <span class="na">paramset</span><span class="pi">:</span>
+        <span class="na">WEEK_PROGRAM_POINTER</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+<p>BidCos-RF devices have an optional parameter for put_paramset which defines the way the configuration data is sent to the device.</p>
+<p><code>rx_mode</code> <code>BURST</code>, which is the default value, will wake up every device when submitting the configuration data and hence makes all devices use some battery. It is instant, i.e. the data is sent almost immediately.</p>
+<p><code>rx_mode</code> <code>WAKEUP</code> will send the configuration data only after a device submitted updated values to CCU, which usually happens every 3 minutes. It will not wake up every device and thus saves devices battery.</p>
+<p>Manually set lock on KeyMatic devices:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">lock.lock</span>
+    <span class="na">target</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">lock.leq1234567</span>
+</code></pre></div></div>
+<p>Manually set unlock on KeyMatic devices:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">lock.unlock</span>
+    <span class="na">target</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">lock.leq1234567</span>
+</code></pre></div></div>
+<h4>Integrating HMIP-DLD <a class="title-link" name="integrating-hmip-dld" href="#integrating-hmip-dld"></a>
+</h4>
+<p>There is no available default integration for HMIP Doorlock (HMIP-DLD) in the current <code>pyhomematic</code> implementation.
+A workaround is to define a template lock in your configuration:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">lock</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">template</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Basedoor</span>
+    <span class="na">unique_id</span><span class="pi">:</span> <span class="s">basedoor</span>
+    <span class="na">value_template</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">is_state('sensor.lock_status',</span><span class="nv"> </span><span class="s">'locked')</span><span class="nv"> </span><span class="s">}}"</span>
+    <span class="na">lock</span><span class="pi">:</span>
+      <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.set_device_value</span>
+      <span class="na">data</span><span class="pi">:</span>
+        <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">002A1BE9A792D2"</span>
+        <span class="na">channel</span><span class="pi">:</span> <span class="m">1</span>
+        <span class="na">param</span><span class="pi">:</span> <span class="s">LOCK_TARGET_LEVEL</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="m">0</span>
+    <span class="na">unlock</span><span class="pi">:</span>
+      <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.set_device_value</span>
+      <span class="na">data</span><span class="pi">:</span>
+        <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">002A1BE9A792D2"</span>
+        <span class="na">channel</span><span class="pi">:</span> <span class="m">1</span>
+        <span class="na">param</span><span class="pi">:</span> <span class="s">LOCK_TARGET_LEVEL</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+<h4>Detecting lost connections <a class="title-link" name="detecting-lost-connections" href="#detecting-lost-connections"></a>
+</h4>
+<p>When the connection to your Homematic CCU or Homegear is lost, Home Assistant will stop getting updates from devices. This may happen after rebooting the CCU for example. Due to the nature of the communication protocol this cannot be handled automatically, so you must call <em>homematic.reconnect</em> in this case. That’s why it is usually a good idea to check if your Homematic integrations are still updated properly, in order to detect connection losses. This can be done in several ways through an automation:</p>
+<ul>
+<li>If you have a sensor which you know will be updated frequently (e.g., an outdoor temperature sensor, voltage sensor or light sensor) you could set up a helper binary sensor and an automation like this:</li>
+</ul>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">template</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">binary_sensor</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Homematic</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">sending</span><span class="nv"> </span><span class="s">updates"</span>
+        <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;-</span>
+          <span class="s">{{ (now() - states.sensor.office_voltage.last_changed).seconds &lt; 600 }}</span>
+
+<span class="na">automation</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Homematic</span><span class="nv"> </span><span class="s">Reconnect"</span>
+    <span class="na">triggers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">binary_sensor.homematic_is_sending_updates</span>
+        <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
+    <span class="na">actions</span><span class="pi">:</span>
+      <span class="c1"># Reconnect, if sensor has not been updated for over 10 minutes</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.reconnect</span>
+</code></pre></div></div>
+<p>The important part is the <code>sensor.time</code> entity (from time_date integration). This will update the binary sensor on every change of the sensor and every minute. If the Homematic sensor does not send any updates anymore, the <code>sensor.time</code> will set the binary sensor to <code>off</code> 10 minutes after the last sensor update. This will trigger the automation.</p>
+<ul>
+<li>
+<p>If you have a CCU you can also create a system variable on the CCU, which stores its last reboot time. Since Home Assistant can still refresh system variables from the CCU (even after a reboot) this is another option to call <em>homematic.reconnect</em>. Even though this option might look preferable to many since it does not rely on a sensor, <strong>it is less fail-safe</strong> than checking for updates of a sensor. Since the variable on the CCU is only changed on boot, any problem that causes the connection between Home Assistant and the CCU to break but will not result in a reboot will not be detected (eg. in case of networking issues). This is how this can be done:</p>
+<ol>
+<li>
+<p>Create a string variable <strong>V_Last_Reboot</strong> on the CCU</p>
+</li>
+<li>
+<p>Create a new program on the CCU <strong>without any conditions</strong>, which executes the following <em>HM-Script</em> with a delay of 30 seconds. The script needs to be implemented within the section <code>Activity: Then</code>.</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="javascript"><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">dom</span><span class="p">.</span><span class="nc">GetObject</span><span class="p">(</span><span class="dl">"</span><span class="s2">V_Last_Reboot</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">string</span> <span class="nx">now</span> <span class="o">=</span> <span class="nx">system</span><span class="p">.</span><span class="nc">Date</span><span class="p">(</span><span class="dl">"</span><span class="s2">%d.%m.%Y %H:%M:%S</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nc">State</span><span class="p">(</span><span class="nx">now</span><span class="p">);</span>
+</code></pre></div></div>
+<p>The Homematic CCU will execute all active programs which meet their conditions (none in this case) on every reboot.</p>
+</li>
+<li>
+<p>Set up a template sensor in Home Assistant, which contains the value of the system variable:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">template</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">sensor</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">v</span><span class="nv"> </span><span class="s">last</span><span class="nv"> </span><span class="s">reboot"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">state_attr('homematic.ccu2',</span><span class="nv"> </span><span class="s">'V_Last_Reboot')</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">'01.01.1970</span><span class="nv"> </span><span class="s">00:00:00'</span><span class="nv"> </span><span class="s">}}"</span>
+      <span class="na">icon</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mdi:clock"</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Set up an automation which calls <em>homematic.reconnect</em> whenever the sensor variable changes:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Homematic</span><span class="nv"> </span><span class="s">CCU</span><span class="nv"> </span><span class="s">Reboot"</span>
+    <span class="na">triggers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.v_last_reboot</span>
+    <span class="na">actions</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematic.reconnect</span>
+</code></pre></div></div>
+</li>
+</ol>
+</li>
+</ul>
+<h2>Notifications <a class="title-link" name="notifications" href="#notifications"></a>
+</h2>
+<p>The <code>homematic</code> notification platform enables invoking Homematic devices.</p>
+<p>To use this notification platform in your installation, add the following to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file:</p>
+<h3>Configuration <a class="title-link" name="configuration-1" href="#configuration-1"></a>
+</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">notify</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">my_hm</span>
+    <span class="na">platform</span><span class="pi">:</span> <span class="s">homematic</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">NEQXXXXXXX"</span>
+    <span class="na">channel</span><span class="pi">:</span> <span class="m">2</span>
+    <span class="na">param</span><span class="pi">:</span> <span class="s2">"</span><span class="s">SUBMIT"</span>
+    <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1,1,108000,8"</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="homematic-configuration-variables" href="#homematic-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> address </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="address" class="title-link" href="#address"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The address of your Homematic device. The address is the serial number of the device shown in the CCU in the <code>devices</code> section in the column <code>serial number</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> channel </span><span class="config-vars-type">integer</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="channel" class="title-link" href="#channel"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The channel of your Homematic device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> param </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="param" class="title-link" href="#param"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>An additional parameter for the Homematic device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> interface </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="interface" class="title-link" href="#interface"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set the name of the interface from the configuration.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> value </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="value" class="title-link" href="#value"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>This is the value that is set on the device. It’s device specific.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h3>Usage <a class="title-link" name="usage" href="#usage"></a>
+</h3>
+<p><code>homematic</code> is a notify platform and can be controlled by calling the notify action <a href="/integrations/notify/">as described here</a>.</p>
+<p>Only the <code>data</code> part of the event payload is processed. This part can specify or override the value given as configuration variable:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NEQXXXXXXX"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"param"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUBMIT"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1,1,108000,8"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>It is possible to provide a template in order to compute the value:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1,1,108000{% if is_state('binary_sensor.oeqxxxxxxx_state', 'on') %},1{% endif %}{% if is_state('binary_sensor.oeqxxxxxxx_state', 'on') %},2{% endif %}"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>You can also specify the event payload using a group notification (instead of specifying the value for the notify itself):</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">notify</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">my_hm</span>
+    <span class="na">platform</span><span class="pi">:</span> <span class="s">homematic</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">NEQXXXXXXX</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">group_hm</span>
+    <span class="na">platform</span><span class="pi">:</span> <span class="s">group</span>
+    <span class="na">services</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">my_hm</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">data</span><span class="pi">:</span>
+            <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1,1,108000{%</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">is_state('binary_sensor.oeqxxxxxxx_state',</span><span class="nv"> </span><span class="s">'on')</span><span class="nv"> </span><span class="s">%},1{%</span><span class="nv"> </span><span class="s">endif</span><span class="nv"> </span><span class="s">%}{%</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">is_state('binary_sensor.oeqxxxxxxx_state',</span><span class="nv"> </span><span class="s">'on')</span><span class="nv"> </span><span class="s">%},2{%</span><span class="nv"> </span><span class="s">endif</span><span class="nv"> </span><span class="s">%}"</span>
+
+<span class="na">alert</span><span class="pi">:</span>
+  <span class="na">temperature</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Temperature too high</span>
+    <span class="na">done_message</span><span class="pi">:</span> <span class="s">Temperature OK</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">binary_sensor.temperature_too_high</span>
+    <span class="na">can_acknowledge</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">notifiers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">group_hm</span>
+</code></pre></div></div>
+<p>Please note that the first <code>data</code> element belongs to the <code>my_hm</code> action, while the second one belongs to the event payload.</p>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    <li>
+      <a href="/docs/configuration/" class="topic">
+        Configuration file
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/homematic.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fhomematic%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20homematic" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+homematic%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/homematic//logo.png' srcset='https://brands.home-assistant.io/_/homematic/logo@2x.png 2x' /></div>
+
+  <div class='section'>The Homematic  integration  was introduced in Home Assistant 0.23, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          1315</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-legacy'>💾 Legacy integration</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/homematic" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+homematic%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/pvizeli" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/pvizeli?size=96" alt="@pvizeli"/> @pvizeli</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#example-configuration-with-multiple-protocols-and-some-other-options-set">Example configuration with multiple protocols and some other options set</a></li>
+<li class="toc-entry toc-h3"><a href="#the-resolvenames-option">The resolvenames option</a></li>
+<li class="toc-entry toc-h3"><a href="#multiple-hosts">Multiple hosts</a></li>
+<li class="toc-entry toc-h3"><a href="#reading-attributes-of-entities">Reading attributes of entities</a></li>
+<li class="toc-entry toc-h3"><a href="#variables">Variables</a></li>
+<li class="toc-entry toc-h3"><a href="#events">Events</a></li>
+<li class="toc-entry toc-h3"><a href="#actions">Actions</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#notifications">Notifications</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#configuration-1">Configuration</a></li>
+<li class="toc-entry toc-h3"><a href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#lock'>Lock</a>
+          </li><li>
+            <a href='/integrations/#notifications'>Notifications</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

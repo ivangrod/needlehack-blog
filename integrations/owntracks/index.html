@@ -1,0 +1,674 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>OwnTracks - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to use OwnTracks to track devices in Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/owntracks/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="OwnTracks">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/owntracks/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to use OwnTracks to track devices in Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="OwnTracks">
+    <meta name="twitter:description" content="Instructions on how to use OwnTracks to track devices in Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#configuring-the-app---android">Configuring the app - Android</a></li>
+<li class="toc-entry toc-h3"><a href="#configuring-the-app---ios">Configuring the app - iOS</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#advanced-configuration">Advanced configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#using-owntracks-regions">Using OwnTracks regions</a></li>
+<li class="toc-entry toc-h2"><a href="#using-owntracks-regions---forcing-owntracks-to-update-using-ibeaconsowntracks">Using OwnTracks regions - forcing OwnTracks to update using iBeaconsOwntracks</a></li>
+<li class="toc-entry toc-h2"><a href="#using-owntracks-ibeacons-to-track-devices">Using OwnTracks iBeacons to track devices</a></li>
+<li class="toc-entry toc-h2"><a href="#using-mobile-and-fixed-ibeacons-together">Using mobile and fixed iBeacons together</a></li>
+<li class="toc-entry toc-h2"><a href="#importing-owntracks-waypoints-as-zones">Importing OwnTracks waypoints as zones</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        OwnTracks
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p><a href="https://owntracks.org/" rel="external nofollow">OwnTracks<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> is a free and open source application for iOS and Android that allows you to track your location and send it directly to Home Assistant. OwnTracks can be set up via  <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>.</p>
+<p>By default, the integration listens for incoming messages from OwnTracks via HTTP. If Home Assistant is configured to use MQTT instead, it listens for MQTT messages. When a location is submitted via HTTP, Home Assistant returns all <a href="/integrations/person/">Persons</a>’ last known locations. Their location will be displayed within the OwnTracks app.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<ol>
+<li>To set up OwnTracks in Home Assistant, go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>.</li>
+<li>Add the <strong>OwnTracks</strong> integration.
+<ul>
+<li>This will give you the <strong>Webhook</strong> URL as well as the <strong>Encryption key</strong> to use during mobile device configuration (below).</li>
+</ul>
+</li>
+</ol>
+<h3>Configuring the app - Android <a class="title-link" name="configuring-the-app---android" href="#configuring-the-app---android"></a>
+</h3>
+<ol>
+<li>
+<p>Install the <a href="https://play.google.com/store/apps/details?id=org.owntracks.android" rel="external nofollow">OwnTracks<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> application for Android.</p>
+<ul>
+<li>If you need a version of OwnTracks without Google Play Services, the “OSS” flavour is available <a href="https://github.com/owntracks/android/releases" rel="external nofollow">here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+</ul>
+</li>
+<li>
+<p>In the app, open the sidebar and select <strong>Preferences</strong>, then <strong>Connection</strong>.</p>
+</li>
+<li>
+<p>Change the following settings:</p>
+<ul>
+<li>
+<strong>Mode</strong>: HTTP</li>
+<li>
+<strong>Host</strong>: <code>&lt;URL given to you when setting up the integration&gt;</code>
+</li>
+<li>
+<strong>Identification</strong>:
+<ul>
+<li>
+<strong>Username</strong>: <code>&lt;Username&gt;</code>: You can make one up for OwnTracks.</li>
+<li>
+<strong>Password</strong>: Can be left blank.</li>
+<li>
+<strong>Device ID</strong>: <code>&lt;Device name&gt;</code>: Something that helps you remember which of your devices is used for OwnTracks.</li>
+<li>
+<strong>Tracker ID</strong>: <code>&lt;xx&gt;</code> Two character tracker ID. (can be left blank)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Your tracker device will be known in Home Assistant as <code>&lt;Username&gt;_&lt;Device name&gt;</code>. If you entered a Tracker ID, the <code>tid</code> attribute will be set to that ID.</p>
+</li>
+</ol>
+<h3>Configuring the app - iOS <a class="title-link" name="configuring-the-app---ios" href="#configuring-the-app---ios"></a>
+</h3>
+<ol>
+<li>
+<p><a href="https://itunes.apple.com/us/app/owntracks/id692424691?mt=8" rel="external nofollow">Install the OwnTracks application for iOS.<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p>In the OwnTracks app, tap the (i) in the top left and select <strong>Settings</strong>.</p>
+</li>
+<li>
+<p>Change the following settings:</p>
+<ul>
+<li>
+<strong>Mode</strong>: HTTP</li>
+<li>
+<strong>URL</strong>: <code>&lt;URL given to you when setting up the integration&gt;</code>
+</li>
+<li>Turn on authentication</li>
+<li>
+<strong>User ID</strong>: <code>&lt;Your name&gt;</code>. You can make one up for OwnTracks.</li>
+</ul>
+</li>
+</ol>
+<h2>Advanced configuration <a class="title-link" name="advanced-configuration" href="#advanced-configuration"></a>
+</h2>
+<p>OwnTracks allows the user to set advanced configuration by adding a section to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">owntracks</span><span class="pi">:</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="owntracks-configuration-variables" href="#owntracks-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> max_gps_accuracy </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="max_gps_accuracy" class="title-link" href="#max_gps_accuracy"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Sometimes OwnTracks can report GPS location with a very low accuracy (few kilometers). That can trigger false zoning in your Home Assistant installation. With the parameter, you can filter these GPS reports. The number has to be in meters. For example, if you put 200, only GPS reports with an accuracy of 200 meters will be takes in account.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> waypoints </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="waypoints" class="title-link" href="#waypoints"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>OwnTracks users can define <a href="https://owntracks.org/booklet/features/waypoints/" rel="external nofollow">waypoints<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (a.k.a regions) which are similar in spirit to Home Assistant zones. If this configuration variable is <code>true</code>, the OwnTracks users who are listed in the <code>waypoint_whitelist</code> can export waypoints from the device. Home Assistant will import these waypoints as zone definitions.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> waypoint_whitelist </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="waypoint_whitelist" class="title-link" href="#waypoint_whitelist"></a>
+</div>
+<div class="config-vars-description-and-children">
+<span class="config-vars-description"><p>A list of usernames (as defined for <a href="/integrations/owntracks">OwnTracks</a>) who can export their waypoints from OwnTracks to Home Assistant. This would be the <code>username</code> portion of the Base Topic Name, (e.g., owntracks/username/iPhone).</p>
+</span><div class="config-vars-default">
+Default: <p>All users who are connected to Home Assistant via OwnTracks.</p>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> secret </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="secret" class="title-link" href="#secret"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p><a href="https://owntracks.org/booklet/features/encrypt/" rel="external nofollow">Payload encryption key<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. This is usable when communicating with a third-party untrusted server or a public server (where anybody can subscribe to any topic). By default, the payload is assumed to be unencrypted (although the communication between Home Assistant and the server might still be encrypted). This feature requires the <code>libsodium</code> library to be present.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> mqtt_topic </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: owntracks/#</span>)</span><a name="mqtt_topic" class="title-link" href="#mqtt_topic"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The topic to subscribe for OwnTracks updates on your MQTT instance.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> events_only </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="events_only" class="title-link" href="#events_only"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Home Assistant will ignore all location updates and rely solely on geofence enter/leave events.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> region_mapping </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="region_mapping" class="title-link" href="#region_mapping"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Dictionary to remap names of regions as configured in the OwnTracks app to Home Assistant zones. Use this if you have multiple homes or Home Assistant instances and want to map a different label to ‘home’. <code>key: value</code> maps OwnTracks region <code>key</code> to Home Assistant zone <code>value</code>.</p>
+</span></div>
+</div>
+</div>
+</div>
+<p>A full sample configuration for the <code>owntracks</code> platform is shown below:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">owntracks</span><span class="pi">:</span>
+  <span class="na">max_gps_accuracy</span><span class="pi">:</span> <span class="m">200</span>
+  <span class="na">waypoints</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">mqtt_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">owntracks/#"</span>
+  <span class="na">events_only</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">waypoint_whitelist</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">jon</span>
+    <span class="pi">-</span> <span class="s">ram</span>
+  <span class="na">region_mapping</span><span class="pi">:</span>
+    <span class="na">cabin</span><span class="pi">:</span> <span class="s">home</span>
+    <span class="na">office</span><span class="pi">:</span> <span class="s">work</span>
+</code></pre></div></div>
+<h2>Using OwnTracks regions <a class="title-link" name="using-owntracks-regions" href="#using-owntracks-regions"></a>
+</h2>
+<p>OwnTracks can track regions, and send region entry and exit information to Home Assistant. To do this, set up a region in the OwnTracks app. Make sure to use the same name for the region in your Home Assistant Zone. When adding the coordinates for your region, note that the unit used for <strong>Radius</strong> in OwnTracks is <em>meter</em>. For more information, refer to the <a href="https://owntracks.org/booklet/guide/waypoints/" rel="external nofollow">OwnTracks documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>Home Assistant uses the enter and leave messages to set your zone location. Your location will be set to the center of zone when you enter. Location updates from OwnTracks will be ignored while you are inside a zone.</p>
+<p>When you exit a zone, Home Assistant will start using location updates to track you again. To make sure that Home Assistant correctly exits a zone (which it calculates based on your GPS coordinates), you may want to set your Zone radius in HA to be slightly smaller that the OwnTracks region radius.</p>
+<h2>Using OwnTracks regions - forcing OwnTracks to update using iBeaconsOwntracks <a class="title-link" name="using-owntracks-regions---forcing-owntracks-to-update-using-ibeaconsowntracks" href="#using-owntracks-regions---forcing-owntracks-to-update-using-ibeaconsowntracks"></a>
+</h2>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>OwnTracks v2.0.0 removes support for iBeacons on Android.</p>
+  </div>
+</div>
+<p>When run in the usual <em>significant changes mode</em> (which is kind to your phone battery), OwnTracks sometimes doesn’t update your location as quickly as you’d like when you arrive at a zone. This can be annoying if you want to trigger an automation when you get home. You can improve the situation using iBeacons.</p>
+<p>iBeacons are simple Bluetooth devices that send out an “I’m here” message. They are supported by iOS and some Android devices. OwnTracks explain more <a href="https://owntracks.org/booklet/guide/beacons/" rel="external nofollow">here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>When you enter an iBeacon region, OwnTracks will send a <code>region enter</code> message to HA as described above. So if you want to have an event triggered when you arrive home, you can put an iBeacon outside your front door. If you set up an OwnTracks iBeacon region called <code>home</code> then getting close to the beacon will trigger an update to HA that will set your zone to be <code>home</code>.</p>
+<p>When you exit an iBeacon region HA will switch back to using GPS to determine your location. Depending on the size of your zone, and the accuracy of your GPS location this may change your HA zone.</p>
+<p>Sometimes OwnTracks will lose connection with an iBeacon for a few seconds. If you name your beacon starting with <code>-</code> OwnTracks will wait longer before deciding it has exited the beacon zone. HA will ignore the <code>-</code> when it matches the OwnTracks region with Zones. So if you call your OwnTracks region <code>-home</code> then HA will recognize it as <code>home</code>, but you will have a more stable iBeacon connection.</p>
+<h2>Using OwnTracks iBeacons to track devices <a class="title-link" name="using-owntracks-ibeacons-to-track-devices" href="#using-owntracks-ibeacons-to-track-devices"></a>
+</h2>
+<p>iBeacons don’t need to be stationary. You could put one on your key ring, or in your car.</p>
+<p>When your phone sees a mobile iBeacon that it knows about, it will tell HA the location of that iBeacon. If your phone moves while you are connected to the iBeacon, HA will update the location of the iBeacon. But when your phone loses the connection, HA will stop updating the iBeacon location.</p>
+<p>To use mobile iBeacons with HA, you just set up a region that doesn’t match your Zone names. If HA sees an entry event for an iBeacon region that doesn’t match a Zone name (say <code>keys</code>) - it will start tracking it, calling the device <code>device_tracker.beacon_keys</code>).</p>
+<p>This allows you to write zone automations for devices that can’t track themselves (for example <em>alert me if I leave the house and my keys are still at home</em>). Another example would be <em>open the gates if my car arrives home</em>.</p>
+<h2>Using mobile and fixed iBeacons together <a class="title-link" name="using-mobile-and-fixed-ibeacons-together" href="#using-mobile-and-fixed-ibeacons-together"></a>
+</h2>
+<p>You can use iBeacons of both types together, so if you have a Zone <code>drive</code> with an iBeacon region called <code>-drive</code> and you arrive home with a mobile iBeacon called <code>-car</code>, then <code>device_tracker.beacon_car</code> will be set to a state of <code>drive</code>.</p>
+<h2>Importing OwnTracks waypoints as zones <a class="title-link" name="importing-owntracks-waypoints-as-zones" href="#importing-owntracks-waypoints-as-zones"></a>
+</h2>
+<p>By default, any OwnTracks user connected to Home Assistant can export their waypoint definitions (from the <em>Export - Export to Endpoint</em> menu item) which will then be translated to zone definitions in Home Assistant. The zones will be named <code>&lt;user&gt;-&lt;device&gt; - &lt;region name&gt;:&lt;region uuid&gt;</code>. This functionality can be controlled in 2 ways:</p>
+<ol>
+<li>The configuration variable <code>waypoints</code> can be set to <code>false</code> which will disable importing waypoints for all users.</li>
+<li>The configuration variable <code>waypoint_whitelist</code> can contain a list of users who are allowed to import waypoints.</li>
+</ol>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/owntracks.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fowntracks%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20owntracks" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+owntracks%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/owntracks//logo.png' srcset='https://brands.home-assistant.io/_/owntracks/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=owntracks' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The OwnTracks  integration  was introduced in Home Assistant 0.7.4, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          2954</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/owntracks" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+owntracks%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+      <div class="section">
+        This integration is community maintained.<br />
+        If you are a developer and would like to help, feel free to contribute!
+      </div>
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#configuring-the-app---android">Configuring the app - Android</a></li>
+<li class="toc-entry toc-h3"><a href="#configuring-the-app---ios">Configuring the app - iOS</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#advanced-configuration">Advanced configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#using-owntracks-regions">Using OwnTracks regions</a></li>
+<li class="toc-entry toc-h2"><a href="#using-owntracks-regions---forcing-owntracks-to-update-using-ibeaconsowntracks">Using OwnTracks regions - forcing OwnTracks to update using iBeaconsOwntracks</a></li>
+<li class="toc-entry toc-h2"><a href="#using-owntracks-ibeacons-to-track-devices">Using OwnTracks iBeacons to track devices</a></li>
+<li class="toc-entry toc-h2"><a href="#using-mobile-and-fixed-ibeacons-together">Using mobile and fixed iBeacons together</a></li>
+<li class="toc-entry toc-h2"><a href="#importing-owntracks-waypoints-as-zones">Importing OwnTracks waypoints as zones</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#presence-detection'>Presence detection</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

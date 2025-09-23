@@ -1,0 +1,628 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Yale Access Bluetooth - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate Yale Access Bluetooth devices into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/yalexs_ble/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Yale Access Bluetooth">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/yalexs_ble/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate Yale Access Bluetooth devices into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Yale Access Bluetooth">
+    <meta name="twitter:description" content="Instructions on how to integrate Yale Access Bluetooth devices into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-devices">Supported devices</a></li>
+<li class="toc-entry toc-h2"><a href="#limited-support-devices">Limited support devices</a></li>
+<li class="toc-entry toc-h2"><a href="#deadlock-support">Deadlock support</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#push-updates">Push updates</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a></li>
+<li class="toc-entry toc-h2"><a href="#door-sensors">Door sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#obtaining-the-offline-key">Obtaining the offline key</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#yale-access-yale-home-or-august-cloud">Yale Access, Yale Home, or August Cloud</a></li>
+<li class="toc-entry toc-h3"><a href="#ios---yale-access-app-or-august-app">iOS - Yale Access App or August App</a></li>
+<li class="toc-entry toc-h3"><a href="#android---yale-access-app-or-august-app">Android - Yale Access App or August App</a></li>
+<li class="toc-entry toc-h3"><a href="#android---yale-home">Android - Yale Home</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting-1">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#lock-frequently-requires-re-authentication">Lock frequently requires re-authentication</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Yale Access Bluetooth
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>Integrates <a href="https://www.yalehome.com/us/en/products/smart-technology/yale-access" rel="external nofollow">Yale Access<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> Bluetooth devices into Home Assistant.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Yale Access Bluetooth</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=yalexs_ble" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=yalexs_ble" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Yale Access Bluetooth</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<p>The <strong>Yale Access Bluetooth</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> will automatically discover devices once the <a href="/integrations/bluetooth">Bluetooth</a> integration is enabled and functional.</p>
+<p>Devices must have a Yale Access module installed to function with this <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> if one is not already built-in.</p>
+<h2>Supported devices <a class="title-link" name="supported-devices" href="#supported-devices"></a>
+</h2>
+<ul>
+<li>YRD216 (Yale Assure Lock Keypad with Physical Key)</li>
+<li>YRL216 (Yale Assure Door Lever Lock with Push Button Keypad)</li>
+<li>YRD226 (Yale Assure Lock Touchscreen Deadbolt with Physical Key)</li>
+<li>YRL226 (Yale Assure Door Lever Lock Keypad)</li>
+<li>YRD256 (Yale Assure Lock Keypad)</li>
+<li>YRD420 (Yale Assure Lock 2)</li>
+<li>YRD450 (Yale Assure Lock 2 Key Free)</li>
+<li>YUR/SSDL/1/SIL and MBK (Yale Unity Screen Door Lock - Australia)</li>
+<li>YUR/DEL/1/SIL and MBK (Yale Unity Entrance Lock - Australia)</li>
+<li>IES-D210W-G0 (Yale Smart Safe)</li>
+<li>YRSM-1 (Yale Smart Safe)</li>
+<li>ASL-05 (August WiFi Smart Lock - Gen 4)</li>
+<li>ASL-03 (August Smart Lock Pro - Gen 3)</li>
+<li>ASL-02 (August Smart Lock Pro - Gen 2)</li>
+</ul>
+<h2>Limited support devices <a class="title-link" name="limited-support-devices" href="#limited-support-devices"></a>
+</h2>
+<p>These devices do not send updates, but can be locked and unlocked.</p>
+<ul>
+<li>MD-04I (Yale Conexis L1 (requires yale access module), Yale Conexis L2)</li>
+<li>YRCB-490 (Yale Smart Cabinet Lock)</li>
+</ul>
+<h2>Deadlock support <a class="title-link" name="deadlock-support" href="#deadlock-support"></a>
+</h2>
+<p>Some Yale locks support a deadlock function (secure mode) for locking both the inside and outside. A secure mode lock entity (initially disabled) is exposed for all locks and can be enabled where the lock is known to support this capability.</p>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<p>Lock operation requires setting up an encrypted connection highly sensitive to latency. It is recommended to use a <a href="/integrations/bluetooth/#known-working-high-performance-adapters">High-Performance Bluetooth adapter</a> or <a href="/integrations/bluetooth/#remote-adapters-bluetooth-proxies">ESPHome Bluetooth proxy</a> for stable operation.</p>
+<h2>Push updates <a class="title-link" name="push-updates" href="#push-updates"></a>
+</h2>
+<p>Some locks only send push updates when they have an active HomeKit pairing. If your lock is not sending push updates, ensure it’s paired with a HomeKit using an iOS device or the HomeKit controller <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span>. The lock cannot be paired via HomeKit Controller and the Yale Access Bluetooth <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> on the same Home Assistant instance as they will both try to access the lock simultaneously and fail.</p>
+<p>One easy way to fix this is to create a new/second home in the Apple Home app and add the lock to that new home. Push updates should occur as intended after the lock is added.</p>
+<p>Alternatively, call the <code>homeassistant.update_entity</code> action to force the <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> to update the lock state, or enable the always connected option.</p>
+<h2>Options <a class="title-link" name="options" href="#options"></a>
+</h2>
+<p>Options for Yale Access Bluetooth can be set via the user interface, by taking the following steps:</p>
+<ul>
+<li>Browse to your Home Assistant instance.</li>
+<li>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; Services</a></strong>.</li>
+<li>If multiple instances of Yale Access Bluetooth are configured, choose the instance you want to configure.</li>
+<li>Select the integration, then select <strong>Configure</strong>.</li>
+</ul>
+<p>If the lock does not support push updates via advertisements or you want lock operation to be more responsive, you can enable always connected mode. Always connected will cause the lock to stay connected to Home Assistant via Bluetooth, which will use more battery.</p>
+<h2>Door sensors <a class="title-link" name="door-sensors" href="#door-sensors"></a>
+</h2>
+<p>The lock must be calibrated in the Yale Access App for the door sensors to function correctly. If the door sensor has an unknown state or is not updating, try recalibrating the lock in the app.</p>
+<h2>Obtaining the offline key <a class="title-link" name="obtaining-the-offline-key" href="#obtaining-the-offline-key"></a>
+</h2>
+<p>The offline key and slot number are required to operate the lock. These credentials can be found in multiple places depending on the lock brand and model.</p>
+<h3>Yale Access, Yale Home, or August Cloud <a class="title-link" name="yale-access-yale-home-or-august-cloud" href="#yale-access-yale-home-or-august-cloud"></a>
+</h3>
+<p>The <a href="/integrations/yale">Yale</a> or <a href="/integrations/august">August</a> cloud <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> can automatically provision the offline key if the configured account has the key loaded. You may need to create or use a non-primary existing account with owner-level access to the lock, as not all accounts will have the key loaded. If the lock was not discovered by Home Assistant when the cloud <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> was loaded, reload the cloud <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> once the lock has been discovered.</p>
+<p>If the offline key can automatically be provisioned, you will not be asked to enter it and the <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> should be automatically added, configured and running.</p>
+<p>Most Yale branded locks can use the cloud <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> to obtain the offline key. Accessing the August cloud to receive the key may only work if the lock was purchased in a market that sells under both brands and the Yale cloud should be tried for other markets.</p>
+<h3>iOS - Yale Access App or August App <a class="title-link" name="ios---yale-access-app-or-august-app" href="#ios---yale-access-app-or-august-app"></a>
+</h3>
+<p>The iOS app will only save the offline key to your device’s filesystem if Auto-Unlock has been enabled and used at least once. Auto-Unlock can be disabled once the key has been loaded.</p>
+<ul>
+<li>Using <a href="https://imazing.com/" rel="external nofollow">iMazing<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or <a href="https://www.iphonebackupextractor.com/" rel="external nofollow">iPhone Backup Extractor<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, find the backup files for the Yale Access app.</li>
+<li>Look in the <code>Library/Preferences</code> <code>.plist</code> files for the Yale Access app and find the one with the value of <code>key</code> and <code>slot</code> using <code>Xcode</code> or any binary <code>plist</code> viewer.</li>
+</ul>
+<h3>Android - Yale Access App or August App <a class="title-link" name="android---yale-access-app-or-august-app" href="#android---yale-access-app-or-august-app"></a>
+</h3>
+<p>The Android app will only save the offline key to your device’s filesystem if Auto-Unlock has been enabled and used at least once. Auto-Unlock can be disabled once the key has been loaded.</p>
+<p>Root access is required to copy the <code>ModelDatabase.db</code> from <code>/data/data/com.august.bennu/databases</code>. Once copied, you can use <a href="https://sqlitebrowser.org/" rel="external nofollow">DB Browser for SQLite<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> to open the <code>ModelDatabase.db</code>, navigate to the table <code>LockData</code> and find the column <code>offlineKeys</code>. There, you will find a JSON that includes the <code>key</code> and <code>slot</code> properties.</p>
+<h3>Android - Yale Home <a class="title-link" name="android---yale-home" href="#android---yale-home"></a>
+</h3>
+<p>The Android app will only save the offline key to your device’s filesystem if Auto-Unlock has been enabled and used at least once. Auto-Unlock can be disabled once the key has been loaded.</p>
+<p>Root access is required to copy the <code>ModelDatabase.sql</code> from <code>/data/data/com.assaabloy.yale/databases</code>. Once copied, you can use <a href="https://sqlitebrowser.org/" rel="external nofollow">DB Browser for SQLite<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> to open the <code>ModelDatabase.sql</code>, navigate to the table <code>LockData</code> and find the column <code>offlineKeys</code>. There, you will find a JSON that includes the <code>key</code> and <code>slot</code> properties.</p>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting-1" href="#troubleshooting-1"></a>
+</h2>
+<h3>Lock frequently requires re-authentication <a class="title-link" name="lock-frequently-requires-re-authentication" href="#lock-frequently-requires-re-authentication"></a>
+</h3>
+<p>If you use the key from an iOS or Android device that you also frequently use to operate the lock, you may find that the key is rotated, and the integration can no longer authenticate. If you are using the <a href="/integrations/yale">Yale</a> or <a href="/integrations/august">August</a> integration to keep the key up to date, it may need to be reloaded to update the key.</p>
+<p>To avoid the problem, create a second owner account in the Yale Home or August app, log in to it once on your iOS or Android device, operate the locks, log out of the account, remove the Yale or August integration from Home Assistant, and set up the integration again with the secondary owner account. This method avoids the problem because there is no longer an iOS or Android device logged into the secondary owner account that can rotate the key unexpectedly.</p>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/yalexs_ble.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fyalexs_ble%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20yalexs_ble" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+yalexs_ble%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/yalexs_ble//logo.png' srcset='https://brands.home-assistant.io/_/yalexs_ble/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=yalexs_ble' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Yale Access Bluetooth  integration  was introduced in Home Assistant 2022.9, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          1788</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/yalexs_ble" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+yalexs_ble%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/bdraco" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/bdraco?size=96" alt="@bdraco"/> @bdraco</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-devices">Supported devices</a></li>
+<li class="toc-entry toc-h2"><a href="#limited-support-devices">Limited support devices</a></li>
+<li class="toc-entry toc-h2"><a href="#deadlock-support">Deadlock support</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#push-updates">Push updates</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a></li>
+<li class="toc-entry toc-h2"><a href="#door-sensors">Door sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#obtaining-the-offline-key">Obtaining the offline key</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#yale-access-yale-home-or-august-cloud">Yale Access, Yale Home, or August Cloud</a></li>
+<li class="toc-entry toc-h3"><a href="#ios---yale-access-app-or-august-app">iOS - Yale Access App or August App</a></li>
+<li class="toc-entry toc-h3"><a href="#android---yale-access-app-or-august-app">Android - Yale Access App or August App</a></li>
+<li class="toc-entry toc-h3"><a href="#android---yale-home">Android - Yale Home</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting-1">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#lock-frequently-requires-re-authentication">Lock frequently requires re-authentication</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#lock'>Lock</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

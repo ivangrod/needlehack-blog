@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: HAOS | Home Assistant]]></title>
+  <link href="https://ivangrod.github.io/needlehack-blog/blog/categories/haos/atom.xml" rel="self"/>
+  <link href="https://ivangrod.github.io/needlehack-blog/"/>
+  <updated>2025-09-23T16:44:51+00:00</updated>
+  <id>https://ivangrod.github.io/needlehack-blog/</id>
+  <author>
+    <name><![CDATA[Home Assistant]]></name>
+    
+  </author>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Home Assistant Yellow gets CM5 support in HAOS 14]]></title>
+    <link href="https://ivangrod.github.io/needlehack-blog/blog/2024/11/27/home-assistant-yellow-gets-cm5-support/"/>
+    <updated>2024-11-27T00:00:00+00:00</updated>
+    <id>https://ivangrod.github.io/needlehack-blog/blog/2024/11/27/home-assistant-yellow-gets-cm5-support</id>
+    <content type="html"><![CDATA[<img src='/images/blog/2024-11-cm5/art.jpg' alt="Home Assistant Yellow in all its glory">
+
+We launched our [Home Assistant Yellow](/yellow/) over two years ago, with the design philosophy that it would grow and extend its capabilities with its users' needs. Need more storage, add an NVMe drive. Need Matter over Thread instead of Zigbee, change the firmware.
+
+Thanks to Raspberry Pi providing us with an early sample, we have been able to add **Compute Module 5 (CM5) compatibility to the Home Assistant Yellow**, which will be included in Home Assistant OS 14 (along with some [other hardware support](#other-additions-to-haos-14)). This gives current and future users a great option to get more performance if they need it, but we must say that CM4 is still more than enough for most Home Assistant users' needs.
+
+As part of the Open Home Foundation, we fight for privacy, choice, and sustainability in the smart home. The Yellow achieves all three, and this announcement only improves the choices available and long-term sustainability.
+
+<!--more-->
+
+## Using Compute Modules
+
+When designing Yellow to give our users the ability to expand the capabilities of the device we chose Raspberry Pi's Compute Module platform. It allows users to increase the RAM, add eMMC, built-in Bluetooth, or even get more speed 😉 - without having to replace the Yellow - all you need to do is get a new module. This is also great for the repairability of the product over its lifetime.
+
+Though it was designed for the Compute Module 4 (CM4), we always hoped it would be compatible with its future successors. Over the past couple of months, we've been updating firmware and testing early hardware, and it is indeed compatible. Due to changes on CM5, the installation method is slightly more complex than it was on CM4, which is detailed below.
+
+## What CM5 could bring
+
+I must admit, it is fun to play with the latest and greatest hardware (while also finding new uses for the hardware it replaces - old Pi products make great [Wyoming satellites](https://github.com/rhasspy/wyoming-satellite)). In most use cases, such as running automations or connecting an average home's worth of devices, the majority of users will not notice any difference between a Green, CM4, or CM5.
+
+For certain power user needs CM5 might provide big improvements. Some Pi 5 users have seen nearly [3x improvements](https://www.youtube.com/watch?v=kaVND-M9pkA&t=415s) in ESPHome compilation times; saving a minute or two per device can really add up in big deployments. Another area where CM5 can excel over CM4 is running local speech-to-text processing if you're using [Assist](/voice_control/) fully locally.
+
+## Installing on CM5
+
+For the Home Assistant Yellow, we have two ways to install Home Assistant OS onto the Compute Module. One is very easy and quick (using USB 2.0), while the other is more complex (using rpiboot). Unfortunately, due to firmware differences with CM5 it cannot boot off USB 2.0 devices (though the USB 2.0 ports work once the device is booted).
+
+If you already have a Yellow running Home Assistant OS, upgrading to CM5 can be a drop-in replacement, but in some circumstances it can be more complex,
+
+- **CM4 Lite (no eMMC) with NVMe storage** - Update to the latest HAOS (version 14.0 or greater), power it down, swap the CM4 Lite for a CM5 Lite, and you're good to go.
+
+- **CM4 with eMMC (regardless if you are using NVMe or not)** -  Download a backup of your Home Assistant, power down your system, and install Home Assistant OS on the CM5 using [rpiboot](https://support.nabucasa.com/hc/en-us/articles/25485061432093-Reinstall-the-Home-Assistant-Operating-System-on-Raspberry-Pi-CM5) (the more complex installation method). Once installed restore the backup.
+
+- **New Yellow with CM5**: You will need to install Home Assistant with [rpiboot](https://support.nabucasa.com/hc/en-us/articles/25606333033501-Home-Assistant-Yellow-Kit-with-CM5) (the more complex installation method).
+
+For full details on how to set up your Home Assistant Yellow [visit our documentation](https://support.nabucasa.com/hc/en-us/categories/24734575925149-Home-Assistant-Yellow).
+
+## CM4 is still great
+
+If you have, or were looking at getting, a Home Assistant [Green](/green/) or [Yellow](/yellow/) with a CM4, both are more than capable. A third of all Home Assistant users are using Pi 4 class hardware.
+
+<img src='/images/blog/2024-11-cm5/analytics.png' style='border: 0;box-shadow: none;' alt="In our analytics Pi 4 class hardware is the most used SBC">
+
+In fact, according to our [opt-in analytics](https://analytics.home-assistant.io/), more people are using Pi 3 hardware than Pi 5 hardware (granted the Pi 5 has only had official support since [February this year](/blog/2024/02/26/home-assistant-os-12-support-for-raspberry-pi-5/)). Home Assistant continues to get updates that improve its speed on all hardware, most recently [faster backups](/blog/2024/02/26/home-assistant-os-12-support-for-raspberry-pi-5/#faster-backups) and [reboots](/blog/2024/03/06/release-20243/#home-assistant-boots-twice-as-fast). This allows people to keep hardware running longer, and in the end that is our goal 🌎.
+
+CM4 is not only powerful enough for most users, it also has a long life ahead of it. Raspberry Pi has even confirmed that they will **fully support CM4 [until 2034](https://www.raspberrypi.com/products/compute-module-4/?variant=raspberry-pi-cm4001000#:~:text=Obsolescence%20Statement)💪,** and will continue to manufacture them.
+
+## Other additions to HAOS 14
+
+On the topic of newly supported hardware, our release of Home Assistant OS 14 will bring support not only for CM5 but also for the Hailo-8 AI accelerator. This is the AI accelerator found in the [Raspberry Pi AI Kit](https://www.raspberrypi.com/documentation/accessories/ai-kit.html) or the even more powerful Raspberry Pi AI HAT+ [released](https://www.raspberrypi.com/news/raspberry-pi-ai-hat/) last month, which is exclusively for the Raspberry Pi 5. For those using a Pi 5 they can now offload AI processing, like object or person detection, to this efficient add-on.
+
+## Conclusion
+
+We're incredibly proud that, all this time later, the Home Assistant Yellow continues to be one of the best options for power users. We are excited to see how our users take advantage of CM5, and it's great to see CM4 continue to be a great option with long-term support.
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Raspberry Pi 5 support and more in Home Assistant OS release 12 & Supervisor update]]></title>
+    <link href="https://ivangrod.github.io/needlehack-blog/blog/2024/02/26/home-assistant-os-12-support-for-raspberry-pi-5/"/>
+    <updated>2024-02-26T00:00:00+00:00</updated>
+    <id>https://ivangrod.github.io/needlehack-blog/blog/2024/02/26/home-assistant-os-12-support-for-raspberry-pi-5</id>
+    <content type="html"><![CDATA[**TL;DR:** Home Assistant OS 12 adds support for Raspberry Pi 5 and ODROID-M1S boards, with the Linux kernel updated to 6.6. Additionally, backups have become faster, and add-ons can now signal when they should not be auto-updated.
+
+<p><img src='/images/blog/2024-02-haos12/haos12.png' class='no-shadow' /></p>
+
+## Raspberry Pi 5
+
+With the release of Home Assistant OS 12, we officially announce Raspberry Pi 5 support! Many Home Assistant OS users have extensively tested the preview releases during the last few months, and after some initial hiccups with the Raspberry Pi 5-specific update mechanism, things are stable and solid today. As a third of all Home Assistant users currently use a Raspberry Pi board as their dedicated Home Assistant system, we are sure this support will make many users very happy!
+
+Compared to other Raspberry Pi boards, HAOS does not use U-Boot as an extra bootloader. Instead, the Raspberry Pi's built-in “tryboot” functionality is used to automatically fall back to a previous release in case of an update failure. This new update mechanism integration required us to have a longer testing phase.
+
+In our testing, the higher CPU clock of the Raspberry Pi 5 (up to 2.4GHz) makes Home Assistant feel noticeably snappier compared to previous Raspberry Pi boards. Additionally, a Raspberry Pi HAT that provides NVMe SSD support allows you to extend your Raspberry Pi with fast, reliable, and cost-effective storage. We do recommend using an SD card as the boot medium and using the [data disk feature](/common-tasks/os/#using-external-data-disk) to move most of the Home Assistant installation onto the NVMe. This is easy to set up and guarantees a reliable boot.
+
+## ODROID-M1S
+
+The Raspberry Pi 5 is not the only new board that is supported with this release. We are happy to announce that the family of supported ODROID devices from the Korean manufacturer Hardkernel has become bigger thanks to a community contribution from Tim Lunn (darkxst), who implemented board support for the ODROID-M1S. The ODROID-M1S is the newest single-board computer from Hardkernel, which is similar to the already supported ODROID-M1, which was added in Home Assistant OS 10. This new board offers a slimmer form factor, 4 or 8 GB of RAM on board, and an embedded 64 GB eMMC storage. Home Assistant OS can be booted either from an SD card or the system can be flashed to the eMMC card using the procedure described in the [documentation](https://github.com/home-assistant/operating-system/blob/dev/Documentation/boards/hardkernel/odroid-m1s.md). While the board also has an NVMe slot for a solid-state drive, it is not supported as a boot device. However, just like on the Raspberry Pi 5, it can still be used as the data disk.
+
+Just like its larger brother, the ODROID-M1S is powered by a quad-core ARM Cortex-A55, but while ODROID-M1 has (very slightly) beefier Rockchip RK3568 SoC, this board sports the RK3566. Some of our more curious readers may notice this is the same processor that is found on our Home Assistant Green! While there are some similarities between those two boards, Home Assistant Green can offer you a seamless out-of-box experience, allowing you to set up your smart home in a matter of minutes. But Home Assistant is also about the freedom of choice, so if you are looking for a more DIY approach, ODROID-M1S might be the right choice for you.
+
+## Linux 6.6
+
+Home Assistant OS 12 now comes with Linux kernel 6.6! This is good news for those who want to run their Home Assistant on newer hardware that lacked support in the previous 6.1 kernel. This version update also allows us to extend the list of supported Wi-Fi and Bluetooth cards, including ones you may find in new mini-PCs, a popular platform for Home Assistant OS. Those who run their installations on a Raspberry Pi (including the CM4 in Home Assistant Yellow) may notice their kernel version still starts with 6.1. This is because we are not using the upstream kernel but the downstream one maintained by the Raspberry Pi developers. But this kernel was also updated to the latest stable version, which we hope will resolve some sporadic bugs.
+
+Home Assistant OS sticks to the LTS (long-term support) kernels, which are usually released once per year - just like Buildroot, the base system we use for Home Assistant OS. This time, we are slightly ahead of schedule, because usually the kernel update is done alongside the bump of the Buildroot version. But don't worry, the Buildroot update is coming soon as well, and we expect to include its update in one of the next minor Home Assistant OS releases coming in the following weeks. This will conclude this year's spring cleaning of Home Assistant OS, and we will be ready to focus on new features and improvements again!
+
+## Faster Backups
+
+Home Assistant Supervisor and Core’s built-in backup functionality has become much faster. Thanks to contributions from bdraco, the backup feature gained faster compression speeds due to a library named isal, which provides optimized low-level functions for compression and decompression. More importantly, the backup feature now avoids intermediate copies, making it faster on slower storage media especially. If you used uncompressed backups before because the backup used to be too slow for you, now is the time to give compressed backups a try again! 😀
+
+<p><img src='/images/blog/2024-02-haos12/supervisor-backup-speed-improvements.png' class='no-shadow' alt='Comparison of the speed of a 100MB backup on a Home Assistant Yellow, between Supervisor 2023.12.1 and 2024.02.0.' /></p>
+
+Home Assistant OS users’ backup functionality is part of Supervisor. You’ll have received the improvements incrementally over the releases of the past few weeks. At the time of writing, your installation should run on Home Assistant Supervisor 2024.02.0 with all these improvements built in.
+
+## Safer add-on auto-updates
+
+Last, but not least, the Supervisor features an auto-update flag for add-ons. However, depending on the nature of an update to the add-on, the new version might need user intervention or have breaking changes. Add-on developers now have the option to prevent auto-updates to such versions. Users of the auto-update feature might see an update notification despite auto-updates being enabled. This means that the author of the add-on decided that this particular update should not be auto-updated and instead be manually approved by the user.
+
+Note: We generally don’t recommend auto-updates for add-ons, as even safe updates might interfere with regular operation. For example, during the automatic update of an add-on like Z-Wave JS, your Z-Wave devices would unexpectedly become unavailable for a short time. The better approach for such add-ons is to plan some time to maintain your Home Assistant system every once in a while and update your add-ons in a batch.
+]]></content>
+  </entry>
+  
+</feed>

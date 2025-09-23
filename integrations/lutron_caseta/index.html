@@ -1,0 +1,684 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Lutron Caséta - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to use Lutron Caseta devices with Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/lutron_caseta/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Lutron Caséta">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/lutron_caseta/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to use Lutron Caseta devices with Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Lutron Caséta">
+    <meta name="twitter:description" content="Instructions on how to use Lutron Caseta devices with Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-hub-configuration">Manual hub configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#cover">Cover</a></li>
+<li class="toc-entry toc-h2"><a href="#light">Light</a></li>
+<li class="toc-entry toc-h2"><a href="#scene">Scene</a></li>
+<li class="toc-entry toc-h2"><a href="#switch">Switch</a></li>
+<li class="toc-entry toc-h2"><a href="#fan">Fan</a></li>
+<li class="toc-entry toc-h2"><a href="#sensor">Sensor</a></li>
+<li class="toc-entry toc-h2"><a href="#button">Button</a></li>
+<li class="toc-entry toc-h2"><a href="#pico-and-shade-remotes">Pico and Shade Remotes</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Lutron Caséta
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p><a href="http://www.lutron.com/" rel="external nofollow">Lutron<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> is an American lighting control company. They have several lines of home automation devices that manage light switches, dimmers, occupancy sensors, HVAC controls, etc. The <code>lutron_caseta</code> integration in Home Assistant is responsible for communicating with the Lutron Caseta Smart Bridge for the <a href="https://www.casetawireless.com/" rel="external nofollow">Caseta<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> product line of dimmers, switches, shades, and sensors. It will also communicate with the Lutron Radio RA2 Main Repeater for the <a href="http://www.lutron.com/en-US/Products/Pages/WholeHomeSystems/RA2Select/Overview.aspx" rel="external nofollow">RA2 Select<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> product line of dimmers, switches, shades, and sensors.</p>
+<p>This integration supports the <a href="https://www.casetawireless.com/" rel="external nofollow">Caséta<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://www.lutron.com/en-US/Products/Pages/WholeHomeSystems/RA2Select/Overview.aspx" rel="external nofollow">RA2 Select<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://radiora3.lutron.com/" rel="external nofollow">RadioRA 3<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, and <a href="https://www.lutron.com/en-US/Products/Pages/WholeHomeSystems/Homeworks/Overview.aspx" rel="external nofollow">Homeworks QSX<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> <strong>(not QS)</strong> lines of products.</p>
+<p>Supports Bridges:</p>
+<ul>
+<li>Lutron Caséta Smart Hub (L-BDG2-WH)</li>
+<li>Lutron Caséta Smart Bridge PRO (L-BDGPRO2-WH)</li>
+<li>RA2 Select Main Repeaters (RR-SEL-REP2-BL)</li>
+<li>QSX Processor (HQP7)</li>
+<li>RadioRA 3 All-in-One Processor (RR-PROC3)</li>
+</ul>
+<p>For the RadioRA 2 and HomeWorks QS product lines, see the <a href="/integrations/lutron/">Lutron integration</a>.</p>
+<p>The currently supported devices are:</p>
+<ul>
+<li>Wall and plug-in dimmers as <a href="#light">lights</a>
+</li>
+<li>Wall switches as <a href="#switch">switches</a>
+</li>
+<li>Scenes as <a href="#scene">scenes</a>
+</li>
+<li>Lutron shades as <a href="#cover">covers</a>
+</li>
+<li>Lutron smart <a href="#fan">fan</a> speed control</li>
+<li>Lutron Occupancy/Vacancy <a href="#sensor">sensors</a>
+</li>
+<li>Pico Remotes as <a href="/integrations/device_automation/">device triggers</a>
+</li>
+<li>Shade Remotes as <a href="/integrations/device_automation/">device triggers</a>
+</li>
+</ul>
+<p>When configured, the Lutron Caséta integration will automatically discover the currently supported devices as set up in the Lutron Smart Bridge. The name assigned in the Lutron mobile app will be used to form the <code>entity_id</code> used in Home Assistant. e.g., a dimmer called ‘Lamp’ in a room called ‘Bedroom’ becomes <code>light.bedroom_lamp</code> in Home Assistant.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Lutron Caséta</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=lutron_caseta" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>Lutron Caséta can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=lutron_caseta" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Lutron Caséta</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h2>Manual hub configuration <a class="title-link" name="manual-hub-configuration" href="#manual-hub-configuration"></a>
+</h2>
+<p>To use Lutron Caseta devices in your installation, you must first log in to your Lutron account and generate a certificate that allows Home Assistant to connect to your bridge. This can be accomplished by following the <a href="https://github.com/gurumitts/pylutron-caseta/tree/master#getting-started" rel="external nofollow">steps here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, which will generate three files: caseta.key, caseta.crt, caseta-bridge.crt when you run it.</p>
+<p>If you already have <code>caseta.key</code>, <code>caseta.crt</code>, <code>caseta-bridge.crt</code>, and cannot physically access the bridge to press the button, pairing can be done by utilizing these existing files.</p>
+<p>Once you have the three necessary files, place them in your configuration directory and add the following to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span>:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">lutron_caseta</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">IP_ADDRESS</span>
+    <span class="na">keyfile</span><span class="pi">:</span> <span class="s">caseta.key</span>
+    <span class="na">certfile</span><span class="pi">:</span> <span class="s">caseta.crt</span>
+    <span class="na">ca_certs</span><span class="pi">:</span> <span class="s">caseta-bridge.crt</span>
+</code></pre></div></div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Note that multiple hubs can be specified by using multiple configuration blocks, but each of them requires its own <code>keyfile</code>, <code>certfile</code>, and <code>ca_certs</code> to be generated and specified.</p>
+  </div>
+</div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="lutron_caseta-configuration-variables" href="#lutron_caseta-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> host </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="host" class="title-link" href="#host"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The IP address of the Lutron Smart Bridge.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> keyfile </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="keyfile" class="title-link" href="#keyfile"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The private key that Home Assistant will use to authenticate to the bridge.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> certfile </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="certfile" class="title-link" href="#certfile"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The certificate chain that Home Assistant will use to authenticate to the bridge.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> ca_certs </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="ca_certs" class="title-link" href="#ca_certs"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The list of certificate authorities (usually only one) that Home Assistant will expect when connecting to the bridge.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>It is recommended to assign a static IP address to your Lutron Smart Bridge. This ensures that it won’t change IP address, so you won’t have to change the <code>host</code> if it reboots and comes up with a different IP address.
+<br>
+Use a DHCP reservation on your router to reserve the address or in the PRO model of the Smart Bridge, set the IP address under Network Settings in the Advanced / Integration menu in the mobile app.</p>
+  </div>
+</div>
+<p>To get Lutron Caseta roller, honeycomb shades, wood blinds, lights, scene and switch working with Home Assistant, first follow the instructions for the general Lutron Caseta integration above.</p>
+<h2>Cover <a class="title-link" name="cover" href="#cover"></a>
+</h2>
+<p>After setup, shades will appear in Home Assistant using an <code>entity_id</code> based on the name used in the Lutron mobile app. For example, a shade called ‘Living Room Window’ will appear in Home Assistant as <code>cover.living_room_window</code>.</p>
+<p>For more information on working with shades in Home Assistant, see the <a href="/integrations/cover/">Covers integration</a>.</p>
+<p>Available actions: <code>cover.open_cover</code>, <code>cover.close_cover</code>, <code>cover.stop_cover</code> and <code>cover.set_cover_position</code>. Cover <code>position</code> ranges from <code>0</code> for fully closed to <code>100</code> for fully open.</p>
+<p>Available actions for tilt-only wood blinds: <code>cover.open_cover_tilt</code>, <code>cover.close_cover_tilt</code>, <code>cover.stop_cover_tilt</code>, <code>cover.toggle_tilt</code>. Cover <code>position</code> is <code>0</code> or <code>100</code> for fully closed and <code>50</code> for fully open.</p>
+<h2>Light <a class="title-link" name="light" href="#light"></a>
+</h2>
+<p>After setup, dimmable lights including wall and plug-in dimmers will appear in Home Assistant using an <code>entity_id</code> based on the name used in the Lutron mobile app. For example, a light called ‘Bedroom Lamp’ will appear in Home Assistant as <code>light.bedroom_lamp</code>.</p>
+<p>For non-dimmable lights or switched loads, see the switch section on this page.</p>
+<p>For more information on working with lights in Home Assistant, see the <a href="/integrations/light/">Lights integration</a>.</p>
+<h2>Scene <a class="title-link" name="scene" href="#scene"></a>
+</h2>
+<p>The Lutron Caseta scene platform allows you to control your Smart Bridge Scenes that are created in the Lutron mobile app.</p>
+<p>After setup, scenes will appear in Home Assistant using an <code>entity_id</code> based on the name used in the Lutron mobile app. For example, a scene called ‘Entertain’ will appear in Home Assistant as <code>scene.entertain</code>.</p>
+<p>For more information on working with scenes in Home Assistant, see the <a href="/integrations/scene/">Scenes integration</a>.</p>
+<p>Scenes are not directly supported on RA3 and QSX models, however the button platform (see below) can be used to activate scenes for these systems.</p>
+<h2>Switch <a class="title-link" name="switch" href="#switch"></a>
+</h2>
+<p>After setup, switches will appear in Home Assistant using an <code>entity_id</code> based on the name used in the Lutron mobile app. For example, a light switch called ‘Master Bathroom Vanity’ will appear in Home Assistant as <code>switch.master_bathroom_vanity</code>.</p>
+<p>For dimmable lights including wall and plug-in dimmers, see the light section on this page.</p>
+<p>For more information on working with switches in Home Assistant, see the <a href="/integrations/switch/">Switches integration</a>.</p>
+<h2>Fan <a class="title-link" name="fan" href="#fan"></a>
+</h2>
+<p>After setup, fans will appear in Home Assistant using an <code>entity_id</code> based on the name used in the Lutron mobile app. For example, a light switch called ‘Master Bedroom Ceiling Fan’ will appear in Home Assistant as <code>fan.master_bedroom_ceiling_fan</code>.</p>
+<p>For more information on working with fans in Home Assistant, see the <a href="/integrations/fan/">Fans integration</a>.</p>
+<h2>Sensor <a class="title-link" name="sensor" href="#sensor"></a>
+</h2>
+<p>Occupancy sensors can be added to a Lutron Caseta system to trigger events when an area becomes vacant and, optionally, occupied. However, Lutron systems report occupancy and vacancy statuses only in <em>occupancy groups</em> – that is, groups of one or more sensors.</p>
+<p>Occupancy groups will appear in Home Assistant using an <code>entity_id</code> based on the area name in which the first sensor of the group is located. For example, one or more sensors in the Master Bathroom will appear in Home Assistant as <code>binary_sensor.master_bathroom_occupancy</code>.</p>
+<p>An occupancy group is considered occupied if any of the sensors in the group are currently in an “occupied” state. Specifically, this means that motion has been detected more recently than that sensor’s particular timeout setting. Only after all sensors in an occupancy group report being vacant does the occupancy group itself report being vacant.</p>
+<p>Lutron Caseta occupancy sensors support 4 different timeouts and 3 different sensitivity levels, but those are only controllable from the devices themselves and cannot be set from either Home Assistant or even the Caseta mobile app.</p>
+<p>Because Lutron Caseta devices automatically report state to Home Assistant (rather than relying on polling), occupancy status updates occur almost instantaneously.</p>
+<p>For more information on working with binary sensors in Home Assistant, see the <a href="/integrations/binary_sensor/">Binary Sensors integration</a></p>
+<h2>Button <a class="title-link" name="button" href="#button"></a>
+</h2>
+<p>Button Entities are created for each Keypad button and Pico Remote button present within the system.
+Radio RA3 and HomeWorks QSX systems can use these button entities to activate scenes that are defined within the Lutron system.</p>
+<p>For more information on working with buttons in Home Assistant, see the <a href="/integrations/button/">Buttons integration</a>.</p>
+<h2>Pico and Shade Remotes <a class="title-link" name="pico-and-shade-remotes" href="#pico-and-shade-remotes"></a>
+</h2>
+<p>Pico and Shade remotes are supported on the Smart Bridge (L-BDG2-WH), Smart Bridge PRO (L-BDGPRO2-WH), and RA2 Select (RR-SEL-REP2-BL) models.</p>
+<p>Device triggers are implemented for <code>press</code> and <code>release</code> of each button on the remotes via watching for <code>lutron_caseta_button_event</code> events in the format:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"serial"</span><span class="p">:</span><span class="w"> </span><span class="mi">28786608</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FourGroupRemote"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"button_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"device_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shade Remote"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"area_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Upstairs Hall"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"press"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/lutron_caseta.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Flutron_caseta%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20lutron_caseta" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+lutron_caseta%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/lutron_caseta//logo.png' srcset='https://brands.home-assistant.io/_/lutron_caseta/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=lutron_caseta' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Lutron Caséta  integration  was introduced in Home Assistant 0.41, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          2.4%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/lutron_caseta" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+lutron_caseta%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/swails" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/swails?size=96" alt="@swails"/> @swails</a><br /><a href="https://github.com/danaues" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/danaues?size=96" alt="@danaues"/> @danaues</a><br /><a href="https://github.com/eclair4151" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/eclair4151?size=96" alt="@eclair4151"/> @eclair4151</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-hub-configuration">Manual hub configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#cover">Cover</a></li>
+<li class="toc-entry toc-h2"><a href="#light">Light</a></li>
+<li class="toc-entry toc-h2"><a href="#scene">Scene</a></li>
+<li class="toc-entry toc-h2"><a href="#switch">Switch</a></li>
+<li class="toc-entry toc-h2"><a href="#fan">Fan</a></li>
+<li class="toc-entry toc-h2"><a href="#sensor">Sensor</a></li>
+<li class="toc-entry toc-h2"><a href="#button">Button</a></li>
+<li class="toc-entry toc-h2"><a href="#pico-and-shade-remotes">Pico and Shade Remotes</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#button'>Button</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#fan'>Fan</a>
+          </li><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#scene'>Scene</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,972 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Universal Devices ISY/IoX - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to setup an ISY controller within Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/isy994/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Universal Devices ISY/IoX">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/isy994/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to setup an ISY controller within Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Universal Devices ISY/IoX">
+    <meta name="twitter:description" content="Instructions on how to setup an ISY controller within Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#configuration-options">Configuration Options</a></li>
+<li class="toc-entry toc-h3"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#isyiox-variables">ISY/IoX Variables</a></li>
+<li class="toc-entry toc-h3"><a href="#handling-insteon-or-other-isy-control-events">Handling Insteon or Other ISY Control Events</a></li>
+<li class="toc-entry toc-h3"><a href="#insteon-scenes--keypadremote-buttons">Insteon Scenes &amp; Keypad/Remote Buttons</a></li>
+<li class="toc-entry toc-h3"><a href="#insteon-device-configuration-support">Insteon Device Configuration Support</a></li>
+<li class="toc-entry toc-h3"><a href="#actions">Actions</a></li>
+<li class="toc-entry toc-h3"><a href="#creating-custom-devices-using-isy-programs">Creating Custom Devices using ISY Programs</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Universal Devices ISY/IoX
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>ISY is a home automation controller capable of controlling Insteon, X10, Z-Wave and Zigbee/Matter devices connected to supported hardware manufactured by <a href="https://www.universal-devices.com/" rel="external nofollow">Universal Devices, Inc.<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>This integration supports the legacy ISY994 hardware family, as well as current ISY-on-Anything (IoX) hardware, such as the <a href="https://www.universal-devices.com/product/eisy-home/" rel="external nofollow">eisy<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or <a href="https://www.universal-devices.com/polisy/" rel="external nofollow">Polisy<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> devices.</p>
+<p>There is currently support for the following platforms within Home Assistant:</p>
+<ul>
+<li>Binary sensor</li>
+<li>Button</li>
+<li>Climate</li>
+<li>Cover</li>
+<li>Light</li>
+<li>Fan</li>
+<li>Lock</li>
+<li>Number</li>
+<li>Select</li>
+<li>Sensor</li>
+<li>Switch</li>
+</ul>
+<p>Home Assistant is capable of communicating with any binary sensor, cover, fan, light, lock, sensor and switch that is configured on the controller. Using the programs on the controller, custom binary sensors, covers, fans, locks, and switches can also be created. Each device and the ISY hub also include a Query button to query the device.</p>
+<p>ISY Networking Module Resources can be executed using the buttons created.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Universal Devices ISY/IoX</strong> hub to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=isy994" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>Universal Devices ISY/IoX can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=isy994" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Universal Devices ISY/IoX</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<p>Once the ISY controller is configured, it will automatically import any binary sensors, covers, fans, lights, locks, sensors and switches it can locate.</p>
+<h3>Configuration Options <a class="title-link" name="configuration-options" href="#configuration-options"></a>
+</h3>
+<p>There are several options available to further customize what is imported from the ISY controller and entity behavior.</p>
+<ul>
+<li>Sensor String: This is the string that is used to identify which devices are to be assumed to be sensors instead of lights or switches. If this string is found in the device name or folder, Home Assistant will consider it a sensor or binary sensor (if the device has on/off or true/false states). This is only necessary for nodes that are not automatically detected as sensors by Home Assistant. Insteon door, window, motion, and leak sensors should all be detected automatically.</li>
+<li>Variable Sensor String: This is the string that is used to identify which Integer or State Variables are to be enabled by default as <code>number</code> entities. If this string is found in the device name, Home Assistant will assume it is a sensor. The default is <code>"HA."</code>.</li>
+<li>Ignore String: Any devices that contain this string in their name (or folder path) will be ignored by Home Assistant. They will not become entities and will not fire <code>control_events</code>. The default is <code>"{IGNORE ME}"</code>.</li>
+<li>Restore Light State: If disabled (default behavior), lights turned ON from Home Assistant without a <code>brightness</code> parameter set will turn on to the <code>on_level</code> set within the physical device. For example, on Insteon devices, this would be the same brightness as if the switch/device was turned ON. If this setting is enabled, lights that are turned on from Home Assistant will go to the last known brightness value. Both the <code>on_level</code> and <code>last_brightness</code> values are available as attributes if needed for device-specific customization.</li>
+</ul>
+<h3>Sensors <a class="title-link" name="sensors" href="#sensors"></a>
+</h3>
+<p>An Insteon door/window sensor will show up as a single binary sensor rather than two discrete devices like it does in the ISY Admin Console. Note that when in “Two Nodes” mode, the sensor will have an UNKNOWN state until the sensor changes for the first time since the last Home Assistant reboot. If you do not use Insteon scenes that are controlled directly from the door sensor, you may prefer to set the sensor to “One Node” mode using the ISY Admin Panel.</p>
+<p>Each Insteon leak sensor will also show up as a single binary sensor as opposed to the two nodes seen in the ISY Admin Console. The name of the device will be based on what the parent node is named in the ISY, which is typically the one with “-Dry” at the end of the name. This may be confusing, because “On” means wet in Home Assistant. You can rename this node in Home Assistant to be more clear, see the <a href="/docs/configuration/customizing-devices/">Customization section</a> of your configuration.</p>
+<p>If your leak or door/window sensor supports heartbeats, a new binary_sensor device will be added to Home Assistant to represent the battery state. The sensor will stay “Off” so long as the daily heartbeats occur. If a heartbeat is missed, the sensor will flip to “On”. The name of this device will be based on the heartbeat node in the ISY.</p>
+<h3>ISY/IoX Variables <a class="title-link" name="isyiox-variables" href="#isyiox-variables"></a>
+</h3>
+<p>Integer and State Variables from the ISY are imported as <code>number</code> entities. You can choose which variables are enabled by default by setting the “Variable Sensor String” Config Option and using it as part of the variable name in the ISY Admin Console (e.g., <code>HA.</code> in options and <code>HA.Variable Name</code> on the ISY) or you can manually enable the entities you need from the ISY Variables device in Home Assistant.</p>
+<h3>Handling Insteon or Other ISY Control Events <a class="title-link" name="handling-insteon-or-other-isy-control-events" href="#handling-insteon-or-other-isy-control-events"></a>
+</h3>
+<p>A Home Assistant <code>isy994_control</code> event is emitted for every “control” event in the ISY’s device network (as long as the device has not been ignored or disabled in Home Assistant). This allows you to write automations that trigger based on events such as Insteon button presses. You can also trigger off of the unique Insteon/Zigbee/Z-Wave events, such as double-presses, long-holds etc.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">turn</span><span class="nv"> </span><span class="s">off</span><span class="nv"> </span><span class="s">living</span><span class="nv"> </span><span class="s">room</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">double</span><span class="nv"> </span><span class="s">tap</span><span class="nv"> </span><span class="s">lightswitch"</span>
+    <span class="na">triggers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+        <span class="na">event_type</span><span class="pi">:</span> <span class="s">isy994_control</span>
+        <span class="na">event_data</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">light.lr_track_lights_front</span>
+          <span class="na">control</span><span class="pi">:</span> <span class="s2">"</span><span class="s">DFON"</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="m">255</span>
+          <span class="na">formatted</span><span class="pi">:</span> <span class="s2">"</span><span class="s">On"</span>
+          <span class="na">uom</span><span class="pi">:</span> <span class="s2">"</span><span class="s">100"</span>
+          <span class="na">prec</span><span class="pi">:</span> <span class="s2">"</span><span class="s">0"</span>
+    <span class="na">actions</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">light.turn_off</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">light.lr_track_lights_rear</span>
+</code></pre></div></div>
+<p>All <code>isy994_control</code> events will have an <code>entity_id</code> and <code>control</code> parameter in its <code>event_data</code>. You’ll need to refer to ISY documentation for the list of every possible control type, but the common ones are:</p>
+<ul>
+<li>
+<code>DON</code>: On button.</li>
+<li>
+<code>DOF</code>: Off button.</li>
+<li>
+<code>DFON</code>: “Fast On”, usually from double-tapping an On button.</li>
+<li>
+<code>DFOF</code>: “Fast Off”, usually from double-tapping an Off button.</li>
+<li>
+<code>FDUP</code>: “Fade Up”, usually while holding down an On button.</li>
+<li>
+<code>FDDOWN</code>: “Fade Down”, usually while holding down an Off button.</li>
+<li>
+<code>FDSTOP</code>: “Fade Stop”, when releasing a long-held button.</li>
+<li>
+<code>BRT</code>: “Brighten”, from controllers that issue a single command to slightly brighten a light.</li>
+<li>
+<code>DIM</code>: “Dim”, from controllers that issue a single command to slightly dim a light.</li>
+</ul>
+<h3>Insteon Scenes &amp; Keypad/Remote Buttons <a class="title-link" name="insteon-scenes--keypadremote-buttons" href="#insteon-scenes--keypadremote-buttons"></a>
+</h3>
+<p>All Insteon scenes configured in the ISY Admin Console will show up as a <code>switch</code> in Home Assistant, as they do not support dimming or setting specific brightness settings as Home Assistant’s <code>light</code> integration.</p>
+<p>Insteon Secondary Keypad buttons and Remote buttons are added to Home Assistant to allow support for using Control Events in Automations. These devices are added as <code>sensors</code> since they cannot be directly controlled (turned on/off); their state is the last ON level command they sent, in a range from <code>0</code> (Off) to <code>255</code> (On 100%).  Note: these devices may report incorrect states before being used after a reboot of the ISY. Secondary Keypad buttons may be turned on or off using ISY Scenes (refer to ISY Documentation for more details).</p>
+<h3>Insteon Device Configuration Support <a class="title-link" name="insteon-device-configuration-support" href="#insteon-device-configuration-support"></a>
+</h3>
+<p>Insteon devices will include entities for setting the device On Level, Ramp Rate, and Backlight Level, if supported; as well as <code>button</code> entities for <code>Beep</code> and <code>Query</code> actions. Note: Backlight Level cannot be read from the device, so an assumed state is used. The current state in Home Assistant will be valid if the backlight is changed from Home Assistant and will also be updated if changed from the ISY Admin Console or REST command while Home Assistant is running. Additional configuration changes still require the ISY Admin Console.</p>
+<h3>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h3>
+<p>Once loaded, the following actions will be exposed with the <code>isy994.</code> prefix, to allow advanced control over the ISY and its connected devices:</p>
+<ul>
+<li>Actions for all Home Assistant-connected entities: <code>send_node_command</code>, <code>send_raw_node_command</code>.</li>
+<li>ISY Z-Wave Node actions: <code>get_zwave_parameter</code>, <code>set_zwave_parameter</code>, <code>set_zwave_lock_user_code</code>, <code>delete_zwave_lock_user_code</code>
+</li>
+<li>Generic ISY actions: <code>send_program_command</code>
+</li>
+</ul>
+<h4>Action isy994.send_node_command <a class="title-link" name="action-isy994send_node_command" href="#action-isy994send_node_command"></a>
+</h4>
+<p>Send a command to an ISY Device using its Home Assistant entity ID. Valid commands are: <code>beep</code>, <code>brighten</code>, <code>dim</code>, <code>disable</code>, <code>enable</code>, <code>fade_down</code>, <code>fade_stop</code>, <code>fade_up</code>, <code>fast_off</code>, <code>fast_on</code>, and <code>query</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Name(s) of target entities for the command, e.g., <code>light.front_porch</code>.</td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>no</td>
+<td>The command to be sent to the device, e.g., <code>"fast_on"</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>Action isy994.send_raw_node_command <a class="title-link" name="action-isy994send_raw_node_command" href="#action-isy994send_raw_node_command"></a>
+</h4>
+<p>Send a “raw” (e.g., <code>DON</code>, <code>DOF</code>) ISY REST Device Command to a Node using its Home Assistant Entity ID. This is useful for devices that aren’t fully supported in Home Assistant yet, such as controls for many NodeServer nodes. Refer to the ISY (or PyISY Python Module) Documentation for details of valid commands.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Name(s) of target entities for the command, e.g., <code>light.front_porch</code>.</td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>no</td>
+<td>The ISY REST Command to be sent to the device, e.g., <code>"DON"</code>
+</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>yes</td>
+<td>The integer value to be sent with the command, if required by the command, e.g., <code>255</code>
+</td>
+</tr>
+<tr>
+<td><code>parameters</code></td>
+<td>yes</td>
+<td>A <code>dict</code> of parameters to be sent in the query string for controlling colored bulbs or advanced parameters, e.g., <code>{ GV2: 0, GV3: 0, GV4: 255 }</code>
+</td>
+</tr>
+<tr>
+<td><code>unit_of_measurement</code></td>
+<td>yes</td>
+<td>The ISY Unit of Measurement (UOM) to send with the command, if required, e.g., <code>67</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>Action isy994.get_zwave_parameter <a class="title-link" name="action-isy994get_zwave_parameter" href="#action-isy994get_zwave_parameter"></a>
+</h4>
+<p>Request a Z-Wave Device parameter via the ISY. The parameter value will be returned as an entity extra state attribute with the name “ZW#” where “#” is the parameter number.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Name of target entity for the command, e.g., <code>light.front_porch</code>. This must be an ISY Z-Wave Node.</td>
+</tr>
+<tr>
+<td><code>parameter</code></td>
+<td>no</td>
+<td>The parameter number to retrieve from the end device.</td>
+</tr>
+</tbody>
+</table>
+<h4>Action isy994.set_zwave_parameter <a class="title-link" name="action-isy994set_zwave_parameter" href="#action-isy994set_zwave_parameter"></a>
+</h4>
+<p>Update a Z-Wave Device parameter via the ISY. The parameter value will also be returned as an entity extra state attribute with the name “ZW#” where “#” is the parameter number.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Name of target entity for the command, e.g., <code>light.front_porch</code>. This must be an ISY Z-Wave Node.</td>
+</tr>
+<tr>
+<td><code>parameter</code></td>
+<td>no</td>
+<td>The parameter number to set on the end device.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>no</td>
+<td>The value to set for the parameter. May be an integer or byte string (e.g. “0xFFFF”).</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>no</td>
+<td>The size of the parameter, either 1, 2, or 4 bytes.</td>
+</tr>
+</tbody>
+</table>
+<h4>Action isy994.set_zwave_lock_user_code <a class="title-link" name="action-isy994set_zwave_lock_user_code" href="#action-isy994set_zwave_lock_user_code"></a>
+</h4>
+<p>Set a Z-Wave Lock User Code via the ISY.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Name of target entity for the command, e.g., <code>lock.front_door</code>. The entity must be an ISY Z-Wave Lock entity.</td>
+</tr>
+<tr>
+<td><code>user_num</code></td>
+<td>no</td>
+<td>The user slot number to set on the end device.</td>
+</tr>
+<tr>
+<td><code>code</code></td>
+<td>no</td>
+<td>The lock code to set for the user slot.</td>
+</tr>
+</tbody>
+</table>
+<h4>Action isy994.delete_zwave_lock_user_code <a class="title-link" name="action-isy994delete_zwave_lock_user_code" href="#action-isy994delete_zwave_lock_user_code"></a>
+</h4>
+<p>Delete a Z-Wave Lock User Code via the ISY.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Name of target entity for the command, e.g., <code>lock.front_door</code>. The entity must be an ISY Z-Wave Lock entity.</td>
+</tr>
+<tr>
+<td><code>user_num</code></td>
+<td>no</td>
+<td>The user slot number to delete the code on the end device.</td>
+</tr>
+</tbody>
+</table>
+<h4>Action isy994.rename_node <a class="title-link" name="action-isy994rename_node" href="#action-isy994rename_node"></a>
+</h4>
+<p>Rename a node or group (scene) on the ISY994. Note: this will not automatically change the Home Assistant Entity Name or Entity ID to match. The entity name and ID will only be updated after reloading the integration or restarting Home Assistant, and ONLY IF you have not already customized the name within Home Assistant.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Name of target entity for the command, e.g., <code>light.front_porch</code>.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>no</td>
+<td>The new name to use within the ISY.</td>
+</tr>
+</tbody>
+</table>
+<h4>Action isy994.send_program_command <a class="title-link" name="action-isy994send_program_command" href="#action-isy994send_program_command"></a>
+</h4>
+<p>Send a command to control an ISY program or folder. Valid commands are <code>run</code>, <code>run_then</code>, <code>run_else</code>, <code>stop</code>, <code>enable</code>, <code>disable</code>, <code>enable_run_at_startup</code>, and <code>disable_run_at_startup</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>command</code></td>
+<td>no</td>
+<td>The ISY Program Command to be sent, e.g., <code>"run"</code>
+</td>
+</tr>
+<tr>
+<td><code>address</code></td>
+<td>yes</td>
+<td>The address of the program to control (optional, use either <code>address</code> or <code>name</code>), e.g., <code>"04B1"</code>
+</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>yes</td>
+<td>The name of the program to control (optional, use either <code>address</code> or <code>name</code>), e.g., <code>"My Program"</code>
+</td>
+</tr>
+<tr>
+<td><code>isy</code></td>
+<td>yes</td>
+<td>(Optional) If you have more than one ISY connected, provide the name of the ISY to query (as shown on the Device Registry or as the top-first node in the ISY Admin Console).  If you have the same program name or address on multiple ISYs, omitting this will run the command on them all, e.g., <code>"ISY"</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Creating Custom Devices using ISY Programs <a class="title-link" name="creating-custom-devices-using-isy-programs" href="#creating-custom-devices-using-isy-programs"></a>
+</h3>
+<p>Using the Programs tab in the controller’s Administrative Console, custom devices can be created that will appear natively inside of Home Assistant. Home Assistant will scan the following folders and build the device to the associated domains:</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="text">My Programs
+├── HA.binary_sensor
+|   ├── Movement In House
+|   |   └── status
+|   └── Garage Open
+|   |   └── status
+├── HA.cover
+|   ├── Left Garage Door
+|   |   ├── actions
+|   |   └── status
+|   ├── Living Room Blinds
+|   |   ├── actions
+|   |   └── status
+├── HA.fan
+|   ├── Desk Fan
+|   |   ├── actions
+|   |   └── status
+|   ├── Living Room Fan
+|   |   ├── actions
+|   |   └── status
+├── HA.lock
+|   ├── Front Door
+|   |   ├── actions
+|   |   └── status
+|   ├── Back Door
+|   |   ├── actions
+|   |   └── status
+├── HA.switch
+|   ├── Dining Lights
+|   |   ├── actions
+|   |   └── status
+|   ├── Sleep Mode
+|   |   ├── actions
+|   |   └── status
+</code></pre></div></div>
+<p>A device is created by creating a directory, with the name for the device, under any of the following root directories:</p>
+<ul>
+<li>
+<em>HA.binary_sensor</em> will create a binary sensor (see <a href="/getting-started/customizing-devices/">Customizing Devices</a> to set the sensor class).</li>
+<li>
+<em>HA.cover</em> will create a cover.</li>
+<li>
+<em>HA.fan</em> will create a fan.</li>
+<li>
+<em>HA.lock</em> will create a lock.</li>
+<li>
+<em>HA.switch</em> will create a switch.</li>
+</ul>
+<p>A program, named <em>status</em>, is required under the program device directory. A program, named <em>actions</em>, is required for all program devices except for binary_sensor. Any other programs in these device directories will be ignored.</p>
+<p class="img">
+  <img src="/images/isy994/isy994_CoverExample.png">
+</p>
+<p>The <em>status</em> program requires that you create a state variable with the name of your choice. Note that you must use a state variable, not an integer variable. This variable will store the actual status of the new device and will be updated by the <em>action</em> program.</p>
+<p><img src="/images/isy994/isy994_switch_variable_example.png" alt="Screenshot of switch variable"></p>
+<p>The IF clause of the <em>status</em> program in the device directory is what indicates the state of the device:</p>
+<ul>
+<li>
+<em>binary_sensor</em> on if the clause returns true, otherwise off.</li>
+<li>
+<em>cover</em> closed if the clause returns true, otherwise open.</li>
+<li>
+<em>fan</em> on if the clause returns true, otherwise off.</li>
+<li>
+<em>lock</em> locked if the clause returns true, otherwise unlocked.</li>
+<li>
+<em>switch</em> on if the clause returns true, otherwise off.</li>
+</ul>
+<p class="img">
+  <img src="/images/isy994/isy994_SwitchStatusExample.png">
+</p>
+<p>The <em>actions</em> program indicates what should be performed for the following device actions:</p>
+<ul>
+<li>
+<em>cover</em> the THEN clause is evaluated for the <code>open_cover</code> action, the ELSE clause is evaluated for the <code>close_cover</code> action.</li>
+<li>
+<em>fan</em> the THEN clause is evaluated for the <code>turn_on</code> action, the ELSE clause is evaluated for the <code>turn_off</code> action.</li>
+<li>
+<em>lock</em> the THEN clause is evaluated for the <code>lock</code> action, the ELSE clause is evaluated for the <code>unlock</code> action.</li>
+<li>
+<em>switch</em> the THEN clause is evaluated for the <code>turn_on</code> action, the ELSE clause is evaluated for the <code>turn_off</code> action.</li>
+</ul>
+<p class="img">
+  <img src="/images/isy994/isy994_SwitchActionsExample.png">
+</p>
+<p>The example program above shows how to control a legacy X10 device from Home Assistant using an ISY controller.</p>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/isy994.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fisy994%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20isy994" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+isy994%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/isy994//logo.png' srcset='https://brands.home-assistant.io/_/isy994/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=isy994' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Universal Devices ISY/IoX  hub  was introduced in Home Assistant 0.28, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          471</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/isy994" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+isy994%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/bdraco" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/bdraco?size=96" alt="@bdraco"/> @bdraco</a><br /><a href="https://github.com/shbatm" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/shbatm?size=96" alt="@shbatm"/> @shbatm</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#configuration-options">Configuration Options</a></li>
+<li class="toc-entry toc-h3"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#isyiox-variables">ISY/IoX Variables</a></li>
+<li class="toc-entry toc-h3"><a href="#handling-insteon-or-other-isy-control-events">Handling Insteon or Other ISY Control Events</a></li>
+<li class="toc-entry toc-h3"><a href="#insteon-scenes--keypadremote-buttons">Insteon Scenes &amp; Keypad/Remote Buttons</a></li>
+<li class="toc-entry toc-h3"><a href="#insteon-device-configuration-support">Insteon Device Configuration Support</a></li>
+<li class="toc-entry toc-h3"><a href="#actions">Actions</a></li>
+<li class="toc-entry toc-h3"><a href="#creating-custom-devices-using-isy-programs">Creating Custom Devices using ISY Programs</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#button'>Button</a>
+          </li><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#fan'>Fan</a>
+          </li><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#lock'>Lock</a>
+          </li><li>
+            <a href='/integrations/#number'>Number</a>
+          </li><li>
+            <a href='/integrations/#select'>Select</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

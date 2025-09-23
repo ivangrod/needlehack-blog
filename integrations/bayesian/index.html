@@ -1,0 +1,816 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bayesian - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate threshold Bayesian sensors into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/bayesian/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Bayesian">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/bayesian/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate threshold Bayesian sensors into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Bayesian">
+    <meta name="twitter:description" content="Instructions on how to integrate threshold Bayesian sensors into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#theory">Theory</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#estimating-probabilities">Estimating probabilities</a></li>
+<li class="toc-entry toc-h2"><a href="#full-examples">Full examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#state">State</a></li>
+<li class="toc-entry toc-h3"><a href="#numeric-state">Numeric State</a></li>
+<li class="toc-entry toc-h3"><a href="#template">Template</a></li>
+<li class="toc-entry toc-h3"><a href="#multiple-state-and-numeric-entries-per-entity">Multiple state and numeric entries per entity</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Bayesian
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>A <code>Bayesian</code> helper is a virtual binary sensor that determines its state based on the combination of multiple other sensors using probabilistic methods.</p>
+<p>This approach enables the detection of complex events that are not directly or easily measurable, such as cooking, showering, being in bed, or starting a morning routine. Additionally, it can improve confidence and reliability in measurable events where sensors may be unreliable, such as some presence detectors.</p>
+<p>Bayesian works by applying <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem" rel="external nofollow">Bayes’ rule<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. It estimates the likelihood that a specific event is occurring based on the combination of the states of ‘observed’ sensors and a baseline, (<code>prior</code>) probability. When the calculated probability - known as a ‘posterior’ - exceeds the defined <code>probability_threshold</code>, the <code>bayesian</code> sensor will turn <code>on</code>; otherwise, it will be <code>off</code>.</p>
+<p>Both UI and YAML setups are supported, importantly YAML uses probabilities of <code>0</code> to <code>1</code> whereas the UI uses percentages, <code>0</code> to <code>100</code>.</p>
+<h2>Theory <a class="title-link" name="theory" href="#theory"></a>
+</h2>
+<p>A fundamental concept in Bayes’ Rule is the distinction between the probability of an <em>event given an observation</em> and the probability of an <em>observation given an event</em>. These two probabilities are not interchangeable and must be considered separately. While they may be similar in some cases — for example, when motion sensors are accurate, the probability that someone is in the room <em>given</em> that motion is detected is often close to the probability that motion is detected <em>given</em> someone is in the room.</p>
+<p>Now consider the above, but in a home that has cats. The probability that the room is human-occupied <em>given</em> that motion detected may be quite low (e.g. 20%, p=0.2) if the room is popular with the cats. However, the probability that motion is detected <em>given</em> that it is occupied by a human is high (e.g 95%, p = 0.95) if our motion sensor is accurate. Said succinctly, not all motion is human, but all humans move.</p>
+<p>When configuring these conditional probabilities, define the probability of the sensor observation (e.g motion detected) <em>given</em> the thing you are trying to estimate (e.g human-occupancy of the room).</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Bayesian</strong> service to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=bayesian" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=bayesian" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Bayesian</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<p>Once you have created a Bayesian helper, you can add and edit ‘observations’ here:
+<a href="https://my.home-assistant.io/redirect/integration?domain=bayesian" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/integration.svg"></a></p>
+<p>To configure a YAML Bayesian sensor, add an entry using the following structure to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file.
+After changing the <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file, <a href="/docs/configuration/#reloading-the-configuration-to-apply-changes">restart Home Assistant</a> to apply the changes.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">binary_sensor</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">bayesian</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Kitchen</span><span class="nv"> </span><span class="s">Occupied</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">Humans"</span>
+    <span class="na">prior</span><span class="pi">:</span> <span class="m">0.3</span> <span class="c1"># The kitchen is occupied by humans about 30% of the time</span>
+    <span class="na">probability_threshold</span><span class="pi">:</span> <span class="m">0.5</span> <span class="c1"># I care about false positives and false negatives equally</span>
+    <span class="na">observations</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">binary_sensor.kitchen_motion"</span>
+        <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.95</span> <span class="c1"># When humans are in the kitchen, the motion sensor detects them 95% of the time</span>
+        <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.33</span> <span class="c1"># When no humans are in the kitchen, the cats trigger the motion sensor 33% of the time</span>
+        <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">state"</span>
+        <span class="na">to_state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="bayesian-configuration-variables" href="#bayesian-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> prior </span><span class="config-vars-type">float</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="prior" class="title-link" href="#prior"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The baseline probability of the event (0 to 1). At any given time (if you knew nothing of the ‘observations’) how likely is this event to be occurring?</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> probability_threshold </span><span class="config-vars-type">float</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 0.5</span>)</span><a name="probability_threshold" class="title-link" href="#probability_threshold"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The posterior probability at which the sensor should trigger to <code>on</code>. use higher values to reduce false positives (and increase false negatives) Note: If the threshold is higher than the <code>prior</code>, then the default state will be <code>off</code></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: Bayesian Binary Sensor</span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the sensor to use in the frontend.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> unique_id </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="unique_id" class="title-link" href="#unique_id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>An ID that uniquely identifies this Bayesian entity. If two entities have the same unique ID, Home Assistant will raise an exception.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> device_class </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="device_class" class="title-link" href="#device_class"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Sets the <a href="/integrations/binary_sensor/">class of the device</a>, changing the device state and icon that is displayed on the frontend.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> observations </span><span class="config-vars-type">list</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="observations" class="title-link" href="#observations"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The observations which should influence the probability that the given event is occurring.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> platform </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="platform" class="title-link" href="#platform"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The supported platforms are <code>state</code>, <code>numeric_state</code>, and <code>template</code>. They are modeled after their corresponding triggers for automations, requiring <code>to_state</code> (for <code>state</code>), <code>below</code> and/or <code>above</code> (for <code>numeric_state</code>) and <code>value_template</code> (for <code>template</code>).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> entity_id </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="entity_id" class="title-link" href="#entity_id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the entity to monitor. Required for <code>state</code> and <code>numeric_state</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> to_state </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="to_state" class="title-link" href="#to_state"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The entity state that defines the observation. Required (for <code>state</code>).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> value_template </span><span class="config-vars-type"><a href="/docs/configuration/templating/">template</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="value_template" class="title-link" href="#value_template"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Defines the template to be used, should evaluate to <code>True</code> or <code>False</code>. Required for <code>template</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> prob_given_true </span><span class="config-vars-type">float</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="prob_given_true" class="title-link" href="#prob_given_true"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Assuming the Bayesian binary_sensor is <code>on</code>, the probability that the entity state is occurring.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> prob_given_false </span><span class="config-vars-type">float</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="prob_given_false" class="title-link" href="#prob_given_false"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Assuming the Bayesian binary_sensor is <code>off</code>, the probability that the entity state is occurring.</p>
+</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h2>Estimating probabilities <a class="title-link" name="estimating-probabilities" href="#estimating-probabilities"></a>
+</h2>
+<ol>
+<li>Avoid <code>0</code> and <code>1</code>; these will mess with the odds and are rarely true—sensors fail.</li>
+<li>When using <code>0.99</code> and <code>0.001</code>, the number of <code>9</code>s and <code>0</code>s matters.</li>
+<li>Most probabilities will be time-based - the fraction of time something is true is also the probability it will be true.</li>
+<li>Use your Home Assistant history to help estimate the probabilities.
+<ul>
+<li>
+<strong>Probability when Bayesian sensor <code>on</code></strong> (<code>prob_given_true:</code>) - Select the sensor in question over a time range when you think the <code>bayesian</code> sensor should have been <code>on</code>. <code>prob_given_true:</code> is the fraction of the time the sensor was in <code>to_state:</code>.</li>
+<li>
+<strong>Probability when Bayesian sensor <code>off</code></strong> (<code>prob_given_false:</code>) - Select the sensor in question over a time range when you think the <code>bayesian</code> sensor should have been <code>off</code>. <code>prob_given_false:</code> is the fraction of the time the sensor was in <code>to_state:</code>.</li>
+</ul>
+</li>
+<li>Don’t work backwards by tweaking <code>prob_given_true:</code> and <code>prob_given_false:</code> to force desired outcomes; use guideline #4 to estimate probabilities as accurately as possible. If the behavior still isn’t as expected, consider adding more sensors or see #6.</li>
+<li>If your Bayesian sensor ends up triggering <code>on</code> too easily, re-check that the probabilities make sense, then consider increasing <code>probability_threshold:</code> and vice versa.</li>
+</ol>
+<h2>Full examples <a class="title-link" name="full-examples" href="#full-examples"></a>
+</h2>
+<p>These are a number of worked examples which you may find helpful for each of the state types.</p>
+<h3>State <a class="title-link" name="state" href="#state"></a>
+</h3>
+<p>The following is an example for the <code>state</code> observation platform.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">binary_sensor</span><span class="pi">:</span>
+  <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">bayesian"</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">in_bed"</span>
+  <span class="na">unique_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">172b6ef1-e37e-4f04-8d64-891e84c02b43"</span> <span class="c1"># generated on https://www.uuidgenerator.net/</span>
+  <span class="na">prior</span><span class="pi">:</span> <span class="m">0.25</span> <span class="c1"># I spend 6 hours a day in bed 6hr/24hr is 0.25 </span>
+  <span class="na">probability_threshold</span><span class="pi">:</span> <span class="m">0.8</span> <span class="c1"># I am going to be using this sensor to turn out the lights so I only want to to activate when I am sure</span>
+  <span class="na">observations</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.living_room_motion"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.05</span> <span class="c1"># If I am in bed then I shouldn't be in the living room, very occasionally I have guests, however</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.2</span> <span class="c1"># My sensor history shows If I am not in bed I spend about a fifth of my time in the living room</span>
+      <span class="na">to_state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.basement_motion"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.5</span> <span class="c1"># My sensor history shows, when I am in bed, my basement motion sensor is active about half the time because of my cat</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.3</span> <span class="c1"># As above but my cat tends to spend more time upstairs or outside when I am awake and I rarely use the basement</span>
+      <span class="na">to_state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.bedroom_motion"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.5</span> <span class="c1"># My sensor history shows when I am in bed the sensor picks me up about half the time</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.1</span> <span class="c1"># My sensor history shows I spend about 10% of my waking hours in my bedroom</span>
+      <span class="na">to_state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sun.sun"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.7</span> <span class="c1"># If I am in bed then there is a good chance the sun will be down, but in the summer mornings I may still be in bed</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.45</span> <span class="c1"># If I am am awake then there is a reasonable chance the sun will be below the horizon - especially in winter</span>
+      <span class="na">to_state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">below_horizon"</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.android_charger_type"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.95</span> <span class="c1"># When I am in bed, I nearly always plug my phone in to charge</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.1</span> <span class="c1"># When I am awake, I occasionally AC charge my phone</span>
+      <span class="na">to_state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ac"</span>
+</code></pre></div></div>
+<h3>Numeric State <a class="title-link" name="numeric-state" href="#numeric-state"></a>
+</h3>
+<p>Next up an example which targets the <code>numeric_state</code> observation platform,
+as seen in the configuration it requires <code>below</code> and/or <code>above</code> instead of <code>to_state</code>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">binary_sensor</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Heat</span><span class="nv"> </span><span class="s">On"</span>
+  <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">bayesian"</span>
+  <span class="na">prior</span><span class="pi">:</span> <span class="m">0.2</span>
+  <span class="na">probability_threshold</span><span class="pi">:</span> <span class="m">0.9</span>
+  <span class="na">observations</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">numeric_state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.outside_air_temperature_fahrenheit"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.95</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.05</span>
+      <span class="na">below</span><span class="pi">:</span> <span class="m">50</span>
+</code></pre></div></div>
+<h3>Template <a class="title-link" name="template" href="#template"></a>
+</h3>
+<p>Here’s an example for <code>template</code> observation platform, as seen in the configuration it requires <code>value_template</code>. This template will evaluate to true if the device tracker <code>device_tracker.paulus</code> shows <code>not_home</code> and it last changed its status more than 5 minutes ago.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">binary_sensor</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Paulus</span><span class="nv"> </span><span class="s">Home"</span>
+  <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">bayesian"</span>
+  <span class="na">device_class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">presence"</span>
+  <span class="na">prior</span><span class="pi">:</span> <span class="m">0.5</span>
+  <span class="na">probability_threshold</span><span class="pi">:</span> <span class="m">0.9</span>
+  <span class="na">observations</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">template</span>
+      <span class="na">value_template</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{{is_state('device_tracker.paulus','not_home') and ((as_timestamp(now()) - as_timestamp(states.device_tracker.paulus.last_changed)) &gt; 300)}}</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.05</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.99</span>
+</code></pre></div></div>
+<h3>Multiple state and numeric entries per entity <a class="title-link" name="multiple-state-and-numeric-entries-per-entity" href="#multiple-state-and-numeric-entries-per-entity"></a>
+</h3>
+<p>Lastly, an example illustrates how to configure Bayesian when there are more than two states of interest and several possible numeric ranges. When an entity can hold more than 2 values of interest (numeric ranges or states), then you may wish to specify probabilities for each possible value. Once you have specified more than one, Bayesian cannot infer anything about states or numeric values that are unspecified, like it usually does, so it is recommended that all possible values are included. As above, the <code>prob_given_true</code>s of all the possible states should sum to 1, as should the <code>prob_given_false</code>s. If a value that has not been specified is observed, then the observation will be ignored as it would be if the entity were <code>UNKNOWN</code> or <code>UNAVAILABLE</code>.</p>
+<p>When multiple ranges are defined for the same entity, <code>below</code> is inclusive (≤) for any range that specifies it. For a single range, <code>above</code> and <code>below</code> remain exclusive.</p>
+<p>This is an example sensor that can detect if the bins have been left on the side of the road and need to be brought closer to the house. It combines a theoretical presence sensor that gives a numeric signal strength and an API sensor from local government that can have 3 possible states: <code>due</code> when collection is due in the next 24 hours, <code>collected</code> when collection has happened in the last 24 hours, and <code>not_due</code> at other times.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">binary_sensor</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Bins</span><span class="nv"> </span><span class="s">need</span><span class="nv"> </span><span class="s">bringing</span><span class="nv"> </span><span class="s">in"</span>
+  <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">bayesian"</span>
+  <span class="na">prior</span><span class="pi">:</span> <span class="m">0.14</span> <span class="c1"># bins are left out for usually about one day a week</span>
+  <span class="na">probability_threshold</span><span class="pi">:</span> <span class="m">0.5</span>
+  <span class="na">observations</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">numeric_state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.signal_strength"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.01</span> <span class="c1"># if the bins are out and need bringing in there is only a 1% chance we will get a strong signal of above 10</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.3</span> <span class="c1"># if the bins are not out, we still tend not to get a signal this strong</span>
+      <span class="na">above</span><span class="pi">:</span> <span class="m">10</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">numeric_state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.signal_strength"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.02</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.5</span> <span class="c1">#if the bins are not out, we often get a signal this strong</span>
+      <span class="na">above</span><span class="pi">:</span> <span class="m">5</span>
+      <span class="na">below</span><span class="pi">:</span> <span class="m">10</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">numeric_state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.signal_strength"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.07</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.1</span>
+      <span class="na">above</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">below</span><span class="pi">:</span> <span class="m">5</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">numeric_state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.signal_strength"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.3</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.07</span>
+      <span class="na">above</span><span class="pi">:</span> <span class="s">-10</span>
+      <span class="na">below</span><span class="pi">:</span> <span class="m">0</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">numeric_state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.signal_strength"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.6</span> <span class="c1">#if the bins are out, we often get a signal this weak or even weaker</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.03</span>
+      <span class="na">below</span><span class="pi">:</span> <span class="s">-10</span>
+    <span class="c1"># then lets say we want to combine this with an imaginary sensor.bin_collection which reads a local government API that can have one of three values (collected, due, not due)</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.bin_collection"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.8</span> <span class="c1"># If the bins need bringing in, usually it's because they've just been collected</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.05</span> <span class="c1"># </span>
+      <span class="na">to_state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">collected"</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.bin_collection"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.05</span> <span class="c1"># If the bins need bringing in, then the sensor.bin_collection shouldn't be 'due'</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.11</span> <span class="c1"># The sensor will be 'due' for about 1 day a week (the 24 hours before collection)</span>
+      <span class="na">to_state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">due"</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s2">"</span><span class="s">state"</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor.bin_collection"</span>
+      <span class="na">prob_given_true</span><span class="pi">:</span> <span class="m">0.15</span> <span class="c1">#All the prob_given_true should add to 1</span>
+      <span class="na">prob_given_false</span><span class="pi">:</span> <span class="m">0.84</span> <span class="c1"># All the prob_given_false should add to 1</span>
+      <span class="na">to_state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">not</span><span class="nv"> </span><span class="s">due"</span>
+</code></pre></div></div>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    <li>
+      <a href="/docs/configuration/" class="topic">
+        Configuration file
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/bayesian.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fbayesian%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20bayesian" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+bayesian%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/bayesian//logo.png' srcset='https://brands.home-assistant.io/_/bayesian/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=bayesian' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Bayesian  service  was introduced in Home Assistant 0.53, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          869</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      &nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Calculated.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-internal'>🏠 Internal integration</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/bayesian" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+bayesian%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/HarvsG" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/HarvsG?size=96" alt="@HarvsG"/> @HarvsG</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#theory">Theory</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#estimating-probabilities">Estimating probabilities</a></li>
+<li class="toc-entry toc-h2"><a href="#full-examples">Full examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#state">State</a></li>
+<li class="toc-entry toc-h3"><a href="#numeric-state">Numeric State</a></li>
+<li class="toc-entry toc-h3"><a href="#template">Template</a></li>
+<li class="toc-entry toc-h3"><a href="#multiple-state-and-numeric-entries-per-entity">Multiple state and numeric entries per entity</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#utility'>Utility</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

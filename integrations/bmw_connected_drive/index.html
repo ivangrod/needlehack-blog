@@ -1,0 +1,884 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>BMW Connected Drive - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to setup your BMW Connected Drive account with Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/bmw_connected_drive/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="BMW Connected Drive">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/bmw_connected_drive/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to setup your BMW Connected Drive account with Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="BMW Connected Drive">
+    <meta name="twitter:description" content="Instructions on how to setup your BMW Connected Drive account with Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a></li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#defining-a-custom-polling-interval">Defining a custom polling interval</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#available-platforms">Available platforms</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#notifications">Notifications</a></li>
+<li class="toc-entry toc-h3"><a href="#send-a-point-of-interest-to-your-vehicle">Send a Point of Interest to your vehicle</a></li>
+<li class="toc-entry toc-h3"><a href="#lock">Lock</a></li>
+<li class="toc-entry toc-h3"><a href="#buttons">Buttons</a></li>
+<li class="toc-entry toc-h3"><a href="#selects">Selects</a></li>
+<li class="toc-entry toc-h3"><a href="#switches">Switches</a></li>
+<li class="toc-entry toc-h3"><a href="#numbers">Numbers</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#disclaimer">Disclaimer</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        BMW Connected Drive
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <strong>BMW Connected Drive</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> lets you retrieve data of your BMW or MINI vehicle from the MyBMW portal (previously BMW Connected Drive).</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The <span class="terminology">entities<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> available in Home Assistant heavily depend on your vehicle’s capabilities (model year, headunit, etc.). The integration will make sure all available car attributes are added as entities.</p>
+  </div>
+</div>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<p>You need to have an active MyBMW account with a connected car. For MINI vehicles, you register with MINI Connected.</p>
+<p>For compatibility with your BMW vehicle check the <a href="https://github.com/bimmerconnected/bimmer_connected" rel="external nofollow">bimmer_connected page<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> on GitHub.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>BMW Connected Drive</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=bmw_connected_drive" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=bmw_connected_drive" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>BMW Connected Drive</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Username</span><a name="username" class="title-link" href="#username"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Username of your MyBMW/MINI Connected account.</p>
+<p> </p>
+<p><strong>China</strong>: Your username/phone number must be prefixed with <code>86</code>, i.e. <code>8612345678</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Password</span><a name="password" class="title-link" href="#password"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Password of your MyBMW/MINI Connected account.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Region</span><a name="region" class="title-link" href="#region"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Region of your MyBMW/MINI Connected account.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Captcha token (second step, only for North America and Rest of World)</span><a name="captcha-token-second-step-only-for-north-america-and-rest-of-world" class="title-link" href="#captcha-token-second-step-only-for-north-america-and-rest-of-world"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <strong>North America</strong> and <strong>Rest of World</strong> regions require a captcha challenge to be solved, that means you need to verify that you are not a robot.</p>
+<ul>
+<li>After entering your login data, a second step will ask for a <code>Captcha token</code> and provide you with a <strong>link</strong> to a website.</li>
+<li>Open this link, solve the <strong>“Are you a human?”</strong> challenge and press <strong>Submit</strong>.</li>
+<li>Copy the resulting token into Home Assistant and continue.</li>
+</ul>
+<p>No data of your Home Assistant instance is shared with any third party during this step.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Options <a class="title-link" name="options" href="#options"></a>
+</h2>
+<p>Options for BMW Connected Drive can be set via the user interface, by taking the following steps:</p>
+<ul>
+<li>Browse to your Home Assistant instance.</li>
+<li>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; Services</a></strong>.</li>
+<li>If multiple instances of BMW Connected Drive are configured, choose the instance you want to configure.</li>
+<li>Select the integration, then select <strong>Configure</strong>.</li>
+</ul>
+<div class="config-vars basic">
+  <div class=""><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Read-only</span><a name="read-only" class="title-link" href="#read-only"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>No execution of actions to the vehicle. You can only send POIs to the vehicle via <code>notify</code>.</p>
+</span></div>
+</div></div>
+</div>
+<h2>Data updates <a class="title-link" name="data-updates" href="#data-updates"></a>
+</h2>
+<p>The integration will pull data from MyBMW/MINI servers at the following intervals:</p>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>Interval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>China</td>
+<td>5 minutes</td>
+</tr>
+<tr>
+<td>North America</td>
+<td>10 minutes</td>
+</tr>
+<tr>
+<td>Rest of world</td>
+<td>5 minutes</td>
+</tr>
+</tbody>
+</table>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>This will only refresh data from the BMW/MINI servers and <strong>not</strong> from your car. Updates from the car to the servers typically happen:</p>
+<ul>
+<li>for <strong>combustion engine</strong> vehicles when the car is parked and the engine is shut off.</li>
+<li>for <strong>electric</strong> vehicles when the car is parked and turned off or while the car is charging.</li>
+</ul>
+<p>While driving, the servers are not updated.</p>
+  </div>
+</div>
+<h3>Defining a custom polling interval <a class="title-link" name="defining-a-custom-polling-interval" href="#defining-a-custom-polling-interval"></a>
+</h3>
+<p>If you want to define a specific interval at which your device is being polled for data, you can disable the default polling interval and create your own polling automation.</p>
+<p>To add the automation:</p>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>, and select your integration.</li>
+<li>On the integration entry, select the <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon>.
+<ul>
+<li>Then, select <strong>System options</strong> and toggle the button to disable polling.
+<img src="/images/screenshots/custom_polling_01.png" alt="Disable polling for updates">
+</li>
+</ul>
+</li>
+<li>To define your custom polling interval, create an automation.
+<ul>
+<li>Go to <a href="https://my.home-assistant.io/redirect/automations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Automations &amp; scenes</strong></a> and create a new automation.</li>
+<li>Define any trigger and condition you like.</li>
+<li>Select <strong>Add action</strong>, then, select <strong>Other actions</strong>.</li>
+<li>Select <strong>Perform action</strong>, and from the list, select the <a href="/integrations/homeassistant/#action-homeassistantupdate_entity"><code>homeassistant.update_entity</code> action</a>.</li>
+<li>Choose your targets by selecting the <strong>Choose area</strong>, <strong>Choose device</strong>, <strong>Choose entity</strong>, or <strong>Choose label</strong> buttons.
+<img src="/images/screenshots/custom_polling_02.png" alt="Update entity">
+</li>
+</ul>
+</li>
+<li>Save your new automation to poll for data.</li>
+</ol>
+<h2>Available platforms <a class="title-link" name="available-platforms" href="#available-platforms"></a>
+</h2>
+<p>This <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> provides the following <span class="terminology">platforms<span class="terminology-tooltip">Platforms are building blocks provided by some integrations to be used by other integrations.<a class="terminology-link" href="/docs/configuration/platform_options/"> [Learn more]</a></span></span>:</p>
+<ul>
+<li>Binary sensors: Doors, windows, condition based services, check control messages, parking lights, door lock state, charging status (electric cars) and connections status (electric cars).</li>
+<li>Device tracker: The location of your car.</li>
+<li>
+<a href="/integrations/bmw_connected_drive/#lock">Lock</a>: Control the lock of your car.</li>
+<li>Sensors: Mileage, remaining range, remaining fuel, charging time remaining (electric cars), charging status (electric cars), remaining range electric (electric cars).</li>
+<li>
+<a href="/integrations/bmw_connected_drive/#notifications">Notifications</a>: Send Points of Interest (POI) to your car.</li>
+<li>
+<a href="/integrations/bmw_connected_drive/#buttons">Buttons</a>: Turn on air condition, sound the horn, flash the lights, update the vehicle location and update the state.</li>
+<li>
+<a href="/integrations/bmw_connected_drive/#selects">Selects</a>: Display and control charging related settings for (PH)EVs.</li>
+<li>
+<a href="/integrations/bmw_connected_drive/#switches">Switches</a>: Display and toggle settings on your car.</li>
+<li>
+<a href="/integrations/bmw_connected_drive/#numbers">Numbers</a>: Display and control numeric charging related settings for (PH)EVs.</li>
+</ul>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>Every platform except <strong>binary sensors</strong> and <strong>sensors</strong> can change the state of your vehicle. Once you change the state in Home Assistant, a command is sent to your car.</p>
+  </div>
+</div>
+<p> </p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>The <code>North America</code> and <code>Rest of world</code> regions require a captcha challenge to be solved, i.e. you need to verify that you are a human.
+After entering your login data, a second step will ask for a <code>Captcha token</code> and provide you with a link to a website.
+Please open this link, solve the “are you a human?” challenge and press <code>Submit</code>.
+Copy the resulting token into Home Assistant and continue.</p>
+<p>No data of your Home Assistant instance is shared with any third party during this step.</p>
+  </div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>For <code>china</code>, it is mandatory to prefix your username/phone number with <code>86</code>, i.e. <code>8612345678</code>.</p>
+  </div>
+</div>
+<h3>Notifications <a class="title-link" name="notifications" href="#notifications"></a>
+</h3>
+<p>The <strong>BMW Connected Drive</strong> integration offers a notification action. Using this action you can send Points of Interest (POI) to your vehicle. In your vehicle, you can select this POI, and the navigation will automatically start using the POI as a destination.
+The name of the action is <code>notify.bmw_connected_drive_&lt;your_vehicle&gt;</code>.</p>
+<h3>Send a Point of Interest to your vehicle <a class="title-link" name="send-a-point-of-interest-to-your-vehicle" href="#send-a-point-of-interest-to-your-vehicle"></a>
+</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">notify.bmw_connected_drive_&lt;your_vehicle&gt;</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">message</span><span class="pi">:</span> <span class="s">The name of the POI</span> <span class="c1"># this is shown on the iDrive dashboard</span>
+      <span class="na">data</span><span class="pi">:</span>
+        <span class="na">latitude</span><span class="pi">:</span> <span class="m">48.177024</span>
+        <span class="na">longitude</span><span class="pi">:</span> <span class="m">11.559107</span>
+        <span class="na">street</span><span class="pi">:</span> <span class="s">Street name</span>  <span class="c1"># Optional</span>
+        <span class="na">city</span><span class="pi">:</span> <span class="s">City name</span>  <span class="c1"># Optional</span>
+        <span class="na">postal_code</span><span class="pi">:</span> <span class="s">Postal Code</span>  <span class="c1"># Optional</span>
+        <span class="na">country</span><span class="pi">:</span> <span class="s">Country</span>  <span class="c1"># Optional</span>
+</code></pre></div></div>
+<h3>Lock <a class="title-link" name="lock" href="#lock"></a>
+</h3>
+<p>The vehicle can be locked and unlocked via the lock integration that is created automatically for each vehicle.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>If your vehicle does not provide its current state (no sensor entities are created), you will not see the current lock state either. You still can lock/unlock the car.</p>
+  </div>
+</div>
+<h3>Buttons <a class="title-link" name="buttons" href="#buttons"></a>
+</h3>
+<p>Buttons are used to trigger actions in your car. The buttons are automatically created and can be pressed/executed from the UI or using the <code>button.press</code> action. Please see the <a href="/integrations/button/">button documentation</a> for more information.</p>
+<h4>Air conditioning <a class="title-link" name="air-conditioning" href="#air-conditioning"></a>
+</h4>
+<p>The air conditioning of the vehicle can be activated with the <code>button.&lt;your_vehicle&gt;_activate_air_conditioning</code> button.</p>
+<p>What exactly is started here depends on the type of vehicle. It might range from just ventilation over auxiliary heating to real air conditioning. If your vehicle is equipped with auxiliary heating, only trigger this action if the vehicle is parked in a location where it is safe to use it (e.g., not in an underground parking or closed garage).</p>
+<h4>Sound the horn <a class="title-link" name="sound-the-horn" href="#sound-the-horn"></a>
+</h4>
+<p>The <code>button.&lt;your_vehicle&gt;_sound_horn</code> button sounds the horn of the vehicle. This option is not available in some countries (among which the UK). Use this feature responsibly, as it might annoy your neighbors.</p>
+<h4>Flash the lights <a class="title-link" name="flash-the-lights" href="#flash-the-lights"></a>
+</h4>
+<p>The <code>button.&lt;your_vehicle&gt;_light_flash</code> button flashes the lights of the vehicle.</p>
+<h4>Vehicle finder <a class="title-link" name="vehicle-finder" href="#vehicle-finder"></a>
+</h4>
+<p>The <code>button.&lt;your_vehicle&gt;_find_vehicle</code> button requests the vehicle to update the GPS location. This can be used for older vehicles which don’t automatically send the updated GPS location.</p>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>Using this action will <strong>send your Home Assistant location to BMW</strong>, as this is required by the API (like sharing your mobile phone’s location with the MyBMW app for vehicle tracking).
+If you do not want this, trigger the <code>vehicle_finder</code> action from your phone and it should update in Home Assistant within 5 minutes.</p>
+  </div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>On some older cars (non i3/i8 series produced before 7/2014) this action will fail in getting your vehicles position, if the vehicle is more than 1.5 km away from the location of your Home Assistant instance. This is a limitation of the BMW API.</p>
+  </div>
+</div>
+<h3>Selects <a class="title-link" name="selects" href="#selects"></a>
+</h3>
+<p>If you have a (PH)EV, you can control the charging process through Home Assistant. The selects are created automatically depending on your vehicle’s capabilities and can be pressed/executed from the UI or using the <code>select.select_option</code> action. For more information, please see the <a href="/integrations/select/">select documentation</a>.</p>
+<ul>
+<li>
+<strong>Charging Mode</strong>: Vehicle can be set to <code>IMMEDIATE_CHARGING</code> (charge as soon as plugged in) or <code>DELAYED_CHARGING</code> (charge only if within charging window). It can be used to start/stop charging if the charging window is set accordingly.</li>
+<li>
+<strong>AC Charging Limit</strong>: The maximum current a vehicle will charge with. Not available on all EVs.</li>
+</ul>
+<h3>Switches <a class="title-link" name="switches" href="#switches"></a>
+</h3>
+<p>If supported by your vehicle, you can display and toggle remote actions with start/stop functionality.</p>
+<ul>
+<li>
+<strong>Climate</strong>: Toggle vehicle climatization. It is not possible to force it to heat or cool; the vehicle will decide on its own. If turned on, it will run for 30 minutes (as if toggled via the MyBMW app).</li>
+<li>
+<strong>Charging</strong>: Toggle vehicle charging if plugged in. Only available on some electric vehicles.</li>
+</ul>
+<h3>Numbers <a class="title-link" name="numbers" href="#numbers"></a>
+</h3>
+<p>If you have a (PH)EV, you can control the charging process through Home Assistant. The number entities are created automatically depending on your vehicle’s capabilities and can be changed from the UI or using the <code>number.set_value</code> action. For more information, please see the <a href="/integrations/number/">number documentation</a>.</p>
+<ul>
+<li>
+<strong>Target SoC</strong>: Vehicle will charge until this battery level is reached. Not available on all EVs.</li>
+</ul>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Problem: Invalid authentication</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>This can happen during initial login or after some time. Please do the following steps:</p>
+<ul>
+<li>Log in to your MyBMW <strong>website</strong> and verify your credentials (for example, ensure that username and password are correct).</li>
+<li>If you cannot login on the website, please <strong>deactivate</strong> polling (see <a href="#defining-a-custom-polling-interval">Defining a custom polling interval</a>) and wait for <strong>at least 24 hours</strong>.</li>
+<li>Once you can login to the website, reconfigure/reauthenticate the integration via <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>, click <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> and select <strong>Reconfigure</strong>.</li>
+<li>Activate polling again</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Problem: Captcha validation missing</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<p>Sometimes, your account can be force-logged-out. For <strong>North America</strong> and <strong>Rest of World</strong>, the recovery requires manual intervention.</p>
+<p>Home Assistant will show a repair issue to <strong>reconfigure</strong> the integration. Follow the steps to log in again.</p>
+</div>
+  </details>
+</div>
+<h2>Known limitations <a class="title-link" name="known-limitations" href="#known-limitations"></a>
+</h2>
+<ul>
+<li>The entities available to Home Assistant depend on your vehicle. Even inside the same model code (for example, U11 for BMW X1) you will see different entities, depending on your specific car’s features.</li>
+<li>Not all features, mostly related to charging control for (PH)EVs, are implemented. If you have a functionality in your MyBMW/MINI app that is not yet available, search for an existing feature request in the <a href="https://github.com/bimmerconnected/bimmer_connected/discussions" rel="external nofollow"><code>bimmer_connected</code> discussions<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or create a new one.</li>
+</ul>
+<h2>Removing the integration <a class="title-link" name="removing-the-integration" href="#removing-the-integration"></a>
+</h2>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+<h2>Disclaimer <a class="title-link" name="disclaimer" href="#disclaimer"></a>
+</h2>
+<p>This software is not affiliated with or endorsed by BMW Group.</p>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/bmw_connected_drive.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fbmw_connected_drive%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20bmw_connected_drive" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+bmw_connected_drive%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/bmw_connected_drive//logo.png' srcset='https://brands.home-assistant.io/_/bmw_connected_drive/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=bmw_connected_drive' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The BMW Connected Drive  integration  was introduced in Home Assistant 0.64, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          1.3%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:cloud-upload'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Cloud Polling.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/bmw_connected_drive" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+bmw_connected_drive%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/gerard33" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/gerard33?size=96" alt="@gerard33"/> @gerard33</a><br /><a href="https://github.com/rikroe" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/rikroe?size=96" alt="@rikroe"/> @rikroe</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a></li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#defining-a-custom-polling-interval">Defining a custom polling interval</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#available-platforms">Available platforms</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#notifications">Notifications</a></li>
+<li class="toc-entry toc-h3"><a href="#send-a-point-of-interest-to-your-vehicle">Send a Point of Interest to your vehicle</a></li>
+<li class="toc-entry toc-h3"><a href="#lock">Lock</a></li>
+<li class="toc-entry toc-h3"><a href="#buttons">Buttons</a></li>
+<li class="toc-entry toc-h3"><a href="#selects">Selects</a></li>
+<li class="toc-entry toc-h3"><a href="#switches">Switches</a></li>
+<li class="toc-entry toc-h3"><a href="#numbers">Numbers</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#disclaimer">Disclaimer</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#button'>Button</a>
+          </li><li>
+            <a href='/integrations/#car'>Car</a>
+          </li><li>
+            <a href='/integrations/#lock'>Lock</a>
+          </li><li>
+            <a href='/integrations/#notifications'>Notifications</a>
+          </li><li>
+            <a href='/integrations/#number'>Number</a>
+          </li><li>
+            <a href='/integrations/#presence-detection'>Presence detection</a>
+          </li><li>
+            <a href='/integrations/#select'>Select</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

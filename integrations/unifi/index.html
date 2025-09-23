@@ -1,0 +1,814 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>UniFi Network - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to configure UniFi Network integration with UniFi Network application by Ubiquiti.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/unifi/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="UniFi Network">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/unifi/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to configure UniFi Network integration with UniFi Network application by Ubiquiti.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="UniFi Network">
+    <meta name="twitter:description" content="Instructions on how to configure UniFi Network integration with UniFi Network application by Ubiquiti.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#hardware-support">Hardware support</a></li>
+<li class="toc-entry toc-h3"><a href="#software-support">Software support</a></li>
+<li class="toc-entry toc-h3"><a href="#local-user">Local user</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#extra-configuration-of-the-integration">Extra configuration of the integration</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#button">Button</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#power-cycle-poe">Power cycle PoE</a></li>
+<li class="toc-entry toc-h3"><a href="#restart-unifi-device">Restart UniFi device</a></li>
+<li class="toc-entry toc-h3"><a href="#wlan-regenerate-password">WLAN regenerate password</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#image">Image</a></li>
+<li class="toc-entry toc-h2"><a href="#presence-detection">Presence detection</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#troubleshooting-and-time-synchronization">Troubleshooting and Time Synchronization</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-unifireconnect_client">Action unifi.reconnect_client</a></li>
+<li class="toc-entry toc-h3"><a href="#action-unifiremove_clients">Action unifi.remove_clients</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#switch">Switch</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#block-network-access-for-clients">Block network access for clients</a></li>
+<li class="toc-entry toc-h3"><a href="#poe-port-control">PoE port control</a></li>
+<li class="toc-entry toc-h3"><a href="#port-control">Port control</a></li>
+<li class="toc-entry toc-h3"><a href="#control-dpi-traffic-restrictions">Control DPI Traffic Restrictions</a></li>
+<li class="toc-entry toc-h3"><a href="#control-wlan-availability">Control WLAN availability</a></li>
+<li class="toc-entry toc-h3"><a href="#control-port-forwarding-rules">Control Port Forwarding Rules</a></li>
+<li class="toc-entry toc-h3"><a href="#control-traffic-rules">Control Traffic Rules</a></li>
+<li class="toc-entry toc-h3"><a href="#control-policy-based-routing-rules">Control Policy-Based Routing Rules</a></li>
+<li class="toc-entry toc-h3"><a href="#control-zone-based-firewall-policies">Control Zone-Based Firewall Policies</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#sensor">Sensor</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#bandwidth-sensor">Bandwidth sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#wlan-clients-sensor">Wlan clients sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#uptime-sensor">Uptime sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#power-outlet-sensor">Power Outlet sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#device-temperature-sensor">Device temperature sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#device-state">Device state</a></li>
+<li class="toc-entry toc-h3"><a href="#device-cpu">Device CPU</a></li>
+<li class="toc-entry toc-h3"><a href="#device-memory">Device memory</a></li>
+<li class="toc-entry toc-h3"><a href="#port-bandwidth-sensor">Port Bandwidth sensor</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#firmware-updates">Firmware updates</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-a-device-in-home-assistant">Removing a device in Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#debugging-integration">Debugging integration</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        UniFi Network
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p><a href="https://www.ui.com/download-software/" rel="external nofollow">UniFi Network<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> by <a href="https://www.ui.com/" rel="external nofollow">Ubiquiti Networks, inc.<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> is a software that binds gateways, switches and wireless access points together with one graphical front end.</p>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<h3>Hardware support <a class="title-link" name="hardware-support" href="#hardware-support"></a>
+</h3>
+<p>This integration supports all UniFi OS Consoles that run UniFi Network. It also supports self hosted versions of UniFi Network.</p>
+<h3>Software support <a class="title-link" name="software-support" href="#software-support"></a>
+</h3>
+<p>It is recommended to run latest stable versions of UniFi Network and UniFi OS.</p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p><strong>Early Access and Release Candidate versions are not supported by Home Assistant.</strong></p>
+<p>Using Early Access Release Candidate versions of UniFi Network or UniFi OS can bring unexpected changes. If you choose to opt into either the Early Access or the Release Candidate release channel and anything breaks in Home Assistant, you will need to wait until that version goes to the official Stable Release channel before it is expected to work.</p>
+  </div>
+</div>
+<h3>Local user <a class="title-link" name="local-user" href="#local-user"></a>
+</h3>
+<p>You will need a local user created in your UniFi OS Console to log in with. Ubiquiti SSO Cloud Users will <strong>not</strong> work.
+It is recommended you use the Administrator or a user with full read/write access to get the most out of the integration,
+but it is not required. The entities that are created will automatically adjust based on the permissions of the user you
+use has.</p>
+<ol>
+<li>Login to your <em>Local Portal</em> on your UniFi OS device, and select  <strong>Users</strong>.
+<ul>
+<li>
+<strong>Note</strong>: This <strong>must</strong> be done from the UniFi OS by accessing it directly by IP address (i.e. <em>Local Portal</em>), not via <code>unifi.ui.com</code> or within the UniFi Network app.</li>
+</ul>
+</li>
+<li>Go to <strong>Admins &amp; Users</strong> from the left hand side menu or [IP address]/admins/users e.g. 192.168.1.1/admins/users.</li>
+<li>Select <strong>Add New Admin</strong>.</li>
+<li>Check <strong>Restrict to local access only</strong> and fill out the fields for your user. Select <strong>Full Management</strong> for <strong>Network</strong>. <strong>OS Settings</strong> are not used, so they can be set to <strong>None</strong>.</li>
+<li>In the bottom right, select <strong>Add</strong>.</li>
+</ol>
+<p><img src="/images/integrations/unifi/user.png" alt="UniFi OS User Creation"></p>
+<p>There is currently support for the following device types within Home Assistant:</p>
+<ul>
+<li><a href="#button">Button</a></li>
+<li><a href="#image">Image</a></li>
+<li><a href="#presence-detection">Presence detection</a></li>
+<li><a href="#actions">Actions</a></li>
+<li><a href="#switch">Switch</a></li>
+<li><a href="#sensor">Sensor</a></li>
+<li><a href="#firmware-updates">Firmware updates</a></li>
+</ul>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>UniFi Network</strong> hub to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=unifi" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>UniFi Network can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=unifi" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>UniFi Network</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p><strong>Permissions</strong>: The below sections on the features available to your Home Assistant instance assume you have full
+write access to each device. If the user you are using has limited access to some devices, you will get fewer entities
+and in many cases, get a read-only sensor instead of an editable switch <span class="terminology">entity<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span>.</p>
+  </div>
+</div>
+<h3>Extra configuration of the integration <a class="title-link" name="extra-configuration-of-the-integration" href="#extra-configuration-of-the-integration"></a>
+</h3>
+<p>All configuration options are offered from the front end. Enter what UniFi Network <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> you want to change options on and press the cog wheel. Some advanced options are available when “Advanced Mode” is enabled on your user profile page.</p>
+<h2>Button <a class="title-link" name="button" href="#button"></a>
+</h2>
+<p>The Button entities will only be available and usable if the integration has a UniFi Network account with administrator privileges.</p>
+<h3>Power cycle PoE <a class="title-link" name="power-cycle-poe" href="#power-cycle-poe"></a>
+</h3>
+<p>Use the <strong>Power cycle PoE</strong> button entity to power cycle one specific PoE port to cause the connected device to restart.</p>
+<h3>Restart UniFi device <a class="title-link" name="restart-unifi-device" href="#restart-unifi-device"></a>
+</h3>
+<p>Use the <strong>Restart UniFi device</strong> button entity to restart the entire UniFi device. In case the device is a PoE switch, the PoE supply is not affected.</p>
+<h3>WLAN regenerate password <a class="title-link" name="wlan-regenerate-password" href="#wlan-regenerate-password"></a>
+</h3>
+<p>Use the <strong>WLAN regenerate password</strong> button entity to generate and apply a new password to the specified WLAN (Wireless Local Area Network). Use the <strong>WLAN regenerate password</strong> button entity to generate and apply a new password to the specified WLAN (Wireless Local Area Network). <strong>It will be randomly generated with 20 characters, consisting of lowercase letters, uppercase letters, and digits.</strong></p>
+<h2>Image <a class="title-link" name="image" href="#image"></a>
+</h2>
+<p>Provides QR Code images that can be scanned to easily join a specific WLAN. Entities are disabled by default. This feature requires admin privileges.</p>
+<h2>Presence detection <a class="title-link" name="presence-detection" href="#presence-detection"></a>
+</h2>
+<p>This platform allows you to detect presence by looking at devices connected to a <a href="https://ui.com/" rel="external nofollow">Ubiquiti<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> <a href="https://ui.com/cloud-gateways" rel="external nofollow">UniFi Network<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> application. By default devices are marked as away 300 seconds after they were last seen.</p>
+<h3>Troubleshooting and Time Synchronization <a class="title-link" name="troubleshooting-and-time-synchronization" href="#troubleshooting-and-time-synchronization"></a>
+</h3>
+<p>If tracked devices continue to show “Home” when not connect/present and show connected in the UniFi Controller, disable 802.11r Fast Roaming.  When enabled, it has been observed on the various UniFi Controller versions, failure to declare disconnected clients.</p>
+<p>Presence detection is not compatible with Client MAC Address Randomization, enabled by default on most modern SmartPhones. This feature will need to be disabled within the client device settings, usually under the settings for the specific network.</p>
+<p>Presence detection depends on accurate time configuration between Home Assistant and the UniFi Network application.</p>
+<p>If Home Assistant and the UniFi Network application are running on separate machines or VMs ensure that all clocks are synchronized. Failing to have synchronized clocks will lead to Home Assistant failing to mark a device as home.</p>
+<p><a href="https://github.com/home-assistant/home-assistant/issues/10507" rel="external nofollow">Related Issue<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<h3>Action unifi.reconnect_client <a class="title-link" name="action-unifireconnect_client" href="#action-unifireconnect_client"></a>
+</h3>
+<p>Try to get a wireless client to reconnect to the network.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>No</td>
+<td>String representing a device ID related to a UniFi Network <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> .</td>
+</tr>
+</tbody>
+</table>
+<h3>Action unifi.remove_clients <a class="title-link" name="action-unifiremove_clients" href="#action-unifiremove_clients"></a>
+</h3>
+<p>Clean up clients on the UniFi Network application that has only been associated with the Network application for a short period of time. The difference between first seen and last seen needs to be less than 15 minutes and the client can not have a fixed IP, hostname or name associated with it.</p>
+<h2>Switch <a class="title-link" name="switch" href="#switch"></a>
+</h2>
+<h3>Block network access for clients <a class="title-link" name="block-network-access-for-clients" href="#block-network-access-for-clients"></a>
+</h3>
+<p>Allow control of network access to clients configured in the <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> options by adding MAC addresses. Items in this list will have a Home Assistant switch created, using the UniFi Device name, allowing for blocking and unblocking.</p>
+<h3>PoE port control <a class="title-link" name="poe-port-control" href="#poe-port-control"></a>
+</h3>
+<p>Provides per-port PoE control. Entities are disabled by default. This feature requires admin privileges.</p>
+<h3>Port control <a class="title-link" name="port-control" href="#port-control"></a>
+</h3>
+<p>Provides individual control to enable or disable switch ports. Entities are disabled by default. This feature requires admin privileges.</p>
+<h3>Control DPI Traffic Restrictions <a class="title-link" name="control-dpi-traffic-restrictions" href="#control-dpi-traffic-restrictions"></a>
+</h3>
+<p>Entities appear automatically for each restriction group. If there are no restrictions in a group, no <span class="terminology">entity<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> will be visible. Toggling the switch in Home Assistant will enable or disable all restrictions inside a group.</p>
+<h3>Control WLAN availability <a class="title-link" name="control-wlan-availability" href="#control-wlan-availability"></a>
+</h3>
+<p>Entities appear for each WLAN. Changing the state of WLAN will trigger a reconfiguration of affected access points, limiting access to all WLANs exposed by the access point.</p>
+<h3>Control Port Forwarding Rules <a class="title-link" name="control-port-forwarding-rules" href="#control-port-forwarding-rules"></a>
+</h3>
+<p>Entities appear for each port Forwarding Rule. The switches can be identified from icon <iconify-icon inline icon="mdi:upload-network" title="Upload network"></iconify-icon>.</p>
+<h3>Control Traffic Rules <a class="title-link" name="control-traffic-rules" href="#control-traffic-rules"></a>
+</h3>
+<p>Entities appear for each Traffic Rule. The switches can be identified from icon <iconify-icon inline icon="mdi:security-network" title="Security network"></iconify-icon>.</p>
+<h3>Control Policy-Based Routing Rules <a class="title-link" name="control-policy-based-routing-rules" href="#control-policy-based-routing-rules"></a>
+</h3>
+<p>Entities appear for each Policy-Based Routing Rule. The switches can be identified from icon <iconify-icon inline icon="mdi:routes" title="Routes"></iconify-icon>.</p>
+<h3>Control Zone-Based Firewall Policies <a class="title-link" name="control-zone-based-firewall-policies" href="#control-zone-based-firewall-policies"></a>
+</h3>
+<p>Entities appear for each Zone-Based Firewall Policy. The switches can be identified from icon <iconify-icon inline icon="mdi:security-network" title="Security network"></iconify-icon>.</p>
+<h2>Sensor <a class="title-link" name="sensor" href="#sensor"></a>
+</h2>
+<h3>Bandwidth sensor <a class="title-link" name="bandwidth-sensor" href="#bandwidth-sensor"></a>
+</h3>
+<p>Get entities reporting receiving and transmitting bandwidth per network client. These sensors are disabled by default. To enable the bandwidth sensors, on the UniFi integration page, select <strong>Configure</strong>, go to page 3/3 and enable the bandwidth sensors.</p>
+<h3>Wlan clients sensor <a class="title-link" name="wlan-clients-sensor" href="#wlan-clients-sensor"></a>
+</h3>
+<p>Entities reporting connected clients to a WLAN.</p>
+<h3>Uptime sensor <a class="title-link" name="uptime-sensor" href="#uptime-sensor"></a>
+</h3>
+<p>Get entities reporting uptime per network client or UniFi Network device.</p>
+<h3>Power Outlet sensor <a class="title-link" name="power-outlet-sensor" href="#power-outlet-sensor"></a>
+</h3>
+<p>Get entities reporting the power utilization for outlets that support metrics (such as the AC outlets on the USP-PDU-Pro).</p>
+<h3>Device temperature sensor <a class="title-link" name="device-temperature-sensor" href="#device-temperature-sensor"></a>
+</h3>
+<p>Get entities reporting the general temperature of a UniFi Network device.</p>
+<h3>Device state <a class="title-link" name="device-state" href="#device-state"></a>
+</h3>
+<p>Get entities reporting the current state of a UniFi Network device.</p>
+<h3>Device CPU <a class="title-link" name="device-cpu" href="#device-cpu"></a>
+</h3>
+<p>Get entities reporting the current CPU utilization of a UniFi Network device.</p>
+<h3>Device memory <a class="title-link" name="device-memory" href="#device-memory"></a>
+</h3>
+<p>Get entities reporting the current memory utilization of a UniFi Network device.</p>
+<h3>Port Bandwidth sensor <a class="title-link" name="port-bandwidth-sensor" href="#port-bandwidth-sensor"></a>
+</h3>
+<p>Get entities reporting receiving and transmitting bandwidth per port. These sensors are disabled by default. To enable the bandwidth sensors, on the UniFi integration page, select <strong>Configure</strong>, go to page 3/3 and enable the bandwidth sensors.</p>
+<h2>Firmware updates <a class="title-link" name="firmware-updates" href="#firmware-updates"></a>
+</h2>
+<p>This will show if there are firmware updates available for the UniFi network devices connected to the controller. If the configured user has admin privileges, the firmware upgrades can also be installed directly from Home Assistant.</p>
+<h2>Removing a device in Home Assistant <a class="title-link" name="removing-a-device-in-home-assistant" href="#removing-a-device-in-home-assistant"></a>
+</h2>
+<p>Integration populates both UniFi devices as well as network clients into Home Assistant. In certain edge cases entities are left lingering even if they are not present in UniFi network anymore. This can lead to an accumulation of entries in the device registry.</p>
+<p>To manually remove a device entry, go to the Device Info page and select “Delete” from the Device Info menu.</p>
+<p>Only clients/devices which are no longer known by UniFi since the startup or reload of the UniFi integration can be removed.</p>
+<p><img src="https://github.com/home-assistant/home-assistant.io/assets/21991867/c926f5c7-18af-47b5-b888-30cc8511d76a" alt="4d4ca937-17bb-4902-9949-2ea83e3c2c0c"></p>
+<h2>Debugging integration <a class="title-link" name="debugging-integration" href="#debugging-integration"></a>
+</h2>
+<p>If you have problems with the UniFi Network application or <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> you can add debug prints to the log.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">logger</span><span class="pi">:</span>
+  <span class="na">default</span><span class="pi">:</span> <span class="s">info</span>
+  <span class="na">logs</span><span class="pi">:</span>
+    <span class="na">aiounifi</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">homeassistant.components.unifi</span><span class="pi">:</span> <span class="s">debug</span>
+</code></pre></div></div>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/unifi.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Funifi%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20unifi" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+unifi%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/unifi//logo.png' srcset='https://brands.home-assistant.io/_/unifi/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=unifi' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The UniFi Network  hub  was introduced in Home Assistant 0.81, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          6.8%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/unifi" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+unifi%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/Kane610" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/Kane610?size=96" alt="@Kane610"/> @Kane610</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#hardware-support">Hardware support</a></li>
+<li class="toc-entry toc-h3"><a href="#software-support">Software support</a></li>
+<li class="toc-entry toc-h3"><a href="#local-user">Local user</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#extra-configuration-of-the-integration">Extra configuration of the integration</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#button">Button</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#power-cycle-poe">Power cycle PoE</a></li>
+<li class="toc-entry toc-h3"><a href="#restart-unifi-device">Restart UniFi device</a></li>
+<li class="toc-entry toc-h3"><a href="#wlan-regenerate-password">WLAN regenerate password</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#image">Image</a></li>
+<li class="toc-entry toc-h2"><a href="#presence-detection">Presence detection</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#troubleshooting-and-time-synchronization">Troubleshooting and Time Synchronization</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-unifireconnect_client">Action unifi.reconnect_client</a></li>
+<li class="toc-entry toc-h3"><a href="#action-unifiremove_clients">Action unifi.remove_clients</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#switch">Switch</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#block-network-access-for-clients">Block network access for clients</a></li>
+<li class="toc-entry toc-h3"><a href="#poe-port-control">PoE port control</a></li>
+<li class="toc-entry toc-h3"><a href="#port-control">Port control</a></li>
+<li class="toc-entry toc-h3"><a href="#control-dpi-traffic-restrictions">Control DPI Traffic Restrictions</a></li>
+<li class="toc-entry toc-h3"><a href="#control-wlan-availability">Control WLAN availability</a></li>
+<li class="toc-entry toc-h3"><a href="#control-port-forwarding-rules">Control Port Forwarding Rules</a></li>
+<li class="toc-entry toc-h3"><a href="#control-traffic-rules">Control Traffic Rules</a></li>
+<li class="toc-entry toc-h3"><a href="#control-policy-based-routing-rules">Control Policy-Based Routing Rules</a></li>
+<li class="toc-entry toc-h3"><a href="#control-zone-based-firewall-policies">Control Zone-Based Firewall Policies</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#sensor">Sensor</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#bandwidth-sensor">Bandwidth sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#wlan-clients-sensor">Wlan clients sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#uptime-sensor">Uptime sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#power-outlet-sensor">Power Outlet sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#device-temperature-sensor">Device temperature sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#device-state">Device state</a></li>
+<li class="toc-entry toc-h3"><a href="#device-cpu">Device CPU</a></li>
+<li class="toc-entry toc-h3"><a href="#device-memory">Device memory</a></li>
+<li class="toc-entry toc-h3"><a href="#port-bandwidth-sensor">Port Bandwidth sensor</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#firmware-updates">Firmware updates</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-a-device-in-home-assistant">Removing a device in Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#debugging-integration">Debugging integration</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#image'>Image</a>
+          </li><li>
+            <a href='/integrations/#presence-detection'>Presence detection</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li><li>
+            <a href='/integrations/#update'>Update</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

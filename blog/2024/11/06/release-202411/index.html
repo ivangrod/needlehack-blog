@@ -1,0 +1,1193 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>2024.11: Slick dashboards and speedy cameras - Home Assistant</title>
+    <meta name="author" content="Franck Nijhof">
+    <meta name="description" content="Our new sections dashboards are now out of experimental and have become the default, low-latency camera streams using WebRTC, live streaming logs, Home Assis...">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/blog/2024/11/06/release-202411/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="2024.11: Slick dashboards and speedy cameras">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/blog/2024/11/06/release-202411/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Our new sections dashboards are now out of experimental and have become the default, low-latency camera streams using WebRTC, live streaming logs, Home Assistant Voice updates, and much more!">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/blog/2024-11/social.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    <meta name="twitter:creator" content="@frenck">
+    <meta name="twitter:title" content="2024.11: Slick dashboards and speedy cameras">
+    <meta name="twitter:description" content="Our new sections dashboards are now out of experimental and have become the default, low-latency camera streams using WebRTC, live streaming logs, Home Assistant Voice updates, and much more!">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/blog/2024-11/social.jpg">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="   blog-post ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/integrations/">Integrations</a></li>
+          <li><a class="active" href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#sections-dashboard-no-longer-experimental">Sections dashboard no longer experimental!</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#convert-your-old-dashboards-to-sections-view-layout">Convert your old dashboards to sections view layout</a></li>
+<li class="toc-entry toc-h3"><a href="#precise-mode-for-card-sizes">Precise mode for card sizes</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#low-latency-cameras-using-webrtc">Low latency cameras using WebRTC</a></li>
+<li class="toc-entry toc-h2"><a href="#integrations">Integrations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#new-integrations">New integrations</a></li>
+<li class="toc-entry toc-h3"><a href="#noteworthy-improvements-to-existing-integrations">Noteworthy improvements to existing integrations</a></li>
+<li class="toc-entry toc-h3"><a href="#now-available-to-set-up-from-the-ui">Now available to set up from the UI</a></li>
+<li class="toc-entry toc-h3"><a href="#farewell-to-the-following">Farewell to the following</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#other-noteworthy-changes">Other noteworthy changes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#live-logs">Live logs</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#voice">Voice</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#home-assistant-intents-improvements">Home Assistant intents improvements</a></li>
+<li class="toc-entry toc-h3"><a href="#join-the-wake-word-collective">Join the Wake Word Collective</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#patch-releases">Patch releases</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#2024111---november-8">2024.11.1 - November 8</a></li>
+<li class="toc-entry toc-h3"><a href="#2024112---november-15">2024.11.2 - November 15</a></li>
+<li class="toc-entry toc-h3"><a href="#2024113---november-22">2024.11.3 - November 22</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#need-help-join-the-community">Need help? Join the community!</a></li>
+<li class="toc-entry toc-h2"><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li class="toc-entry toc-h2"><a href="#all-changes">All changes</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="post">
+  
+  <header>
+  
+  <h1>2024.11: Slick dashboards and speedy cameras</h1>
+  
+
+  
+  <div class="meta clearfix">
+    
+
+  
+  
+    <span class="byline author vcard">
+      <a href="https://github.com/frenck" target="_blank" rel="external nofollow"><img class="author-avatar" src="https://avatars.githubusercontent.com/frenck?size=64" alt="Franck Nijhof"> Franck Nijhof<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+    </span>
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<time datetime="2024-11-06T00:00:00+00:00" pubdate data-updated="true"><iconify-icon inline icon="mdi:calendar" title="Calendar"></iconify-icon> November 6, 2024</time>
+    
+
+  <span>
+    <i class="icon-tags"></i>
+    <ul class="tags unstyled">
+    
+      
+        <li><a class="category" href="/blog/categories/core/">Core</a></li>
+      
+        <li><a class="category" href="/blog/categories/release-notes/">Release-Notes</a></li>
+      
+    
+    </ul>
+  </span>
+
+    
+      <a class="comments" href="#post-comments">Comments</a>
+    
+  </div>
+  
+</header>
+
+
+  <p><lite-youtube videoid="rmV4ijEaRtI" videotitle="Home Assistant 2024.11 Release Party"></lite-youtube></p>
+<p>Home Assistant 2024.11! 🎉</p>
+<p>It is November already, and we are closing in on the end of the year, but we are
+not slowing down!</p>
+<p>Before we dive into what this release has to offer, I want to take a moment to
+thank everyone who has contributed to the Home Assistant project. You might
+have heard this already, but going to share it again:</p>
+<p><em><strong>We are number one!</strong> 🥇</em></p>
+<p>GitHub published its annual <a href="https://github.blog/news-insights/octoverse/octoverse-2024/" rel="external nofollow">Octoverse report<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, highlighting the platform’s
+biggest trends and projects. It named Home Assistant 2024’s largest open-source
+project, with over 21,000 contributors over the year. <strong>That includes you! ❤️</strong></p>
+<p>Continuing the festivities, this release is a big one! The new dashboarding
+system we have been working on all year is now out of its experimental phase
+and generally available! 🥳 Exciting, <strong>everyone</strong> can now create beautiful
+dashboards with ease!</p>
+<p>To top it off, this release also supports faster and lower-latency camera
+streams using WebRTC, supported by the <a href="https://www.openhomefoundation.org/">Open Home Foundation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.
+This is a huge improvement! 🎉</p>
+<p>Enjoy the release!</p>
+<p>../Frenck</p>
+<a name="read-more"></a>
+<ul>
+<li>
+<a href="#sections-dashboard-no-longer-experimental">Sections dashboard no longer experimental!</a>
+<ul>
+<li><a href="#convert-your-old-dashboards-to-sections-view-layout">Convert your old dashboards to sections view layout</a></li>
+<li><a href="#precise-mode-for-card-sizes">Precise mode for card sizes</a></li>
+</ul>
+</li>
+<li><a href="#low-latency-cameras-using-webrtc">Low latency cameras using WebRTC</a></li>
+<li>
+<a href="#integrations">Integrations</a>
+<ul>
+<li><a href="#new-integrations">New integrations</a></li>
+<li><a href="#noteworthy-improvements-to-existing-integrations">Noteworthy improvements to existing integrations</a></li>
+<li><a href="#now-available-to-set-up-from-the-ui">Now available to set up from the UI</a></li>
+<li><a href="#farewell-to-the-following">Farewell to the following</a></li>
+</ul>
+</li>
+<li>
+<a href="#other-noteworthy-changes">Other noteworthy changes</a>
+<ul>
+<li><a href="#live-logs">Live logs</a></li>
+</ul>
+</li>
+<li>
+<a href="#voice">Voice</a>
+<ul>
+<li><a href="#home-assistant-intents-improvements">Home Assistant intents improvements</a></li>
+<li><a href="#join-the-wake-word-collective">Join the Wake Word Collective</a></li>
+</ul>
+</li>
+<li>
+<a href="#patch-releases">Patch releases</a>
+<ul>
+<li><a href="#2024111---november-8">2024.11.1 - November 8</a></li>
+<li><a href="#2024112---november-15">2024.11.2 - November 15</a></li>
+<li><a href="#2024113---november-22">2024.11.3 - November 22</a></li>
+</ul>
+</li>
+<li><a href="#need-help-join-the-community">Need help? Join the community!</a></li>
+<li><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li><a href="#all-changes">All changes</a></li>
+</ul>
+<h2>Sections dashboard no longer experimental! <a class="title-link" name="sections-dashboard-no-longer-experimental" href="#sections-dashboard-no-longer-experimental"></a>
+</h2>
+<p>This release marks a big milestone in our pursuit of making dashboards easier to
+customize and use for everyone, aka <a href="/blog/2024/03/04/dashboard-chapter-1/">Project Grace</a>! The sections view layout,
+together with its drag-and-drop 🐲 capabilities and responsive design,
+is now <strong>out of its experimental phase</strong>, and ready for primetime! This means
+that, as of this release, you will get our awesome feature-rich and easy-to-use
+dashboard editing experience when you create a new dashboard. 🎉</p>
+<p>Over the past few months, we have worked hard to iterate and listen to your
+feedback to ensure that our new dashboard is easy to customize for both
+beginners and advanced users alike. We have added new capabilities such as
+<a href="/blog/2024/07/03/release-20247/">resizing cards</a>, <a href="/blog/2024/06/05/release-20246/">visibility options</a>, <a href="/blog/2024/09/04/release-20249/">wider sections</a>, <a href="/blog/2024/08/07/release-20248/">new badges</a>,
+and, most recently, adding <a href="/blog/2024/10/02/release-202410/">the new heading card</a>.</p>
+<p>To finish this journey, we are adding two more features to this release.</p>
+<h3>Convert your old dashboards to sections view layout <a class="title-link" name="convert-your-old-dashboards-to-sections-view-layout" href="#convert-your-old-dashboards-to-sections-view-layout"></a>
+</h3>
+<p class="img no-shadow"><img class="no-shadow" alt="Screenshots showing the conversion of a view in masonry into sections" src="/images/blog/2024-11/dashboard-conversion.png">Screenshots showing the conversion of a view in masonry into sections</p>
+<p>This release includes a way to convert individual dashboard views from the old
+masonry view layout to the new sections view layout. When you change the view
+type to sections, you get a button to convert the view. All the cards of the
+old view are then copied and placed in an imported cards section in the new
+view, and you can then easily drag-and-drop them into the right sections.</p>
+<p>Please note that cards placed within the imported cards section are only visible
+to users once moved to a section above the fold. This ensures that
+cards do not get accidentally shown in the wrong sections while you are still
+working on the dashboard.</p>
+<p class="img no-shadow"><img class="no-shadow" alt="Screenshot of the imported cards section" src="/images/blog/2024-11/imported-cards.png">Screenshot of the imported cards section</p>
+<p>If you are not ready for the new layout yet, no worries! Your old dashboard view
+is kept when a new dashboard is created, giving an excellent way for masonry
+view veterans to try out sections while keeping all the hard work they have put
+into customizing their cards.</p>
+<p>Alternatively, you can move each card one-by-one from another view. All moved
+cards will also be temporarily placed in the imported cards section.</p>
+<h3>Precise mode for card sizes <a class="title-link" name="precise-mode-for-card-sizes" href="#precise-mode-for-card-sizes"></a>
+</h3>
+<p class="img no-shadow"><img class="no-shadow" alt="Examples of cards using precise mode" src="/images/blog/2024-11/precise-mode-example.png" style="width: 60%;">Examples of cards using precise mode</p>
+<p>If you love tinkering with your dashboards and fine-tuning card sizes with more
+precision, you now have even more control over the size of cards. In the layout
+options of a card you can now enable “Precise mode”, which will give you three
+times more options for the card widths!</p>
+<p>Precise mode is applied on a card-by-card level. While a normal section is
+divided into 4 columns, precise modes gives you 12 columns, which allows you
+to align 2, 3, 4, or 6 buttons side-by-side.</p>
+<h2>Low latency cameras using WebRTC <a class="title-link" name="low-latency-cameras-using-webrtc" href="#low-latency-cameras-using-webrtc"></a>
+</h2>
+<p>Lots of effort has gone into this new and amazing feature for this release:
+<strong>WebRTC</strong>! 🎉</p>
+<center><p class="no-shadow"><img class="no-shadow" alt="Logo of WebRTC" src="/images/blog/2024-11/webrtc-logo-horiz-retro.png"></p></center>
+<p>Not sure <a href="https://en.wikipedia.org/wiki/WebRTC" rel="external nofollow">what WebRTC is<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>? No worries! Let us try to explain. If you are
+watching a camera in Home Assistant, you might have noticed it is sometimes
+a bit slow and delayed. WebRTC support is going to change that!</p>
+<p>Camera streams will now try to use WebRTC whenever possible.
+<a href="https://webrtc.org/" rel="external nofollow">WebRTC is a standard<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> that makes a peer-to-peer connection for lower-latency
+audio and video streaming. You are probably using this technology a lot already,
+for example, when having an online video call. When you’re away from home,
+it will try to find the fastest and most direct path between your Home Assistant
+instance and the camera you are trying to view.</p>
+<p><a href="https://www.openhomefoundation.org/">The Open Home Foundation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> will host the negotiating network infrastructure
+(<a href="https://en.wikipedia.org/wiki/STUN" rel="external nofollow">STUN servers<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) <strong>for free for all Home Assistant users</strong> and enable the
+capability to use WebRTC for peer-to-peer connections whenever possible. If you are using Home Assistant OS or our containers, after you update this will automatically work out of the box.</p>
+<center><p class="no-shadow"><img class="no-shadow" alt="Logo of the Open Home Foundation" src="https://www.openhomefoundation.org/assets/images/logo/open-home-foundation.svg" style="width: 90%"></p></center>
+<p>Sometimes, a direct connection between the client (like your browser
+or mobile app) and the camera is not possible; in those situations, the camera
+stream needs to be relayed by an external server. <a href="/cloud/">Home Assistant Cloud</a> now
+provides this relay server (<a href="https://en.wikipedia.org/wiki/Traversal_Using_Relays_around_NAT" rel="external nofollow">TURN server<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>), and it’s <strong>included as one of the many benefits</strong>
+available to all subscribers!</p>
+<p>So, no matter where you are, you should always be able to watch your cameras
+via this low-latency technology. If, for whatever reason, WebRTC is not
+available, it will fall back to using the old method of streaming to ensure
+you can always see your camera feeds.</p>
+<p>So, after reading all of this, what changed? Well, camera feeds will do everything they did before, but will be faster, more responsive, and less delayed! 🎉</p>
+<h2>Integrations <a class="title-link" name="integrations" href="#integrations"></a>
+</h2>
+<p>Thanks to our community for keeping pace with the new <span class="terminology">integrations<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span>
+and improvements to existing ones! You’re all awesome 🥰</p>
+<h3>New integrations <a class="title-link" name="new-integrations" href="#new-integrations"></a>
+</h3>
+<p>We welcome the following new integrations in this release:</p>
+<ul>
+<li>
+<strong><a href="/integrations/lg_thinq">LG ThinQ</a></strong>, added by <a href="https://github.com/LG-ThinQ-Integration" rel="external nofollow">@LG-ThinQ-Integration<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a><br>
+Integrate your LG ThinQ devices, such as air conditioners, refrigerators,
+and washing machines. LG built and provided this integration! It’s super nice
+to see a manufacturer providing an integration for Home Assistant.</li>
+<li>
+<strong><a href="/integrations/husqvarna_automower_ble">Husqvarna Automower BLE</a></strong>, added by <a href="https://github.com/alistair23" rel="external nofollow">@alistair23<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a><br>
+Integrate your Husqvarna lawnmower using Bluetooth.</li>
+<li>
+<strong><a href="/integrations/palazzetti">Palazzetti</a></strong>, added by <a href="https://github.com/dotvav" rel="external nofollow">@dotvav<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a><br>
+Integrate your <a href="https://palazzettigroup.com/" rel="external nofollow">Palazzetti pellet stove<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>; control the stove, fan speeds and get the current temperature.</li>
+</ul>
+<h3>Noteworthy improvements to existing integrations <a class="title-link" name="noteworthy-improvements-to-existing-integrations" href="#noteworthy-improvements-to-existing-integrations"></a>
+</h3>
+<p>It is not just new <span class="terminology">integrations<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> that have been added; existing
+integrations are also being constantly improved. Here are some of the noteworthy
+changes to existing integrations:</p>
+<ul>
+<li>
+<a href="https://github.com/joostlek" rel="external nofollow">@joostlek<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> has extended the <a href="/integrations/spotify">Spotify integration</a> with a whole bunch of new
+sensors for the current song playing. You can now, for example, automate
+putting your house into party mode 🎉 when the song playing is danceable
+enough 😎 Awesome job!</li>
+<li>The <a href="/integrations/linkplay">LinkPlay integration</a> now has multiroom support! Group and ungroup your
+devices to play music in sync or individually straight from Home Assistant.
+Thanks <a href="https://github.com/silamon" rel="external nofollow">@silamon<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>!</li>
+<li>Staying in the audio department, <a href="https://github.com/mj23000" rel="external nofollow">@mj23000<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> added shuffle and repeat controls
+to the <a href="/integrations/bang_olufsen">Bang &amp; Olufsen integration</a>. Nice!</li>
+<li>The <a href="/integrations/vicare">ViCare integration</a> now supports room sensors and hot water storage
+sensors. Thanks for that <a href="https://github.com/CFenner" rel="external nofollow">@CFenner<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>!</li>
+<li>
+<a href="https://github.com/starkillerOG" rel="external nofollow">@starkillerOG<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> added sensors to track the total number of installations and
+integrations to the <a href="/integrations/analytics_insights">Analytics Insights integration</a>. Nice!</li>
+<li>The <a href="/integrations/habitica">Habitica integration</a> now supports sensors for gems, mystic hourglasses,
+and calendars for to-dos and daily tasks. Thanks <a href="https://github.com/tr4nt0r" rel="external nofollow">@tr4nt0r<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>!</li>
+<li>
+<a href="https://github.com/YoavGivati" rel="external nofollow">@YogevBokobza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> added support for the <a href="https://switcher.co.il/%D7%9E%D7%95%D7%A6%D7%A8/runner-lights-s12/" rel="external nofollow">Switcher Runner S12<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> to the
+<a href="/integrations/switcher_kis">Switcher integration</a>. Thanks for that!</li>
+<li>The <a href="/integrations/husqvarna_automower">Husqvarna Automower integration</a> keeps receiving love from <a href="https://github.com/Thomas55555" rel="external nofollow">@Thomas55555<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.
+This release adds work area and progress sensors. Nice!</li>
+<li>
+<a href="https://github.com/bdraco" rel="external nofollow">@bdraco<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> added support for the <a href="https://www.switch-bot.com/products/switchbot-meter-pro" rel="external nofollow">SwitchBot Meter Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> to the
+<a href="/integrations/switchbot">SwitchBot integration</a>. Thanks!</li>
+<li>The <a href="/integrations/switchbot_cloud">SwitchBot Cloud integration</a> now supports locks! Thanks <a href="https://github.com/miterion" rel="external nofollow">@miterion<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>!</li>
+<li>A little more technical, but <a href="https://github.com/jbouwh" rel="external nofollow">@jbouwh<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> added support for
+<a href="/integrations/mqtt/#device-discovery-payload">MQTT device-based auto discovery</a>. This allows MQTT devices to be set up
+and discovered once instead of separately for each entity; which is much
+more efficient. Nice improvement!</li>
+</ul>
+<h3>Now available to set up from the UI <a class="title-link" name="now-available-to-set-up-from-the-ui" href="#now-available-to-set-up-from-the-ui"></a>
+</h3>
+<p>While most <span class="terminology">integrations<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> can be set up directly from the Home Assistant
+user interface, some were only available using YAML configuration. We keep moving
+more integrations to the UI, making them more accessible for everyone
+to set up and use.</p>
+<p>The following integrations are now available via the Home Assistant UI:</p>
+<ul>
+<li>
+<strong><a href="/integrations/local_file">Local file</a></strong>, done by <a href="https://github.com/gjohansson-ST" rel="external nofollow">@gjohansson-ST<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+<li>
+<strong><a href="/integrations/onkyo">Onkyo</a></strong>, done by <a href="https://github.com/Nebula83" rel="external nofollow">@Nebula83<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+<li>
+<strong><a href="/integrations/smarty">Smarty</a></strong>, done by <a href="https://github.com/joostlek" rel="external nofollow">@joostlek<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+</ul>
+<h3>Farewell to the following <a class="title-link" name="farewell-to-the-following" href="#farewell-to-the-following"></a>
+</h3>
+<p>The following <span class="terminology">integrations<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> are also no longer available as
+of this release:</p>
+<ul>
+<li>
+<strong>Bloomsky</strong>. Their service shut down.</li>
+<li>
+<strong>Google Domains</strong>. The domain registration service by Google has been
+shut down.</li>
+<li>
+<strong>Spider</strong>. The service is no longer available.</li>
+</ul>
+<h2>Other noteworthy changes <a class="title-link" name="other-noteworthy-changes" href="#other-noteworthy-changes"></a>
+</h2>
+<p>There are many more improvements in this release; here are some of the other
+noteworthy changes:</p>
+<ul>
+<li>
+<a href="/integrations/image">Image entities</a> now have a snapshot action, allowing you to save the current
+image in the entity to a file. Nice <a href="https://github.com/NickM-27" rel="external nofollow">@NickM-27<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>!</li>
+<li>
+<a href="https://github.com/Petro31" rel="external nofollow">@Petro31<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> added <a href="/docs/configuration/templating/#limited-templates">(limited) template</a> support to the “at” field of <a href="/docs/automation/trigger/#time-trigger">time triggers</a>.
+This allows you to template the time of that trigger in, for example,
+a blueprint automation.</li>
+<li>
+<a href="https://en.wikipedia.org/wiki/Nautical_mile" rel="external nofollow">Nautical miles<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (<code>nmi</code>) is now a valid distance unit. This means you can now
+use this as a unit for your distance sensors. Thanks <a href="https://github.com/mib1185" rel="external nofollow">@mib1185<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>!</li>
+<li>
+<a href="https://github.com/tetele" rel="external nofollow">@tetele<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> added <a href="/integrations/template/#using-blueprints">blueprints for template entities</a>! This allows for easier
+re-use and sharing of common blueprints for sets of templated entities.
+This is an advanced feature and is only available using manual YAML
+configuration.</li>
+<li>
+<a href="https://github.com/MindFreeze" rel="external nofollow">@MindFreeze<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://github.com/matthiasdebaat" rel="external nofollow">@matthiasdebaat<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> have improved the network settings user
+interface. It is now easier to manage and configure your network settings,
+including nicer handling of IP addresses, improved Wi-Fi configuration,
+and better visibility on the URLs Home Assistant is using for your instance.</li>
+<li>We now indicate if a custom integration is overriding a built-in integration.
+This makes it easier to spot if a custom integration is taking over a
+built-in integration while you are wondering why you didn’t get the latest
+features Home Assistant releases bring. Thanks, <a href="https://github.com/MindFreeze" rel="external nofollow">@MindFreeze<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>!</li>
+</ul>
+<h3>Live logs <a class="title-link" name="live-logs" href="#live-logs"></a>
+</h3>
+<p>Sometimes, if something does not work as expected, you might resort to a more technical
+tool for finding out what is going on: The logs.</p>
+<p>Previously, if you looked at the logs of, for example, an add-on or the Home
+Assistant Supervisor, you would only see the last 100 log lines. You would
+have had to refresh the page to see new log entries.</p>
+<p>Well, no more! As of this release, the logs are now <strong>streaming live</strong>! 🎉</p>
+<p class="img no-shadow"><img class="no-shadow" alt="Screenshot of the imported cards section" src="/images/blog/2024-11/streaming-live-logs.gif">Screen recording demonstrating logs showing up as they happen.</p>
+<p>And not just that, you can scroll back in time to see previous log items.
+That’s a pretty cool improvement. 😎</p>
+<h2>Voice <a class="title-link" name="voice" href="#voice"></a>
+</h2>
+<p>Last year, 2023, was the <a href="/blog/2022/12/20/year-of-voice/">Year of the Voice</a> for Home Assistant. And while this
+year isn’t specifically dedicated to voice, everyone is still working hard
+towards the goal of letting users control their homes with their voice in
+their own language.</p>
+<p>As you might have heard through many community channels 🕵️‍♀️, we are working to
+make this a reality for everyone. We are hard at work getting our Home Assistant
+voice satellite hardware ready and available for selling and shipping! 🤗</p>
+<p>Stay tuned for more information on that soon!</p>
+<h3>Home Assistant intents improvements <a class="title-link" name="home-assistant-intents-improvements" href="#home-assistant-intents-improvements"></a>
+</h3>
+<p>One of the things we are working on is the Home Assistant intents. This is a
+way for a voice assistant to understand the intention behind your spoken
+sentences. This is a very crucial part of a local voice assistant.</p>
+<p>In this release, we decided to align and combine Canadian French and French languages for the time being. Though we understand it is a unique dialect, this is about giving Canadian French users a lot more voice features.</p>
+<p><img src="/images/blog/2024-11/canadian-french-on-assist.png" alt="Screenshot showing a few commands in Canadian French before and after this release"></p>
+<p>These intents are built and maintained by the community, and we are very
+grateful for their work. For example, <a href="https://github.com/piitaya" rel="external nofollow">@piitaya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://github.com/jlpouffier" rel="external nofollow">@jlpouffier<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> have made a
+great effort to lead the French language intents mentioned above.</p>
+<p>Nevertheless, we want to ensure everyone can use Home Assistant in their
+own language, <strong>so we need your help</strong>! Help the community by contributing to
+the intents for your language. You can find more information on how to do that
+in our <a href="https://developers.home-assistant.io/docs/voice/intent-recognition/contributing">developer documentation</a>.</p>
+<h3>Join the Wake Word Collective <a class="title-link" name="join-the-wake-word-collective" href="#join-the-wake-word-collective"></a>
+</h3>
+<p>Another essential part of voice is the Wake Word! And this is where <strong>everyone</strong>,
+no matter your skill level, can help out with just a minute of your time!</p>
+<p>Wake words are the words you say to wake up your voice assistant. For example,
+<em>“Hey Google”</em> or <em>“Alexa”</em>. As we are building our own voice assistant with
+our own wake words, we need to train our models to recognize these words,
+regardless of your accent, language, gender, or age.</p>
+<p>So, get your whole home involved 🏠! Take a minute to help us out by recording your voice
+saying the wake word. It is super easy, and you can do it right from your
+browser or mobile, no need to install anything!</p>
+<p><a href="https://ohf-voice.github.io/wake-word-collective/" rel="external nofollow"><strong>Help us improve our wake words today! ❤️</strong><iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+<p>You can read more about the Wake Word Collective in our
+<a href="/blog/2024/10/24/wake-word-collective/">dedicated blog post</a>.</p>
+<h2>Patch releases <a class="title-link" name="patch-releases" href="#patch-releases"></a>
+</h2>
+<p>We will also release patch releases for Home Assistant 2024.11 in November.
+These patch releases only contain bug fixes. Our goal is to release a patch
+release every Friday.</p>
+<h3>2024.11.1 - November 8 <a class="title-link" name="2024111---november-8" href="#2024111---november-8"></a>
+</h3>
+<ul>
+<li>Bump intents to 2024.11.6 (<a href="https://github.com/synesthesiam" rel="external nofollow">@synesthesiam<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/129982" rel="external nofollow">#129982<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix Trunks in Teslemetry and Tesla Fleet (<a href="https://github.com/Bre77" rel="external nofollow">@Bre77<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/129986" rel="external nofollow">#129986<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update sense energy library to 0.13.3 (<a href="https://github.com/kbickar" rel="external nofollow">@kbickar<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/129998" rel="external nofollow">#129998<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump google-nest-sdm to 6.1.4 (<a href="https://github.com/allenporter" rel="external nofollow">@allenporter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130005" rel="external nofollow">#130005<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add missing placeholder description to twitch (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130013" rel="external nofollow">#130013<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump agent-py to 0.0.24 (<a href="https://github.com/ispysoftware" rel="external nofollow">@ispysoftware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130018" rel="external nofollow">#130018<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Don’t create repairs asking user to remove duplicate ignored config entries (<a href="https://github.com/emontnemery" rel="external nofollow">@emontnemery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130056" rel="external nofollow">#130056<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix <code>KeyError</code> in nest integration when the old key format does not exist (<a href="https://github.com/allenporter" rel="external nofollow">@allenporter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130057" rel="external nofollow">#130057<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Don’t create repairs asking user to remove duplicate flipr config entries (<a href="https://github.com/emontnemery" rel="external nofollow">@emontnemery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130058" rel="external nofollow">#130058<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add missing string to tedee plus test (<a href="https://github.com/zweckj" rel="external nofollow">@zweckj<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130081" rel="external nofollow">#130081<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Force int value on port in P1Monitor (<a href="https://github.com/klaasnicolaas" rel="external nofollow">@klaasnicolaas<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130084" rel="external nofollow">#130084<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix typo in insteon strings (<a href="https://github.com/KelvinDekker" rel="external nofollow">@KelvinDekker<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130085" rel="external nofollow">#130085<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update frontend to 20241106.1 (<a href="https://github.com/bramkragten" rel="external nofollow">@bramkragten<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130086" rel="external nofollow">#130086<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump python-roborock to 2.7.2 (<a href="https://github.com/Lash-L" rel="external nofollow">@Lash-L<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130100" rel="external nofollow">#130100<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update frontend to 20241106.2 (<a href="https://github.com/bramkragten" rel="external nofollow">@bramkragten<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130128" rel="external nofollow">#130128<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix issue when timestamp is None (<a href="https://github.com/shaiu" rel="external nofollow">@shaiu<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130133" rel="external nofollow">#130133<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add go2rtc workaround for HA managed one until upstream fixes it (<a href="https://github.com/edenhaus" rel="external nofollow">@edenhaus<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130139" rel="external nofollow">#130139<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump spotifyaio to 0.8.7 (<a href="https://github.com/joostlek" rel="external nofollow">@joostlek<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130140" rel="external nofollow">#130140<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump ha-ffmpeg to 3.2.2 (<a href="https://github.com/MartinHjelmare" rel="external nofollow">@MartinHjelmare<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130142" rel="external nofollow">#130142<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix volume_up not working in some cases in bluesound integration (<a href="https://github.com/LouisChrist" rel="external nofollow">@LouisChrist<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130146" rel="external nofollow">#130146<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix bugs in nest stream expiration handling (<a href="https://github.com/allenporter" rel="external nofollow">@allenporter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130150" rel="external nofollow">#130150<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Refrase imap fetch service description string (<a href="https://github.com/jbouwh" rel="external nofollow">@jbouwh<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130152" rel="external nofollow">#130152<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+</ul>
+<h3>2024.11.2 - November 15 <a class="title-link" name="2024112---november-15" href="#2024112---november-15"></a>
+</h3>
+<ul>
+<li>Bump aiohttp to 3.10.11 (<a href="https://github.com/bdraco" rel="external nofollow">@bdraco<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130483" rel="external nofollow">#130483<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix RecursionError in Husqvarna Automower coordinator (<a href="https://github.com/Thomas55555" rel="external nofollow">@Thomas55555<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/123085" rel="external nofollow">#123085<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump python-linkplay to v0.0.18 (<a href="https://github.com/silamon" rel="external nofollow">@silamon<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130159" rel="external nofollow">#130159<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Allow dynamic max preset in linkplay play preset (<a href="https://github.com/silamon" rel="external nofollow">@silamon<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130160" rel="external nofollow">#130160<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>No longer thrown an error when device is offline in linkplay (<a href="https://github.com/silamon" rel="external nofollow">@silamon<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130161" rel="external nofollow">#130161<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix translations in ollama (<a href="https://github.com/sheldonip" rel="external nofollow">@sheldonip<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130164" rel="external nofollow">#130164<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump nice-go to 0.3.10 (<a href="https://github.com/IceBotYT" rel="external nofollow">@IceBotYT<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130173" rel="external nofollow">#130173<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix wording in Google Calendar create_event strings for consistency (<a href="https://github.com/maxshcherbina" rel="external nofollow">@maxshcherbina<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130183" rel="external nofollow">#130183<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix uptime sensor for Vodafone Station (<a href="https://github.com/chemelli74" rel="external nofollow">@chemelli74<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130215" rel="external nofollow">#130215<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump pyTibber (<a href="https://github.com/Danielhiversen" rel="external nofollow">@Danielhiversen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130216" rel="external nofollow">#130216<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump SoCo to 0.30.6 (<a href="https://github.com/jjlawren" rel="external nofollow">@jjlawren<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130223" rel="external nofollow">#130223<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump google-nest-sdm to 6.1.5 (<a href="https://github.com/allenporter" rel="external nofollow">@allenporter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130229" rel="external nofollow">#130229<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Rename “CO2 Signal” display name to Electricity Maps for consistency (<a href="https://github.com/corradio" rel="external nofollow">@corradio<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130242" rel="external nofollow">#130242<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update generic thermostat strings for clarity and accuracy (<a href="https://github.com/maxshcherbina" rel="external nofollow">@maxshcherbina<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130243" rel="external nofollow">#130243<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix translation key for <code>done</code> response in conversation (<a href="https://github.com/mib1185" rel="external nofollow">@mib1185<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130247" rel="external nofollow">#130247<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Improve nest camera stream expiration to be defensive against errors (<a href="https://github.com/allenporter" rel="external nofollow">@allenporter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130265" rel="external nofollow">#130265<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add more f-series models to myuplink (<a href="https://github.com/astrandb" rel="external nofollow">@astrandb<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130283" rel="external nofollow">#130283<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Make Hydrawise poll non-critical data less frequently (<a href="https://github.com/dknowles2" rel="external nofollow">@dknowles2<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130289" rel="external nofollow">#130289<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Ignore WebRTC candidates for nest cameras (<a href="https://github.com/allenporter" rel="external nofollow">@allenporter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130294" rel="external nofollow">#130294<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Avoid Shelly data update during shutdown (<a href="https://github.com/chemelli74" rel="external nofollow">@chemelli74<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130301" rel="external nofollow">#130301<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix Homekit error handling alarm state unknown or unavailable (<a href="https://github.com/gjohansson-ST" rel="external nofollow">@gjohansson-ST<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130311" rel="external nofollow">#130311<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix fan’s warning TURN_ON, TURN_OFF (<a href="https://github.com/LG-ThinQ-Integration" rel="external nofollow">@LG-ThinQ-Integration<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130327" rel="external nofollow">#130327<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump python-linkplay to 0.0.20 (<a href="https://github.com/silamon" rel="external nofollow">@silamon<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130348" rel="external nofollow">#130348<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add seek support to LinkPlay (<a href="https://github.com/silamon" rel="external nofollow">@silamon<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130349" rel="external nofollow">#130349<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add Spotify and Tidal to playingmode mapping (<a href="https://github.com/silamon" rel="external nofollow">@silamon<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130351" rel="external nofollow">#130351<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Disable brightness from devices with no display in Cambridge Audio (<a href="https://github.com/noahhusby" rel="external nofollow">@noahhusby<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130369" rel="external nofollow">#130369<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Use f-strings in go2rtc code and test and do not use abbreviation (<a href="https://github.com/jbouwh" rel="external nofollow">@jbouwh<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130158" rel="external nofollow">#130158<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix typo in go2rtc (<a href="https://github.com/jbouwh" rel="external nofollow">@jbouwh<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130165" rel="external nofollow">#130165<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Go2rtc bump and set ffmpeg logs to debug (<a href="https://github.com/edenhaus" rel="external nofollow">@edenhaus<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130371" rel="external nofollow">#130371<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump spotifyaio to 0.8.8 (<a href="https://github.com/joostlek" rel="external nofollow">@joostlek<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130372" rel="external nofollow">#130372<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump Tibber 0.30.8 (<a href="https://github.com/Danielhiversen" rel="external nofollow">@Danielhiversen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130388" rel="external nofollow">#130388<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix missing title placeholders in powerwall reauth (<a href="https://github.com/bdraco" rel="external nofollow">@bdraco<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130389" rel="external nofollow">#130389<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump ring library ring-doorbell to 0.9.9 (<a href="https://github.com/sdb9696" rel="external nofollow">@sdb9696<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/129966" rel="external nofollow">#129966<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump ring-doorbell to 0.9.12 (<a href="https://github.com/sdb9696" rel="external nofollow">@sdb9696<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130419" rel="external nofollow">#130419<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Do not trigger events for updated ring events (<a href="https://github.com/sdb9696" rel="external nofollow">@sdb9696<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130430" rel="external nofollow">#130430<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add title to water heater component (<a href="https://github.com/joostlek" rel="external nofollow">@joostlek<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130446" rel="external nofollow">#130446<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix translation in statistics (<a href="https://github.com/gjohansson-ST" rel="external nofollow">@gjohansson-ST<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130455" rel="external nofollow">#130455<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix typo in file strings (<a href="https://github.com/KelvinDekker" rel="external nofollow">@KelvinDekker<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130465" rel="external nofollow">#130465<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump aiowithings to 3.1.2 (<a href="https://github.com/joostlek" rel="external nofollow">@joostlek<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130469" rel="external nofollow">#130469<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Ensure ZHA setup works with container installs (<a href="https://github.com/puddly" rel="external nofollow">@puddly<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130470" rel="external nofollow">#130470<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix legacy _attr_state handling in AlarmControlPanel (<a href="https://github.com/gjohansson-ST" rel="external nofollow">@gjohansson-ST<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130479" rel="external nofollow">#130479<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump reolink_aio to 0.11.0 (<a href="https://github.com/starkillerOG" rel="external nofollow">@starkillerOG<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130481" rel="external nofollow">#130481<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix translations in subaru (<a href="https://github.com/sheldonip" rel="external nofollow">@sheldonip<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130486" rel="external nofollow">#130486<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump aioruckus to 0.42 (<a href="https://github.com/ms264556" rel="external nofollow">@ms264556<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130487" rel="external nofollow">#130487<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump go2rtc-client to 0.1.1 (<a href="https://github.com/edenhaus" rel="external nofollow">@edenhaus<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130498" rel="external nofollow">#130498<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump aiowithings to 3.1.3 (<a href="https://github.com/joostlek" rel="external nofollow">@joostlek<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130504" rel="external nofollow">#130504<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add go2rtc recommended version (<a href="https://github.com/edenhaus" rel="external nofollow">@edenhaus<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130508" rel="external nofollow">#130508<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>fix translation in srp_energy (<a href="https://github.com/briglx" rel="external nofollow">@briglx<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130540" rel="external nofollow">#130540<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix non-thread-safe operation in powerview number (<a href="https://github.com/bdraco" rel="external nofollow">@bdraco<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130557" rel="external nofollow">#130557<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump ZHA dependencies (<a href="https://github.com/puddly" rel="external nofollow">@puddly<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130563" rel="external nofollow">#130563<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update uptime deviation for Vodafone Station (<a href="https://github.com/chemelli74" rel="external nofollow">@chemelli74<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130571" rel="external nofollow">#130571<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fixes webhook schema for different temp and volume units (<a href="https://github.com/JohNan" rel="external nofollow">@JohNan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130578" rel="external nofollow">#130578<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump reolink-aio to 0.11.1 (<a href="https://github.com/starkillerOG" rel="external nofollow">@starkillerOG<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130600" rel="external nofollow">#130600<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix hassfest by adding go2rtc reqs (<a href="https://github.com/edenhaus" rel="external nofollow">@edenhaus<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130602" rel="external nofollow">#130602<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add missing translation string to smarty (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130624" rel="external nofollow">#130624<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump sense-energy to 0.13.4 (<a href="https://github.com/kbickar" rel="external nofollow">@kbickar<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130625" rel="external nofollow">#130625<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix scene loading issue (<a href="https://github.com/alistairg" rel="external nofollow">@alistairg<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130627" rel="external nofollow">#130627<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add missing translation string to hvv_departures (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130634" rel="external nofollow">#130634<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add missing translation string to lg_netcast (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130635" rel="external nofollow">#130635<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add missing translation string to philips_js (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130637" rel="external nofollow">#130637<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump pyplaato to 0.0.19 (<a href="https://github.com/JohNan" rel="external nofollow">@JohNan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130641" rel="external nofollow">#130641<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Remove dumping config entry to log in setup of roborock (<a href="https://github.com/jpbede" rel="external nofollow">@jpbede<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130648" rel="external nofollow">#130648<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix missing translations in vilfo (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130650" rel="external nofollow">#130650<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix missing translations in utility_meter (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130652" rel="external nofollow">#130652<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix missing translations in tradfri (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130654" rel="external nofollow">#130654<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix missing translations in toon (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130655" rel="external nofollow">#130655<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix missing translations in madvr (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130656" rel="external nofollow">#130656<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix missing translations in generic (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130672" rel="external nofollow">#130672<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix missing translations in onewire (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130673" rel="external nofollow">#130673<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump python-smarttub to 0.0.38 (<a href="https://github.com/mdz" rel="external nofollow">@mdz<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130679" rel="external nofollow">#130679<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+</ul>
+<h3>2024.11.3 - November 22 <a class="title-link" name="2024113---november-22" href="#2024113---november-22"></a>
+</h3>
+<ul>
+<li>Prevent endless loop in recorder when using a filter and there are no more states to purge (<a href="https://github.com/davinkevin" rel="external nofollow">@davinkevin<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/126149" rel="external nofollow">#126149<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix and bump apsystems-ez1 to 2.4.0 (<a href="https://github.com/patman15" rel="external nofollow">@patman15<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130740" rel="external nofollow">#130740<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix file uploads in MQTT config flow not processed in executor (<a href="https://github.com/jbouwh" rel="external nofollow">@jbouwh<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130746" rel="external nofollow">#130746<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update twentemilieu to 2.1.0 (<a href="https://github.com/frenck" rel="external nofollow">@frenck<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130752" rel="external nofollow">#130752<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix unexpected stop of media playback via ffmpeg proxy for ESPhome devices (<a href="https://github.com/mib1185" rel="external nofollow">@mib1185<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130788" rel="external nofollow">#130788<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump homematicip to 1.1.3 (<a href="https://github.com/hahn-th" rel="external nofollow">@hahn-th<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130824" rel="external nofollow">#130824<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>UPB integration: Change unique ID from int to string. (<a href="https://github.com/gwww" rel="external nofollow">@gwww<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130832" rel="external nofollow">#130832<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Reolink fix dev/entity id migration (<a href="https://github.com/starkillerOG" rel="external nofollow">@starkillerOG<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130836" rel="external nofollow">#130836<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Use default device sensors also for AirQ devices in Sensibo (<a href="https://github.com/gjohansson-ST" rel="external nofollow">@gjohansson-ST<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130841" rel="external nofollow">#130841<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Pass config_entry explicitly in rachio (<a href="https://github.com/epenet" rel="external nofollow">@epenet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130865" rel="external nofollow">#130865<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump bluetooth-adapters to 0.20.2 (<a href="https://github.com/bdraco" rel="external nofollow">@bdraco<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130877" rel="external nofollow">#130877<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fixed Small Inaccuracy in Description String for myUplink (<a href="https://github.com/CharlesYuan02" rel="external nofollow">@CharlesYuan02<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130900" rel="external nofollow">#130900<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Unscape HTML Entities from RSS feeds (<a href="https://github.com/skgsergio" rel="external nofollow">@skgsergio<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130915" rel="external nofollow">#130915<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update elmax_api to v0.0.6.1 (<a href="https://github.com/ElmaxSrl" rel="external nofollow">@ElmaxSrl<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130917" rel="external nofollow">#130917<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump aioairq to 0.4.3 (<a href="https://github.com/Sibgatulin" rel="external nofollow">@Sibgatulin<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130963" rel="external nofollow">#130963<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Strip whitespaces from host in ping config flow (<a href="https://github.com/jpbede" rel="external nofollow">@jpbede<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130970" rel="external nofollow">#130970<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add more UI user-friendly description to six Supervisor actions (<a href="https://github.com/NoRi2909" rel="external nofollow">@NoRi2909<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130971" rel="external nofollow">#130971<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add missing catholic category in workday (<a href="https://github.com/gjohansson-ST" rel="external nofollow">@gjohansson-ST<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130983" rel="external nofollow">#130983<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump holidays to 0.61 (<a href="https://github.com/gjohansson-ST" rel="external nofollow">@gjohansson-ST<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130984" rel="external nofollow">#130984<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump aioairzone to 0.9.6 (<a href="https://github.com/Noltari" rel="external nofollow">@Noltari<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/130559" rel="external nofollow">#130559<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update aioairzone to v0.9.7 (<a href="https://github.com/Noltari" rel="external nofollow">@Noltari<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/131033" rel="external nofollow">#131033<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Replace “service” with “action” in zha:reconfigure_device (<a href="https://github.com/NoRi2909" rel="external nofollow">@NoRi2909<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/131111" rel="external nofollow">#131111<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix typo in name of “Alarm arm home instant” action (<a href="https://github.com/NoRi2909" rel="external nofollow">@NoRi2909<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/131151" rel="external nofollow">#131151<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix cast translation string (<a href="https://github.com/NoRi2909" rel="external nofollow">@NoRi2909<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/131156" rel="external nofollow">#131156<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix typo in ESPHome repair text (<a href="https://github.com/jesserockz" rel="external nofollow">@jesserockz<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/131200" rel="external nofollow">#131200<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Reolink log fast poll errors once (<a href="https://github.com/starkillerOG" rel="external nofollow">@starkillerOG<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/131203" rel="external nofollow">#131203<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix fibaro cover state is not always correct (<a href="https://github.com/rappenze" rel="external nofollow">@rappenze<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/131206" rel="external nofollow">#131206<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump reolink_aio to 0.11.2 (<a href="https://github.com/starkillerOG" rel="external nofollow">@starkillerOG<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/131237" rel="external nofollow">#131237<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+</ul>
+<h2>Need help? Join the community! <a class="title-link" name="need-help-join-the-community" href="#need-help-join-the-community"></a>
+</h2>
+<p>Home Assistant has a great community of users who are all more than willing
+to help each other out. So, join us!</p>
+<p>Our very active <a href="/join-chat">Discord chat server</a> is an excellent place to be
+at, and don’t forget to join our amazing <a href="https://community.home-assistant.io/">forums</a>.</p>
+<p>Found a bug or issue? Please report it in our <a href="https://github.com/home-assistant/core/issues" rel="external nofollow">issue tracker<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>,
+to get it fixed! Or, check <a href="/help">our help page</a> for guidance for more
+places you can go.</p>
+<p>Are you more into email? <a href="/newsletter">Sign-up for our Building the Open Home Newsletter</a>
+to get the latest news about features, things happening in our community and
+other news about building an Open Home; straight into your inbox.</p>
+<h2>Backward-incompatible changes <a class="title-link" name="backward-incompatible-changes" href="#backward-incompatible-changes"></a>
+</h2>
+<p>We do our best to avoid making changes to existing functionality that might
+unexpectedly impact your Home Assistant installation. Unfortunately, sometimes,
+it is inevitable.</p>
+<p>We always make sure to document these changes to make the transition as easy as
+possible for you. This release has the following backward-incompatible changes:</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>A. O. Smith</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>A. O. Smith now provides the hot water status as a percentage rather than low,
+medium, or high. The hot water status entity has been updated accordingly.</p>
+<p>(<a href="https://github.com/bdr99" rel="external nofollow">@bdr99<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/127678" rel="external nofollow">#127678<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/aosmith">documentation</a>)</p>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Google Calendar</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<p>Google Calendar events that are declined are now omitted from the calendar.</p>
+<p>(<a href="https://github.com/joelhawksley" rel="external nofollow">@joelhawksley<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/128900" rel="external nofollow">#128900<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/google">documentation</a>)</p>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>HomeKit</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_2">
+<p>Historically, many integrations implemented doorbells as binary sensors with a
+device class of occupancy. This design was replaced with the new event entities,
+which use a purpose-built device class of doorbell.</p>
+<p>HomeKit will no longer automatically link binary sensors with device class
+occupancy as linked doorbell sensors. However, linked doorbell sensors can
+still be configured manually via YAML.</p>
+<p>(<a href="https://github.com/bdraco" rel="external nofollow">@bdraco<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/127668" rel="external nofollow">#127668<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homekit">documentation</a>)</p>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Litter-Robot</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_3">
+<p>Previously, Litter-Robot could have an off state. This has now changed to
+<code>docked</code>, as <code>off</code> isn’t a valid state for vacuum entities.</p>
+<p>(<a href="https://github.com/gjohansson-ST" rel="external nofollow">@gjohansson-ST<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/128297" rel="external nofollow">#128297<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/litterrobot">documentation</a>)</p>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Netatmo</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_4">
+<p>The preset modes of the thermostat have been renamed in order to support
+translations <code>Schedule</code>, <code>Frost guard</code>, and <code>Manual</code> have been renamed to
+<code>schedule</code>, <code>frost_guard</code>, and <code>manual</code>.</p>
+<p>(<a href="https://github.com/piitaya" rel="external nofollow">@piitaya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/128890" rel="external nofollow">#128890<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/netatmo">documentation</a>)</p>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Tibber</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_5">
+<p>The <code>tibber.get_prices</code> action has been adjusted to return datetimes as strings
+instead of raw datetime objects.</p>
+<p>Automations or template sensors using this may need to be modified with an
+<code>as_datetime</code> filter. See our <a href="/docs/configuration/templating/#time">templating documentation</a>
+for more information on using these filters.</p>
+<p>(<a href="https://github.com/functionpointer" rel="external nofollow">@functionpointer<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/123901" rel="external nofollow">#123901<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tibber">documentation</a>)</p>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Updates</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_6">
+<p>State attributes of update entities have been changed:</p>
+<ul>
+<li>The <code>in_progress</code> state attribute is now always a <code>bool</code>, never an integer.</li>
+<li>A new state attribute <code>update_percentage</code> has been added. The
+<code>update_percentage</code> is a number between 0-100 if an update is in progress
+and the entity supports reporting progress, or <code>None</code> if an update is not
+in progress or an update is in progress but the entity does not support
+reporting progress.</li>
+</ul>
+<p>Scripts, automations, custom frontend components, etc., which consume the
+<code>in_progress</code> state attribute of update entities, need to be updated accordingly.</p>
+<p>(<a href="https://github.com/emontnemery" rel="external nofollow">@emontnemery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/128877" rel="external nofollow">#128877<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/update">documentation</a>)</p>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>WMS WebControl pro</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_7">
+<p>The open/closed state of awnings will be inverted so that the UI visualization
+and positioning match reality. This means open (100%) now refers to the awning
+being completely retracted, and closed (0%) now means the awning is fully
+expanded. This is not in line with industry terminology, but Home Assistant
+does not yet natively support awnings of type patio.</p>
+<p>(<a href="https://github.com/mback2k" rel="external nofollow">@mback2k<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/core/pull/128079" rel="external nofollow">#128079<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/wmspro">documentation</a>)</p>
+</div>
+  </details>
+</div>
+<p>If you are a custom integration developer and want to learn about changes and
+new features available for your integration: Be sure to follow our
+<a href="https://developers.home-assistant.io/blog/">developer blog</a>. The following are the most notable for this release:</p>
+<ul>
+<li><a href="https://developers.home-assistant.io/blog/2024/10/08/unit-of-conductivity-changes">Changes to the UnitOfConductivity enum</a></li>
+<li><a href="https://developers.home-assistant.io/blog/2024/10/31/update-entity-changes">Changes to the update entity</a></li>
+<li><a href="https://developers.home-assistant.io/blog/2024/10/08/state-constants-cover-deprecation">Deprecating state constants for cover</a></li>
+<li><a href="https://developers.home-assistant.io/blog/2024/10/09/extend-deprecation-hass-helpers">Extend deprecation period of hass.helpers</a></li>
+<li><a href="https://developers.home-assistant.io/blog/2024/10/22/new-alarm-state-property">New alarm control panel state property and state enum</a></li>
+<li><a href="https://developers.home-assistant.io/blog/2024/10/21/reauth-reconfigure-helpers">New helpers and best practises for reauth and reconfigure flows</a></li>
+<li><a href="https://developers.home-assistant.io/blog/2024/11/04/reauth-reconfigure-entry-id/">Reauth and reconfigure flows need to be linked to a config entry</a></li>
+<li><a href="https://developers.home-assistant.io/blog/2024/10/31/core-config-moved">The core config class has been moved</a></li>
+</ul>
+<h2>All changes <a class="title-link" name="all-changes" href="#all-changes"></a>
+</h2>
+<p>Of course, there is a lot more in this release. You can find a list of
+all changes made here: <a href="/changelogs/core-2024.11">Full changelog for Home Assistant Core 2024.11</a></p>
+
+
+
+</article>
+
+<div id="post-comments"></div>
+
+
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  DiscourseEmbed = { discourseUrl: 'https://community.home-assistant.io/',
+                     discourseEmbedUrl: 'https://www.home-assistant.io/blog/2024/11/06/release-202411/' };
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  
+    
+      <section class="sharing aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:ios-share' title='Ios share'></iconify-icon> Share this post</h1>
+  <ul class="divided">
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2024%2F11%2F06%2Frelease-202411%2F&text=2024.11%3A+Slick+dashboards+and+speedy+cameras+via+%40home_assistant"
+      >Tweet</a>
+    </li>
+  
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2024%2F11%2F06%2Frelease-202411%2F"
+      >Share on Facebook</a>
+    </li>
+  
+  </ul>
+</section>
+
+      
+
+<section class="recent-posts aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:newspaper-variant-multiple' title='Newspaper variant multiple'></iconify-icon> Recent Posts</h1>
+  <ul class="divided">
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/17/home-assistant-turns-12/">Happy 12th Birthday, Home Assistant!</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/11/ai-in-home-assistant/">Building the AI-powered local smart home</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/03/release-20259/">2025.9: Features for tiles and automations for miles</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/02/frient-joins-works-with-home-assistant/">Frient joins Works with Home Assistant</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/08/21/airgradient-joins-works-with-home-assistant/">AirGradient joins Works with Home Assistant</a>
+        </li>
+      
+    
+  </ul>
+</section>
+
+    
+  
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#sections-dashboard-no-longer-experimental">Sections dashboard no longer experimental!</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#convert-your-old-dashboards-to-sections-view-layout">Convert your old dashboards to sections view layout</a></li>
+<li class="toc-entry toc-h3"><a href="#precise-mode-for-card-sizes">Precise mode for card sizes</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#low-latency-cameras-using-webrtc">Low latency cameras using WebRTC</a></li>
+<li class="toc-entry toc-h2"><a href="#integrations">Integrations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#new-integrations">New integrations</a></li>
+<li class="toc-entry toc-h3"><a href="#noteworthy-improvements-to-existing-integrations">Noteworthy improvements to existing integrations</a></li>
+<li class="toc-entry toc-h3"><a href="#now-available-to-set-up-from-the-ui">Now available to set up from the UI</a></li>
+<li class="toc-entry toc-h3"><a href="#farewell-to-the-following">Farewell to the following</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#other-noteworthy-changes">Other noteworthy changes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#live-logs">Live logs</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#voice">Voice</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#home-assistant-intents-improvements">Home Assistant intents improvements</a></li>
+<li class="toc-entry toc-h3"><a href="#join-the-wake-word-collective">Join the Wake Word Collective</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#patch-releases">Patch releases</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#2024111---november-8">2024.11.1 - November 8</a></li>
+<li class="toc-entry toc-h3"><a href="#2024112---november-15">2024.11.2 - November 15</a></li>
+<li class="toc-entry toc-h3"><a href="#2024113---november-22">2024.11.3 - November 22</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#need-help-join-the-community">Need help? Join the community!</a></li>
+<li class="toc-entry toc-h2"><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li class="toc-entry toc-h2"><a href="#all-changes">All changes</a></li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

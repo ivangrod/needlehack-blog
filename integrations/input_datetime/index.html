@@ -1,0 +1,692 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Input Datetime - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate the Input Datetime integration into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/input_datetime/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Input Datetime">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/input_datetime/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate the Input Datetime integration into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Input Datetime">
+    <meta name="twitter:description" content="Instructions on how to integrate the Input Datetime integration into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#attributes">Attributes</a></li>
+<li class="toc-entry toc-h3"><a href="#restore-state">Restore state</a></li>
+<li class="toc-entry toc-h3"><a href="#actions">Actions</a></li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Input Datetime
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <code>input_datetime</code> integration allows the user to define date and time values
+that can be controlled via the frontend and can be used within automations and
+templates.</p>
+<p>The preferred way to configure input datetime is via the user interface at <strong><a href="https://my.home-assistant.io/redirect/helpers" class="my" target="_blank">Settings &gt; Devices &amp; services &gt; Helpers</a></strong>. Click the add button and then choose the <strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=input_datetime" class="my" target="_blank">Date and/or time</a></strong> option.</p>
+<p>To be able to add <strong><a href="https://my.home-assistant.io/redirect/helpers" class="my" target="_blank">Helpers</a></strong> via the user interface you should have <code>default_config:</code> in your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span>, it should already be there by default unless you removed it.
+If you removed <code>default_config:</code> from your configuration, you must add <code>input_datetime:</code> to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> first, then you can use the UI.</p>
+<p><code>input_datetime</code> can also be configured via YAML. To add three datetime inputs to your installation,
+one with both date and time, and one with date or time each,
+add the following lines to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span>:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">input_datetime</span><span class="pi">:</span>
+  <span class="na">both_date_and_time</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Input with both date and time</span>
+    <span class="na">has_date</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">has_time</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">only_date</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Input with only date</span>
+    <span class="na">has_date</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">has_time</span><span class="pi">:</span> <span class="kc">false</span>
+  <span class="na">only_time</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Input with only time</span>
+    <span class="na">has_date</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">has_time</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="input_datetime-configuration-variables" href="#input_datetime-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class=""><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> input_datetime </span><span class="config-vars-type">map</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="input_datetime" class="title-link" href="#input_datetime"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Alias for the datetime input. Multiple entries are allowed.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Friendly name of the datetime input.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> has_time </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="has_time" class="title-link" href="#has_time"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set to <code>true</code> if the input should have a time. At least one of <code>has_time</code> or <code>has_date</code> must be defined.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> has_date </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: false</span>)</span><a name="has_date" class="title-link" href="#has_date"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set to <code>true</code> if the input should have a date. At least one of <code>has_time</code> or <code>has_date</code> must be defined.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> icon </span><span class="config-vars-type"><a href="/integrations/homeassistant/#icon">icon</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="icon" class="title-link" href="#icon"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Icon to display in front of the input element in the frontend.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> initial </span><span class="config-vars-type">datetime | time | date</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="initial" class="title-link" href="#initial"></a>
+</div>
+<div class="config-vars-description-and-children">
+<span class="config-vars-description"><p>Set the initial value of this input, depending on <code>has_time</code> and <code>has_date</code>.</p>
+</span><div class="config-vars-default">
+Default: <p><today> 00:00 | 00:00 | <today></today></today></p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+<h3>Attributes <a class="title-link" name="attributes" href="#attributes"></a>
+</h3>
+<p>A datetime input entity’s state exports several attributes that can be useful in
+automations and templates.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>has_time</code></td>
+<td>
+<code>true</code> if this entity has a time.</td>
+</tr>
+<tr>
+<td><code>has_date</code></td>
+<td>
+<code>true</code> if this entity has a date.</td>
+</tr>
+<tr>
+<td>
+<code>year</code><br><code>month</code><br><code>day</code>
+</td>
+<td>The year, month and day of the date.<br>(only available if <code>has_date: true</code>)</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td>A timestamp representing the time held in the input.<br>(only available if <code>has_time: true</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3>Restore state <a class="title-link" name="restore-state" href="#restore-state"></a>
+</h3>
+<p>If you set a valid value for <code>initial</code>, this integration will start with the state set to that value. Otherwise, it will restore the state it had prior to Home Assistant stopping.</p>
+<h3>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h3>
+<p>Available actions: <code>input_datetime.set_datetime</code> and <code>input_datetime.reload</code>.</p>
+<h4>input_datetime.set_datetime <a class="title-link" name="input_datetimeset_datetime" href="#input_datetimeset_datetime"></a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Format String</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>date</code></td>
+<td><code>%Y-%m-%d</code></td>
+<td>This can be used to dynamically set the date.</td>
+</tr>
+<tr>
+<td><code>time</code></td>
+<td><code>%H:%M:%S</code></td>
+<td>This can be used to dynamically set the time.</td>
+</tr>
+<tr>
+<td><code>datetime</code></td>
+<td><code>%Y-%m-%d %H:%M:%S</code></td>
+<td>This can be used to dynamically set both the date &amp; time.</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td>N/A</td>
+<td>This can be used to dynamically set both the date &amp; time using a UNIX timestamp.</td>
+</tr>
+</tbody>
+</table>
+<p>To set both the date and time in the same call, use <code>date</code> and <code>time</code> together, or use <code>datetime</code> or <code>timestamp</code> by itself. Using <code>datetime</code> or <code>timestamp</code> has the advantage that both can be set using one template.</p>
+<h4>input_datetime.reload <a class="title-link" name="input_datetimereload" href="#input_datetimereload"></a>
+</h4>
+<p><code>input_datetime.reload</code> action allows one to reload <code>input_datetime</code>’s configuration without restarting Home Assistant itself.</p>
+<h2>Examples <a class="title-link" name="examples" href="#examples"></a>
+</h2>
+<p>The following example shows the usage of the <code>input_datetime</code> as a trigger in an
+automation:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="c1"># Turns on bedroom light at the time specified.</span>
+<span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">time</span>
+      <span class="na">at</span><span class="pi">:</span> <span class="s">input_datetime.bedroom_alarm_clock_time</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">light.turn_on</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">light.bedroom</span>
+</code></pre></div></div>
+<p>To dynamically set the <code>input_datetime</code> you can call
+<code>input_datetime.set_datetime</code>. The values for <code>date</code>, <code>time</code> and/or <code>datetime</code> must be in a certain format for the call to be successful. (See action description above.)
+If you have a <code>datetime</code> object, you can use its <code>timestamp</code> method. Or, if you have a timestamp, you can just use it directly.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Sets time to 05:30:00</span>
+<span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">input_datetime.set_datetime</span>
+  <span class="na">target</span><span class="pi">:</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">input_datetime.XXX</span>
+  <span class="na">data</span><span class="pi">:</span>
+    <span class="na">time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">05:30:00"</span>
+<span class="c1"># Sets time to time from datetime object</span>
+<span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">input_datetime.set_datetime</span>
+  <span class="na">target</span><span class="pi">:</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">input_datetime.XXX</span>
+  <span class="na">data</span><span class="pi">:</span>
+    <span class="na">time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">now().strftime('%H:%M:%S')</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="c1"># Sets date to 2020-08-24</span>
+<span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">input_datetime.set_datetime</span>
+  <span class="na">target</span><span class="pi">:</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">input_datetime.XXX</span>
+  <span class="na">data</span><span class="pi">:</span>
+    <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2020-08-24"</span>
+<span class="c1"># Sets date to date from datetime object</span>
+<span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">input_datetime.set_datetime</span>
+  <span class="na">target</span><span class="pi">:</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">input_datetime.XXX</span>
+  <span class="na">data</span><span class="pi">:</span>
+    <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">now().strftime('%Y-%m-%d')</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="c1"># Sets date and time to 2020-08-25 05:30:00</span>
+<span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">input_datetime.set_datetime</span>
+  <span class="na">target</span><span class="pi">:</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">input_datetime.XXX</span>
+  <span class="na">data</span><span class="pi">:</span>
+    <span class="na">datetime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2020-08-25</span><span class="nv"> </span><span class="s">05:30:00"</span>
+<span class="c1"># Sets date and time from datetime object</span>
+<span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">input_datetime.set_datetime</span>
+  <span class="na">target</span><span class="pi">:</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">input_datetime.XXX</span>
+  <span class="na">data</span><span class="pi">:</span>
+    <span class="na">datetime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">now().strftime('%Y-%m-%d</span><span class="nv"> </span><span class="s">%H:%M:%S')</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="c1"># Sets date and/or time from UNIX timestamp</span>
+<span class="c1"># This can be used whether the input_datetime has just a date,</span>
+<span class="c1"># or just a time, or has both</span>
+<span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">input_datetime.set_datetime</span>
+  <span class="na">target</span><span class="pi">:</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">input_datetime.XXX</span>
+  <span class="na">data</span><span class="pi">:</span>
+    <span class="na">timestamp</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">now().timestamp()</span><span class="nv"> </span><span class="s">}}"</span>
+</code></pre></div></div>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/input_datetime.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Finput_datetime%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20input_datetime" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+input_datetime%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/input_datetime//logo.png' srcset='https://brands.home-assistant.io/_/input_datetime/logo@2x.png 2x' /></div>
+
+  <div class='section'>The Input Datetime  helper  was introduced in Home Assistant 0.55, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          15%</a> of the active installations.
+        
+      
+    
+  </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-internal'>🏠 Internal integration</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/input_datetime" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+input_datetime%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            This integration is being maintained by the Home Assistant project.
+          </div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#attributes">Attributes</a></li>
+<li class="toc-entry toc-h3"><a href="#restore-state">Restore state</a></li>
+<li class="toc-entry toc-h3"><a href="#actions">Actions</a></li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#automation'>Automation</a>
+          </li><li>
+            <a href='/integrations/#helper'>Helper</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,1966 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Habitica - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on enabling Habitica support for your Home Assistant">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/habitica/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Habitica">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/habitica/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on enabling Habitica support for your Home Assistant">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Habitica">
+    <meta name="twitter:description" content="Instructions on enabling Habitica support for your Home Assistant">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#about-habitica">About Habitica</a></li>
+<li class="toc-entry toc-h2"><a href="#how-you-can-use-this-integration">How you can use this integration</a></li>
+<li class="toc-entry toc-h2"><a href="#prerequisites-for-habitica-integration">Prerequisites for Habitica integration</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#login-to-habitica">Login to Habitica</a></li>
+<li class="toc-entry toc-h3"><a href="#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#binary-sensors">Binary sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#image">Image</a></li>
+<li class="toc-entry toc-h2"><a href="#to-do-lists">To-do lists</a></li>
+<li class="toc-entry toc-h2"><a href="#calendars">Calendars</a></li>
+<li class="toc-entry toc-h2"><a href="#button-controls">Button controls</a></li>
+<li class="toc-entry toc-h2"><a href="#button-controls-for-class-skills">Button controls for class skills</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#mage">Mage</a></li>
+<li class="toc-entry toc-h3"><a href="#warrior">Warrior</a></li>
+<li class="toc-entry toc-h3"><a href="#rogue">Rogue</a></li>
+<li class="toc-entry toc-h3"><a href="#healer">Healer</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#switch-controls">Switch controls</a></li>
+<li class="toc-entry toc-h2"><a href="#party">Party</a></li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-habiticacast_skill">Action habitica.cast_skill</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaaccept_quest">Action habitica.accept_quest</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticareject_quest">Action habitica.reject_quest</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaleave_quest">Action habitica.leave_quest</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaabort_quest-">Action habitica.abort_quest 🔒</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticastart_quest-">Action habitica.start_quest 🔒</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticacancel_quest-">Action habitica.cancel_quest 🔒</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticascore_habit">Action habitica.score_habit</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticascore_reward">Action habitica.score_reward</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticatransformation">Action habitica.transformation</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaget_tasks">Action habitica.get_tasks</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaupdate_reward">Action habitica.update_reward</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticacreate_reward">Action habitica.create_reward</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaupdate_habit">Action habitica.update_habit</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticacreate_habit">Action habitica.create_habit</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaupdate_todo">Action habitica.update_todo</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticacreate_todo">Action habitica.create_todo</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaupdate_daily">Action habitica.update_daily</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticacreate_daily">Action habitica.create_daily</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#automations">Automations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#auto-accept-quest-invitation">Auto-accept quest invitation</a></li>
+<li class="toc-entry toc-h3"><a href="#create-empty-the-dishwasher-to-do">Create “Empty the dishwasher” to-do</a></li>
+<li class="toc-entry toc-h3"><a href="#complete-toothbrushing-tasks-on-your-habitica-dailies-list">Complete toothbrushing tasks on your Habitica Dailies list</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a></li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+<li class="toc-entry toc-h2"><a href="#related-links">Related links</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Habitica
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The Habitica <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> enables you to monitor your adventurer’s progress and stats from <a href="https://habitica.com/" rel="external nofollow">Habitica<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> in Home Assistant and seamlessly integrates your to-do’s, daily tasks, and many more things.</p>
+<h2>About Habitica <a class="title-link" name="about-habitica" href="#about-habitica"></a>
+</h2>
+<p>Habitica is a gamified task manager and habit tracker that turns your daily goals and to-dos into a role-playing game, helping you stay motivated and productive while earning rewards and leveling up your avatar.</p>
+<h2>How you can use this integration <a class="title-link" name="how-you-can-use-this-integration" href="#how-you-can-use-this-integration"></a>
+</h2>
+<p>The Habitica integration lets you automate task management, such as creating to-dos when appliances finish or marking dailies complete using smart sensors. You can visualize tasks and stats in Home Assistant dashboards or create notifications for due tasks, keeping you organized and on track with your goals.</p>
+<h2>Prerequisites for Habitica integration <a class="title-link" name="prerequisites-for-habitica-integration" href="#prerequisites-for-habitica-integration"></a>
+</h2>
+<ul>
+<li>To set up the Habitica integration, you must first have an active Habitica account. You can register for an account at <a href="https://habitica.com/" rel="external nofollow">Habitica.com<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+<li>During the setup process in Home Assistant, you can choose between two login options:
+<ul>
+<li>“Login to Habitica”, which allows you to log in with your <em>username</em> or <em>email</em> and <em>password</em>.</li>
+<li>“Login to other instances”, which requires your <code>User ID</code> and <code>API Token</code>. The <code>User ID</code> and <code>API Token</code> can be retrieved by logging into your Habitica account, navigating to the <strong>Settings</strong> menu, and selecting <strong>Site Data</strong>.</li>
+<li>Additionally, you will need to provide the URL for the Habitica instance you wish to connect to; the default URL is <code>https://habitica.com</code>, but you can specify a different URL if you are using an alternative Habitica instance or a self-hosted instance.</li>
+</ul>
+</li>
+</ul>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Habitica</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=habitica" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=habitica" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Habitica</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h3>Login to Habitica <a class="title-link" name="login-to-habitica" href="#login-to-habitica"></a>
+</h3>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Email or username</span><a name="email-or-username" class="title-link" href="#email-or-username"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Email or username (case-sensitive) to connect Home Assistant to your Habitica account</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Password</span><a name="password" class="title-link" href="#password"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Password for the account to connect Home Assistant to Habitica</p>
+</span></div>
+</div>
+</div>
+</div>
+<h3>Advanced configuration <a class="title-link" name="advanced-configuration" href="#advanced-configuration"></a>
+</h3>
+<p>If you choose “<strong>Login to other instances</strong>” you will be presented the following configuration options:</p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">User ID</span><a name="user-id" class="title-link" href="#user-id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>User ID of your Habitica account (<em>see <a href="#prerequisites-for-habitica-integration">prerequisites</a></em>)</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">API Token</span><a name="api-token" class="title-link" href="#api-token"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>API Token of the Habitica account (<em>see <a href="#prerequisites-for-habitica-integration">prerequisites</a></em>)</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">URL</span><a name="url" class="title-link" href="#url"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>URL of the Habitica installation to connect to. Defaults to <code>https://habitica.com</code> (<em>see <a href="#prerequisites-for-habitica-integration">prerequisites</a></em>)</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Verify SSL certificate</span><a name="verify-ssl-certificate" class="title-link" href="#verify-ssl-certificate"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Enable SSL certificate verification for secure connections. Disable only if connecting to a Habitica instance using a self-signed certificate</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Sensors <a class="title-link" name="sensors" href="#sensors"></a>
+</h2>
+<ul>
+<li>
+<strong>Class</strong>: Indicates the class of your character (Warrior, Rogue, Healer, or Mage).</li>
+<li>
+<strong>Display name</strong>:  Shows the character’s display name.</li>
+<li>
+<strong>Experience</strong>: Displays the current experience points of the character (for example, “144 XP”).</li>
+<li>
+<strong>Gold</strong>: Shows the amount of gold owned by your character (for example, “22.29 GP”).</li>
+<li>
+<strong>Health</strong>: Shows the current health points of the character (for example, “42 HP”).</li>
+<li>
+<strong>Level</strong>: Displays the current level of the character.</li>
+<li>
+<strong>Mana</strong>: Displays the current mana points of your character (for example, “61 MP”).</li>
+<li>
+<strong>Max. mana</strong>: Indicates the maximum mana points your character can have at the current level (for example, “70 MP”).</li>
+<li>
+<strong>Next level</strong>: Indicates the remaining experience points needed to reach the next level (for example, “440 XP”).</li>
+<li>
+<strong>Gems</strong>: Shows the total number of gems currently owned by your Habitica character, used for purchasing items and customizations.</li>
+<li>
+<strong>Mystic hourglasses</strong>: Displays the number of mystic hourglasses earned as a subscriber, which can be redeemed for exclusive items from past events.</li>
+<li>
+<strong>Strength, intelligence, constitution, perception</strong>: Display your character’s attribute points (stats). The sensors’ attributes provide a breakdown of contributions from level, battle gear, class equip bonus, allocation, and buffs.</li>
+<li>
+<strong>Eggs</strong>: Shows the total number of eggs in your inventory. The sensor’s attributes provide a detailed list of each egg type and quantity.</li>
+<li>
+<strong>Pet food</strong>: Displays the total amount of food available. The sensor’s attributes list each food type and its quantity. Feed it to your pets and they may grow into a sturdy steed.</li>
+<li>
+<strong>Saddles</strong>: Indicates the number of saddles owned, used for instantly raising pets to mounts.</li>
+<li>
+<strong>Hatching potions</strong>: Shows the total count of available hatching potions. The sensor’s attributes detail each potion type and quantity. Pour them on an egg to hatch a pet.</li>
+<li>
+<strong>Quest scrolls</strong>: Displays the total number of quest scrolls in your inventory. A list of each quest scroll and its quantity is provided in the sensor’s attributes.</li>
+<li>
+<strong>Pending damage</strong>: Total damage accumulated during the day by completing your tasks. The quest boss is then attacked for this amount at the end of the day.</li>
+<li>
+<strong>Pending quest items</strong>: Quest items found during the day when completing tasks. The total is counted towards the quest objective at the end of the day.</li>
+</ul>
+<h2>Binary sensors <a class="title-link" name="binary-sensors" href="#binary-sensors"></a>
+</h2>
+<ul>
+<li>
+<strong>Pending quest invitation</strong>: Indicates if you have an invitation to a quest awaiting your response.</li>
+</ul>
+<h2>Image <a class="title-link" name="image" href="#image"></a>
+</h2>
+<ul>
+<li>
+<strong>Avatar</strong>: Displays your character’s current avatar (note: animated avatars are currently not supported and will be displayed as static images).</li>
+</ul>
+<h2>To-do lists <a class="title-link" name="to-do-lists" href="#to-do-lists"></a>
+</h2>
+<p>The following Habitica tasks are available as to-do lists in Home Assistant. You can add, delete, edit and check-off completed tasks</p>
+<ul>
+<li>
+<strong>To-Do’s</strong>: Displays a comprehensive list of active and completed to-dos. Each to-do includes its due date if applicable, allowing you to check them off, edit them, delete them, and create new to-dos seamlessly.</li>
+<li>
+<strong>Dailies</strong>: Shows the daily tasks that need to be completed today or in the future. Tasks completed yesterday can still be marked off as “yesterdailies” until a new day starts.</li>
+</ul>
+<h2>Calendars <a class="title-link" name="calendars" href="#calendars"></a>
+</h2>
+<ul>
+<li>
+<strong>To-Do calendar</strong>: Lists the due dates for all active to-do tasks. Each event on this calendar represents a to-do item that has a set due date, making it easy to track upcoming deadlines and plan accordingly.</li>
+<li>
+<strong>Dailies calendar</strong>: Displays all daily tasks that are scheduled for today and are still active. It also shows all tasks scheduled for future dates, helping you stay organized and track upcoming routines. The calendar sensor will be active if there are unfinished tasks for today and display the next due daily (based on sort order if there are multiple tasks due for that day).</li>
+<li>
+<strong>To-Do reminders calendar</strong>: Lists events for reminders associated with your to-dos in Habitica, helping you track when notifications for specific to-dos are expected.</li>
+<li>
+<strong>Dailies reminders calendar</strong>: Shows events for reminders linked to your Habitica dailies, ensuring you know when notifications for your dailies will occur.</li>
+</ul>
+<h2>Button controls <a class="title-link" name="button-controls" href="#button-controls"></a>
+</h2>
+<ul>
+<li>
+<strong>Start my day</strong>: Initiates daily routine actions in Habitica, including resetting your dailies, deal damage from unfinished dailies and quest bosses, habits adjustment, buff expiration, and mana regeneration based on completed dailies.</li>
+<li>
+<strong>Revive from death</strong>: Allows your character to revive from death in Habitica. Upon revival, HP is fully restored, but your character will lose all gold, 1 level, all experience points, one stat point, and one piece of equipment.</li>
+<li>
+<strong>Buy a health potion</strong>: Allows your character to purchase a health potion in Habitica. Instantly applies the potion upon purchase, healing 15 HP at a cost of 25 GP.</li>
+<li>
+<strong>Allocate all stat points</strong>: Assigns all unallocated stat points based on the previously set automatic allocation method. If no method is set, all points are assigned to strength (STR).</li>
+</ul>
+<h2>Button controls for class skills <a class="title-link" name="button-controls-for-class-skills" href="#button-controls-for-class-skills"></a>
+</h2>
+<p>If you’ve unlocked the class system, button controls for casting player and party skills will become available, depending on the class you’ve selected. For task skills see <a href="#action-habiticacast_skill">action <code>habitica.cast_skill</code></a></p>
+<h3>Mage <a class="title-link" name="mage" href="#mage"></a>
+</h3>
+<ul>
+<li>
+<strong>Ethereal surge</strong>: You sacrifice Mana so the rest of your party, except for other mages, gains MP. (based on: INT)</li>
+<li>
+<strong>Earthquake</strong>: Your mental power shakes the earth and buffs your party’s intelligence. (based on: unbuffed INT)</li>
+<li>
+<strong>Chilling frost</strong>: With one cast, ice freezes all your streaks so they won’t reset to zero tomorrow.</li>
+</ul>
+<h3>Warrior <a class="title-link" name="warrior" href="#warrior"></a>
+</h3>
+<ul>
+<li>
+<strong>Defensive stance</strong>: You crouch low and gain a buff to constitution. (based on: unbuffed CON)</li>
+<li>
+<strong>Valorous presence</strong>: Your boldness buffs your whole party’s strength. (based on: unbuffed STR)</li>
+<li>
+<strong>Intimidating gaze</strong>: Your fierce stare buffs your whole Party’s constitution. (based on: unbuffed CON)</li>
+</ul>
+<h3>Rogue <a class="title-link" name="rogue" href="#rogue"></a>
+</h3>
+<ul>
+<li>
+<strong>Tools of the trade</strong>: Your tricky talents buff your whole party’s perception. (based on: unbuffed PER)</li>
+<li>
+<strong>Stealth</strong>: With each cast, a few of your undone dailies won’t cause damage tonight. Their streaks and colors won’t change. (based on: PER)</li>
+</ul>
+<h3>Healer <a class="title-link" name="healer" href="#healer"></a>
+</h3>
+<ul>
+<li>
+<strong>Healing light</strong>: Shining light restores your health. (based on: CON and INT)</li>
+<li>
+<strong>Searing brightness</strong>: A burst of light makes your tasks more blue/less red. (based on: INT)</li>
+<li>
+<strong>Protective aura</strong>: You shield your party by buffing their constitution. (based on: unbuffed CON)</li>
+<li>
+<strong>Blessing</strong>: Your soothing spell restores your whole party’s health. (based on: CON and INT)</li>
+</ul>
+<h2>Switch controls <a class="title-link" name="switch-controls" href="#switch-controls"></a>
+</h2>
+<ul>
+<li>
+<strong>Rest in the Inn</strong>: When enabled, allows your character to rest in the inn in Habitica, pausing damage dealt from dailies and quest bosses.</li>
+</ul>
+<h2>Party <a class="title-link" name="party" href="#party"></a>
+</h2>
+<p>If you’re part of a party, the integration creates a device with these entities.</p>
+<ul>
+<li>
+<strong>Boss health</strong>: The total health of the quest boss.</li>
+<li>
+<strong>Boss health remaining</strong>: The remaining health of the quest boss.</li>
+<li>
+<strong>Collected quest items</strong>: Displays the total number of items collected. Attributes include a breakdown of each required item type, showing both collected and required amounts.</li>
+<li>
+<strong>Group leader</strong>: The username of your party’s leader.</li>
+<li>
+<strong>Member count</strong>: The current number of members in your party.</li>
+<li>
+<strong>Quest</strong>: Shows the name of the current quest your party is engaged in.</li>
+<li>
+<strong>Quest boss</strong>: The name and image of the foe your party is currently battling.</li>
+</ul>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Certain entities are only available depending on whether you are in a boss quest or a collect quest.</p>
+  </div>
+</div>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<h3>Action habitica.cast_skill <a class="title-link" name="action-habiticacast_skill" href="#action-habiticacast_skill"></a>
+</h3>
+<p>Use a skill or spell from your Habitica character on a specific task to affect its progress or status.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Config entry of the character to cast the skill.</td>
+</tr>
+<tr>
+<td><code>skill</code></td>
+<td>no</td>
+<td>Skill or spell you want to cast on the task. Only skills available to your character’s class can be used.</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>no</td>
+<td>The name of the task to target. Alternatively, you can use the <code>task ID</code> or <strong>alias</strong>. Supported task types are <strong>to-do</strong>, <strong>habit</strong>, and <strong>daily</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h4>Available skills <a class="title-link" name="available-skills" href="#available-skills"></a>
+</h4>
+<ul>
+<li>
+<strong>Rogue</strong>: <code>pickpocket</code>, <code>backstab</code>
+</li>
+<li>
+<strong>Warrior</strong>: <code>smash</code>
+</li>
+<li>
+<strong>Mage</strong>: <code>fireball</code>
+</li>
+</ul>
+<p>To use task aliases, make sure <strong>Developer Mode</strong> is enabled under <a href="https://habitica.com/user/settings/siteData" rel="external nofollow"><strong>Settings -&gt; Site Data</strong><iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. Task aliases can only be edited via the <strong>Habitica</strong> web client.</p>
+<h3>Action habitica.accept_quest <a class="title-link" name="action-habiticaaccept_quest" href="#action-habiticaaccept_quest"></a>
+</h3>
+<p>Accept a pending invitation to a quest. For an example, see the <a href="#auto-accept-quest-invitation"><code>Auto-accept quest invitation</code></a> automation, which demonstrates how this action can be used to automatically accept quest invitations.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Config entry of the character to accept the quest.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.reject_quest <a class="title-link" name="action-habiticareject_quest" href="#action-habiticareject_quest"></a>
+</h3>
+<p>Reject a pending invitation to a quest.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Config entry of the character to reject the quest.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.leave_quest <a class="title-link" name="action-habiticaleave_quest" href="#action-habiticaleave_quest"></a>
+</h3>
+<p>Leave the current quest you are participating in.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Config entry of the character to leave the quest.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.abort_quest 🔒 <a class="title-link" name="action-habiticaabort_quest-" href="#action-habiticaabort_quest-"></a>
+</h3>
+<p>Terminate your party’s ongoing quest. All progress will be lost, and the quest roll returned to the owner’s inventory. Only the quest leader or group leader can perform this action.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Config entry of the character to abort the quest.</td>
+</tr>
+</tbody>
+</table>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Actions marked with 🔒 have usage restrictions. See action descriptions for details.</p>
+  </div>
+</div>
+<h3>Action habitica.start_quest 🔒 <a class="title-link" name="action-habiticastart_quest-" href="#action-habiticastart_quest-"></a>
+</h3>
+<p>Begin the quest immediately, bypassing any pending invitations that haven’t been accepted or rejected. Only the quest leader or group leader can perform this action.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Config entry of the character to force-start the quest.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.cancel_quest 🔒 <a class="title-link" name="action-habiticacancel_quest-" href="#action-habiticacancel_quest-"></a>
+</h3>
+<p>Cancel a quest that has not yet started. All accepted and pending invitations will be canceled, and the quest roll returned to the owner’s inventory. Only the quest leader or group leader can perform this action.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Config entry of the character to cancel the quest.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.score_habit <a class="title-link" name="action-habiticascore_habit" href="#action-habiticascore_habit"></a>
+</h3>
+<p>Increase the positive or negative streak of a habit.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Config entry of the character tracking the habit.</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>no</td>
+<td>The name, <code>task ID</code>, or <strong>alias</strong> of the habit to track.</td>
+</tr>
+<tr>
+<td><code>direction</code></td>
+<td>no</td>
+<td>
+<code>up</code> for positive progress or <code>down</code> for negative progress you want to track for your habit.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.score_reward <a class="title-link" name="action-habiticascore_reward" href="#action-habiticascore_reward"></a>
+</h3>
+<p>Buy a custom reward with gold.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Config entry of the character buying the reward.</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>no</td>
+<td>The name, <code>task ID</code>, or <strong>alias</strong> of the custom reward to buy.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.transformation <a class="title-link" name="action-habiticatransformation" href="#action-habiticatransformation"></a>
+</h3>
+<p>Use a transformation item from your Habitica character’s inventory on a member of your party or yourself.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Config entry of the character using the transformation item.</td>
+</tr>
+<tr>
+<td><code>item</code></td>
+<td>no</td>
+<td>The transformation item you want to use. Item must be in the character’s inventory.</td>
+</tr>
+<tr>
+<td><code>target</code></td>
+<td>no</td>
+<td>The character you want to use the transformation item on. Matches by display name, username, or user ID.</td>
+</tr>
+</tbody>
+</table>
+<h4>Available transformation items <a class="title-link" name="available-transformation-items" href="#available-transformation-items"></a>
+</h4>
+<ul>
+<li>
+<strong>Snowball</strong>: <code>snowball</code> (transforms into a snowfriend)</li>
+<li>
+<strong>Spooky sparkles</strong>: <code>spooky_sparkles</code> (transforms into a ghost)</li>
+<li>
+<strong>Seafoam</strong>: <code>seafoam</code> (transforms into a starfish)</li>
+<li>
+<strong>Shiny seed</strong>: <code>shiny_seed</code> (transforms into flower)</li>
+</ul>
+<h3>Action habitica.get_tasks <a class="title-link" name="action-habiticaget_tasks" href="#action-habiticaget_tasks"></a>
+</h3>
+<p>Fetch tasks from your Habitica account, with optional filters to narrow down the results for more precise task retrieval.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Choose the Habitica character to retrieve tasks from.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>yes</td>
+<td>Filter tasks by type. Valid types: <code>habits</code>, <code>dailies</code>, <code>todos</code>, <code>rewards</code>.</td>
+</tr>
+<tr>
+<td><code>priority</code></td>
+<td>yes</td>
+<td>Filter tasks by difficulty. Valid values: <code>trivial</code>, <code>easy</code>, <code>medium</code>, <code>hard</code>.</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>yes</td>
+<td>Select specific tasks by matching their name (or task ID).</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>yes</td>
+<td>Filter tasks that have one or more of the selected tags.</td>
+</tr>
+<tr>
+<td><code>keyword</code></td>
+<td>yes</td>
+<td>Filter tasks by keyword, searching across titles, notes, and checklists.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.update_reward <a class="title-link" name="action-habiticaupdate_reward" href="#action-habiticaupdate_reward"></a>
+</h3>
+<p>Updates a specific reward for the selected Habitica character.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Select the Habitica account to update a reward.</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>no</td>
+<td>The name (or task ID) of the reward you want to update.</td>
+</tr>
+<tr>
+<td><code>rename</code></td>
+<td>yes</td>
+<td>The new title for the Habitica reward.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>yes</td>
+<td>The new notes for the Habitica reward.</td>
+</tr>
+<tr>
+<td><code>cost</code></td>
+<td>yes</td>
+<td>Update the cost of a reward.</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>yes</td>
+<td>Add tags to the Habitica reward. If a tag does not already exist, a new one will be created.</td>
+</tr>
+<tr>
+<td><code>remove_tag</code></td>
+<td>yes</td>
+<td>Remove tags from the Habitica reward.</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td>yes</td>
+<td>A task alias can be used instead of the name or task ID. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.create_reward <a class="title-link" name="action-habiticacreate_reward" href="#action-habiticacreate_reward"></a>
+</h3>
+<p>Creates a reward for the selected Habitica character.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Select the Habitica account to create a reward.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>no</td>
+<td>The title for the Habitica reward.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>yes</td>
+<td>The notes for the Habitica reward.</td>
+</tr>
+<tr>
+<td><code>cost</code></td>
+<td>no</td>
+<td>The cost of the reward.</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>yes</td>
+<td>Add tags to the Habitica reward. If a tag does not already exist, a new one will be created.</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td>yes</td>
+<td>A task alias can be used instead of the name or task ID. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.update_habit <a class="title-link" name="action-habiticaupdate_habit" href="#action-habiticaupdate_habit"></a>
+</h3>
+<p>Updates a specific habit for the selected Habitica character.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Select the Habitica account to update a habit.</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>no</td>
+<td>The name (or task ID) of the habit you want to update.</td>
+</tr>
+<tr>
+<td><code>rename</code></td>
+<td>yes</td>
+<td>The new title for the Habitica habit.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>yes</td>
+<td>The new notes for the Habitica habit.</td>
+</tr>
+<tr>
+<td><code>up_down</code></td>
+<td>yes</td>
+<td>Update if the habit is good and rewarding (positive), bad and penalizing (negative) or both. Valid values: <code>up</code>, <code>down</code>, or <code>[up, down]</code>
+</td>
+</tr>
+<tr>
+<td><code>priority</code></td>
+<td>yes</td>
+<td>Update the difficulty of a habit. Valid values: <code>trivial</code>, <code>easy</code>, <code>medium</code>, <code>hard</code>
+</td>
+</tr>
+<tr>
+<td><code>frequency</code></td>
+<td>yes</td>
+<td>Update when a habit’s counter resets. Valid values: <code>daily</code>, <code>weekly</code>, <code>monthly</code>
+</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>yes</td>
+<td>Add tags to the Habitica habit. If a tag does not already exist, a new one will be created.</td>
+</tr>
+<tr>
+<td><code>remove_tag</code></td>
+<td>yes</td>
+<td>Remove tags from the Habitica habit.</td>
+</tr>
+<tr>
+<td><code>counter_up</code></td>
+<td>yes</td>
+<td>Update the up counter of a positive habit.</td>
+</tr>
+<tr>
+<td><code>counter_down</code></td>
+<td>yes</td>
+<td>Update the down counter of a negative habit.</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td>yes</td>
+<td>A task alias can be used instead of the name or task ID. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.create_habit <a class="title-link" name="action-habiticacreate_habit" href="#action-habiticacreate_habit"></a>
+</h3>
+<p>Creates a habit for the selected Habitica character.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Select the Habitica account to create a habit.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>no</td>
+<td>The title for the Habitica habit.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>yes</td>
+<td>The notes for the Habitica habit.</td>
+</tr>
+<tr>
+<td><code>up_down</code></td>
+<td>yes</td>
+<td>Defines if the habit is good and rewarding (positive), bad and penalizing (negative) or both. Valid values: <code>up</code>, <code>down</code>, or <code>[up, down]</code>
+</td>
+</tr>
+<tr>
+<td><code>priority</code></td>
+<td>yes</td>
+<td>Sets the difficulty of the habit. Valid values: <code>trivial</code>, <code>easy</code>, <code>medium</code>, <code>hard</code>. Default: <code>easy</code>
+</td>
+</tr>
+<tr>
+<td><code>frequency</code></td>
+<td>yes</td>
+<td>Defines when the habit’s counter resets. Valid values: <code>daily</code>, <code>weekly</code>, <code>monthly</code>. Default: <code>daily</code>
+</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>yes</td>
+<td>Add tags to the Habitica habit. If a tag does not already exist, a new one will be created.</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td>yes</td>
+<td>A task alias can be used instead of the name or task ID. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.update_todo <a class="title-link" name="action-habiticaupdate_todo" href="#action-habiticaupdate_todo"></a>
+</h3>
+<p>Updates a specific to-do for the selected Habitica character.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Select the Habitica account to update a to-do.</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>no</td>
+<td>The name (or task ID) of the to-do you want to update.</td>
+</tr>
+<tr>
+<td><code>rename</code></td>
+<td>yes</td>
+<td>The new title for the Habitica to-do.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>yes</td>
+<td>The new notes for the Habitica to-do.</td>
+</tr>
+<tr>
+<td><code>add_checklist_item</code></td>
+<td>yes</td>
+<td>The items to add to the to-do’s checklist.</td>
+</tr>
+<tr>
+<td><code>remove_checklist_item</code></td>
+<td>yes</td>
+<td>Remove items from a to-do’s checklist.</td>
+</tr>
+<tr>
+<td><code>score_checklist_item</code></td>
+<td>yes</td>
+<td>Mark items from a to-do’s checklist as completed.</td>
+</tr>
+<tr>
+<td><code>unscore_checklist_item</code></td>
+<td>yes</td>
+<td>Undo completion of items of a to-do’s checklist.</td>
+</tr>
+<tr>
+<td><code>priority</code></td>
+<td>yes</td>
+<td>Update the difficulty of a to-do. Valid values: <code>trivial</code>, <code>easy</code>, <code>medium</code>, <code>hard</code>
+</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>yes</td>
+<td>The to-do’s due date.</td>
+</tr>
+<tr>
+<td><code>clear_date</code></td>
+<td>yes</td>
+<td>Remove the due date from a to-do.</td>
+</tr>
+<tr>
+<td><code>reminder</code></td>
+<td>yes</td>
+<td>Add reminders to a Habitica to-do.</td>
+</tr>
+<tr>
+<td><code>remove_reminder</code></td>
+<td>yes</td>
+<td>Remove specific reminders from a Habitica to-do.</td>
+</tr>
+<tr>
+<td><code>clear_reminder</code></td>
+<td>yes</td>
+<td>Remove all reminders from a Habitica to-do.</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>yes</td>
+<td>Add tags to the Habitica to-do. If a tag does not already exist, a new one will be created.</td>
+</tr>
+<tr>
+<td><code>remove_tag</code></td>
+<td>yes</td>
+<td>Remove tags from the Habitica to-do.</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td>yes</td>
+<td>A task alias can be used instead of the name or task ID. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.create_todo <a class="title-link" name="action-habiticacreate_todo" href="#action-habiticacreate_todo"></a>
+</h3>
+<p>Creates a to-do for the selected Habitica character.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Select the Habitica account to create a to-do.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>no</td>
+<td>The title for the Habitica to-do.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>yes</td>
+<td>The notes for the Habitica to-do.</td>
+</tr>
+<tr>
+<td><code>add_checklist_item</code></td>
+<td>yes</td>
+<td>The items to add to the to-do’s checklist.</td>
+</tr>
+<tr>
+<td><code>priority</code></td>
+<td>yes</td>
+<td>The difficulty of the to-do. Valid values: <code>trivial</code>, <code>easy</code>, <code>medium</code>, <code>hard</code>
+</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>yes</td>
+<td>The to-do’s due date.</td>
+</tr>
+<tr>
+<td><code>reminder</code></td>
+<td>yes</td>
+<td>Add reminders to a Habitica to-do.</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>yes</td>
+<td>Add tags to the Habitica to-do. If a tag does not already exist, a new one will be created.</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td>yes</td>
+<td>A task alias can be used instead of the name or task ID. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.update_daily <a class="title-link" name="action-habiticaupdate_daily" href="#action-habiticaupdate_daily"></a>
+</h3>
+<p>Updates a specific daily for the selected Habitica character.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Select the Habitica account to update a daily.</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>no</td>
+<td>The name (or task ID) of the daily you want to update.</td>
+</tr>
+<tr>
+<td><code>rename</code></td>
+<td>yes</td>
+<td>The new title for the Habitica daily.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>yes</td>
+<td>The new notes for the Habitica daily.</td>
+</tr>
+<tr>
+<td><code>add_checklist_item</code></td>
+<td>yes</td>
+<td>The items to add to the daily’s checklist.</td>
+</tr>
+<tr>
+<td><code>remove_checklist_item</code></td>
+<td>yes</td>
+<td>Remove items from a daily’s checklist.</td>
+</tr>
+<tr>
+<td><code>score_checklist_item</code></td>
+<td>yes</td>
+<td>Mark items from a daily’s checklist as completed.</td>
+</tr>
+<tr>
+<td><code>unscore_checklist_item</code></td>
+<td>yes</td>
+<td>Undo completion of items of a daily’s checklist.</td>
+</tr>
+<tr>
+<td><code>priority</code></td>
+<td>yes</td>
+<td>Update the difficulty of a daily. Valid values: <code>trivial</code>, <code>easy</code>, <code>medium</code>, <code>hard</code>
+</td>
+</tr>
+<tr>
+<td><code>start_date</code></td>
+<td>yes</td>
+<td>Defines when the daily task becomes active and specifies the exact weekday or day of the month it repeats on.</td>
+</tr>
+<tr>
+<td><code>frequency</code></td>
+<td>yes</td>
+<td>The repetition interval of a daily. Valid values: <code>daily</code>, <code>weekly</code>, <code>monthly</code>, <code>yearly</code>.</td>
+</tr>
+<tr>
+<td><code>every_x</code></td>
+<td>yes</td>
+<td>The number of intervals (<code>days</code>, <code>weeks</code>, <code>months</code>, or <code>years</code>) after which the daily repeats, based on the chosen repetition interval. A value of 0 makes the daily inactive (a <em>Gray Daily</em>).</td>
+</tr>
+<tr>
+<td><code>repeat</code></td>
+<td>yes</td>
+<td>The days of the week the daily repeats. Applicable when the repetition interval is set to weekly.</td>
+</tr>
+<tr>
+<td><code>repeat_monthly</code></td>
+<td>yes</td>
+<td>Whether a monthly recurring task repeats on the same calendar day each month (<code>day_of_month</code>), or on the same weekday and week of the month (<code>day_of_week</code>), based on the start date. Applicable when the repetition interval is set to monthly.</td>
+</tr>
+<tr>
+<td><code>reminder</code></td>
+<td>yes</td>
+<td>Add reminders to a Habitica daily.</td>
+</tr>
+<tr>
+<td><code>remove_reminder</code></td>
+<td>yes</td>
+<td>Remove specific reminders from a Habitica daily.</td>
+</tr>
+<tr>
+<td><code>clear_reminder</code></td>
+<td>yes</td>
+<td>Remove all reminders from a Habitica daily.</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>yes</td>
+<td>Add tags to the Habitica daily. If a tag does not already exist, a new one will be created.</td>
+</tr>
+<tr>
+<td><code>remove_tag</code></td>
+<td>yes</td>
+<td>Remove tags from the Habitica daily.</td>
+</tr>
+<tr>
+<td><code>streak</code></td>
+<td>yes</td>
+<td>Adjust or reset the streak counter of the daily.</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td>yes</td>
+<td>A task alias can be used instead of the name or task ID. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action habitica.create_daily <a class="title-link" name="action-habiticacreate_daily" href="#action-habiticacreate_daily"></a>
+</h3>
+<p>Creates a daily for the selected Habitica character.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config_entry</code></td>
+<td>no</td>
+<td>Select the Habitica account to create a daily.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>no</td>
+<td>The title for the Habitica daily.</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>yes</td>
+<td>The new notes for the Habitica daily.</td>
+</tr>
+<tr>
+<td><code>add_checklist_item</code></td>
+<td>yes</td>
+<td>The items to add to the daily’s checklist.</td>
+</tr>
+<tr>
+<td><code>priority</code></td>
+<td>yes</td>
+<td>The difficulty of a daily. Valid values: <code>trivial</code>, <code>easy</code>, <code>medium</code>, <code>hard</code>
+</td>
+</tr>
+<tr>
+<td><code>start_date</code></td>
+<td>yes</td>
+<td>The date when the daily becomes active and specifies the exact weekday or day of the month it repeats on.</td>
+</tr>
+<tr>
+<td><code>frequency</code></td>
+<td>yes</td>
+<td>The repetition interval of a daily. Valid values: <code>daily</code>, <code>weekly</code>, <code>monthly</code>, <code>yearly</code>.</td>
+</tr>
+<tr>
+<td><code>every_x</code></td>
+<td>yes</td>
+<td>The number of intervals (<code>days</code>, <code>weeks</code>, <code>months</code>, or <code>years</code>) after which the daily repeats, based on the chosen repetition interval. A value of 0 makes the daily inactive (a <em>Gray Daily</em>).</td>
+</tr>
+<tr>
+<td><code>repeat</code></td>
+<td>yes</td>
+<td>The days of the week the daily repeats. Applicable when the repetition interval is set to weekly.</td>
+</tr>
+<tr>
+<td><code>repeat_monthly</code></td>
+<td>yes</td>
+<td>Whether a monthly recurring task repeats on the same calendar day each month (<code>day_of_month</code>), or on the same weekday and week of the month (<code>day_of_week</code>), based on the start date. Applicable when the repetition interval is set to monthly.</td>
+</tr>
+<tr>
+<td><code>reminder</code></td>
+<td>yes</td>
+<td>Add reminders to a Habitica daily.</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>yes</td>
+<td>Add tags to the Habitica daily. If a tag does not already exist, a new one will be created.</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td>yes</td>
+<td>A task alias can be used instead of the name or task ID. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.</td>
+</tr>
+</tbody>
+</table>
+<h2>Automations <a class="title-link" name="automations" href="#automations"></a>
+</h2>
+<p>Get started with these automation examples for Habitica, each featuring ready-to-use blueprints!</p>
+<h3>Auto-accept quest invitation <a class="title-link" name="auto-accept-quest-invitation" href="#auto-accept-quest-invitation"></a>
+</h3>
+<p>Automatically accepts quest invitations from your Habitica party and creates a persistent notification to inform you when a quest has been successfully accepted.</p>
+<p><a href="https://my.home-assistant.io/redirect/blueprint_import?blueprint_url=https%3A%2F%2Fcommunity.home-assistant.io%2Ft%2Fhabitica-auto-accept-quest-invitation%2F791002" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/blueprint_import.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Example YAML configuration</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">binary_sensor.habitica_pending_quest_invitation</span>
+    <span class="na">from</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
+    <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">habitica.accept_quest</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">config_entry</span><span class="pi">:</span> <span class="s">config_entry_id</span>
+    <span class="na">response_variable</span><span class="pi">:</span> <span class="s">action_response</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">notify.persistent_notification</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">title</span><span class="pi">:</span> <span class="s">You have been invited to a quest!</span>
+      <span class="na">message</span><span class="pi">:</span> <span class="pi">&gt;-</span>
+        <span class="s">![{{action_response["key"]}}](https://habitica-assets.s3.amazonaws.com/mobileApp/images/inventory_quest_scroll_{{action_response["key"]}}.png)</span>
+
+        <span class="s">The invitation has been accepted, and the quest {% if</span>
+        <span class="s">action_response["active"] %}has already started{% else %}is waiting</span>
+        <span class="s">for other party members to join{% endif %}.</span>
+</code></pre></div></div>
+</div>
+  </details>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>When creating automations, be mindful of the <a href="#known-limitations">rate limits</a>. Frequent triggers or multiple concurrent automations can quickly exceed the allowed number of requests.</p>
+  </div>
+</div>
+<h3>Create “Empty the dishwasher” to-do <a class="title-link" name="create-empty-the-dishwasher-to-do" href="#create-empty-the-dishwasher-to-do"></a>
+</h3>
+<p>Automatically create a Habitica to-do when the dishwasher finishes its cycle.</p>
+<p><a href="https://my.home-assistant.io/redirect/blueprint_import?blueprint_url=https%3A%2F%2Fcommunity.home-assistant.io%2Ft%2Fhabitica-create-to-do-when-dishwasher-finishes-its-cycle%2F786625" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/blueprint_import.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Example YAML configuration</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.dishwasher</span>
+    <span class="na">from</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+    <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
+
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">todo.add_item</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">item</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Empty</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">dishwasher</span><span class="nv"> </span><span class="s">🥣🍽️"</span>
+      <span class="na">due_date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{now().date()}}"</span>
+      <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Empty</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">clean</span><span class="nv"> </span><span class="s">dishes</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">dishwasher</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">load</span><span class="nv"> </span><span class="s">any</span><span class="nv"> </span><span class="s">dirty</span><span class="nv"> </span><span class="s">dishes</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">waiting."</span>
+    <span class="na">target</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">todo.habitica_to_dos</span>
+</code></pre></div></div>
+</div>
+  </details>
+</div>
+<h3>Complete toothbrushing tasks on your Habitica Dailies list <a class="title-link" name="complete-toothbrushing-tasks-on-your-habitica-dailies-list" href="#complete-toothbrushing-tasks-on-your-habitica-dailies-list"></a>
+</h3>
+<p>Automatically mark your morning and evening toothbrushing dailies as complete when your toothbrush usage is detected.</p>
+<p><a href="https://my.home-assistant.io/redirect/blueprint_import?blueprint_url=https%3A%2F%2Fcommunity.home-assistant.io%2Ft%2Fhabitica-complete-toothbrushing-tasks-on-your-habitica-dailies-list%2F786631" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/blueprint_import.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Example YAML configuration</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_2">
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.oralb_toothbrush_state</span>
+    <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">running"</span>
+    <span class="na">for</span><span class="pi">:</span>
+      <span class="na">hours</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">minutes</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">seconds</span><span class="pi">:</span> <span class="m">10</span> <span class="c1"># Time delay for debouncing to avoid false triggers</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">choose</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">conditions</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">time</span>
+            <span class="na">after</span><span class="pi">:</span> <span class="s2">"</span><span class="s">05:00:00"</span>
+            <span class="na">before</span><span class="pi">:</span> <span class="s2">"</span><span class="s">12:00:00"</span>
+        <span class="na">sequence</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">todo.update_item</span>
+            <span class="na">data</span><span class="pi">:</span>
+              <span class="na">item</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Brush</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">teeth</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">morning</span><span class="nv"> </span><span class="s">🪥"</span>
+              <span class="na">status</span><span class="pi">:</span> <span class="s">completed</span>
+            <span class="na">target</span><span class="pi">:</span>
+              <span class="na">entity_id</span><span class="pi">:</span> <span class="s">todo.habitica_dailies</span>
+      <span class="pi">-</span> <span class="na">conditions</span><span class="pi">:</span> 
+          <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">time</span>
+            <span class="na">after</span><span class="pi">:</span> <span class="s2">"</span><span class="s">18:00:00"</span>
+            <span class="na">before</span><span class="pi">:</span> <span class="s2">"</span><span class="s">23:59:00"</span>
+        <span class="na">sequence</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">todo.update_item</span>
+            <span class="na">data</span><span class="pi">:</span>
+              <span class="na">item</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Brush</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">teeth</span><span class="nv"> </span><span class="s">before</span><span class="nv"> </span><span class="s">bed</span><span class="nv"> </span><span class="s">🪥"</span>
+              <span class="na">status</span><span class="pi">:</span> <span class="s">completed</span>
+            <span class="na">target</span><span class="pi">:</span>
+              <span class="na">entity_id</span><span class="pi">:</span> <span class="s">todo.habitica_dailies</span>
+</code></pre></div></div>
+</div>
+  </details>
+</div>
+<h2>Data updates <a class="title-link" name="data-updates" href="#data-updates"></a>
+</h2>
+<p>This integration retrieves data from Habitica every 60 seconds to ensure timely updates.</p>
+<h2>Known limitations <a class="title-link" name="known-limitations" href="#known-limitations"></a>
+</h2>
+<p>Habitica imposes a rate limit of 30 requests per minute for third-party applications, which applies collectively to all tools and integrations you use.</p>
+<p>This integration performs the following requests:</p>
+<ul>
+<li>3 requests per data update (every 60 seconds).</li>
+<li>1 request per action, such as executing skills or interacting with to-dos and dailies.</li>
+<li>1 additional request 5 seconds after an action to sync the data with Habitica.</li>
+</ul>
+<p>Please keep these limits in mind to avoid exceeding Habitica’s request allowance. Efforts are ongoing to optimize the integration and reduce the number of requests it makes.</p>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<p>The Habitica integration relies on an active internet connection to communicate with <strong>Habitica</strong>. If you encounter issues, verify that your network connection is stable. Additionally, the Habitica service itself may experience downtime, whether unexpected or due to scheduled maintenance. In these trying times of uncertainty and challenge, when fate tests your resolve, seek guidance from the <a href="https://habitica.fandom.com/wiki/Outage_Instructions" rel="external nofollow">Habitica Outage Instructions<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> on the community-maintained Habitica wiki — wisdom shared by adventurers who have faced such trials before.</p>
+<p>In any case, when reporting an issue, please enable <a href="/docs/configuration/troubleshooting/#debug-logs-and-diagnostics">debug logging</a>, restart the integration, and as soon as the issue reoccurs stop the debug logging again (<em>download of debug log file will start automatically</em>). Further, if still possible, please also download the <a href="/integrations/diagnostics">diagnostics</a> data. If you have collected the debug log and the diagnostics data, provide them with the issue report.</p>
+<h2>Removing the integration <a class="title-link" name="removing-the-integration" href="#removing-the-integration"></a>
+</h2>
+<p>This integration can be removed by following these steps:</p>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      <a href="/integrations/#to-do-list" class="topic">
+        List of to do list integrations
+      </a>
+    </li>
+    
+    
+    
+    
+    
+    
+    <li>
+      <a href="/dashboards/todo-list/" class="topic">
+        To do list card
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+<div class="text related-links">
+  <h2>Related links<a class="title-link" href="#related-links" name="related-links"></a>
+</h2>
+  <ul>
+    
+    <li><a href="https://habitica.com/" class="link" target="_blank" rel="external nofollow">Habitica<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+    
+  </ul>
+</div>
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/habitica.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fhabitica%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20habitica" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+habitica%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/habitica//logo.png' srcset='https://brands.home-assistant.io/_/habitica/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=habitica' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Habitica  integration  was introduced in Home Assistant 0.78, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          223</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:cloud-upload'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Cloud Polling.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-platinum'>🏆 Platinum quality</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/habitica" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+habitica%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/tr4nt0r" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/tr4nt0r?size=96" alt="@tr4nt0r"/> @tr4nt0r</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#about-habitica">About Habitica</a></li>
+<li class="toc-entry toc-h2"><a href="#how-you-can-use-this-integration">How you can use this integration</a></li>
+<li class="toc-entry toc-h2"><a href="#prerequisites-for-habitica-integration">Prerequisites for Habitica integration</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#login-to-habitica">Login to Habitica</a></li>
+<li class="toc-entry toc-h3"><a href="#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#binary-sensors">Binary sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#image">Image</a></li>
+<li class="toc-entry toc-h2"><a href="#to-do-lists">To-do lists</a></li>
+<li class="toc-entry toc-h2"><a href="#calendars">Calendars</a></li>
+<li class="toc-entry toc-h2"><a href="#button-controls">Button controls</a></li>
+<li class="toc-entry toc-h2"><a href="#button-controls-for-class-skills">Button controls for class skills</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#mage">Mage</a></li>
+<li class="toc-entry toc-h3"><a href="#warrior">Warrior</a></li>
+<li class="toc-entry toc-h3"><a href="#rogue">Rogue</a></li>
+<li class="toc-entry toc-h3"><a href="#healer">Healer</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#switch-controls">Switch controls</a></li>
+<li class="toc-entry toc-h2"><a href="#party">Party</a></li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-habiticacast_skill">Action habitica.cast_skill</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaaccept_quest">Action habitica.accept_quest</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticareject_quest">Action habitica.reject_quest</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaleave_quest">Action habitica.leave_quest</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaabort_quest-">Action habitica.abort_quest 🔒</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticastart_quest-">Action habitica.start_quest 🔒</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticacancel_quest-">Action habitica.cancel_quest 🔒</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticascore_habit">Action habitica.score_habit</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticascore_reward">Action habitica.score_reward</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticatransformation">Action habitica.transformation</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaget_tasks">Action habitica.get_tasks</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaupdate_reward">Action habitica.update_reward</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticacreate_reward">Action habitica.create_reward</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaupdate_habit">Action habitica.update_habit</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticacreate_habit">Action habitica.create_habit</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaupdate_todo">Action habitica.update_todo</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticacreate_todo">Action habitica.create_todo</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticaupdate_daily">Action habitica.update_daily</a></li>
+<li class="toc-entry toc-h3"><a href="#action-habiticacreate_daily">Action habitica.create_daily</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#automations">Automations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#auto-accept-quest-invitation">Auto-accept quest invitation</a></li>
+<li class="toc-entry toc-h3"><a href="#create-empty-the-dishwasher-to-do">Create “Empty the dishwasher” to-do</a></li>
+<li class="toc-entry toc-h3"><a href="#complete-toothbrushing-tasks-on-your-habitica-dailies-list">Complete toothbrushing tasks on your Habitica Dailies list</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a></li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+<li class="toc-entry toc-h2"><a href="#related-links">Related links</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#calendar'>Calendar</a>
+          </li><li>
+            <a href='/integrations/#image'>Image</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#to-do-list'>To-do list</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

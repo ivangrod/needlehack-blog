@@ -1,0 +1,2740 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Z-Wave - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate Z-Wave with Home Assistant via Z-Wave JS.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/zwave_js/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Z-Wave">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/zwave_js/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate Z-Wave with Home Assistant via Z-Wave JS.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Z-Wave">
+    <meta name="twitter:description" content="Instructions on how to integrate Z-Wave with Home Assistant via Z-Wave JS.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#getting-started">Getting started</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#setting-up-a-z-wave-server-in-home-assistant">Setting up a Z-Wave server in Home Assistant</a></li>
+<li class="toc-entry toc-h3"><a href="#adding-a-new-device-to-the-z-wave-network">Adding a new device to the Z-Wave network</a></li>
+<li class="toc-entry toc-h3"><a href="#removing-a-device-from-the-z-wave-network">Removing a device from the Z-Wave network</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#migrating-a-z-wave-network-to-a-new-adapter">Migrating a Z-Wave network to a new adapter</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-migrate-a-z-wave-network-to-a-new-adapter">To migrate a Z-Wave network to a new adapter</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#overriding-the-radio-frequency-region-of-the-adapter-in-the-z-wave-js-add-on">Overriding the radio frequency region of the adapter in the Z-Wave JS add-on</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-1">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-override-the-radio-frequency-region-of-your-z-wave-adapter">To override the radio frequency region of your Z-Wave adapter</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#backing-up-your-z-wave-network">Backing up your Z-Wave network</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-2">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-backup-your-z-wave-network">To backup your Z-Wave network</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#restoring-your-z-wave-network-from-a-backup">Restoring your Z-Wave network from a backup</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-3">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#restoring-a-z-wave-network-from-backup">Restoring a Z-Wave network from backup</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#updating-the-firmware-of-your-z-wave-device">Updating the firmware of your Z-Wave device</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-4">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-update-firmware-of-a-z-wave-device">To update firmware of a Z-Wave device</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#resetting-a-z-wave-adapter">Resetting a Z-Wave adapter</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-5">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-reset-a-z-wave-adapter">To reset a Z-Wave adapter</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#special-z-wave-entities">Special Z-Wave entities</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#entities-available-for-every-z-wave-device">Entities available for every Z-Wave device</a></li>
+<li class="toc-entry toc-h3"><a href="#conditional-entities">Conditional entities</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#using-advanced-features-ui-only">Using advanced features (UI only)</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#integration-configuration-panel">Integration configuration panel</a></li>
+<li class="toc-entry toc-h3"><a href="#integration-menu">Integration menu</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsset_config_parameter">Action zwave_js.set_config_parameter</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsbulk_set_partial_config_parameters">Action zwave_js.bulk_set_partial_config_parameters</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsrefresh_value">Action zwave_js.refresh_value</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsset_value">Action zwave_js.set_value</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsmulticast_set_value">Action zwave_js.multicast_set_value</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsinvoke_cc_api">Action zwave_js.invoke_cc_api</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsrefresh_notifications">Action zwave_js.refresh_notifications</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsreset_meter">Action zwave_js.reset_meter</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsset_lock_configuration">Action zwave_js.set_lock_configuration</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsset_lock_usercode">Action zwave_js.set_lock_usercode</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsclear_lock_usercode">Action zwave_js.clear_lock_usercode</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#node-events-notification">Node events (Notification)</a></li>
+<li class="toc-entry toc-h3"><a href="#scene-events-value-notification">Scene events (Value Notification)</a></li>
+<li class="toc-entry toc-h3"><a href="#value-updated-events">Value updated events</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#automations">Automations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#zwave_jsvalue_updated">zwave_js.value_updated</a></li>
+<li class="toc-entry toc-h3"><a href="#zwave_jsevent">zwave_js.event</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#advanced-installation-instructions">Advanced installation instructions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#running-z-wave-js-server">Running Z-Wave JS Server</a></li>
+<li class="toc-entry toc-h3"><a href="#installing-and-configuring-the-z-wave-integration-in-home-assistant">Installing and configuring the Z-Wave integration in Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#faq-supported-devices-and-command-classes">FAQ: Supported devices and Command Classes</a></li>
+<li class="toc-entry toc-h2"><a href="#faq-installation-and-configuration">FAQ: Installation and configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#which-z-wave-adapter-should-i-buy">Which Z-Wave adapter should I buy?</a></li>
+<li class="toc-entry toc-h3"><a href="#why-was-i-not-automatically-prompted-to-install-z-wave">Why was I (not) automatically prompted to install Z-Wave?</a></li>
+<li class="toc-entry toc-h3"><a href="#what-happened-to-zwavejs2mqtt-or-the-z-wave-js-to-mqtt-add-on">What happened to Zwavejs2Mqtt or the Z-Wave JS to MQTT add-on?</a></li>
+<li class="toc-entry toc-h3"><a href="#can-i-switch-between-z-wave-js-and-z-wave-js-ui">Can I switch between Z-Wave JS and Z-Wave JS UI?</a></li>
+<li class="toc-entry toc-h3"><a href="#how-to-switch-from-z-wave-js-to-the-z-wave-js-ui-add-on">How to switch from Z-Wave JS to the Z-Wave JS UI add-on?</a></li>
+<li class="toc-entry toc-h3"><a href="#how-to-migrate-from-one-adapter-to-a-new-adapter-using-z-wave-js-ui">How to migrate from one adapter to a new adapter using Z-Wave JS UI?</a></li>
+<li class="toc-entry toc-h3"><a href="#whats-the-benefit-of-using-z-wave-js-ui-add-on">What’s the benefit of using Z-Wave JS UI add-on?</a></li>
+<li class="toc-entry toc-h3"><a href="#z-wave-js-ui-provides-discovery-of-ha-devices-on-its-own-too-now-im-confused">Z-Wave JS UI provides discovery of HA devices on its own too, now I’m confused</a></li>
+<li class="toc-entry toc-h3"><a href="#can-i-run-z-wave-js-ui-only-for-the-control-panel-and-nothing-else">Can I run Z-Wave JS UI only for the control panel and nothing else?</a></li>
+<li class="toc-entry toc-h3"><a href="#should-i-name-my-devices-in-home-assistant-or-in-z-wave-js-ui">Should I name my devices in Home Assistant, or in Z-Wave JS UI?</a></li>
+<li class="toc-entry toc-h3"><a href="#should-i-use-secure-inclusion">Should I use Secure Inclusion?</a></li>
+<li class="toc-entry toc-h3"><a href="#where-can-i-see-the-security-keys-in-the-z-wave-js-add-on">Where can I see the security keys in the Z-Wave JS add-on?</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#faq-troubleshooting-topics">FAQ: Troubleshooting topics</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#im-having-a-problem-what-to-do-first">I’m having a problem, what to do first?</a></li>
+<li class="toc-entry toc-h3"><a href="#my-z-wave-adapter-isnt-recognized-automatically-during-setup">My Z-Wave adapter isn’t recognized automatically during setup</a></li>
+<li class="toc-entry toc-h3"><a href="#i-have-an-aeotec-gen5-adapter-and-it-isnt-detected-on-my-raspberry-pi4">I have an Aeotec Gen5 adapter, and it isn’t detected on my Raspberry Pi 4?</a></li>
+<li class="toc-entry toc-h3"><a href="#i-do-not-see-any-entities-created-for-my-device-in-home-assistant">I do not see any entities created for my device in Home Assistant</a></li>
+<li class="toc-entry toc-h3"><a href="#my-device-doesnt-automatically-update-its-status-in-ha-if-i-control-it-manually">My device doesn’t automatically update its status in HA if I control it manually</a></li>
+<li class="toc-entry toc-h3"><a href="#my-device-is-recognized-as-unknown-manufacturer-andor-some-functions-dont-work-with-the-z-wave-integration">My device is recognized as Unknown Manufacturer and/or some functions don’t work with the Z-Wave integration</a></li>
+<li class="toc-entry toc-h3"><a href="#how-do-i-get-a-dump-of-the-current-network-state">How do I get a dump of the current network state?</a></li>
+<li class="toc-entry toc-h3"><a href="#how-do-i-address-interference-issues">How do I address interference issues?</a></li>
+<li class="toc-entry toc-h3"><a href="#how-do-i-access-the-z-wave-logs">How do I access the Z-Wave logs?</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#unsupported-functionality">Unsupported functionality</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#setting-the-adapter-into-learn-mode-to-receive-network-information">Setting the adapter into learn mode to receive network information</a></li>
+<li class="toc-entry toc-h3"><a href="#including--excluding-a-adapter-in-an-existing-network-using-classic-inclusion">Including / excluding a adapter in an existing network using classic inclusion</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#z-wave-association-groups">Z-Wave association groups</a></li>
+<li class="toc-entry toc-h2"><a href="#identification-via-z-wave">Identification via Z-Wave</a></li>
+<li class="toc-entry toc-h2"><a href="#z-wave-command-classes-home-assistant-responds-to-when-queried">Z-Wave Command Classes Home Assistant responds to when queried</a></li>
+<li class="toc-entry toc-h2"><a href="#z-wave-terminology">Z-Wave terminology</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#association-group">Association group</a></li>
+<li class="toc-entry toc-h3"><a href="#classic-inclusion-versus-smartstart">Classic inclusion versus SmartStart</a></li>
+<li class="toc-entry toc-h3"><a href="#smartstart">SmartStart</a></li>
+<li class="toc-entry toc-h3"><a href="#terminology-mapping-table">Terminology mapping table</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#removing-z-wave-js-from-home-assistant">Removing Z-Wave JS from Home Assistant</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-z-wave-js-from-home-assistant">To remove Z-Wave JS from Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Z-Wave
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <strong>Z-Wave</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> allows you to control a Z-Wave network from Home Assistant via the <a href="https://zwave-js.github.io/node-zwave-js/#/" rel="external nofollow">Z-Wave JS<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> driver.</p>
+<h2>Getting started <a class="title-link" name="getting-started" href="#getting-started"></a>
+</h2>
+<p>This section shows how to set up a Z-Wave network and how to add a Z-Wave end device to that network.</p>
+<p>A Z-Wave network in Home Assistant includes the following elements:</p>
+<ul>
+<li>a Z-Wave adapter (for example, <a href="/connect/zwa-2">Home Assistant Connect ZWA-2</a>)</li>
+<li>a Z-Wave server (for example, the <strong>Z-Wave JS</strong> add-on)</li>
+<li>this Z-Wave integration</li>
+<li>Z-Wave end devices</li>
+</ul>
+<h3>Setting up a Z-Wave server in Home Assistant <a class="title-link" name="setting-up-a-z-wave-server-in-home-assistant" href="#setting-up-a-z-wave-server-in-home-assistant"></a>
+</h3>
+<p>This section shows how to set up a Z-Wave server using the <strong>Z-Wave JS</strong> add-on in Home Assistant.</p>
+<p>For other ways to set up a Z-Wave server, refer to the <a href="#advanced-installation-instructions">advanced installation instructions</a>.</p>
+<p>Once you have set up the Z-Wave server, you can <a href="#adding-a-new-device-to-the-z-wave-network">add devices to the network</a>.</p>
+<h4>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h4>
+<ul>
+<li>A <a href="/docs/z-wave/controllers/#supported-z-wave-usb-sticks--hardware-modules">supported Z-Wave adapter</a>.
+<ul>
+<li>First-time user? For recommendations, refer to the <a href="#which-z-wave-adapter-should-i-buy">what-to-buy-section</a>.</li>
+</ul>
+</li>
+</ul>
+<h4>To set up a Z-Wave server <a class="title-link" name="to-set-up-a-z-wave-server" href="#to-set-up-a-z-wave-server"></a>
+</h4>
+<ol>
+<li>
+<p>Open the Home Assistant user interface.</p>
+</li>
+<li>
+<p>Plug the Z-Wave adapter into the device running Home Assistant.</p>
+<ul>
+<li>Most likely, your adapter will be recognized automatically.</li>
+<li>In the dialog, select <strong>Recommended installation</strong>.
+<ul>
+<li>This will install the Z-Wave JS add-on on the Home Assistant server.</li>
+</ul>
+</li>
+<li>Add the device to an <span class="terminology">area<span class="terminology-tooltip">An area in Home Assistant is a <a href="/docs/organizing/">logical grouping</a> of devices and entities that are meant to match areas (or rooms) in the physical world: your home. For example, the <code>living room</code> area groups devices and entities in your living room.<a class="terminology-link" href="/docs/organizing/areas/"> [Learn more]</a></span></span> and select <strong>Finish</strong>.</li>
+<li>
+<strong>Troubleshooting</strong>: If your adapter is not recognized, follow <a href="#my-z-wave-adapter-isnt-recognized-automatically-during-setup">these steps</a>.</li>
+</ul>
+</li>
+<li>
+<p>Wait for the installation to complete.</p>
+</li>
+<li>
+<p>Depending on your Home Assistant version, you may be prompted for network security keys.</p>
+<ul>
+<li>If you are using Z-Wave for the first time, leave all the fields empty and select <strong>Submit</strong>. The system will generate network security keys for you.</li>
+<li>If this Z-Wave adapter has already been paired with secure devices, you need to enter the previously used network key as the S0 network key. S2 security keys will be automatically generated for you.</li>
+<li>Make sure that you keep a backup of these keys in a safe place in case you need to move your Z-Wave adapter to another device. Copy and paste them somewhere safe.</li>
+</ul>
+</li>
+<li>
+<p>Wait for the Z-Wave JS add-on to start up.</p>
+</li>
+<li>
+<p>Once the installation is complete, the <strong>Device info</strong> of the Z-Wave adapter is shown.</p>
+<ul>
+<li>You successfully installed the Z-Wave integration and the Z-Wave JS add-on.</li>
+<li>You can now <a href="/integrations/zwave_js/#adding-a-new-device-to-the-z-wave-network">add devices</a> to the Z-Wave network.</li>
+</ul>
+</li>
+</ol>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>While your Z-Wave mesh is permanently stored on your adapter, the additional metadata is not. When the Z-Wave integration starts up the first time, it will interview your entire Z-Wave network. Depending on the number of devices paired with the Z-Wave adapter, this can take a while. You can speed up this process by manually waking up your battery-powered devices. Most of the time, this is a button press on those devices (see their manual). It is not necessary to exclude and re-include devices from the mesh.</p>
+  </div>
+</div>
+<h3>Adding a new device to the Z-Wave network <a class="title-link" name="adding-a-new-device-to-the-z-wave-network" href="#adding-a-new-device-to-the-z-wave-network"></a>
+</h3>
+<ol>
+<li>In Home Assistant, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Select the Z-Wave integration.
+<ul>
+<li>Then, on the entry of the hub, select <iconify-icon inline icon="ic:baseline-arrow-forward-ios" title="Baseline arrow forward ios"></iconify-icon> to open the device info page.</li>
+</ul>
+</li>
+<li>Select <strong>Add device</strong>.
+<ul>
+<li>The Z-Wave adapter is now in inclusion mode.</li>
+</ul>
+</li>
+<li>Check, if your device supports SmartStart:
+<ul>
+<li>On the packaging, check for the SmartStart label.</li>
+<li>Find the QR code. It can be on the packaging or on the device itself.</li>
+</ul>
+</li>
+<li>Depending on whether your device supports SmartStart, follow the steps in either option 1 or 2:
+<ul>
+<li>
+<strong>Option 1: your device supports SmartStart</strong>:
+<ul>
+<li>Make sure the device is turned off.</li>
+<li>Select <strong>Scan QR code</strong> and scan the QR code on your device.
+<ul>
+<li>
+<strong>Troubleshooting</strong>: If scanning does not work (for example due to missing HTTPS), paste the QR code content as text from a different QR reader and select <strong>Submit</strong>.</li>
+</ul>
+</li>
+<li>If the device supports Z-Wave Long Range, you’re prompted to choose the network type.
+<ul>
+<li>
+<strong>Long Range</strong>: If it is far away from other devices, or that spot has had connection issues in the past. It might also help preserve battery life.</li>
+<li>
+<strong>Mesh</strong>: If you already have a mesh network. Adding it can enhance coverage and reliability of this network.</li>
+<li>You can always remove and pair the device again to switch to the other network type.</li>
+</ul>
+</li>
+<li>Turn the device on and set it into inclusion mode.
+<ul>
+<li>If it was already on, you might need to power-cycle it.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Option 2: your device does not support SmartStart</strong>:
+<ul>
+<li>Set the device in inclusion mode. Refer to the device manual to see how this is done.</li>
+<li>If your device is included using S2 security, you may be prompted to enter a PIN number provided with your device. Often, this PIN is provided with the documentation <em>and</em> is also printed on the device itself. For more information on secure inclusion, refer to <a href="/integrations/zwave_js/#should-i-use-secure-inclusion">this section</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The UI should confirm that the device was added. After a short while (seconds to minutes), the entities should also be created.</li>
+<li>
+<strong>Troubleshooting</strong>: If the adapter fails to add/find your device, cancel the inclusion process.
+<ul>
+<li>In some cases, it might help to first <a href="/integrations/zwave_js/#removing-a-device-from-the-z-wave-network">remove</a> a device (exclusion) before you add it, even when the device has not been added to this Z-Wave network yet.</li>
+<li>Another approach would be to factory reset the device. Refer to the device manual to see how this is done.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Important:</strong></p>
+<ol>
+<li>
+<strong>Do not move your Z-Wave adapter to include devices.</strong> Moving the adapter is no longer necessary and leads to broken routes.</li>
+<li>
+<strong>Do not initiate device inclusion from the Z-Wave adapter itself.</strong> This is no longer supported.</li>
+</ol>
+<h3>Removing a device from the Z-Wave network <a class="title-link" name="removing-a-device-from-the-z-wave-network" href="#removing-a-device-from-the-z-wave-network"></a>
+</h3>
+<p>Do this before using the device with another adapter, or when you don’t use the device anymore. It removes the device from the Z-Wave network stored on the adapter. It also removes the device and all its entities from Home Assistant. You can not join a device to a new network if it is still paired with an adapter.</p>
+<ol>
+<li>In Home Assistant, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Select the <strong>Z-Wave</strong> integration.
+<ul>
+<li>Then, select the cogwheel <iconify-icon inline icon="mdi:cog-outline" title="Cog outline"></iconify-icon>.</li>
+</ul>
+</li>
+<li>Select <strong>Remove a device</strong>, then <strong>Start exclusion</strong>.
+<ul>
+<li>The Z-Wave adapter is now in exclusion mode.</li>
+</ul>
+</li>
+<li>Put the device you want to remove in exclusion mode. Refer to its manual how this is done.</li>
+<li>The UI should confirm that the device was removed and the device and entities will be removed from Home Assistant.</li>
+</ol>
+<h2>Migrating a Z-Wave network to a new adapter <a class="title-link" name="migrating-a-z-wave-network-to-a-new-adapter" href="#migrating-a-z-wave-network-to-a-new-adapter"></a>
+</h2>
+<p>Do this if you have an existing Z-Wave network and want to replace its adapter with a new adapter. The Z-Wave integration with all its entities will stay in Home Assistant. The new adapter is added to Home Assistant and paired with the existing network.</p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>You cannot run two Z-Wave adapters simultaneously using the same add-on. If you only run one add-on, you need to migrate the network. If you want to run two adapters, you would need to install another add-on, such as Z-Wave JS UI.</p>
+  </div>
+</div>
+<h3>Prerequisites <a class="title-link" name="prerequisites-1" href="#prerequisites-1"></a>
+</h3>
+<ul>
+<li>Administrator rights in Home Assistant</li>
+</ul>
+<h4>Device-specific prerequisites <a class="title-link" name="device-specific-prerequisites" href="#device-specific-prerequisites"></a>
+</h4>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Migrating from a 500 series adapter</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>Before starting migration, you need to update the adapter to SDK 6.61+</p>
+<ul>
+<li>Check the documentation of your device to see if and how they can be updated.</li>
+<li>
+<a href="https://aeotec.freshdesk.com/support/solutions/articles/6000252294-z-stick-gen5-v1-02-firmware-update" rel="external nofollow">Steps to update Aeotec Z-Stick 5<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Migrating from a Nortek HUSBZB-1 adapter</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<p>There is no easy way to update that device.</p>
+<ul>
+<li>You need to set up a new network.</li>
+<li>If you are comfortable with soldering:
+<ul>
+<li>Some users have reported that they were able to upgrade the firmware of the <strong>Nortek HUSBZB-1</strong> with <a href="https://community.hubitat.com/t/guide-nortek-husbzb-1-nvm-backup-restore-and-updating-z-wave-firmware/48012" rel="external nofollow">this update procedure (requires soldering)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+<li>The procedure is very involved. Most likely, starting from scratch is quicker.</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h3>To migrate a Z-Wave network to a new adapter <a class="title-link" name="to-migrate-a-z-wave-network-to-a-new-adapter" href="#to-migrate-a-z-wave-network-to-a-new-adapter"></a>
+</h3>
+<ol>
+<li>In Home Assistant, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Connect your new adapter.
+<ul>
+<li>Plug in your new adapter.</li>
+<li>
+<strong>Result</strong>: The adapter should be discovered and show up in the <strong>Discovered section</strong>.</li>
+<li>Select <strong>Add</strong> and follow the instructions on screen.</li>
+<li>
+<strong>Troubleshooting</strong>: Not all devices can be discovered automatically. If your device does not show up, follow these steps:
+<ol>
+<li>Select the <strong>Z-Wave</strong> integration.</li>
+<li>Then, select the cogwheel <iconify-icon inline icon="mdi:cog-outline" title="Cog outline"></iconify-icon>.</li>
+<li>Under <strong>Backup and restore</strong>, select <strong>Migrate adapter</strong>.</li>
+<li>Select <strong>Migrate to a new adapter</strong>.
+<ul>
+<li>To confirm, select <strong>Submit</strong>.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>When the <strong>Unplug your adapter</strong> dialog shows up, unplug your old adapter.
+<ul>
+<li>It is important to remove the old device now, as it might interfere with the new one. Even though it might not throw an error immediately, it might cause issues.</li>
+</ul>
+</li>
+<li>Follow the steps on screen.</li>
+<li>Once the migration has completed, check if you want to rename the adapter. If you have previously changed the name, the new adapter might keep the name of the old adapter.
+<ul>
+<li>In the top-left corner, select the back button to go back to the integration page.</li>
+<li>In the list of devices, check the device name.</li>
+<li>To change the device name, select the <iconify-icon inline icon="mdi:pencil" title="Pencil"></iconify-icon> button.</li>
+</ul>
+</li>
+</ol>
+<p>The video below shows how a Z-Wave network is migrated to a Home Assistant Connect ZWA-2:</p>
+<p><lite-youtube videoid="3-1YV9i5M30" videotitle="Example showing how to migrate to a Home Assistant Connect ZWA-2" posterquality="maxresdefault"></lite-youtube></p>
+<h2>Overriding the radio frequency region of the adapter in the Z-Wave JS add-on <a class="title-link" name="overriding-the-radio-frequency-region-of-the-adapter-in-the-z-wave-js-add-on" href="#overriding-the-radio-frequency-region-of-the-adapter-in-the-z-wave-js-add-on"></a>
+</h2>
+<p>The frequency used by Z-Wave devices depends on your region. For 700 and 800 series adapters, this frequency can be changed. The frequency of end devices cannot, so you need to make sure to buy devices specific to your region.</p>
+<p>If you are using the Z-Wave JS add-on, Home Assistant automatically changes the radio frequency region to match the region/country you’re in. If needed, you can override this setting.</p>
+<h3>Prerequisites <a class="title-link" name="prerequisites-2" href="#prerequisites-2"></a>
+</h3>
+<ul>
+<li>Administrator rights in Home Assistant</li>
+<li>All your Z-Wave devices must be specified for that region</li>
+<li>Note: this procedure only applies if your adapter is <a href="#to-set-a-up-a-z-wave-server">set up using the Z-Wave JS add-on</a>
+</li>
+</ul>
+<h3>To override the radio frequency region of your Z-Wave adapter <a class="title-link" name="to-override-the-radio-frequency-region-of-your-z-wave-adapter" href="#to-override-the-radio-frequency-region-of-your-z-wave-adapter"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/supervisor_addon?addon=core_zwave_js" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Add-ons</strong> &gt; <strong>Z-Wave JS</strong></a>.</li>
+<li>Open the <strong>Configuration</strong> tab.</li>
+<li>In the <strong>Options</strong> section, select the <strong>Radio Frequency Region</strong>.
+<ul>
+<li>
+<strong>Automatic</strong> sets the region based on the location defined under <a href="https://my.home-assistant.io/redirect/general" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>System</strong> &gt; <strong>General</strong></a>.</li>
+<li>For regions where Long Range is available, it uses Long Range if the adapter supports it.</li>
+<li>If you set regions manually, choose one of the Long Range options where available:
+<ul>
+<li>
+<strong>Europe (Long Range)</strong> or <strong>USA (Long Range)</strong>.</li>
+</ul>
+</li>
+<li>Even with the Long Range option selected, you can still add devices that don’t support Long Range.</li>
+</ul>
+</li>
+<li>To apply your changes, select <strong>Save</strong>.
+<ul>
+<li>Your Z-Wave adapter is now ready to communicate with devices that were specified for your chosen region.</li>
+</ul>
+</li>
+<li>To return to the default setting and use the region defined by Home Assistant, under <strong>Radio Frequency Region</strong> choose <strong>Automatic</strong>.</li>
+</ol>
+<h2>Backing up your Z-Wave network <a class="title-link" name="backing-up-your-z-wave-network" href="#backing-up-your-z-wave-network"></a>
+</h2>
+<p>It’s recommended to create a backup before making any major changes to your Z-Wave network. For example, before migrating from one adapter to another, or before resetting your adapter. The backup stores your Z-Wave adapter’s non-volatile memory (NVM), which contains your network information including paired devices. It is stored in a binary file that you can download.</p>
+<h3>Prerequisites <a class="title-link" name="prerequisites-3" href="#prerequisites-3"></a>
+</h3>
+<ul>
+<li>Administrator rights in Home Assistant</li>
+</ul>
+<h3>To backup your Z-Wave network <a class="title-link" name="to-backup-your-z-wave-network" href="#to-backup-your-z-wave-network"></a>
+</h3>
+<ol>
+<li>In Home Assistant, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Select the <strong>Z-Wave</strong> integration.
+<ul>
+<li>Then, select the cogwheel <iconify-icon inline icon="mdi:cog-outline" title="Cog outline"></iconify-icon>.</li>
+</ul>
+</li>
+<li>Under <strong>Backup and restore</strong>, select <strong>Download backup</strong>.
+<ul>
+<li>
+<strong>Result</strong>: The backup file is downloaded to the device from which you initiated the download.</li>
+</ul>
+</li>
+<li>Done! Store the backup file somewhere safe in case you need it later to restore your Z-Wave network.</li>
+</ol>
+<h2>Restoring your Z-Wave network from a backup <a class="title-link" name="restoring-your-z-wave-network-from-a-backup" href="#restoring-your-z-wave-network-from-a-backup"></a>
+</h2>
+<p>You can restore your Z-Wave network from a backup.</p>
+<h3>Prerequisites <a class="title-link" name="prerequisites-4" href="#prerequisites-4"></a>
+</h3>
+<ul>
+<li>Administrator rights in Home Assistant</li>
+<li>Have a <a href="#backing-up-your-z-wave-network">backup</a> downloaded</li>
+</ul>
+<h3>Restoring a Z-Wave network from backup <a class="title-link" name="restoring-a-z-wave-network-from-backup" href="#restoring-a-z-wave-network-from-backup"></a>
+</h3>
+<ol>
+<li>In Home Assistant, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Select the <strong>Z-Wave</strong> integration.
+<ul>
+<li>Then, select the cogwheel <iconify-icon inline icon="mdi:cog-outline" title="Cog outline"></iconify-icon>.</li>
+</ul>
+</li>
+<li>Under <strong>Backup and restore</strong>, select <strong>Restore from backup</strong>.
+<ul>
+<li>Select the backup you want to restore from.</li>
+<li>
+<strong>Result</strong>: The Z-Wave network is being restored and the devices that were part of the network should show up again.</li>
+</ul>
+</li>
+</ol>
+<h2>Updating the firmware of your Z-Wave device <a class="title-link" name="updating-the-firmware-of-your-z-wave-device" href="#updating-the-firmware-of-your-z-wave-device"></a>
+</h2>
+<p>Adapters and devices with the Firmware Update Metadata Command Class allow you to update the firmware by uploading a firmware file. In those cases, you can start the firmware update from the device page in Home Assistant. Refer to the documentation of the device manufacturer to find the corresponding firmware file. An example is the <a href="https://www.support.getzooz.com/kb/article/1158-zooz-ota-firmware-files/" rel="external nofollow">firmware page by Zooz<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p><strong>Risk of damage to the device due to firmware update</strong></p>
+<p>A firmware update can damage your Z-Wave device.</p>
+<ul>
+<li>Before updating your Z-Wave device, make sure an update is necessary, and that you have the correct firmware file matching your device.</li>
+<li>Once you have started the update process, you must not interrupt the update process but let it complete.</li>
+</ul>
+<p>The Home Assistant and Z-Wave JS teams do not take any responsibility for any damages to your device as a result of the firmware update and will not be able to help you if you render your device useless due to firmware update.</p>
+  </div>
+</div>
+<h3>Prerequisites <a class="title-link" name="prerequisites-5" href="#prerequisites-5"></a>
+</h3>
+<ul>
+<li>Administrator rights in Home Assistant</li>
+<li>Downloaded the firmware file from the manufacturer website</li>
+</ul>
+<h3>To update firmware of a Z-Wave device <a class="title-link" name="to-update-firmware-of-a-z-wave-device" href="#to-update-firmware-of-a-z-wave-device"></a>
+</h3>
+<ol>
+<li>In Home Assistant, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Select the <strong>Z-Wave</strong> integration.
+<ul>
+<li>Then, on the entry of the hub, select <iconify-icon inline icon="ic:baseline-arrow-forward-ios" title="Baseline arrow forward ios"></iconify-icon> to open the device info page.</li>
+</ul>
+</li>
+<li>Under <strong>Device info</strong>, select <strong>Update</strong>.</li>
+<li>Select the firmware file that you previously downloaded to your computer.
+<ul>
+<li>
+<strong>Notice: Risk of damage to the device</strong>
+<ul>
+<li>Make sure you select the correct firmware file.
+<ul>
+<li>An incorrect firmware file can damage your device.</li>
+</ul>
+</li>
+<li>Once you start the update process, you must wait for the update to complete.
+<ul>
+<li>An interrupted update can damage your device.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Select <strong>Begin firmware update</strong> and wait for it to complete.</li>
+</ol>
+<h2>Resetting a Z-Wave adapter <a class="title-link" name="resetting-a-z-wave-adapter" href="#resetting-a-z-wave-adapter"></a>
+</h2>
+<p>It is recommended to back up your Z-Wave network before resetting the device.</p>
+<ul>
+<li>
+<p>The adapter will forget all devices it is paired with.</p>
+</li>
+<li>
+<p>All Z-Wave devices for this network will be removed from Home Assistant.</p>
+</li>
+<li>
+<p>If there are any devices still paired with the adapter when it is reset, they will have to go through the exclusion process before they can be re-paired.</p>
+</li>
+<li>
+<p>The device firmware will remain on the device.</p>
+</li>
+</ul>
+<h3>Prerequisites <a class="title-link" name="prerequisites-6" href="#prerequisites-6"></a>
+</h3>
+<ul>
+<li>Administrator rights on Home Assistant</li>
+<li><a href="#backing-up-your-z-wave-network">Backup your Z-Wave network</a></li>
+<li>
+<a href="#removing-a-device-from-the-z-wave-network">Remove all devices that are paired with your adapter from the network</a>.
+<ul>
+<li>Removing can be done by any adapter, not just the one that originally managed the network. In theory, this could also be done later.</li>
+</ul>
+</li>
+</ul>
+<h3>To reset a Z-Wave adapter <a class="title-link" name="to-reset-a-z-wave-adapter" href="#to-reset-a-z-wave-adapter"></a>
+</h3>
+<ol>
+<li>
+<p>In Home Assistant, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</p>
+</li>
+<li>
+<p>Select the <strong>Z-Wave</strong> integration. Then, select the controller.</p>
+</li>
+<li>
+<p>Under <strong>Device info</strong>, select the three-dot <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu, then select <strong>Factory reset</strong>.</p>
+<p><img src="/images/integrations/z-wave/z-wave-controller-commands.png" alt="Screenshot showing the device panel of a Z-Wave adapter"></p>
+</li>
+<li>
+<p>On the device info page, check the logbook. When you see that the status entity became unavailable, the reset process is finished.</p>
+<ul>
+<li>You can now unplug the adapter and use it to start a new network, or pass it on to someone else.</li>
+</ul>
+</li>
+<li>
+<p>If you no longer need the Z-Wave integration, you can <a href="#removing-z-wave-js-from-home-assistant">remove it</a> from Home Assistant.</p>
+</li>
+</ol>
+<h2>Special Z-Wave entities <a class="title-link" name="special-z-wave-entities" href="#special-z-wave-entities"></a>
+</h2>
+<p>The Z-Wave integration provides several special entities, some of which are available for every Z-Wave device, and some of which are conditional based on the device.</p>
+<h3>Entities available for every Z-Wave device <a class="title-link" name="entities-available-for-every-z-wave-device" href="#entities-available-for-every-z-wave-device"></a>
+</h3>
+<ol>
+<li>
+<strong>Node status</strong> sensor: This sensor shows the node status for a given Z-Wave device. The sensor is disabled by default. The available node statuses are explained in the <a href="https://zwave-js.github.io/node-zwave-js/#/api/node?id=status" rel="external nofollow">Z-Wave JS documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. They can be used in state change automations. For example to ping a device when it is dead, or refresh values when it wakes up.</li>
+<li>
+<strong>Ping</strong> button: This button can be pressed to ping a device. It is an alternative to the <code>zwave_js.ping</code> action.</li>
+<li>
+<strong>Adapter/node statistics</strong> sensors: Z-Wave JS collects statistics about communications between <a href="https://zwave-js.github.io/node-zwave-js/#/api/node?id=quotstatistics-updatedquot" rel="external nofollow">nodes<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and the <a href="https://zwave-js.github.io/node-zwave-js/#/api/controller?id=quotstatistics-updatedquot" rel="external nofollow">adapter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. The statistics can be used to troubleshoot RF issues in your environment. These statistics are available in the network configuration and device info panels. But they are also available as sensors which are disabled by default.</li>
+</ol>
+<h3>Conditional entities <a class="title-link" name="conditional-entities" href="#conditional-entities"></a>
+</h3>
+<ol>
+<li>Button to <strong>manually idle notifications</strong>: Any Notification Command Class (CC) values on a device that have an idle state will get a corresponding button entity. This button entity can be used to manually idle a notification when it doesn’t automatically clear on its own. A device can have multiple Notification CC values. For example one for detecting smoke and one for detecting carbon monoxide.</li>
+</ol>
+<h2>Using advanced features (UI only) <a class="title-link" name="using-advanced-features-ui-only" href="#using-advanced-features-ui-only"></a>
+</h2>
+<p>While the integration aims to provide as much functionality as possible through existing Home Assistant constructs (entities, states, automations, actions, etc.), there are some features that are only available through the UI.</p>
+<p>All of these features can be accessed either in the Z-Wave integration configuration panel or in a Z-Wave device’s device panel.</p>
+<h3>Integration configuration panel <a class="title-link" name="integration-configuration-panel" href="#integration-configuration-panel"></a>
+</h3>
+<p>The following features can be accessed from the integration configuration panel:</p>
+<p><img src="/images/integrations/z-wave/z-wave-integration-config-panel.png" alt="Z-Wave integration configuration panel"></p>
+<ul>
+<li>
+<strong>Add device:</strong> Allows you to pre-provision a SmartStart device or start the inclusion process for adding a new device to your network.</li>
+<li>
+<strong>Remove device:</strong> Starts the exclusion process for removing a device from your network.</li>
+<li>
+<strong>Rebuild network routes:</strong> Discovers new routes between the adapter and the device. This is useful when devices or the adapter have moved to a new location, or if you are having significant problems with your network, but it also generates a lot of network traffic and should be used sparingly.</li>
+<li>
+<strong><a href="https://zwave-js.github.io/node-zwave-js/#/api/controller?id=quotstatistics-updatedquot" rel="external nofollow">Adapter statistics<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>:</strong> Provides statistics about communication between the adapter and other devices, allowing you to troubleshoot your network’s RF quality.</li>
+<li>
+<strong>Third-party data opt-in/out:</strong> Allows you to opt-in or out of telemetry that the Z-Wave JS project collects to help inform development decisions, influence manufacturers, etc. This telemetry is disabled by default and has to be opted in to be activated.</li>
+</ul>
+<h3>Integration menu <a class="title-link" name="integration-menu" href="#integration-menu"></a>
+</h3>
+<p>Some features can be accessed from the menu of integration itself. As they are not specific to Z-Wave, they are not described here in detail.
+<img src="/images/integrations/z-wave/z-wave-integration-menu.png" alt="Z-Wave integration configuration panel"></p>
+<ul>
+<li>
+<strong><a href="/docs/configuration/troubleshooting/#download-diagnostics">Download diagnostics</a>:</strong> Exports a JSON file describing the entities of all devices registered with this integration.</li>
+</ul>
+<h4>Network devices <a class="title-link" name="network-devices" href="#network-devices"></a>
+</h4>
+<p>The following features can be accessed from the device panel of any Z-Wave device on your network aside from the adapter:</p>
+<p><img src="/images/integrations/z-wave/z-wave-device-info.png" alt="Z-Wave device panel"></p>
+<ul>
+<li>
+<strong>Configure:</strong> Provides an easy way to look up and update configuration parameters for the device. While there is an existing action for setting configuration parameter values, this UI may sometimes be quicker to use for one-off changes.</li>
+<li>
+<strong>Re-interview:</strong> Forces the device to go through the interview process again so that Z-Wave-JS can discover all of its capabilities. Can be helpful if you don’t see all the expected entities for your device.</li>
+<li>
+<strong>Rebuild routes:</strong> Discovers new routes between the adapter and the device. Use this if you think you are experiencing unexpected delays or RF issues with your device. Your device may be less responsive during this process.</li>
+<li>
+<strong>Remove failed:</strong> Removes the device from the adapter without excluding the device from the network. Can be used when a device has failed and it can’t go through the normal exclusion process.</li>
+<li>
+<strong><a href="https://zwave-js.github.io/node-zwave-js/#/api/node?id=quotstatistics-updatedquot" rel="external nofollow">Statistics<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>:</strong> Provides statistics about communication between this device and the adapter, allowing you to troubleshoot RF issues with the device.</li>
+<li>
+<strong>Update:</strong> Updates a device’s firmware using a manually uploaded firmware file. Only some devices support this feature (adapters and devices with the Firmware Update Metadata Command Class).</li>
+<li>
+<strong>Download diagnostics:</strong> Exports a JSON file describing the entities of this specific device.</li>
+</ul>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<h3>Action zwave_js.set_config_parameter <a class="title-link" name="action-zwave_jsset_config_parameter" href="#action-zwave_jsset_config_parameter"></a>
+</h3>
+<p>This action will update a configuration parameter. To update multiple partial parameters in a single call, use the <code>zwave_js.bulk_set_partial_config_parameters</code> action.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Entity (or list of entities) to set the configuration parameter on. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>device_id</code></td>
+<td>no</td>
+<td>Device ID (or list of device IDs) to set the configuration parameter on. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>area_id</code></td>
+<td>no</td>
+<td>Area ID (or list of area IDs) for devices/entities to set the configuration parameter on. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>parameter</code></td>
+<td>yes</td>
+<td>The parameter number or the name of the property. The name of the property is case sensitive.</td>
+</tr>
+<tr>
+<td><code>bitmask</code></td>
+<td>no</td>
+<td>The bitmask for a partial parameter in hex (0xff) or decimal (255) format. If the name of the parameter is provided, this is not needed. Cannot be combined with value_size or value_format.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>yes</td>
+<td>The target value for the parameter as the integer value or the state label. The state label is case sensitive.</td>
+</tr>
+<tr>
+<td><code>value_size</code></td>
+<td>no</td>
+<td>The size of the target parameter value, either 1, 2, or 4. Used in combination with value_format when a config parameter is not defined in your device’s configuration file. Cannot be combined with bitmask.</td>
+</tr>
+<tr>
+<td><code>value_format</code></td>
+<td>no</td>
+<td>The format of the target parameter value, 0 for signed integer, 1 for unsigned integer, 2 for enumerated, 3 for bitfield. Used in combination with value_size when a config parameter is not defined in your device’s configuration file. Cannot be combined with bitmask.</td>
+</tr>
+</tbody>
+</table>
+<h4>Examples of setting a single parameter value <a class="title-link" name="examples-of-setting-a-single-parameter-value" href="#examples-of-setting-a-single-parameter-value"></a>
+</h4>
+<p>Let’s use parameter 31 for <a href="https://devices.zwave-js.io/?jumpTo=0x000c:0x0203:0x0001:0.0" rel="external nofollow">this device<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> as an example to show examples of different ways that the <code>LED 1 Blink Status (bottom)</code> partial parameter can be set. Note that in places where we are using different values for the same key, the different values are interchangeable across the examples. We can, for instance, use <code>1</code> or <code>Blink</code> interchangeably for the <code>value</code> in all of the examples.</p>
+<p>Example 1:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">zwave_js.set_config_parameter</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.fan</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">parameter</span><span class="pi">:</span> <span class="m">31</span>
+  <span class="na">bitmask</span><span class="pi">:</span> <span class="s">0x01</span>
+  <span class="na">value</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+<p>Example 2:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">zwave_js.set_config_parameter</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.fan</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">parameter</span><span class="pi">:</span> <span class="m">31</span>
+  <span class="na">bitmask</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Blink"</span>
+</code></pre></div></div>
+<p>Example 3:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">zwave_js.set_config_parameter</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.fan</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.fan</span>
+  <span class="na">parameter</span><span class="pi">:</span> <span class="s2">"</span><span class="s">LED</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">Blink</span><span class="nv"> </span><span class="s">Status</span><span class="nv"> </span><span class="s">(bottom)"</span>
+  <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Blink"</span>
+</code></pre></div></div>
+<h3>Action zwave_js.bulk_set_partial_config_parameters <a class="title-link" name="action-zwave_jsbulk_set_partial_config_parameters" href="#action-zwave_jsbulk_set_partial_config_parameters"></a>
+</h3>
+<p>This action will bulk set multiple partial configuration parameters. Be warned that correctly using this action requires advanced knowledge of Z-Wave.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Entity (or list of entities) to bulk set partial configuration parameters on. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>device_id</code></td>
+<td>no</td>
+<td>Device ID (or list of device IDs) to bulk set partial configuration parameters on. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>area_id</code></td>
+<td>no</td>
+<td>Area ID (or list of area IDs) for devices/entities to bulk set partial configuration parameters on. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>parameter</code></td>
+<td>yes</td>
+<td>The parameter number of the property. The name of the property is case sensitive.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>yes</td>
+<td>Either the raw integer value that you want to set for the entire parameter, or a dictionary where the keys are either the bitmasks (in integer or hex form) or the partial parameter name and the values are the value you want to set on each partial (either the integer value or a named state when applicable). Note that when using a dictionary, and bitmasks that are not provided will be set to their currently cached values.</td>
+</tr>
+</tbody>
+</table>
+<h4>Examples of bulk setting partial parameter values <a class="title-link" name="examples-of-bulk-setting-partial-parameter-values" href="#examples-of-bulk-setting-partial-parameter-values"></a>
+</h4>
+<p>Let’s use parameter 21 for <a href="https://devices.zwave-js.io/?jumpTo=0x031e:0x000a:0x0001:0.0" rel="external nofollow">this device<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> as an example to show how partial parameters can be bulk set. In this case, we want to set <code>0xff</code> to <code>127</code>, <code>0x7f00</code> to <code>10</code>, and <code>0x8000</code> to <code>1</code> (or the raw value of <code>4735</code>).</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>When using the dictionary format to map the partial parameter to values, the cached values for the missing partial parameters will be used. So in examples 2, 3, 4, and 5, the action would use the cached value for partial parameters <code>0xff0000</code>, <code>0x3f000000</code>, and <code>0x40000000</code> because new values haven’t been specified. If you send the raw integer value, it is assumed that you have calculated the full value, so in example 1, partial parameters <code>0xff0000</code>, <code>0x3f000000</code>, and <code>0x40000000</code> would all be set to <code>0</code>.</p>
+  </div>
+</div>
+<p>Example 1:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">zwave_js.bulk_set_partial_config_parameters</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.fan</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">parameter</span><span class="pi">:</span> <span class="m">21</span>
+  <span class="na">value</span><span class="pi">:</span> <span class="m">4735</span>
+</code></pre></div></div>
+<p>Example 2:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">zwave_js.bulk_set_partial_config_parameters</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.fan</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">parameter</span><span class="pi">:</span> <span class="m">21</span>
+  <span class="na">value</span><span class="pi">:</span>
+    <span class="na">0xff</span><span class="pi">:</span> <span class="m">127</span>
+    <span class="na">0x7f00</span><span class="pi">:</span> <span class="m">10</span>
+    <span class="na">0x8000</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+<p>Example 3:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">zwave_js.bulk_set_partial_config_parameters</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.fan</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">parameter</span><span class="pi">:</span> <span class="m">21</span>
+  <span class="na">value</span><span class="pi">:</span>
+    <span class="na">255</span><span class="pi">:</span> <span class="m">127</span>
+    <span class="na">32512</span><span class="pi">:</span> <span class="m">10</span>
+    <span class="na">32768</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+<p>Example 4:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">zwave_js.bulk_set_partial_config_parameters</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.fan</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">parameter</span><span class="pi">:</span> <span class="m">21</span>
+  <span class="na">value</span><span class="pi">:</span>
+    <span class="na">255</span><span class="pi">:</span> <span class="m">127</span>
+    <span class="na">32512</span><span class="pi">:</span> <span class="m">10</span>
+    <span class="na">32768</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Fine"</span>
+</code></pre></div></div>
+<p>Example 5:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">zwave_js.bulk_set_partial_config_parameters</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.fan</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">parameter</span><span class="pi">:</span> <span class="m">21</span>
+  <span class="na">value</span><span class="pi">:</span>
+    <span class="s2">"</span><span class="s">Quick</span><span class="nv"> </span><span class="s">Strip</span><span class="nv"> </span><span class="s">Effect:</span><span class="nv"> </span><span class="s">Hue</span><span class="nv"> </span><span class="s">Color</span><span class="nv"> </span><span class="s">Wheel</span><span class="nv"> </span><span class="s">/</span><span class="nv"> </span><span class="s">Color</span><span class="nv"> </span><span class="s">Temp"</span><span class="err">:</span> <span class="m">127</span>
+    <span class="s2">"</span><span class="s">Quick</span><span class="nv"> </span><span class="s">Strip</span><span class="nv"> </span><span class="s">Effect</span><span class="nv"> </span><span class="s">Intensity"</span><span class="err">:</span> <span class="m">10</span>
+    <span class="s2">"</span><span class="s">Quick</span><span class="nv"> </span><span class="s">Strip</span><span class="nv"> </span><span class="s">Effect</span><span class="nv"> </span><span class="s">Intensity</span><span class="nv"> </span><span class="s">Scale"</span><span class="err">:</span> <span class="s2">"</span><span class="s">Fine"</span>
+</code></pre></div></div>
+<h3>Action zwave_js.refresh_value <a class="title-link" name="action-zwave_jsrefresh_value" href="#action-zwave_jsrefresh_value"></a>
+</h3>
+<p>This action will refresh the value(s) for an entity. This action will generate extra traffic on your Z-Wave network and should be used sparingly. Updates from devices on battery may take some time to be received.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>Entity or list of entities to refresh values for.</td>
+</tr>
+<tr>
+<td><code>refresh_all_values</code></td>
+<td>no</td>
+<td>Whether all values should be refreshed. If  <code>false</code>, only the primary value will be refreshed. If  <code>true</code>, all watched values will be refreshed.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zwave_js.set_value <a class="title-link" name="action-zwave_jsset_value" href="#action-zwave_jsset_value"></a>
+</h3>
+<p>This action will set a value on a Z-Wave device. It is for advanced use cases where you need to modify the state of a node and can’t do it using native Home Assistant entity functionality. Be warned that correctly using this action requires advanced knowledge of Z-Wave. The action provides minimal validation and blindly calls the Z-Wave JS API, so if you are having trouble using it, it is likely because you are providing an incorrect value somewhere. To set a config parameter, you should use the <code>zwave_js.set_config_parameter</code> or <code>zwave_js.bulk_set_partial_config_parameters</code> action instead of this one.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Entity (or list of entities) to set the value on. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>device_id</code></td>
+<td>no</td>
+<td>Device ID (or list of device IDs) to set the value on. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>area_id</code></td>
+<td>no</td>
+<td>Area ID (or list of area IDs) for devices/entities to set the value on. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>command_class</code></td>
+<td>yes</td>
+<td>ID of Command Class that you want to set the value for.</td>
+</tr>
+<tr>
+<td><code>property</code></td>
+<td>yes</td>
+<td>ID of Property that you want to set the value for.</td>
+</tr>
+<tr>
+<td><code>property_key</code></td>
+<td>no</td>
+<td>ID of Property Key that you want to set the value for.</td>
+</tr>
+<tr>
+<td><code>endpoint</code></td>
+<td>no</td>
+<td>ID of Endpoint that you want to set the value for.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>yes</td>
+<td>The new value that you want to set.</td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td>no</td>
+<td>Set value options map. Refer to the Z-Wave JS documentation for more information on what options can be set.</td>
+</tr>
+<tr>
+<td><code>wait_for_result</code></td>
+<td>no</td>
+<td>Boolean that indicates whether or not to wait for a response from the node. If not included in the payload, the integration will decide whether to wait or not. If set to <code>true</code>, note that the action can take a while if setting a value on an asleep battery device.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zwave_js.multicast_set_value <a class="title-link" name="action-zwave_jsmulticast_set_value" href="#action-zwave_jsmulticast_set_value"></a>
+</h3>
+<p>This action will set a value on multiple Z-Wave devices using multicast. It is for advanced use cases where you need to set the same value on multiple nodes simultaneously. Be warned that correctly using this action requires advanced knowledge of Z-Wave. The action provides minimal validation beyond what is necessary to properly call the Z-Wave JS API, so if you are having trouble using it, it is likely because you are providing an incorrect value somewhere.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Entity (or list of entities) to set the value on via multicast. At least two <code>entity_id</code> or <code>device_id</code> must be resolved if not broadcasting the command.</td>
+</tr>
+<tr>
+<td><code>device_id</code></td>
+<td>no</td>
+<td>Device ID (or list of device IDs) to set the value on via multicast. At least two <code>entity_id</code> or <code>device_id</code> must be resolved if not broadcasting the command.</td>
+</tr>
+<tr>
+<td><code>area_id</code></td>
+<td>no</td>
+<td>Area ID (or list of area IDs) for devices/entities to set the value on via multicast. At least two <code>entity_id</code> or <code>device_id</code> must be resolved if not broadcasting the command.</td>
+</tr>
+<tr>
+<td><code>broadcast</code></td>
+<td>no</td>
+<td>Boolean that indicates whether you want the message to be broadcast to all nodes on the network. If you have only one Z-Wave network configured, you do not need to provide a <code>device_id</code> or <code>entity_id</code> when this is set to true. When you have multiple Z-Wave networks configured, you MUST provide at least one <code>device_id</code> or <code>entity_id</code> so the action knows which network to target.</td>
+</tr>
+<tr>
+<td><code>command_class</code></td>
+<td>yes</td>
+<td>ID of Command Class that you want to set the value for.</td>
+</tr>
+<tr>
+<td><code>property</code></td>
+<td>yes</td>
+<td>ID of Property that you want to set the value for.</td>
+</tr>
+<tr>
+<td><code>property_key</code></td>
+<td>no</td>
+<td>ID of Property Key that you want to set the value for.</td>
+</tr>
+<tr>
+<td><code>endpoint</code></td>
+<td>no</td>
+<td>ID of Endpoint that you want to set the value for.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>yes</td>
+<td>The new value that you want to set.</td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td>no</td>
+<td>Set value options map. Refer to the Z-Wave JS documentation for more information on what options can be set.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zwave_js.invoke_cc_api <a class="title-link" name="action-zwave_jsinvoke_cc_api" href="#action-zwave_jsinvoke_cc_api"></a>
+</h3>
+<p>Leverage this action to use the Command Class API directly. In most cases, the <code>zwave_js.set_value</code> action will accomplish what you need to, but some Command Classes have API commands that can’t be accessed via that action. Refer to the <a href="https://zwave-js.github.io/node-zwave-js/#/api/CCs/index" rel="external nofollow">Z-Wave JS Command Class documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for the available APIs and arguments. Be sure to know what you are doing when calling this action.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Entity (or list of entities) to ping. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided. If <code>endpoint</code> is specified, that endpoint will be used to make the CC API call for all devices, otherwise the primary value endpoint will be used for each entity.</td>
+</tr>
+<tr>
+<td><code>device_id</code></td>
+<td>no</td>
+<td>Device ID (or list of device IDs) to ping. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided. If <code>endpoint</code> is specified, that endpoint will be used to make the CC API call for all devices, otherwise the root endpoint (0) will be used for each device.</td>
+</tr>
+<tr>
+<td><code>area_id</code></td>
+<td>no</td>
+<td>Area ID (or list of area IDs) for devices/entities to ping. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided. If <code>endpoint</code> is specified, that endpoint will be used to make the CC API call for all devices, otherwise the root endpoint (0) will be used for each <code>zwave_js</code> device in the area.</td>
+</tr>
+<tr>
+<td><code>command_class</code></td>
+<td>yes</td>
+<td>ID of Command Class that you want to set the value for.</td>
+</tr>
+<tr>
+<td><code>endpoint</code></td>
+<td>no</td>
+<td>The endpoint to call the CC API against.</td>
+</tr>
+<tr>
+<td><code>method_name</code></td>
+<td>yes</td>
+<td>The name of the method that is being called from the CC API.</td>
+</tr>
+<tr>
+<td><code>parameters</code></td>
+<td>yes</td>
+<td>A list of parameters to pass to the CC API method.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zwave_js.refresh_notifications <a class="title-link" name="action-zwave_jsrefresh_notifications" href="#action-zwave_jsrefresh_notifications"></a>
+</h3>
+<p>This action will refresh the notifications of a given type on a device that
+supports the Notification Command Class.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Entity (or list of entities) to refresh notifications for. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>device_id</code></td>
+<td>no</td>
+<td>Device ID (or list of device IDs) to refresh notifications for. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>area_id</code></td>
+<td>no</td>
+<td>Area ID (or list of area IDs) for devices/entities to refresh notifications for. At least one <code>entity_id</code>, <code>device_id</code>, or <code>area_id</code> must be provided.</td>
+</tr>
+<tr>
+<td><code>notification_type</code></td>
+<td>yes</td>
+<td>The type of notification to refresh.</td>
+</tr>
+<tr>
+<td><code>notification_event</code></td>
+<td>no</td>
+<td>The notification event to refresh.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zwave_js.reset_meter <a class="title-link" name="action-zwave_jsreset_meter" href="#action-zwave_jsreset_meter"></a>
+</h3>
+<p>This action will reset the meters on a device that supports the Meter Command Class.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>Entity (or list of entities) for the meters you want to reset.</td>
+</tr>
+<tr>
+<td><code>meter_type</code></td>
+<td>no</td>
+<td>If supported by the device, indicates the type of meter to reset. Not all devices support this option.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>no</td>
+<td>If supported by the device, indicates the value to reset the meter to. Not all devices support this option.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zwave_js.set_lock_configuration <a class="title-link" name="action-zwave_jsset_lock_configuration" href="#action-zwave_jsset_lock_configuration"></a>
+</h3>
+<p>This action will set the configuration of a lock.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Lock entity or list of entities to set the usercode.</td>
+</tr>
+<tr>
+<td><code>operation_type</code></td>
+<td>yes</td>
+<td>Lock operation type, one of <code>timed</code> or <code>constant</code>.</td>
+</tr>
+<tr>
+<td><code>lock_timeout</code></td>
+<td>no</td>
+<td>Seconds until lock mode times out. Should only be used if operation type is <code>timed</code>.</td>
+</tr>
+<tr>
+<td><code>auto_relock_time</code></td>
+<td>no</td>
+<td>Duration in seconds until lock returns to secure state. Only enforced when operation type is <code>constant</code>.</td>
+</tr>
+<tr>
+<td><code>hold_and_release_time</code></td>
+<td>no</td>
+<td>Duration in seconds the latch stays retracted.</td>
+</tr>
+<tr>
+<td><code>twist_assist</code></td>
+<td>no</td>
+<td>Enable Twist Assist.</td>
+</tr>
+<tr>
+<td><code>block_to_block</code></td>
+<td>no</td>
+<td>Enable block-to-block functionality.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zwave_js.set_lock_usercode <a class="title-link" name="action-zwave_jsset_lock_usercode" href="#action-zwave_jsset_lock_usercode"></a>
+</h3>
+<p>This action will set the usercode of a lock to X at code slot Y.
+Valid usercodes are at least 4 digits.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Lock entity or list of entities to set the usercode.</td>
+</tr>
+<tr>
+<td><code>code_slot</code></td>
+<td>yes</td>
+<td>The code slot to set the usercode into.</td>
+</tr>
+<tr>
+<td><code>usercode</code></td>
+<td>yes</td>
+<td>The code to set in the slot.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action zwave_js.clear_lock_usercode <a class="title-link" name="action-zwave_jsclear_lock_usercode" href="#action-zwave_jsclear_lock_usercode"></a>
+</h3>
+<p>This action will clear the usercode of a lock in code slot X.
+Valid code slots are between 1-254.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Lock entity or list of entities to clear the usercode.</td>
+</tr>
+<tr>
+<td><code>code_slot</code></td>
+<td>yes</td>
+<td>The code slot to clear the usercode from.</td>
+</tr>
+</tbody>
+</table>
+<h2>Events <a class="title-link" name="events" href="#events"></a>
+</h2>
+<p>There are two types of events that are fired, notification events and value notification events. You can test what events come in using the event <a href="https://my.home-assistant.io/redirect/developer_events" class="my" target="_blank">developer tools in Home Assistant</a> and subscribing to the <code>zwave_js_notification</code> or <code>zwave_js_value_notification</code> events respectively. Once you know what the event data looks like, you can use this to create automations.</p>
+<h3>Node events (Notification) <a class="title-link" name="node-events-notification" href="#node-events-notification"></a>
+</h3>
+<p>Check the <a href="https://zwave-js.github.io/node-zwave-js/#/api/node?id=quotnotificationquot" rel="external nofollow">Z-Wave JS notification event documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for an explanation of the notification event data. These events fire with the <code>zwave_js_notification</code> event type.</p>
+<p>Notification event data can be used to trigger automations, both in the automation UI and in YAML, using the event platform. Check the details of an event by subscribing to the zwave_js_notification event in the <a href="/docs/tools/dev-tools/#subscribe-to-an-event">Developers Tools</a>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Fires whenever the lock is unlocked by the keypad.</span>
+<span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+    <span class="na">event_type</span><span class="pi">:</span> <span class="s">zwave_js_notification</span>
+    <span class="na">event_data</span><span class="pi">:</span>
+      <span class="na">node_id</span><span class="pi">:</span> <span class="m">14</span>
+      <span class="na">event_label</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Keypad</span><span class="nv"> </span><span class="s">unlock</span><span class="nv"> </span><span class="s">operation"</span>
+</code></pre></div></div>
+<h4>Notification Command Class <a class="title-link" name="notification-command-class" href="#notification-command-class"></a>
+</h4>
+<p>These are notification events fired by devices using the Notification Command Class. The <code>parameters</code> attribute in the example below is optional, and when it is included, the keys in the attribute will vary depending on the event.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zwave_js"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"home_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"974823419"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ad8098fe80980974"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class"</span><span class="p">:</span><span class="w"> </span><span class="mi">113</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Notification"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Access Control"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event_label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Keypad lock operation"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<h4>Multilevel Switch Command Class <a class="title-link" name="multilevel-switch-command-class" href="#multilevel-switch-command-class"></a>
+</h4>
+<p>These are notification events fired by devices using the Multilevel Switch Command Class. There are events for start level change and stop level change. These would typically be used in a device like the Aeotec Nano Dimmer with an external switch to respond to long button presses.</p>
+<h5>Start level change <a class="title-link" name="start-level-change" href="#start-level-change"></a>
+</h5>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zwave_js"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"home_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">974823419</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2f44f0d4152be3123f7ad40cf3abd095"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class"</span><span class="p">:</span><span class="w"> </span><span class="mi">38</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Multilevel Switch"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event_type_label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"label 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"up"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+<h5>Stop level change <a class="title-link" name="stop-level-change" href="#stop-level-change"></a>
+</h5>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zwave_js"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"home_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3803689189</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2f44f0d4152be3123f7ad40cf3abd095"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class"</span><span class="p">:</span><span class="w"> </span><span class="mi">38</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Multilevel Switch"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event_type_label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"label 2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+<h4>Entry Control Command Class <a class="title-link" name="entry-control-command-class" href="#entry-control-command-class"></a>
+</h4>
+<p>These are notification events fired by devices using the Entry Control Command Class.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zwave_js"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"home_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"974823419"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ad8098fe80980974"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class"</span><span class="p">:</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entry Control"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event_type_label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"label 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data_type_label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"label 2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"event_data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"555"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<h3>Scene events (Value Notification) <a class="title-link" name="scene-events-value-notification" href="#scene-events-value-notification"></a>
+</h3>
+<p>Value Notifications are used for stateless values, like <code>Central Scenes</code> and <code>Scene Activation</code>. These events fire with the <code>zwave_js_value_notification</code> event type.</p>
+<p>Value Notification example:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zwave_js"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"home_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"974823419"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ad8098fe80980974"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class"</span><span class="p">:</span><span class="w"> </span><span class="mi">91</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Central Scene"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Event value"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"property_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"property_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"001"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"property_key_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"001"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KeyPressed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value_raw"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<h3>Value updated events <a class="title-link" name="value-updated-events" href="#value-updated-events"></a>
+</h3>
+<p>Due to some devices not following the Z-Wave Specification, there are scenarios where a device will send a value update but a state change won’t be detected in Home Assistant. To address the gap, the <code>zwave_js_value_updated</code> event can be listened to to capture any value updates that are received by an affected entity. This event is <strong>enabled on a per device and per entity domain basis</strong>, and the entities will have <code>assumed_state</code> set to <code>true</code>. This change will affect how the UI for these entities look; if you’d like the UI to match other entities of the same type where <code>assumed_state</code> is not set to <code>true</code>, you can override the setting via <a href="/docs/configuration/customizing-devices/#assumed_state">entity customization</a>.</p>
+<p>The following devices currently support this event:</p>
+<table>
+<thead>
+<tr>
+<th>Make</th>
+<th>Model</th>
+<th>Entity Domain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vision Security</td>
+<td>ZL7432 In Wall Dual Relay Switch</td>
+<td><code>switch</code></td>
+</tr>
+</tbody>
+</table>
+<p>Value Updated example:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"home_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"974823419"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ad8098fe80980974"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"entity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"switch.in_wall_dual_relay_switch"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class"</span><span class="p">:</span><span class="w"> </span><span class="mi">37</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"command_class_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Switch Binary"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"currentValue"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"property_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"currentValue"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"property_key"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"property_key_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value_raw"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>This event can be used to trigger a refresh of values when the new state needs to be retrieved. Here’s an example automation:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+    <span class="na">event_type</span><span class="pi">:</span> <span class="s">zwave_js_value_updated</span>
+    <span class="na">event_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.in_wall_dual_relay_switch</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">zwave_js.refresh_value</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">switch.in_wall_dual_relay_switch_2</span>
+        <span class="pi">-</span> <span class="s">switch.in_wall_dual_relay_switch_3</span>
+</code></pre></div></div>
+<h2>Automations <a class="title-link" name="automations" href="#automations"></a>
+</h2>
+<p>The <code>Z-Wave</code> integration provides its own trigger platforms which can be used in automations.</p>
+<h3>zwave_js.value_updated <a class="title-link" name="zwave_jsvalue_updated" href="#zwave_jsvalue_updated"></a>
+</h3>
+<p>This trigger platform can be used to trigger automations on any Z-Wave JS value update, including Z-Wave JS values that aren’t supported in Home Assistant via entities. While they can’t be authored from the automation UI, they can be authored in YAML directly in your <code>configuration.yaml</code>.</p>
+<h4>Example automation trigger configuration <a class="title-link" name="example-automation-trigger-configuration" href="#example-automation-trigger-configuration"></a>
+</h4>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Fires whenever the `latchStatus` value changes from `closed` to `opened` on the three devices (devices will be derived from an entity ID).</span>
+<span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">zwave_js.value_updated</span>
+    <span class="c1"># At least one `device_id` or `entity_id` must be provided</span>
+    <span class="na">device_id</span><span class="pi">:</span> <span class="s">45d7d3230dbb7441473ec883dab294d4</span>  <span class="c1"># Garage Door Lock device ID</span>
+    <span class="na">entity_id</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">lock.front_lock</span>
+      <span class="pi">-</span> <span class="s">lock.back_door</span>
+    <span class="c1"># `property` and `command_class` are required</span>
+    <span class="na">command_class</span><span class="pi">:</span> <span class="m">98</span> <span class="c1"># Door Lock CC</span>
+    <span class="na">property</span><span class="pi">:</span> <span class="s2">"</span><span class="s">latchStatus"</span>
+    <span class="c1"># `property_key` and `endpoint` are optional</span>
+    <span class="na">property_key</span><span class="pi">:</span> <span class="kc">null</span>
+    <span class="na">endpoint</span><span class="pi">:</span> <span class="m">0</span>
+    <span class="c1"># `from` and `to` will both accept lists of values and the trigger will fire if the value update matches any of the listed values</span>
+    <span class="na">from</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">closed"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">jammed"</span>
+    <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">opened"</span>
+</code></pre></div></div>
+<h4>Available trigger data <a class="title-link" name="available-trigger-data" href="#available-trigger-data"></a>
+</h4>
+<p>In addition to the <a href="/docs/automation/templating/#all">standard automation trigger data</a>, the <code>zwave_js.value_updated</code> trigger platform has additional trigger data available for use.</p>
+<table>
+<thead>
+<tr>
+<th>Template variable</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>trigger.device_id</code></td>
+<td>Device ID for the device in the device registry.</td>
+</tr>
+<tr>
+<td><code>trigger.node_id</code></td>
+<td>Z-Wave node ID.</td>
+</tr>
+<tr>
+<td><code>trigger.command_class</code></td>
+<td>Command Class ID.</td>
+</tr>
+<tr>
+<td><code>trigger.command_class_name</code></td>
+<td>Command Class name.</td>
+</tr>
+<tr>
+<td><code>trigger.property</code></td>
+<td>Z-Wave Value’s property.</td>
+</tr>
+<tr>
+<td><code>trigger.property_name</code></td>
+<td>Z-Wave Value’s property name.</td>
+</tr>
+<tr>
+<td><code>trigger.property_key</code></td>
+<td>Z-Wave Value’s property key.</td>
+</tr>
+<tr>
+<td><code>trigger.property_key_name</code></td>
+<td>Z-Wave Value’s property key name.</td>
+</tr>
+<tr>
+<td><code>trigger.endpoint</code></td>
+<td>Z-Wave Value’s endpoint.</td>
+</tr>
+<tr>
+<td><code>trigger.previous_value</code></td>
+<td>The previous value for this Z-Wave value (translated to a state name when possible).</td>
+</tr>
+<tr>
+<td><code>trigger.previous_value_raw</code></td>
+<td>The raw previous value for this Z-Wave value (the key of the state when a state is named).</td>
+</tr>
+<tr>
+<td><code>trigger.current_value</code></td>
+<td>The current value for this Z-Wave value (translated to a state name when possible).</td>
+</tr>
+<tr>
+<td><code>trigger.current_value_raw</code></td>
+<td>The raw current value for this Z-Wave value (the key of the state when a state is named).</td>
+</tr>
+</tbody>
+</table>
+<h3>zwave_js.event <a class="title-link" name="zwave_jsevent" href="#zwave_jsevent"></a>
+</h3>
+<p>This trigger platform can be used to trigger automations on any Z-Wave JS controller, driver, or node event, including events that may not be handled by Home Assistant automatically. Refer to the linked <a href="https://zwave-js.github.io/node-zwave-js/#/" rel="external nofollow">Z-Wave JS documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> to learn more about the available events and the data that is sent along with it.</p>
+<p>There is strict validation in place based on all known event types, so if you come across an event type that isn’t supported, please open a GitHub issue in the <code>home-assistant/core</code> repository.</p>
+<h4>Example automation trigger configuration <a class="title-link" name="example-automation-trigger-configuration-1" href="#example-automation-trigger-configuration-1"></a>
+</h4>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Fires whenever the `interview failed` event is fired on the three devices (devices will be derived from device and entity IDs).</span>
+<span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">zwave_js.event</span>
+    <span class="c1"># At least one `device_id` or `entity_id` must be provided for `node` events. For any other events, a `config_entry_id` needs to be provided.</span>
+    <span class="na">device_id</span><span class="pi">:</span> <span class="s">45d7d3230dbb7441473ec883dab294d4</span>  <span class="c1"># Garage Door Lock device ID</span>
+    <span class="na">entity_id</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">lock.front_lock</span>
+      <span class="pi">-</span> <span class="s">lock.back_door</span>
+    <span class="na">config_entry_id</span><span class="pi">:</span>
+    <span class="c1"># `event_source` and `event` are required</span>
+    <span class="na">event_source</span><span class="pi">:</span> <span class="s">node</span>   <span class="c1"># options are node, controller, and driver</span>
+    <span class="na">event</span><span class="pi">:</span> <span class="s2">"</span><span class="s">interview</span><span class="nv"> </span><span class="s">failed"</span>  <span class="c1"># event names can be retrieved from the Z-Wave JS docs (see links above)</span>
+    <span class="c1"># `event_data` and `partial_dict_match` are optional. If `event_data` isn't included, all events of a given type for the given context will trigger the automation. When the `interview failed` event is fired, all argument live in a dictionary within the `event_data` dictionary under the `args` key. The default behavior is to require a full match of the event_data dictionary below and the dictionary that is passed to the event. By setting `partial_dict_match` to true, Home Assistant will check if the isFinal argument is true and ignore any other values in the dictionary. If this setting was false, this trigger would never fire because the dictionary always contains more keys than `isFinal` so the comparison check would never evaluate to true.</span>
+    <span class="na">event_data</span><span class="pi">:</span>
+      <span class="na">args</span><span class="pi">:</span>
+        <span class="na">isFinal</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">partial_dict_match</span><span class="pi">:</span> <span class="kc">true</span>  <span class="c1"># defaults to false</span>
+</code></pre></div></div>
+<h4>Available trigger data <a class="title-link" name="available-trigger-data-1" href="#available-trigger-data-1"></a>
+</h4>
+<p>In addition to the <a href="/docs/automation/templating/#all">standard automation trigger data</a>, the <code>zwave_js.event</code> trigger platform has additional trigger data available for use.</p>
+<table>
+<thead>
+<tr>
+<th>Template variable</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>trigger.device_id</code></td>
+<td>Device ID for the device in the device registry (only included for node events).</td>
+</tr>
+<tr>
+<td><code>trigger.node_id</code></td>
+<td>Z-Wave node ID (only included for node events).</td>
+</tr>
+<tr>
+<td><code>trigger.event_source</code></td>
+<td>Source of event (node, controller, or driver).</td>
+</tr>
+<tr>
+<td><code>trigger.event</code></td>
+<td>Name of event.</td>
+</tr>
+<tr>
+<td><code>trigger.event_data</code></td>
+<td>Any data included in the event.</td>
+</tr>
+</tbody>
+</table>
+<h2>Advanced installation instructions <a class="title-link" name="advanced-installation-instructions" href="#advanced-installation-instructions"></a>
+</h2>
+<p>If you are using Home Assistant Container or you don’t want to use the built-in Z-Wave JS Server add-on, you will need to run the Z-Wave JS server yourself, to which the Z-Wave integration will connect.</p>
+<h3>Running <a href="https://github.com/zwave-js/zwave-js-server" rel="external nofollow">Z-Wave JS Server<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</h3>
+<p>This application provides the connection between your Z-Wave adapter and Home Assistant. The Home Assistant Z-Wave integration connects to this server via a WebSocket connection. You need to run this Z-Wave JS server before you can use the integration.</p>
+<p>There are multiple ways to run this server:
+The chart below illustrates Options 1 and 2, which are available for Home Assistant OS only.</p>
+<p><img src="/images/integrations/z-wave/z-wave-server-install-options-1-2.png" alt="Overview of installation options 1 and 2"></p>
+<p><strong>Option 1: The official Z-Wave JS add-on, as described above</strong></p>
+<p><em>This option is only available for <span class="terminology">Home Assistant Operating System<span class="terminology-tooltip">Home Assistant OS, the Home Assistant Operating System, is an embedded, minimalistic, operating system designed to run the Home Assistant ecosystem on single board computers (like the Raspberry Pi) or Virtual Machines. It includes Home Assistant Core, the Home Assistant Supervisor, and supports add-ons. Home Assistant Supervisor keeps it up to date, removing the need for you to manage an operating system. Home Assistant Operating System is the recommended installation type for most users.</span></span> (the recommended installation type) and <span class="terminology">Home Assistant Supervised<span class="terminology-tooltip">The Home Assistant Supervised installation type is a full UI managed home automation ecosystem that runs the Home Assistant Core program, the Home Assistant Supervisor and add-ons. It comes pre-installed on Home Assistant OS, but can be installed standalone on Debian Linux systems. It leverages Docker, which is managed by the Home Assistant Supervisor. The <a href="https://www.home-assistant.io/blog/2025/05/22/deprecating-core-and-supervised-installation-methods-and-32-bit-systems/">Home Assistant Supervised installation type is deprecated</a>.</span></span> installations.</em></p>
+<p>This add-on can only be configured via the built-in Z-Wave control panel in Home Assistant. If you followed the standard <a href="#setting-up-a-z-wave-js-server">installation procedure</a>, this is how you are running the Z-Wave JS server.</p>
+<p><strong>Option 2: The Z-Wave JS UI add-on installed from the community add-on store</strong></p>
+<p><em>This option is only available for <span class="terminology">Home Assistant Operating System<span class="terminology-tooltip">Home Assistant OS, the Home Assistant Operating System, is an embedded, minimalistic, operating system designed to run the Home Assistant ecosystem on single board computers (like the Raspberry Pi) or Virtual Machines. It includes Home Assistant Core, the Home Assistant Supervisor, and supports add-ons. Home Assistant Supervisor keeps it up to date, removing the need for you to manage an operating system. Home Assistant Operating System is the recommended installation type for most users.</span></span> (the recommended installation type) and <span class="terminology">Home Assistant Supervised<span class="terminology-tooltip">The Home Assistant Supervised installation type is a full UI managed home automation ecosystem that runs the Home Assistant Core program, the Home Assistant Supervisor and add-ons. It comes pre-installed on Home Assistant OS, but can be installed standalone on Debian Linux systems. It leverages Docker, which is managed by the Home Assistant Supervisor. The <a href="https://www.home-assistant.io/blog/2025/05/22/deprecating-core-and-supervised-installation-methods-and-32-bit-systems/">Home Assistant Supervised installation type is deprecated</a>.</span></span> installations.</em></p>
+<p>This add-on includes the Z-Wave JS Server as part of the Z-Wave JS UI application. The Z-Wave network can be configured via the built-in Z-Wave control panel in Home Assistant and alternatively via the Z-Wave control panel built into Z-Wave JS UI. It provides you with a full-fledged, attractive, and feature-complete UI to manage your Z-Wave nodes and settings, which may support more advanced use cases as development continues on the Z-Wave control panel.</p>
+<p><strong>Option 3: The Z-Wave JS UI Docker container</strong></p>
+<p>This is the recommended approach if you’re running Home Assistant Container. See the <a href="https://zwave-js.github.io/zwave-js-ui//#/getting-started/quick-start" rel="external nofollow">Z-Wave JS UI documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for instructions.</p>
+<p>This method provides the same server application and UI as the Z-Wave JS UI add-on. After installing the Docker image, make sure you enable the WS Server in the Home Assistant section of Settings page.</p>
+<p><strong>Option 4: Run the Z-Wave JS server yourself</strong></p>
+<p>This is considered a very advanced use case. In this case you run the Z-Wave JS Server or Z-Wave JS UI NodeJS application directly. Installation and maintaining this is out of scope for this document. See the <a href="https://github.com/zwave-js/zwave-js-server" rel="external nofollow">Z-Wave JS server<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or <a href="https://github.com/zwave-js/zwave-js-ui/" rel="external nofollow">Z-Wave JS UI<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> GitHub repository for information.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p><a href="/docs/z-wave/controllers/#supported-z-wave-usb-sticks--hardware-modules">Supported Z-Wave adapter</a>. The Z-Wave adapter should be connected to the same host as where the Z-Wave JS server is running. In the configuration for the Z-Wave JS server, you need to provide the path to this adapter. It’s recommended to use the <code>/dev/serial-by-id/yourdevice</code> version of the path to your adapter, to make sure the path doesn’t change over reboots. The most common known path is <code>/dev/serial/by-id/usb-0658_0200-if00</code>.</p>
+  </div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p><strong>Network keys</strong> are used to connect securely to compatible devices. The network keys consist of 32 hexadecimal characters, for example, <code>2232666D100F795E5BB17F0A1BB7A146</code> (do not use this one, pick a random one). Without network keys security enabled devices cannot be added securely and will not function correctly. You must provide these network keys in the configuration part of the Z-Wave JS Server.</p>
+<p>For new installations, unique default keys will be auto-generated for you by the Z-Wave JS add-on. You can also generate those network keys in the Settings section of Z-Wave JS UI.</p>
+<p>Make sure that you keep a backup of these keys in a safe place. You will need to enter the same keys to be able to access securely paired devices.</p>
+  </div>
+</div>
+<h3>Installing and configuring the Z-Wave integration in Home Assistant <a class="title-link" name="installing-and-configuring-the-z-wave-integration-in-home-assistant" href="#installing-and-configuring-the-z-wave-integration-in-home-assistant"></a>
+</h3>
+<p>Once you have the Z-Wave JS server up and running, you need to install and configure the integration in Home Assistant (as described above).</p>
+<p>If you’re running full Home Assistant with supervisor, you will be presented with a dialog that asks if you want to use the Z-Wave JS Supervisor add-on. You <strong>must</strong> uncheck this box if you are running the Z-Wave JS server in any manner other than the official Z-Wave JS add-on, including using Z-Wave JS UI add-on.</p>
+<p>If you’re not running the supervisor or you’ve unchecked the above-mentioned box, you will be asked to enter a WebSocket URL (defaults to ws://localhost:3000). It is very important that you fill in the correct (Docker) IP/hostname here. For example for the Z-Wave JS UI add-on this is <code>ws://a0d7b954-zwavejs2mqtt:3000</code>.</p>
+<h2>FAQ: Supported devices and Command Classes <a class="title-link" name="faq-supported-devices-and-command-classes" href="#faq-supported-devices-and-command-classes"></a>
+</h2>
+<p>For a list of supported devices, refer to the <a href="https://devices.zwave-js.io/" rel="external nofollow">Z-Wave JS device database<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>While there is support for the most common devices, some Command Classes are not yet (fully) implemented in Z-Wave JS. You can track the status <a href="https://github.com/zwave-js/node-zwave-js/issues/6" rel="external nofollow">here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>You can also check the list of Z-Wave <a href="#z-wave-command-classes-home-assistant-responds-to-when-queried">Command Classes Home Assistant responds to when queried</a> towards the end of this page.</p>
+<p>You can also keep track of the road map for the Z-Wave integration <a href="https://github.com/home-assistant-libs/zwave-js-server-python/issues/56" rel="external nofollow">here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<h2>FAQ: Installation and configuration <a class="title-link" name="faq-installation-and-configuration" href="#faq-installation-and-configuration"></a>
+</h2>
+<h3>Which Z-Wave adapter should I buy? <a class="title-link" name="which-z-wave-adapter-should-i-buy" href="#which-z-wave-adapter-should-i-buy"></a>
+</h3>
+<p>Z-Wave supports all known 500, 700, and 800 series Z-Wave adapters. If you are just starting out, we recommend that you purchase a 800-series adapter (with firmware updated to &gt;=7.23.2).</p>
+<p>For more information, see <a href="/docs/z-wave/controllers/#supported-z-wave-usb-sticks--hardware-modules">Supported Z-Wave adapters</a></p>
+<h3>Why was I (not) automatically prompted to install Z-Wave? <a class="title-link" name="why-was-i-not-automatically-prompted-to-install-z-wave" href="#why-was-i-not-automatically-prompted-to-install-z-wave"></a>
+</h3>
+<p>Some Z-Wave adapters can be auto-discovered, which can simplify the Z-Wave setup process. The following devices have been tested with discovery, and offer a quick setup experience; however, these are <strong>not</strong> all of the devices supported by Z-Wave:</p>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>Identifier</th>
+<th>Vendor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aeotec Z-Stick Gen5+</td>
+<td>0658:0200</td>
+<td><a href="https://aeotec.com/products/aeotec-z-stick-gen5/" rel="external nofollow">https://aeotec.com/products/aeotec-z-stick-gen5/<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></td>
+</tr>
+<tr>
+<td>Nortek HUSBZB-1</td>
+<td>10C4:8A2A</td>
+<td><a href="https://www.nortekcontrol.com/products/2gig/husbzb-1-gocontrol-quickstick-combo/" rel="external nofollow">https://www.nortekcontrol.com/products/2gig/husbzb-1-gocontrol-quickstick-combo/<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></td>
+</tr>
+<tr>
+<td>Zooz ZST10</td>
+<td>10C4:EA60</td>
+<td><a href="https://www.getzooz.com/zooz-zst10-s2-stick/" rel="external nofollow">https://www.getzooz.com/zooz-zst10-s2-stick/<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></td>
+</tr>
+<tr>
+<td>Z-WaveMe UZB</td>
+<td>0658:0200</td>
+<td><a href="https://z-wave.me/products/uzb/" rel="external nofollow">https://z-wave.me/products/uzb/<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></td>
+</tr>
+</tbody>
+</table>
+<p>Additional devices may be discoverable, however only devices that have been confirmed discoverable are listed above.</p>
+<h3>What happened to Zwavejs2Mqtt or the Z-Wave JS to MQTT add-on? <a class="title-link" name="what-happened-to-zwavejs2mqtt-or-the-z-wave-js-to-mqtt-add-on" href="#what-happened-to-zwavejs2mqtt-or-the-z-wave-js-to-mqtt-add-on"></a>
+</h3>
+<p>Zwavejs2Mqtt was renamed Z-Wave JS UI in September 2022. They are synonymous with no difference between their capabilities.</p>
+<h3>Can I switch between Z-Wave JS and Z-Wave JS UI? <a class="title-link" name="can-i-switch-between-z-wave-js-and-z-wave-js-ui" href="#can-i-switch-between-z-wave-js-and-z-wave-js-ui"></a>
+</h3>
+<p>You can switch between the official Z-Wave JS add-on and the Z-Wave JS UI add-on. However, you cannot run them both at the same time. Only one of them can be active at the same time.</p>
+<h3>How to switch from Z-Wave JS to the Z-Wave JS UI add-on? <a class="title-link" name="how-to-switch-from-z-wave-js-to-the-z-wave-js-ui-add-on" href="#how-to-switch-from-z-wave-js-to-the-z-wave-js-ui-add-on"></a>
+</h3>
+<p>You can switch from the official <strong>Z-Wave JS</strong> add-on to the community <strong>Z-Wave JS UI</strong> add-on. However, you cannot run them both at the same time. Only one of the add-ons can be active at the same time.</p>
+<p>Both add-ons communicate with Home Assistant via the same <strong>Z-Wave</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span>.</p>
+<ol>
+<li>
+<p>Note your network security keys from the official add-on.</p>
+<ul>
+<li>In your browser, open <a href="https://my.home-assistant.io/redirect/supervisor_addon?addon=core_zwave_js" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Add-ons</strong> &gt; <strong>Z-Wave JS</strong></a>.</li>
+<li>From the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu, select <strong>Edit in YAML</strong>.</li>
+<li>You should see about 12 lines of YAML, including items like <code>device: xxx</code> and <code>s2_access_control_key: xxx</code>.  Select all and copy them somewhere safe.  You will need them later.</li>
+</ul>
+</li>
+<li>
+<p>Install and start the community <strong>Z-Wave JS UI</strong> add-on.</p>
+<ul>
+<li>In your browser, open <a href="https://my.home-assistant.io/redirect/supervisor_store" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Add-ons</strong> &gt; <strong>Add-on Store</strong></a>.</li>
+<li>Select <strong>Install</strong>, then <strong>Start</strong>.</li>
+<li>It may take a while for the add-on to start up.</li>
+</ul>
+</li>
+<li>
+<p>Note the WebSocket URL that the integration will use to communicate with Z-Wave JS.</p>
+<ul>
+<li>Within the same <strong>Z-Wave JS UI</strong> add-on from step 2, open the <strong>Documentation</strong> tab.</li>
+<li>Search (Ctrl-F) for a link that begins with “ws://”.  For example, <code>ws://a0d7b954-zwavejs2mqtt:3000</code>.</li>
+<li>Copy that URL somewhere safe.  You will need it later.</li>
+</ul>
+</li>
+<li>
+<p>Start reconfiguring the integration.</p>
+<ul>
+<li>Open a new browser tab.</li>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the <strong>Z-Wave</strong> integration.</li>
+<li>Select the three-dot <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu next to the <strong>Z-Wave JS</strong> top row.</li>
+<li>From the menu, select <strong>Reconfigure</strong>, then <strong>Reconfigure current adapter</strong>.</li>
+<li>Uncheck <strong>Use the Z-Wave JS Supervisor add-on</strong>.</li>
+<li>Keep this tab open.</li>
+</ul>
+</li>
+<li>
+<p>Configure the new add-on using the information saved in step 1.</p>
+<ul>
+<li>Switch back to your initial browser tab.</li>
+<li>Within the <strong>Z-Wave JS UI</strong> add-on, switch back to the <strong>Info tab</strong> and select <strong>Open Web UI</strong>.</li>
+<li>Open the <strong>Settings</strong> <iconify-icon inline icon="mdi:cog" title="Cog"></iconify-icon> page and expand the <strong>Z-Wave</strong> section.</li>
+<li>Fill out the subsections for <strong>Serial Port</strong>, <strong>Security Keys</strong>, and <strong>RF Region</strong>.</li>
+<li>Save your changes.</li>
+</ul>
+</li>
+<li>
+<p>Finish reconfiguring the integration.</p>
+<ul>
+<li>Switch back to the tab from step 4.</li>
+<li>Under <strong>WebSocket URL</strong>, enter the URL you saved in step 3.</li>
+</ul>
+</li>
+<li>
+<p>Uninstall the official add-on.</p>
+<ul>
+<li>Go to <a href="https://my.home-assistant.io/redirect/supervisor_addon?addon=core_zwave_js" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Add-ons</strong> &gt; <strong>Z-Wave JS</strong></a> and select <strong>Uninstall</strong>.</li>
+<li>You are asked if you want to delete the related data.</li>
+<li>Keep it if you think you might switch back to the <strong>Z-Wave JS</strong> add-on later.</li>
+</ul>
+</li>
+</ol>
+<h3>How to migrate from one adapter to a new adapter using Z-Wave JS UI? <a class="title-link" name="how-to-migrate-from-one-adapter-to-a-new-adapter-using-z-wave-js-ui" href="#how-to-migrate-from-one-adapter-to-a-new-adapter-using-z-wave-js-ui"></a>
+</h3>
+<p>If you are currently using <a href="https://zwave-js.github.io/zwave-js-ui/#/" rel="external nofollow">Z-Wave JS UI<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> instead of the official <strong>Z-Wave JS</strong> add-on and want to start using a new adapter, you can migrate your network inside <strong>Z-Wave JS UI</strong>.</p>
+<ol>
+<li>
+<p>Before starting migration, disable the <strong>Z-Wave</strong> integration.</p>
+<ul>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the Z-Wave integration and select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu and select <strong>Disable</strong>.</li>
+</ul>
+</li>
+<li>
+<p>Do the migration in Z-Wave JS UI.</p>
+<ul>
+<li>If you are using the <strong>Z-Wave JS UI</strong> add-on, go to <a href="https://my.home-assistant.io/redirect/supervisor_addon?addon=core_zwave_jsa0d7b954_zwavejs2mqtt" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Add-ons</strong> &gt; <strong>Z-Wave JS UI</strong></a>
+</li>
+<li>Open the Z-Wave JS UI control panel and in the bottom-right corner, select the purple <strong>Advanced actions</strong> button.</li>
+<li>Under <strong>NVM Management</strong>, select <strong>Backup</strong>.</li>
+<li>Unplug the current adapter and connect the new adapter.</li>
+<li>Go to <strong>Settings</strong> &gt; <strong>UI</strong> &gt; <strong>Z-Wave</strong>.
+<ul>
+<li>Under <strong>Serial port</strong>, update the device path to show your new device (for example, <code>/dev/serial/by-id/usb-XXXX</code>).</li>
+<li>Under <strong>Default radio configuration</strong> enter the region you’re in and save.</li>
+</ul>
+</li>
+<li>In the control panel, select the purple <iconify-icon inline icon="mdi:magic" title="Magic"></iconify-icon> advanced actions button and under <strong>NVM Management</strong>, select <strong>Restore</strong>.</li>
+</ul>
+</li>
+<li>
+<p>Rebuild all routes.</p>
+<ul>
+<li>Select the purple <iconify-icon inline icon="mdi:magic" title="Magic"></iconify-icon> advanced actions button and under <strong>Rebuild routes</strong>, select <strong>Begin</strong>.</li>
+</ul>
+</li>
+<li>
+<p>Enable the Z-Wave integration again.</p>
+</li>
+</ol>
+<h3>What’s the benefit of using Z-Wave JS UI add-on? <a class="title-link" name="whats-the-benefit-of-using-z-wave-js-ui-add-on" href="#whats-the-benefit-of-using-z-wave-js-ui-add-on"></a>
+</h3>
+<p>You might wonder what the benefit is of using the <a href="https://zwave-js.github.io/zwave-js-ui/#/README" rel="external nofollow">Z-Wave JS UI<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> add-on instead of the official <strong>Z-Wave JS</strong> add-on.
+The official <strong>Z-Wave JS</strong> add-on provides the Z-Wave Server in its bare minimum variant, just enough to serve the Home Assistant integration.</p>
+<p>The <strong>Z-Wave JS UI</strong> project includes the Z-Wave JS Server for convenience but also provides a Z-Wave control panel and the ability to serve your Z-Wave network to MQTT. This allows you to use the control panel, and if you so choose, to also use MQTT at the same time. For example, some users may use MQTT to interact with Z-Wave from other devices, while the Home Assistant integration still works (as long as you keep the WS Server enabled in Z-Wave JS UI).</p>
+<h3>Z-Wave JS UI provides discovery of HA devices on its own too, now I’m confused <a class="title-link" name="z-wave-js-ui-provides-discovery-of-ha-devices-on-its-own-too-now-im-confused" href="#z-wave-js-ui-provides-discovery-of-ha-devices-on-its-own-too-now-im-confused"></a>
+</h3>
+<p>Correct, the Z-Wave JS UI project existed before Home Assistant had plans to move to the Z-Wave JS Driver. You should use the integration for device discovery and <em>not</em> the MQTT discovery provided by Z-Wave JS UI.</p>
+<h3>Can I run Z-Wave JS UI only for the control panel and nothing else? <a class="title-link" name="can-i-run-z-wave-js-ui-only-for-the-control-panel-and-nothing-else" href="#can-i-run-z-wave-js-ui-only-for-the-control-panel-and-nothing-else"></a>
+</h3>
+<p>Sure, in the settings of Z-Wave JS UI, make sure to enable “WS Server” and disable “Gateway”.</p>
+<h3>Should I name my devices in Home Assistant, or in Z-Wave JS UI? <a class="title-link" name="should-i-name-my-devices-in-home-assistant-or-in-z-wave-js-ui" href="#should-i-name-my-devices-in-home-assistant-or-in-z-wave-js-ui"></a>
+</h3>
+<p>Ultimately, this is a personal decision. If you provide a name or location for a device in the Z-Wave JS UI, that name will be imported into Home Assistant when the integration is reloaded or Home Assistant is restarted. Any entity names, however, will not change if the device has already been set up by Home Assistant. Names set in Z-Wave JS UI <em>will not</em> overwrite changes that have already been made in Home Assistant.</p>
+<p>Names set in Home Assistant will not import into Z-Wave JS UI.</p>
+<h3>Should I use Secure Inclusion? <a class="title-link" name="should-i-use-secure-inclusion" href="#should-i-use-secure-inclusion"></a>
+</h3>
+<p>That depends. There are two generations of Z-Wave encryption, Security S0, and Security S2. Both provide encryption and allow detecting packet corruption.</p>
+<p>Security S0 imposes significant additional traffic on your mesh and is recommended only for older devices that do not support Security S2 but require encryption to work, such as door locks.</p>
+<p>Security S2 does not impose additional network traffic and provides additional benefits. For example, end devices using S2 require the hub to report whether it has received and understood their reports.</p>
+<p>By default, Z-Wave prefers Security S2, if supported. Security S0 is used only when absolutely necessary.</p>
+<h3>Where can I see the security keys in the Z-Wave JS add-on? <a class="title-link" name="where-can-i-see-the-security-keys-in-the-z-wave-js-add-on" href="#where-can-i-see-the-security-keys-in-the-z-wave-js-add-on"></a>
+</h3>
+<p>After the initial setup of the Z-Wave adapter, you can view the security keys in the Z-Wave JS add-on. Go to <a href="https://my.home-assistant.io/redirect/supervisor_addon?addon=core_zwave_js" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Add-ons</strong> &gt; <strong>Z-Wave JS</strong></a> and open the <strong>Configuration</strong> tab. You can now see the three S2 keys and the S0 key. The network security key is a legacy configuration setting, identical to the S0 key.</p>
+<h2>FAQ: Troubleshooting topics <a class="title-link" name="faq-troubleshooting-topics" href="#faq-troubleshooting-topics"></a>
+</h2>
+<h3>I’m having a problem, what to do first? <a class="title-link" name="im-having-a-problem-what-to-do-first" href="#im-having-a-problem-what-to-do-first"></a>
+</h3>
+<p><em>Many</em> reported issues result from RF interference caused by the system’s USB ports. This can manifest in many ways, including devices that won’t include at all, devices that won’t include securely, sensors with erroneous values (packets corrupted), delayed control of devices, or no ability to control devices.</p>
+<p><strong>All users are encouraged to use a USB extension cable to prevent such interference.</strong> Please try such a cable before opening an issue or requesting support on Discord. It will nearly always be the first troubleshooting step that we ask you to take anyway.</p>
+<p>After ensuring you are using an extension cable, rebuild network routes.</p>
+<p>The combination of these two steps corrects a large number of reported difficulties.</p>
+<h3>My Z-Wave adapter isn’t recognized automatically during setup <a class="title-link" name="my-z-wave-adapter-isnt-recognized-automatically-during-setup" href="#my-z-wave-adapter-isnt-recognized-automatically-during-setup"></a>
+</h3>
+<p>If your Z-Wave adapter doesn’t show up in the <strong>Discovered</strong> section automatically, try adding it manually:</p>
+<ol>
+<li>Check the hardware:
+<ul>
+<li>Make sure the adapter is powered on.</li>
+<li>Make sure the cable you are using supports data, not power only.</li>
+</ul>
+</li>
+<li>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>.</li>
+<li>In the bottom right, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=zwave_js" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button and select <strong>Z-Wave</strong>.</li>
+<li>Follow the instructions on screen to complete the setup.</li>
+<li>If it is still not discovered, <a href="#im-having-a-problem-what-to-do-first">check for interference</a>.</li>
+</ol>
+<h3>I have an Aeotec Gen5 adapter, and it isn’t detected on my Raspberry Pi 4? <a class="title-link" name="i-have-an-aeotec-gen5-adapter-and-it-isnt-detected-on-my-raspberry-pi4" href="#i-have-an-aeotec-gen5-adapter-and-it-isnt-detected-on-my-raspberry-pi4"></a>
+</h3>
+<p>The first-generation Gen5 adapter has a known bug when plugged into a Pi 4 and possibly other systems. Aeotec released the Gen5+ stick to correct this bug. Gen5 users can plug their adapters into a USB 2.0 hub in order to overcome the issue.</p>
+<h3>I do not see any entities created for my device in Home Assistant <a class="title-link" name="i-do-not-see-any-entities-created-for-my-device-in-home-assistant" href="#i-do-not-see-any-entities-created-for-my-device-in-home-assistant"></a>
+</h3>
+<p>Entities will be created only after the node is ready (the interview is completed). Also, note that some devices (like button remotes) do not create any entities but will only provide events when a button is pressed. See the events section on how to handle those events in your automations.</p>
+<p>If you are certain that your device should have entities and you do not see them (even after a restart of Home Assistant Core), create an issue about your problem on the GitHub issue tracker.</p>
+<h3>My device doesn’t automatically update its status in HA if I control it manually <a class="title-link" name="my-device-doesnt-automatically-update-its-status-in-ha-if-i-control-it-manually" href="#my-device-doesnt-automatically-update-its-status-in-ha-if-i-control-it-manually"></a>
+</h3>
+<p>Your device might not send automatic status updates to the adapter. While the best advice would be to update to recent Z-Wave Plus devices, there is a workaround with active polling (request the status).</p>
+<p>Z-Wave does not automatically poll devices on a regular basis. Polling can quickly lead to network congestion and should be used very sparingly and only where necessary.</p>
+<ul>
+<li>
+<p>We provide a <code>zwave_js.refresh_value</code> action to allow you to manually poll a value, for example from an automation that only polls a device when there is motion in that same room. If you <strong>really</strong> need polling, you can enable this in Z-Wave JS UI but not in the official add-on.</p>
+</li>
+<li>
+<p>Z-Wave JS UI allows you to configure scheduled polling on a per-value basis, which you can use to keep certain values updated. It also allows you to poll individual values on-demand from your automations, which should be preferred over blindly polling all the time if possible.</p>
+</li>
+</ul>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>Polling should only be used as a last resort. You must use it with care and accept the negative impact on your network. Z-Wave is a very low speed network and poll requests can easily flood your network and slow down your commands.</p>
+  </div>
+</div>
+<h3>My device is recognized as Unknown Manufacturer and/or some functions don’t work with the Z-Wave integration <a class="title-link" name="my-device-is-recognized-as-unknown-manufacturer-andor-some-functions-dont-work-with-the-z-wave-integration" href="#my-device-is-recognized-as-unknown-manufacturer-andor-some-functions-dont-work-with-the-z-wave-integration"></a>
+</h3>
+<p>When your device is not yet fully interviewed, this info will not yet be present. So make sure your device is interviewed at least once.</p>
+<p>If the interview is complete, then the device does not yet have a device file for Z-Wave JS. Unlike other Z-Wave drivers, your device may very well work as intended even without such a file. If your device not fully supported, consider <a href="https://zwave-js.github.io/node-zwave-js/#/config-files/contributing-files" rel="external nofollow">contributing the device configuration file<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<h3>How do I get a dump of the current network state? <a class="title-link" name="how-do-i-get-a-dump-of-the-current-network-state" href="#how-do-i-get-a-dump-of-the-current-network-state"></a>
+</h3>
+<p>When trying to determine why something isn’t working as you expect, or when reporting an issue with the integration, it is helpful to know what Z-Wave JS sees as the current state of your Z-Wave network. To get a dump of your current network state, follow these steps:</p>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Select the <strong>Z-Wave</strong> integration. Then, select the three-dot <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu.</li>
+<li>From the dropdown menu, select <strong>Download diagnostics</strong>.</li>
+</ol>
+<h3>How do I address interference issues? <a class="title-link" name="how-do-i-address-interference-issues" href="#how-do-i-address-interference-issues"></a>
+</h3>
+<p>Many users have reported issues with interference when the adapter was directly connected to the machine (proximity). If you are having issues, try to use a short USB 2.0 A (male to female) extension cord.</p>
+<h3>How do I access the Z-Wave logs? <a class="title-link" name="how-do-i-access-the-z-wave-logs" href="#how-do-i-access-the-z-wave-logs"></a>
+</h3>
+<h4>The easy way <a class="title-link" name="the-easy-way" href="#the-easy-way"></a>
+</h4>
+<h5>Enable Z-Wave JS logging <a class="title-link" name="enable-z-wave-js-logging" href="#enable-z-wave-js-logging"></a>
+</h5>
+<ol>
+<li>Go to the Z-Wave integration panel: <a href="https://my.home-assistant.io/redirect/integration?domain=zwave_js" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/integration.svg"></a>
+</li>
+<li>In the top-right corner, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu and select <strong>Enable debug logging</strong>.
+<ul>
+<li>
+<strong>Result</strong>: The log level will be set to <code>debug</code> for the integration, library, and optionally the driver (if the driver log level is not already set to <code>verbose</code>, <code>debug</code>, or <code>silly</code>), and all Z-Wave JS logs will be added to the Home Assistant logs.</li>
+</ul>
+</li>
+<li>If you want to change the log level, on the Z-Wave integration panel: <a href="https://my.home-assistant.io/redirect/integration?domain=zwave_js" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/integration.svg"></a>, select the cogwheel <iconify-icon inline icon="mdi:cog-outline" title="Cog outline"></iconify-icon>.
+<ul>
+<li>Select the <strong>Logs</strong> tab, then select the log level.</li>
+</ul>
+</li>
+</ol>
+<h5>Disable Z-Wave JS logging <a class="title-link" name="disable-z-wave-js-logging" href="#disable-z-wave-js-logging"></a>
+</h5>
+<ol>
+<li>Go to the Z-Wave integration panel: <a href="https://my.home-assistant.io/redirect/integration?domain=zwave_js" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/integration.svg"></a>
+</li>
+<li>In the top-right corner, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu and select <strong>Disable debug logging</strong>.
+<ul>
+<li>
+<strong>Result</strong>: The log level will be reset to its previous value for the integration, library, and driver, and the Home Assistant frontend will automatically send you the Z-Wave logs generated during that time period for download.</li>
+</ul>
+</li>
+</ol>
+<h4>The advanced way <a class="title-link" name="the-advanced-way" href="#the-advanced-way"></a>
+</h4>
+<h5>Enable Z-Wave JS logging manually, or via an automation <a class="title-link" name="enable-z-wave-js-logging-manually-or-via-an-automation" href="#enable-z-wave-js-logging-manually-or-via-an-automation"></a>
+</h5>
+<p>Set the log level for <code>zwave_js_server</code> to <code>debug</code>. This can either be done in your <code>configuration.yaml</code> in the <code>logger</code> section, or using the <code>logger.set_level</code> action. When the integration detects that the log level has been set to <code>debug</code>, it will also set the Z-Wave JS logs to <code>debug</code> if the level isn’t already <code>verbose</code>, <code>debug</code>, or <code>silly</code> and will include those logs in the Home Assistant logs. The Z-Wave JS logs can be found under the logger name <code>zwave_js_server.server</code>.</p>
+<h5>Disable Z-Wave JS logging manually, or via an automation <a class="title-link" name="disable-z-wave-js-logging-manually-or-via-an-automation" href="#disable-z-wave-js-logging-manually-or-via-an-automation"></a>
+</h5>
+<p>Set the log level for <code>zwave_js_server</code> to a level higher than <code>debug</code>. This can either be done in your <code>configuration.yaml</code> in the <code>logger</code> section, or using the <code>logger.set_level</code> action. The Z-Wave JS logs will no longer be included in the Home Assistant logs, and if the log level of Z-Wave JS was changed by the integration, it will automatically change back to its original level.</p>
+<h2>Unsupported functionality <a class="title-link" name="unsupported-functionality" href="#unsupported-functionality"></a>
+</h2>
+<p>This sections lists functionality that is available in Z-Wave but that is not currently supported in Home Assistant.</p>
+<h3>Setting the adapter into learn mode to receive network information <a class="title-link" name="setting-the-adapter-into-learn-mode-to-receive-network-information" href="#setting-the-adapter-into-learn-mode-to-receive-network-information"></a>
+</h3>
+<p>In Home Assistant, it is currently not possible to set the Z-Wave controller into learn mode to receive network information from another controller.</p>
+<h3>Including / excluding a adapter in an existing network using <a href="#classic-inclusion-versus-smartstart">classic inclusion</a>
+</h3>
+<p>A Z-Wave controller that manages an empty network can also join a different network and act as a secondary controller there. However, with Home Assistant, this is not possible. Home Assistant does not allow the Z-Wave controller to join another network, because Home Assistant acts as the central hub.</p>
+<h2>Z-Wave association groups <a class="title-link" name="z-wave-association-groups" href="#z-wave-association-groups"></a>
+</h2>
+<p>In Home Assistant, a single <a href="#association-group">association group</a> is implemented:</p>
+<ul>
+<li>
+<strong>Group 1</strong>: This is an association group that includes only one device. It is used after a <a href="#resetting-a-z-wave-adapter">factory reset</a>, to send a <strong>Device Reset Locally Notification</strong>.</li>
+</ul>
+<p>This association group is used when Home Assistant <a href="#resetting-a-z-wave-adapter">resets the Z-Wave adapter</a>.</p>
+<p>Under normal circumstances, it is not necessary to add a device to this group.</p>
+<h2>Identification via Z-Wave <a class="title-link" name="identification-via-z-wave" href="#identification-via-z-wave"></a>
+</h2>
+<p>Other Z-Wave devices can instruct a Home Assistant instance to identify itself by sending the following <code>Indicator Set</code> Z-Wave command (all bytes are hexadecimal):</p>
+<div class="language-txt highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="txt">87010003500308500403500506
+            ~~    ~~    ~~
+</code></pre></div></div>
+<p>The bytes underlined with <code>~</code> can also have any other value.</p>
+<p>When receiving such a command, Home Assistant will show a notification in its sidebar, mentioning which node sent the command.</p>
+<h2>Z-Wave Command Classes Home Assistant responds to when queried <a class="title-link" name="z-wave-command-classes-home-assistant-responds-to-when-queried" href="#z-wave-command-classes-home-assistant-responds-to-when-queried"></a>
+</h2>
+<p>The following table lists the Command Classes together with the implemented version and required security class. These are the Command Classes that Home Assistant will respond to when queried by other devices.</p>
+<table>
+<thead>
+<tr>
+<th>Command Class</th>
+<th>Version</th>
+<th>Security Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Association</td>
+<td>4</td>
+<td>Highest granted</td>
+</tr>
+<tr>
+<td>Association Group Information</td>
+<td>3</td>
+<td>Highest granted</td>
+</tr>
+<tr>
+<td>CRC-16 Encapsulation</td>
+<td>1</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Device Reset Locally</td>
+<td>1</td>
+<td>Highest granted</td>
+</tr>
+<tr>
+<td>Firmware Update Meta Data</td>
+<td>8</td>
+<td>Highest granted</td>
+</tr>
+<tr>
+<td>Inclusion Controller</td>
+<td>1</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Indicator</td>
+<td>4</td>
+<td>Highest granted</td>
+</tr>
+<tr>
+<td>Manufacturer Specific</td>
+<td>2</td>
+<td>Highest granted</td>
+</tr>
+<tr>
+<td>Multi Channel Association</td>
+<td>5</td>
+<td>Highest granted</td>
+</tr>
+<tr>
+<td>Multi Command</td>
+<td>1</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Power Level</td>
+<td>1</td>
+<td>Highest granted</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>1</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Security 2</td>
+<td>1</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Supervision</td>
+<td>2</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Transport Service</td>
+<td>2</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>3</td>
+<td>Highest granted</td>
+</tr>
+<tr>
+<td>Z-Wave Plus Info</td>
+<td>2</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Home Assistant and Z-Wave JS will never return a “Working” or “Fail” status for a valid and supported command of the Supervision Command Class.</p>
+  </div>
+</div>
+<h2>Z-Wave terminology <a class="title-link" name="z-wave-terminology" href="#z-wave-terminology"></a>
+</h2>
+<p>This section explains some Z-Wave terms and concepts you might find in Z-Wave product documentation.</p>
+<h3>Association group <a class="title-link" name="association-group" href="#association-group"></a>
+</h3>
+<p>An <em>association</em> in Z-Wave terminology is when two or more Z-Wave products communicate directly. This enables devices to communicate with each other without the need to communicate via a hub, or to send unsolicited reports to the central hub.</p>
+<p>An <em>association group</em> in Z-Wave terminology is a group of devices that another one will send commands to in certain situations. Association groups and their functionality are specific to the device that sends the commands. Refer to the device manual for details.</p>
+<h3>Classic inclusion versus SmartStart <a class="title-link" name="classic-inclusion-versus-smartstart" href="#classic-inclusion-versus-smartstart"></a>
+</h3>
+<p>Home Assistant supports both <em>classic inclusion</em> and <em>SmartStart</em>. <em>Classic inclusion</em> means you set both the hub and the device to be included into the corresponding mode. The alternative is <em>SmartStart</em>, where the hub is constantly listening for inclusion requests from devices that want to join the network.</p>
+<h3>SmartStart <a class="title-link" name="smartstart" href="#smartstart"></a>
+</h3>
+<p>SmartStart enabled products can be added into a Z-Wave network by scanning the Z-Wave QR Code present on the product with an adapter supporting SmartStart inclusion.
+No further action is required and the SmartStart product will be added automatically within 10 minutes of being switched on in the network vicinity. Not all devices support SmartStart. Some devices require <em>classic inclusion</em>. For documentation on adding a device to Home Assistant, refer to <a href="#adding-a-new-device-to-the-z-wave-network">adding a new device to the Z-Wave network</a>.</p>
+<h3>Terminology mapping table <a class="title-link" name="terminology-mapping-table" href="#terminology-mapping-table"></a>
+</h3>
+<p>Throughout this documentation, Home Assistant terminology is used. For some of the concepts, the terminology does not correspond to the terminology used in Z-Wave documentation. The table below provides equivalents for some of those terms.</p>
+<table>
+<thead>
+<tr>
+<th>Z-Wave functionality</th>
+<th>Home Assistant</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>barrier operator</td>
+<td>cover</td>
+<td></td>
+</tr>
+<tr>
+<td>controller</td>
+<td>adapter, when referring to the hardware device that provides the Z-Wave functionality. The term controller is still used when referring to the network role (such as primary, secondary controller)</td>
+<td></td>
+</tr>
+<tr>
+<td>exclusion</td>
+<td>remove</td>
+<td>The process of removing a node from the Z-Wave network</td>
+</tr>
+<tr>
+<td><a href="#classic-inclusion-versus-smartstart">inclusion</a></td>
+<td>add</td>
+<td>The process of adding a node to the Z-Wave network</td>
+</tr>
+<tr>
+<td>multilevel switch</td>
+<td>represented by different entity types: light, fan etc.</td>
+<td></td>
+</tr>
+<tr>
+<td>replication</td>
+<td>copy (not supported in Home Assistant)</td>
+<td>The process of copying network information from one adapter to another. Not supported in Home Assistant.</td>
+</tr>
+<tr>
+<td>window covering</td>
+<td>cover</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Removing Z-Wave JS from Home Assistant <a class="title-link" name="removing-z-wave-js-from-home-assistant" href="#removing-z-wave-js-from-home-assistant"></a>
+</h2>
+<p>This removes all paired Z-Wave devices and their entities, the Z-Wave JS add-on, and the Z-Wave integration from Home Assistant.</p>
+<h3>To remove Z-Wave JS from Home Assistant <a class="title-link" name="to-remove-z-wave-js-from-home-assistant" href="#to-remove-z-wave-js-from-home-assistant"></a>
+</h3>
+<ol>
+<li>
+<a href="/integrations/zwave_js/#removing-a-device-from-the-z-wave-network">Remove the device from your Z-Wave network</a>.
+<ul>
+<li>Do this for each device that is joined to your network so that it is no longer paired to the adapter.</li>
+<li>You cannot add a device to a new adapter while it is still paired with an old one.</li>
+<li>Alternatively, you can factory reset each device. Refer to the device manual to see how this is done.
+<ul>
+<li>This usually involves finding the device in your household and pressing a button.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Remove the Z-Wave integration.
+<ul>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>Next to the integration entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu.</li>
+<li>Select <strong>Delete</strong>.</li>
+</ul>
+</li>
+<li>If it hasn’t been deleted automatically, remove the Z-Wave JS add-on.
+<ul>
+<li>Go to <a href="https://my.home-assistant.io/redirect/supervisor_addon?addon=core_zwave_js" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Add-ons</strong> &gt; <strong>Z-Wave JS</strong></a>.</li>
+<li>Select <strong>Uninstall</strong>.</li>
+<li>Decide whether to also delete the data related to the add-on or whether to keep it.</li>
+</ul>
+</li>
+<li>Done. Z-Wave JS is now completely removed from your Home Assistant server.
+<ul>
+<li>You can now use your Z-Wave devices and adapter on a new server.</li>
+</ul>
+</li>
+</ol>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      <a href="/docs/z-wave/controllers/" class="topic">
+        Other z wave adapters
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/zwave_js.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fzwave_js%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20zwave_js" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+zwave_js%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/zwave_js//logo.png' srcset='https://brands.home-assistant.io/_/zwave_js/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=zwave_js' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Z-Wave  hub  was introduced in Home Assistant 2021.2, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          8.8%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/zwave_js" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+zwave_js%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            This integration is being maintained by the Home Assistant project.
+          </div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#getting-started">Getting started</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#setting-up-a-z-wave-server-in-home-assistant">Setting up a Z-Wave server in Home Assistant</a></li>
+<li class="toc-entry toc-h3"><a href="#adding-a-new-device-to-the-z-wave-network">Adding a new device to the Z-Wave network</a></li>
+<li class="toc-entry toc-h3"><a href="#removing-a-device-from-the-z-wave-network">Removing a device from the Z-Wave network</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#migrating-a-z-wave-network-to-a-new-adapter">Migrating a Z-Wave network to a new adapter</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-migrate-a-z-wave-network-to-a-new-adapter">To migrate a Z-Wave network to a new adapter</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#overriding-the-radio-frequency-region-of-the-adapter-in-the-z-wave-js-add-on">Overriding the radio frequency region of the adapter in the Z-Wave JS add-on</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-1">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-override-the-radio-frequency-region-of-your-z-wave-adapter">To override the radio frequency region of your Z-Wave adapter</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#backing-up-your-z-wave-network">Backing up your Z-Wave network</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-2">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-backup-your-z-wave-network">To backup your Z-Wave network</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#restoring-your-z-wave-network-from-a-backup">Restoring your Z-Wave network from a backup</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-3">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#restoring-a-z-wave-network-from-backup">Restoring a Z-Wave network from backup</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#updating-the-firmware-of-your-z-wave-device">Updating the firmware of your Z-Wave device</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-4">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-update-firmware-of-a-z-wave-device">To update firmware of a Z-Wave device</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#resetting-a-z-wave-adapter">Resetting a Z-Wave adapter</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-5">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-reset-a-z-wave-adapter">To reset a Z-Wave adapter</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#special-z-wave-entities">Special Z-Wave entities</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#entities-available-for-every-z-wave-device">Entities available for every Z-Wave device</a></li>
+<li class="toc-entry toc-h3"><a href="#conditional-entities">Conditional entities</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#using-advanced-features-ui-only">Using advanced features (UI only)</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#integration-configuration-panel">Integration configuration panel</a></li>
+<li class="toc-entry toc-h3"><a href="#integration-menu">Integration menu</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsset_config_parameter">Action zwave_js.set_config_parameter</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsbulk_set_partial_config_parameters">Action zwave_js.bulk_set_partial_config_parameters</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsrefresh_value">Action zwave_js.refresh_value</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsset_value">Action zwave_js.set_value</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsmulticast_set_value">Action zwave_js.multicast_set_value</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsinvoke_cc_api">Action zwave_js.invoke_cc_api</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsrefresh_notifications">Action zwave_js.refresh_notifications</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsreset_meter">Action zwave_js.reset_meter</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsset_lock_configuration">Action zwave_js.set_lock_configuration</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsset_lock_usercode">Action zwave_js.set_lock_usercode</a></li>
+<li class="toc-entry toc-h3"><a href="#action-zwave_jsclear_lock_usercode">Action zwave_js.clear_lock_usercode</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#node-events-notification">Node events (Notification)</a></li>
+<li class="toc-entry toc-h3"><a href="#scene-events-value-notification">Scene events (Value Notification)</a></li>
+<li class="toc-entry toc-h3"><a href="#value-updated-events">Value updated events</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#automations">Automations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#zwave_jsvalue_updated">zwave_js.value_updated</a></li>
+<li class="toc-entry toc-h3"><a href="#zwave_jsevent">zwave_js.event</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#advanced-installation-instructions">Advanced installation instructions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#running-z-wave-js-server">Running Z-Wave JS Server</a></li>
+<li class="toc-entry toc-h3"><a href="#installing-and-configuring-the-z-wave-integration-in-home-assistant">Installing and configuring the Z-Wave integration in Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#faq-supported-devices-and-command-classes">FAQ: Supported devices and Command Classes</a></li>
+<li class="toc-entry toc-h2"><a href="#faq-installation-and-configuration">FAQ: Installation and configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#which-z-wave-adapter-should-i-buy">Which Z-Wave adapter should I buy?</a></li>
+<li class="toc-entry toc-h3"><a href="#why-was-i-not-automatically-prompted-to-install-z-wave">Why was I (not) automatically prompted to install Z-Wave?</a></li>
+<li class="toc-entry toc-h3"><a href="#what-happened-to-zwavejs2mqtt-or-the-z-wave-js-to-mqtt-add-on">What happened to Zwavejs2Mqtt or the Z-Wave JS to MQTT add-on?</a></li>
+<li class="toc-entry toc-h3"><a href="#can-i-switch-between-z-wave-js-and-z-wave-js-ui">Can I switch between Z-Wave JS and Z-Wave JS UI?</a></li>
+<li class="toc-entry toc-h3"><a href="#how-to-switch-from-z-wave-js-to-the-z-wave-js-ui-add-on">How to switch from Z-Wave JS to the Z-Wave JS UI add-on?</a></li>
+<li class="toc-entry toc-h3"><a href="#how-to-migrate-from-one-adapter-to-a-new-adapter-using-z-wave-js-ui">How to migrate from one adapter to a new adapter using Z-Wave JS UI?</a></li>
+<li class="toc-entry toc-h3"><a href="#whats-the-benefit-of-using-z-wave-js-ui-add-on">What’s the benefit of using Z-Wave JS UI add-on?</a></li>
+<li class="toc-entry toc-h3"><a href="#z-wave-js-ui-provides-discovery-of-ha-devices-on-its-own-too-now-im-confused">Z-Wave JS UI provides discovery of HA devices on its own too, now I’m confused</a></li>
+<li class="toc-entry toc-h3"><a href="#can-i-run-z-wave-js-ui-only-for-the-control-panel-and-nothing-else">Can I run Z-Wave JS UI only for the control panel and nothing else?</a></li>
+<li class="toc-entry toc-h3"><a href="#should-i-name-my-devices-in-home-assistant-or-in-z-wave-js-ui">Should I name my devices in Home Assistant, or in Z-Wave JS UI?</a></li>
+<li class="toc-entry toc-h3"><a href="#should-i-use-secure-inclusion">Should I use Secure Inclusion?</a></li>
+<li class="toc-entry toc-h3"><a href="#where-can-i-see-the-security-keys-in-the-z-wave-js-add-on">Where can I see the security keys in the Z-Wave JS add-on?</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#faq-troubleshooting-topics">FAQ: Troubleshooting topics</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#im-having-a-problem-what-to-do-first">I’m having a problem, what to do first?</a></li>
+<li class="toc-entry toc-h3"><a href="#my-z-wave-adapter-isnt-recognized-automatically-during-setup">My Z-Wave adapter isn’t recognized automatically during setup</a></li>
+<li class="toc-entry toc-h3"><a href="#i-have-an-aeotec-gen5-adapter-and-it-isnt-detected-on-my-raspberry-pi4">I have an Aeotec Gen5 adapter, and it isn’t detected on my Raspberry Pi 4?</a></li>
+<li class="toc-entry toc-h3"><a href="#i-do-not-see-any-entities-created-for-my-device-in-home-assistant">I do not see any entities created for my device in Home Assistant</a></li>
+<li class="toc-entry toc-h3"><a href="#my-device-doesnt-automatically-update-its-status-in-ha-if-i-control-it-manually">My device doesn’t automatically update its status in HA if I control it manually</a></li>
+<li class="toc-entry toc-h3"><a href="#my-device-is-recognized-as-unknown-manufacturer-andor-some-functions-dont-work-with-the-z-wave-integration">My device is recognized as Unknown Manufacturer and/or some functions don’t work with the Z-Wave integration</a></li>
+<li class="toc-entry toc-h3"><a href="#how-do-i-get-a-dump-of-the-current-network-state">How do I get a dump of the current network state?</a></li>
+<li class="toc-entry toc-h3"><a href="#how-do-i-address-interference-issues">How do I address interference issues?</a></li>
+<li class="toc-entry toc-h3"><a href="#how-do-i-access-the-z-wave-logs">How do I access the Z-Wave logs?</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#unsupported-functionality">Unsupported functionality</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#setting-the-adapter-into-learn-mode-to-receive-network-information">Setting the adapter into learn mode to receive network information</a></li>
+<li class="toc-entry toc-h3"><a href="#including--excluding-a-adapter-in-an-existing-network-using-classic-inclusion">Including / excluding a adapter in an existing network using classic inclusion</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#z-wave-association-groups">Z-Wave association groups</a></li>
+<li class="toc-entry toc-h2"><a href="#identification-via-z-wave">Identification via Z-Wave</a></li>
+<li class="toc-entry toc-h2"><a href="#z-wave-command-classes-home-assistant-responds-to-when-queried">Z-Wave Command Classes Home Assistant responds to when queried</a></li>
+<li class="toc-entry toc-h2"><a href="#z-wave-terminology">Z-Wave terminology</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#association-group">Association group</a></li>
+<li class="toc-entry toc-h3"><a href="#classic-inclusion-versus-smartstart">Classic inclusion versus SmartStart</a></li>
+<li class="toc-entry toc-h3"><a href="#smartstart">SmartStart</a></li>
+<li class="toc-entry toc-h3"><a href="#terminology-mapping-table">Terminology mapping table</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#removing-z-wave-js-from-home-assistant">Removing Z-Wave JS from Home Assistant</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-z-wave-js-from-home-assistant">To remove Z-Wave JS from Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#button'>Button</a>
+          </li><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#event'>Event</a>
+          </li><li>
+            <a href='/integrations/#fan'>Fan</a>
+          </li><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#humidifier'>Humidifier</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#lock'>Lock</a>
+          </li><li>
+            <a href='/integrations/#number'>Number</a>
+          </li><li>
+            <a href='/integrations/#select'>Select</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#siren'>Siren</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li><li>
+            <a href='/integrations/#update'>Update</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

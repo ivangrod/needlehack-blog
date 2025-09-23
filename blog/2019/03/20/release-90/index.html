@@ -1,0 +1,895 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>0.90: Remote UI, Streams, User Groups - Home Assistant</title>
+    <meta name="author" content="Paulus Schoutsen">
+    <meta name="description" content="Bring your next level home to the next next level.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/blog/2019/03/20/release-90/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="0.90: Remote UI, Streams, User Groups">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/blog/2019/03/20/release-90/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Bring your next level home to the next next level.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/blog/2019-03-release-90/remote.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    <meta name="twitter:creator" content="@balloob">
+    <meta name="twitter:title" content="0.90: Remote UI, Streams, User Groups">
+    <meta name="twitter:description" content="Bring your next level home to the next next level.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/blog/2019-03-release-90/remote.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="   blog-post ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/integrations/">Integrations</a></li>
+          <li><a class="active" href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#camera-streams-for-everyone">Camera streams for everyone</a></li>
+<li class="toc-entry toc-h2"><a href="#user-groups">User Groups</a></li>
+<li class="toc-entry toc-h2"><a href="#smarter-smartthings">Smarter SmartThings</a></li>
+<li class="toc-entry toc-h2"><a href="#area-love">Area love</a></li>
+<li class="toc-entry toc-h2"><a href="#vscode-extension">VSCode extension</a></li>
+<li class="toc-entry toc-h2"><a href="#new-platforms">New Platforms</a></li>
+<li class="toc-entry toc-h2"><a href="#release-0901---march-21">Release 0.90.1 - March 21</a></li>
+<li class="toc-entry toc-h2"><a href="#release-0902---march-26">Release 0.90.2 - March 26</a></li>
+<li class="toc-entry toc-h2"><a href="#if-you-need-help">If you need help…</a></li>
+<li class="toc-entry toc-h2"><a href="#reporting-issues">Reporting Issues</a></li>
+<li class="toc-entry toc-h2"><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li class="toc-entry toc-h2"><a href="#beta-fixes">Beta Fixes</a></li>
+<li class="toc-entry toc-h2"><a href="#all-changes">All changes</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="post">
+  
+  <header>
+  
+  <h1>0.90: Remote UI, Streams, User Groups</h1>
+  
+
+  
+  <div class="meta clearfix">
+    
+
+  
+  
+    <span class="byline author vcard">
+      <a href="https://github.com/balloob" target="_blank" rel="external nofollow"><img class="author-avatar" src="https://avatars.githubusercontent.com/balloob?size=64" alt="Paulus Schoutsen"> Paulus Schoutsen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+    </span>
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<time datetime="2019-03-20T00:11:03+00:00" pubdate data-updated="true"><iconify-icon inline icon="mdi:calendar" title="Calendar"></iconify-icon> March 20, 2019</time>
+    
+
+  <span>
+    <i class="icon-tags"></i>
+    <ul class="tags unstyled">
+    
+      
+        <li><a class="category" href="/blog/categories/core/">Core</a></li>
+      
+        <li><a class="category" href="/blog/categories/release-notes/">Release-Notes</a></li>
+      
+    
+    </ul>
+  </span>
+
+    
+      <a class="comments" href="#post-comments">Comments</a>
+    
+  </div>
+  
+</header>
+
+
+  <p>It’s time for Home Assistant 0.90 and it’s just wow. This release is so packed with cool stuff that it’s difficult to even know where to start, so let’s just jump in.</p>
+<p>The first big feature is that Home Assistant Cloud now supports remote control. This allows you to check in on your home while away from home. Get a notification that motion was detected? Now you can easily check what happened and take action while away. It works end-to-end encrypted. Only thing needed to get started is to enable it. That’s it.</p>
+<p>For more information on how it works, check out <a href="https://www.nabucasa.com/config/remote/">the documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or listen to <a href="https://hasspodcast.io/ha046/" rel="external nofollow">the latest episode of the Home Assistant Podcast<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p class="img">
+<img src="/images/blog/2019-03-release-90/remote.png" alt="Screenshot of the Remote UI preference.">
+Screenshot of the Remote UI preference.
+</p>
+<h2>Camera streams for everyone <a class="title-link" name="camera-streams-for-everyone" href="#camera-streams-for-everyone"></a>
+</h2>
+<p>With this release we’re getting serious about cameras. <a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> has worked months on this and it’s finally ready for the first reveal. With the stream component, we will be able to forward streams from cameras in your house and repackage it into formats that your display devices understand. Previously, streaming cameras was limited to 2 frames per second and only in the frontend. For the first version we focused on the HLS format, which is supported by modern browsers and Chromecast. Each camera integration will need to be individually updated, for the first version we have only added support for the generic camera integration.</p>
+<p>So what is possible now? You can start streaming your frontdoor feed on your TV when the doorbell rings or you can install a camera in the nursery and turn your Google Home Hub into a babymonitor.</p>
+<p>To get started, add <code>stream:</code> to your configuration.yaml, configure the <a href="/integrations/generic_ip_camera">generic camera</a> and start using the new <code>camera.play_stream</code> service.</p>
+<div class="videoWrapper">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/l9eBRNBf5Zg" frameborder="0" allowfullscreen></iframe>
+</div>
+<blockquote class="twitter-tweet" data-lang="en">
+<p lang="en" dir="ltr">Stream any camera on any device.<br><br>New feature by <a href="https://twitter.com/hunterjm?ref_src=twsrc%5Etfw" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> coming soon to a <a href="https://twitter.com/home_assistant?ref_src=twsrc%5Etfw" rel="external nofollow">@home_assistant<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> near you. <a href="https://t.co/At9wUkcZZJ" rel="external nofollow">pic.twitter.com/At9wUkcZZJ<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>— Paulus Schoutsen (@balloob) <a href="https://twitter.com/balloob/status/1101216098442067968?ref_src=twsrc%5Etfw" rel="external nofollow">February 28, 2019<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</blockquote>
+<h2>User Groups <a class="title-link" name="user-groups" href="#user-groups"></a>
+</h2>
+<p>This has been a long time in the making, and has been worked on for a long time: you can now put users in groups to prevent them from being able to configure things from the UI. Users in the new “users” group will not see links to the configuration panel or to the developer tools. This is currently a UI feature, not a security feature. <a href="https://developers.home-assistant.io/blog/2019/03/11/user-permissions.html">We’re working</a> on making this a security feature by limiting access at API level too.</p>
+<h2>Smarter SmartThings <a class="title-link" name="smarter-smartthings" href="#smarter-smartthings"></a>
+</h2>
+<p>If you use Home Assistant Cloud, setting up SmartThings will now automatically leverage Cloudhooks. This means that you will not need to expose your instance to the internet to start using SmartThings. Yay for easy set up and thanks <a href="https://github.com/andrewsayre" rel="external nofollow">@andrewsayre<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>! SmartThings support has also been added for 3 axis sensors and air conditioners.</p>
+<h2>Area love <a class="title-link" name="area-love" href="#area-love"></a>
+</h2>
+<p>This release also adds some more love to areas. Thanks to <a href="https://github.com/Swamp-Ig" rel="external nofollow">@Swamp-Ig<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, areas will now be included as room hints when you sync Home Assistant with Google Assistant. This should make setting up a breeze.</p>
+<p>Areas can now also be used as targets in services. Just specify <code>area_id</code> instead of <code>entity_id</code> in your scripts or automations.</p>
+<p>We’ve also made areas a part of the set up flow for integrations. When you add an integration, we will check which devices are added and ask you to configure them right away. That way you won’t forget.</p>
+<div class="videoWrapper">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/DVQtsFFg4mc" frameborder="0" allowfullscreen></iframe>
+</div>
+<h2>VSCode extension <a class="title-link" name="vscode-extension" href="#vscode-extension"></a>
+</h2>
+<p>In case you missed it, earlier this week Kees Schollaart released the first version of his Home Assistant extension for the free text editor <a href="https://code.visualstudio.com/" rel="external nofollow">VSCode<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. It will connect to your instance and will provide you with entity ID autocompletion while editing your config!</p>
+<blockquote class="twitter-tweet" data-lang="en">
+<p lang="en" dir="ltr">This weekend I built a <a href="https://twitter.com/code?ref_src=twsrc%5Etfw" rel="external nofollow">@code<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> extension for <a href="https://twitter.com/home_assistant?ref_src=twsrc%5Etfw" rel="external nofollow">@home_assistant<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>! It connects with your Home Assistant host and will provide auto-completion for your entity_id's! Check it out in the Marketplace: <a href="https://t.co/21PxCqWrlQ" rel="external nofollow">https://t.co/21PxCqWrlQ<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> Ideas/feedback more than welcome! Thanks for helping <a href="https://twitter.com/balloob?ref_src=twsrc%5Etfw" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>! <a href="https://t.co/la9SPr5Rjw" rel="external nofollow">pic.twitter.com/la9SPr5Rjw<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>— Kees Schollaart (@keesschollaart) <a href="https://twitter.com/keesschollaart/status/1107362271095898113?ref_src=twsrc%5Etfw" rel="external nofollow">March 17, 2019<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</blockquote>
+<h2>New Platforms <a class="title-link" name="new-platforms" href="#new-platforms"></a>
+</h2>
+<ul>
+<li>Live Streams Component (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21473" rel="external nofollow">#21473<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/camera/">camera docs</a>) (<a href="/integrations/stream/">stream docs</a>) (new-platform)</li>
+<li>Add support for homekit controller sensors (<a href="https://github.com/cpopp" rel="external nofollow">@cpopp<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21535" rel="external nofollow">#21535<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homekit_controller/">homekit_controller docs</a>) (new-platform)</li>
+<li>Add SmartThingsAccelCluster to ZHA binary_sensor (<a href="https://github.com/roblandry" rel="external nofollow">@roblandry<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21609" rel="external nofollow">#21609<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>) (new-platform)</li>
+<li>Xfinity Gateway device_tracker platform (<a href="https://github.com/cisasteelersfan" rel="external nofollow">@cisasteelersfan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21026" rel="external nofollow">#21026<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/device_tracker/">device_tracker docs</a>) (new-platform)</li>
+<li>Add Time of Flight Sensor using VL53L1X (<a href="https://github.com/josemotta" rel="external nofollow">@josemotta<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21230" rel="external nofollow">#21230<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tof/">tof docs</a>) (new-platform)</li>
+<li>Adding enigma2 media player (<a href="https://github.com/fbradyirl" rel="external nofollow">@fbradyirl<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21271" rel="external nofollow">#21271<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/enigma2">media_player.enigma2 docs</a>) (new-platform)</li>
+<li>Add support for Cisco Mobility Express (<a href="https://github.com/fbradyirl" rel="external nofollow">@fbradyirl<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21531" rel="external nofollow">#21531<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cisco_mobility_express/">cisco_mobility_express docs</a>) (new-platform)</li>
+<li>Add ClearPass Policy Manger device tracker (<a href="https://github.com/zemerick1" rel="external nofollow">@zemerick1<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21673" rel="external nofollow">#21673<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/device_tracker/">device_tracker docs</a>) (new-platform)</li>
+<li>Add Weather Sensors to Homematic IP (<a href="https://github.com/SukramJ" rel="external nofollow">@SukramJ<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21887" rel="external nofollow">#21887<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homematicip_cloud/">homematicip_cloud docs</a>) (new-platform)</li>
+</ul>
+<h2>Release 0.90.1 - March 21 <a class="title-link" name="release-0901---march-21" href="#release-0901---march-21"></a>
+</h2>
+<ul>
+<li>Fix ZHA force polled entities. (<a href="https://github.com/Adminiuga" rel="external nofollow">@Adminiuga<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22222" rel="external nofollow">#22222<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump total-connect-client to 0.25, fixing issue with Total Connect (<a href="https://github.com/kkr16" rel="external nofollow">@kkr16<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22230" rel="external nofollow">#22230<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Stream fixes (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22238" rel="external nofollow">#22238<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/stream/">stream docs</a>)</li>
+<li>Allow on/off on tado climate component. (<a href="https://github.com/michaelarnauts" rel="external nofollow">@michaelarnauts<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22242" rel="external nofollow">#22242<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tado/">tado docs</a>)</li>
+<li>Fix validate webhook requirements (<a href="https://github.com/andrewsayre" rel="external nofollow">@andrewsayre<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22248" rel="external nofollow">#22248<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/smartthings/">smartthings docs</a>)</li>
+<li>Update Hass-NabuCasa 0.9 (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22258" rel="external nofollow">#22258<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>)</li>
+</ul>
+<h2>Release 0.90.2 - March 26 <a class="title-link" name="release-0902---march-26" href="#release-0902---march-26"></a>
+</h2>
+<ul>
+<li>Fix ps4 no creds with additional device (<a href="https://github.com/ktnrg45" rel="external nofollow">@ktnrg45<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22300" rel="external nofollow">#22300<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Prefer TCP for RTSP streams (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22338" rel="external nofollow">#22338<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update hass-nabucasa &amp; fix state (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22385" rel="external nofollow">#22385<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Enable hass.io panel without ping (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22388" rel="external nofollow">#22388<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>reset unsub to None on timeout (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22404" rel="external nofollow">#22404<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump pyotgw to 0.4b2 (<a href="https://github.com/mvn23" rel="external nofollow">@mvn23<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21973" rel="external nofollow">#21973<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix opentherm_gw blocks HA startup when gateway unreachable. (<a href="https://github.com/mvn23" rel="external nofollow">@mvn23<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22106" rel="external nofollow">#22106<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix TypeError in current_temperature if no temperature is known. (<a href="https://github.com/mvn23" rel="external nofollow">@mvn23<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22112" rel="external nofollow">#22112<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Improve opentherm gw startup (<a href="https://github.com/mvn23" rel="external nofollow">@mvn23<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22121" rel="external nofollow">#22121<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+</ul>
+<h2>If you need help… <a class="title-link" name="if-you-need-help" href="#if-you-need-help"></a>
+</h2>
+<p>…don’t hesitate to use our very active <a href="https://community.home-assistant.io/">forums</a> or join us for a little <a href="https://discord.gg/c5DvZ4e" rel="external nofollow">chat<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. The release notes have comments enabled but it’s preferred if you use the former communication channels. Thanks.</p>
+<h2>Reporting Issues <a class="title-link" name="reporting-issues" href="#reporting-issues"></a>
+</h2>
+<p>Experiencing issues introduced by this release? Please report them in our <a href="https://github.com/home-assistant/home-assistant/issues" rel="external nofollow">issue tracker<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. Make sure to fill in all fields of the issue template.</p>
+<a name="read-more"></a>
+<h2>Backward-incompatible changes <a class="title-link" name="backward-incompatible-changes" href="#backward-incompatible-changes"></a>
+</h2>
+<ul>
+<li>
+<strong>http.api_password</strong> - <strong>Deprecated</strong> - Users who are still using api_password for authentication will need to move its configuration under auth_providers. Please see the <a href="/docs/authentication/providers/#legacy-api-password">updated documentation</a> for further details. Those who don’t make this change will see an INFO level reminder in the Home Assistant logs until the fix is made for a time, but please note, <strong>api_password authentication will eventually be removed completely</strong> and we advise users to change to use one of the <a href="/docs/authentication/providers/#available-auth-providers">other authentication methods</a>. If you manually specify auth providers in your <code>configuration.yaml</code>, you will need to migrate your API Password from the http section to the auth provider section to continue using it. (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21884" rel="external nofollow">#21884<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/api/">api docs</a>) (<a href="/integrations/frontend/">frontend docs</a>) (<a href="/integrations/hassio/">hassio docs</a>) (<a href="/integrations/http/">http docs</a>) (<a href="/integrations/mqtt/">mqtt docs</a>) (<a href="/integrations/websocket_api/">websocket_api docs</a>) (<a href="/integrations/zeroconf/">zeroconf docs</a>) (<a href="/integrations/proxy">camera.proxy docs</a>)</li>
+<li>
+<strong>Default Config</strong> - Default config no longer contains the discovery component. That is now part of the initial written configuration.yaml. If you rely on default config and want to use discovery, add <code>discovery:</code> back to your configuration.yaml.</li>
+<li>
+<strong>Netatmo</strong>
+<ul>
+<li>Added support for multiple Netatmo thermostats/valves allowing the user to specify different homes or rooms! Please check the <a href="/integrations/netatmo#climate">updated documentation</a> for configuration details.  (<a href="https://github.com/shanbs" rel="external nofollow">@shanbs<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/19407" rel="external nofollow">#19407<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/netatmo/">netatmo docs</a>) (<a href="/integrations/netatmo#climate">climate.netatmo docs</a>)</li>
+<li>
+<code>current_operation</code> will no longer return the the boiler status, but the operation_mode. For example, heat, cool, or idle. Please check the <a href="/integrations/netatmo#climate">updated documentation</a> for more details. (<a href="https://github.com/shanbs" rel="external nofollow">@shanbs<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21633" rel="external nofollow">#21633<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/netatmo/">netatmo docs</a>)</li>
+</ul>
+</li>
+<li>
+<strong>Utility Meter</strong> - Currently the offset configuration parameter is an integer that limits daily cycles to have offsets in days, monthly cycles to have offsets in months, etc.
+This change increases the flexibility of offset by making it a more flexible time period that can be described in a combination of hours, days, months, etc. This makes it possible for a yearly cycle to start at a given day of a given month. Please see the <a href="/integrations/utility_meter/">updated documentation</a> for the new configuration options. (<a href="https://github.com/dgomes" rel="external nofollow">@dgomes<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/20926" rel="external nofollow">#20926<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/utility_meter/">utility_meter docs</a>)</li>
+<li>
+<strong>KNX</strong> - An update for xknx to version 0.10.0 requires users to update their configuration by changing <code>target_temperature_address</code> to <code>target_temperature_state_address</code>. Other fixes and features:
+<ul>
+<li>Connection config can now be configured in xknx.yml.</li>
+<li>Introduce a configurable rate limit which limits the number of KNX telegrams sent to the bus per second.</li>
+<li>Users who configured their lights via xknx.yml no longer need to manually set min_kelvin and max_kelvin (fixes #21251) (<a href="https://github.com/marvin-w" rel="external nofollow">@marvin-w<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21541" rel="external nofollow">#21541<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/knx/">knx docs</a>)</li>
+</ul>
+</li>
+<li>
+<strong>Nanoleaf</strong> - The Nanoleaf component now supports <em>both</em> nanoleaf lights, Aurora and Canvas. As a result of this change the user needs to change the platform from <code>nanoleaf_aurora</code> to <code>nanoleaf</code> (<a href="https://github.com/Oro" rel="external nofollow">@Oro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21913" rel="external nofollow">#21913<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/nanoleaf">light.nanoleaf docs</a>)</li>
+<li>
+<strong>FireTV</strong>- is now androidtv. Instead of having near-duplicate integrations for androidtv and firetv, the decision was made to combine them into one.
+Users will need to change <code>- platform: firetv</code> to <code>- platform: androidtv</code> in their configuration. (<a href="https://github.com/JeffLIrion" rel="external nofollow">@JeffLIrion<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21944" rel="external nofollow">#21944<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>
+<strong>Tellstick</strong> - Some configuration cleanup. The way Tellsick sensor configuration was set up using dynamic values for named sensors will not be supported in future versions of Home Assistant. Users that have configured the optional named sensors initiated with only_named will have to update their configuration. Make sure to check the updated documentation for further details. (<a href="https://github.com/endor-force" rel="external nofollow">@endor-force<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21402" rel="external nofollow">#21402<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tellstick/">tellstick docs</a>)</li>
+<li>
+<strong>MQTT</strong> - Pass <code>Message</code> object to MQTT message callbacks instead of <code>topic</code>, <code>message</code> and <code>qos</code>. Users of custom components please take note, these values are now available on the passed in message object: <code>msg.topic</code>, <code>msg.message</code>, <code>msg.qos</code>. The old method will continue to work for now but will print warnings. (<a href="https://github.com/emontnemery" rel="external nofollow">@emontnemery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21959" rel="external nofollow">#21959<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mqtt/">mqtt docs</a>)</li>
+</ul>
+<h2>Beta Fixes <a class="title-link" name="beta-fixes" href="#beta-fixes"></a>
+</h2>
+<ul>
+<li>mobile_app component (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21475" rel="external nofollow">#21475<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix) (new-platform)</li>
+<li>Remove UTF8 decoding for Waze (<a href="https://github.com/philhawthorne" rel="external nofollow">@philhawthorne<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22020" rel="external nofollow">#22020<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/waze_travel_time">sensor.waze_travel_time docs</a>) (beta fix)</li>
+<li>Bring back the boiler status (<a href="https://github.com/cgtobi" rel="external nofollow">@cgtobi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22021" rel="external nofollow">#22021<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/netatmo/">netatmo docs</a>) (beta fix)</li>
+<li>Update additional platforms to use new MQTT message callback (<a href="https://github.com/emontnemery" rel="external nofollow">@emontnemery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22030" rel="external nofollow">#22030<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/device_tracker/">device_tracker docs</a>) (<a href="/integrations/mqtt_eventstream/">mqtt_eventstream docs</a>) (<a href="/integrations/owntracks/">owntracks docs</a>) (<a href="/integrations/snips/">snips docs</a>) (<a href="/integrations/manual_mqtt/">alarm_control_panel.manual_mqtt docs</a>) (<a href="/docs/automation/trigger/#mqtt-trigger">automation.mqtt docs</a>) (<a href="/integrations/arwn">sensor.arwn docs</a>) (<a href="/integrations/mqtt_room">sensor.mqtt_room docs</a>) (beta fix)</li>
+<li>Fix lifx light async error (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22031" rel="external nofollow">#22031<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/lifx/">lifx docs</a>) (beta fix)</li>
+<li>Fix Google Assistant User with Cloud (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22042" rel="external nofollow">#22042<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>) (beta fix)</li>
+<li>Mobile App: Require encryption for registrations that support it (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21852" rel="external nofollow">#21852<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Support rendering multiple templates at once (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21851" rel="external nofollow">#21851<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Update Location schema updates &amp; device ID generation (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21849" rel="external nofollow">#21849<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Register devices into the registry (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21856" rel="external nofollow">#21856<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Sensors (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21854" rel="external nofollow">#21854<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix) (new-platform)</li>
+<li>Bump androidtv to 0.0.11 (<a href="https://github.com/JeffLIrion" rel="external nofollow">@JeffLIrion<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22025" rel="external nofollow">#22025<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/androidtv/">androidtv docs</a>) (beta fix)</li>
+<li>Mobile App: Enable loading via discovery (surprise inside!) (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22027" rel="external nofollow">#22027<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Discovery to default configuration.yaml, zeroconf to default_config (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22028" rel="external nofollow">#22028<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/default_config/">default_config docs</a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Expose Cloud Remote UI FQDN in registration response (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22055" rel="external nofollow">#22055<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Return config entry ID after creation (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22060" rel="external nofollow">#22060<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/config/">config docs</a>) (beta fix)</li>
+<li>Correct context (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22061" rel="external nofollow">#22061<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/alexa/">alexa docs</a>) (beta fix)</li>
+<li>Binary Sensor for Remote UI &amp; Fix timezone (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22076" rel="external nofollow">#22076<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (beta fix)</li>
+<li>Bump androidtv to 0.0.12 (<a href="https://github.com/JeffLIrion" rel="external nofollow">@JeffLIrion<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22072" rel="external nofollow">#22072<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/androidtv/">androidtv docs</a>) (beta fix)</li>
+<li>Prevent cloud remote UI when using 127.0.0.1 as trusted network (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22093" rel="external nofollow">#22093<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>) (beta fix)</li>
+<li>Beta Fix: FFMPEG and Stream component (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22091" rel="external nofollow">#22091<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/camera.ffmpeg/">camera.ffmpeg docs</a>) (<a href="/integrations/generic_ip_camera">camera.generic docs</a>) (<a href="/integrations/onvif">camera.onvif docs</a>) (beta fix)</li>
+<li>delete previously removed service option from services yaml (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22123" rel="external nofollow">#22123<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (beta fix)</li>
+<li>Remove hass.config from aws_lambda notify payload (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22125" rel="external nofollow">#22125<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (breaking change) (beta fix)</li>
+<li>Allow non-admins to listen to certain events (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22137" rel="external nofollow">#22137<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/websocket_api/">websocket_api docs</a>) (beta fix)</li>
+<li>Bump tado version (<a href="https://github.com/WebSpider" rel="external nofollow">@WebSpider<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22145" rel="external nofollow">#22145<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tado/">tado docs</a>) (beta fix)</li>
+<li>Fix resetting access token on streams with keepalive (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22148" rel="external nofollow">#22148<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/stream/">stream docs</a>) (beta fix)</li>
+<li>Remove config check over supervisor (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22156" rel="external nofollow">#22156<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/hassio/">hassio docs</a>) (beta fix)</li>
+<li>Upgrade toonapilib to 3.2.2 + lower interval (<a href="https://github.com/frenck" rel="external nofollow">@frenck<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22160" rel="external nofollow">#22160<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/toon/">toon docs</a>) (beta fix)</li>
+<li>bump total_connect_client to 0.24 (<a href="https://github.com/uchagani" rel="external nofollow">@uchagani<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22166" rel="external nofollow">#22166<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/totalconnect/">totalconnect docs</a>) (beta fix)</li>
+<li>Update Hass-NabuCasa 0.8 (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22177" rel="external nofollow">#22177<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>) (beta fix)</li>
+<li>Always load Hass.io component on Hass.io (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22185" rel="external nofollow">#22185<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (beta fix)</li>
+<li>Fixed typing errors (<a href="https://github.com/Swamp-Ig" rel="external nofollow">@Swamp-Ig<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22207" rel="external nofollow">#22207<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (beta fix)</li>
+</ul>
+<h2>All changes <a class="title-link" name="all-changes" href="#all-changes"></a>
+</h2>
+<ul>
+<li>Upgrade pyopenuv to 1.0.9 (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21513" rel="external nofollow">#21513<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/openuv/">openuv docs</a>)</li>
+<li>Upgrade pypollencom to 2.2.3 (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21517" rel="external nofollow">#21517<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/iqvia">sensor.pollen docs</a>)</li>
+<li>Upgrade pytile to 2.0.6 (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21516" rel="external nofollow">#21516<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/device_tracker/">device_tracker docs</a>)</li>
+<li>Upgraded py17track to 2.2.2 (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21515" rel="external nofollow">#21515<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/seventeentrack">sensor.seventeentrack docs</a>)</li>
+<li>Upgrade pyflunearyou to 1.0.2 (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21514" rel="external nofollow">#21514<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/flunearyou">sensor.flunearyou docs</a>)</li>
+<li>Bump starlingbank version to 3.1 (<a href="https://github.com/Dullage" rel="external nofollow">@Dullage<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21501" rel="external nofollow">#21501<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/starlingbank">sensor.starlingbank docs</a>)</li>
+<li>Upgrade opensensemap-api to 0.1.5 (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21524" rel="external nofollow">#21524<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/air_quality/">air_quality docs</a>)</li>
+<li>Register ‘firetv.adb_command’ service (<a href="https://github.com/JeffLIrion" rel="external nofollow">@JeffLIrion<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21419" rel="external nofollow">#21419<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/androidtv">media_player.firetv docs</a>)</li>
+<li>Add arm night for alarm decoder (<a href="https://github.com/koolsb" rel="external nofollow">@koolsb<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21488" rel="external nofollow">#21488<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/alarmdecoder/">alarmdecoder docs</a>)</li>
+<li>Upgrade numpy to 1.16.2 (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21525" rel="external nofollow">#21525<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/trend">binary_sensor.trend docs</a>) (<a href="/integrations/opencv">image_processing.opencv docs</a>) (<a href="/integrations/tensorflow">image_processing.tensorflow docs</a>) (<a href="/integrations/iqvia">sensor.pollen docs</a>)</li>
+<li>Upgrade python-mystrom to 0.5.0 (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21523" rel="external nofollow">#21523<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mystrom#light">light.mystrom docs</a>) (<a href="/integrations/mystrom#switch">switch.mystrom docs</a>)</li>
+<li>Mqtt alarm added value_template and code_arm_required (<a href="https://github.com/ToRvaLDz" rel="external nofollow">@ToRvaLDz<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/19558" rel="external nofollow">#19558<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/alarm_control_panel.mqtt/">alarm_control_panel.mqtt docs</a>)</li>
+<li>Add direct binding for remotes and lights for ZHA (<a href="https://github.com/dmulcahey" rel="external nofollow">@dmulcahey<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21498" rel="external nofollow">#21498<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>)</li>
+<li>Add support for homekit controller sensors (<a href="https://github.com/cpopp" rel="external nofollow">@cpopp<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21535" rel="external nofollow">#21535<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homekit_controller/">homekit_controller docs</a>) (new-platform)</li>
+<li>Update CODEOWNERS (<a href="https://github.com/dgomes" rel="external nofollow">@dgomes<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21545" rel="external nofollow">#21545<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Clean up gpslogger tests (<a href="https://github.com/MartinHjelmare" rel="external nofollow">@MartinHjelmare<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21543" rel="external nofollow">#21543<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>new websocket api way (<a href="https://github.com/dmulcahey" rel="external nofollow">@dmulcahey<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21533" rel="external nofollow">#21533<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>)</li>
+<li>Add pause/unpause services to RainMachine (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21548" rel="external nofollow">#21548<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/rainmachine/">rainmachine docs</a>)</li>
+<li>prevent duplicate event channel registration (<a href="https://github.com/dmulcahey" rel="external nofollow">@dmulcahey<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21534" rel="external nofollow">#21534<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>)</li>
+<li>Allow config entry reloading (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21502" rel="external nofollow">#21502<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add separate on/off ids on manual configured IHC lights (<a href="https://github.com/msvinth" rel="external nofollow">@msvinth<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/20253" rel="external nofollow">#20253<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/ihc/">ihc docs</a>) (<a href="/integrations/ihc#light">light.ihc docs</a>) (new-platform)</li>
+<li>add friendly name to devices in the device registry (<a href="https://github.com/dmulcahey" rel="external nofollow">@dmulcahey<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21499" rel="external nofollow">#21499<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>)</li>
+<li>Allow chaining contexts (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21028" rel="external nofollow">#21028<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/automation/">automation docs</a>)</li>
+<li>bump pyxeoma to 1.4.1 to fix and close #19306 (<a href="https://github.com/trunet" rel="external nofollow">@trunet<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21568" rel="external nofollow">#21568<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/xeoma">camera.xeoma docs</a>)</li>
+<li>fix exception (<a href="https://github.com/dmulcahey" rel="external nofollow">@dmulcahey<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21571" rel="external nofollow">#21571<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>)</li>
+<li>Add config entry remove callback (<a href="https://github.com/andrewsayre" rel="external nofollow">@andrewsayre<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21576" rel="external nofollow">#21576<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>mobile_app component (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21475" rel="external nofollow">#21475<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix) (new-platform)</li>
+<li>Memory optimization for logbook (<a href="https://github.com/amelchio" rel="external nofollow">@amelchio<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21549" rel="external nofollow">#21549<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/logbook/">logbook docs</a>)</li>
+<li>Get room hints from areas (<a href="https://github.com/Swamp-Ig" rel="external nofollow">@Swamp-Ig<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21519" rel="external nofollow">#21519<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/google_assistant/">google_assistant docs</a>)</li>
+<li>Centrally define Watt (<a href="https://github.com/dgomes" rel="external nofollow">@dgomes<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21570" rel="external nofollow">#21570<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add network throughput statistics to systemmonitor sensor (<a href="https://github.com/dgomes" rel="external nofollow">@dgomes<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21575" rel="external nofollow">#21575<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/systemmonitor">sensor.systemmonitor docs</a>)</li>
+<li>Update for new pyvesyncv_v2 library and vesync switch support (<a href="https://github.com/webdjoe" rel="external nofollow">@webdjoe<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21449" rel="external nofollow">#21449<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/vesync#switches">switch.vesync docs</a>)</li>
+<li>ZHA fixes (<a href="https://github.com/dmulcahey" rel="external nofollow">@dmulcahey<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21592" rel="external nofollow">#21592<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>)</li>
+<li>Update pyhomematic (<a href="https://github.com/danielperna84" rel="external nofollow">@danielperna84<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21600" rel="external nofollow">#21600<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homematic/">homematic docs</a>)</li>
+<li>Add parameter hold_secs for Harmony remote send command (<a href="https://github.com/ehendrix23" rel="external nofollow">@ehendrix23<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/19650" rel="external nofollow">#19650<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/remote/">remote docs</a>) (<a href="/integrations/harmony">remote.harmony docs</a>)</li>
+<li>Upgrade motorparts to 1.1.0 (<a href="https://github.com/rohankapoorcom" rel="external nofollow">@rohankapoorcom<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21602" rel="external nofollow">#21602<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Further Yale ZWave lock device mapping cleanup (<a href="https://github.com/mw-white" rel="external nofollow">@mw-white<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21128" rel="external nofollow">#21128<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zwave/">zwave docs</a>)</li>
+<li>Added support for multiple Netatmo thermostats/valves (<a href="https://github.com/shanbs" rel="external nofollow">@shanbs<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/19407" rel="external nofollow">#19407<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/netatmo/">netatmo docs</a>) (<a href="/integrations/netatmo#climate">climate.netatmo docs</a>) (breaking change)</li>
+<li>Add the velbus sync clock service (<a href="https://github.com/Cereal2nd" rel="external nofollow">@Cereal2nd<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21308" rel="external nofollow">#21308<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/velbus/">velbus docs</a>)</li>
+<li>SmartThings remove SmartApp/Automation on integration removal (<a href="https://github.com/andrewsayre" rel="external nofollow">@andrewsayre<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21594" rel="external nofollow">#21594<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/smartthings/">smartthings docs</a>) (new-feature)</li>
+<li>Bumping aioasuswrt (<a href="https://github.com/kennedyshead" rel="external nofollow">@kennedyshead<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21627" rel="external nofollow">#21627<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/asuswrt/">asuswrt docs</a>)</li>
+<li>Add device HMIP-eTRV-C to HomematicIP (<a href="https://github.com/SukramJ" rel="external nofollow">@SukramJ<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21612" rel="external nofollow">#21612<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add ‘app_name’ property and ‘apps’ config entry to Fire TV (<a href="https://github.com/JeffLIrion" rel="external nofollow">@JeffLIrion<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21601" rel="external nofollow">#21601<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/androidtv/">androidtv docs</a>)</li>
+<li>Add optional sender name for SendGrid (<a href="https://github.com/srirams" rel="external nofollow">@srirams<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21610" rel="external nofollow">#21610<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/sendgrid">notify.sendgrid docs</a>)</li>
+<li>fix derived rate, fixes #20097 (<a href="https://github.com/wburgers" rel="external nofollow">@wburgers<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21620" rel="external nofollow">#21620<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/dsmr">sensor.dsmr docs</a>)</li>
+<li>Bump pyflunearyou to 1.0.3 (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21634" rel="external nofollow">#21634<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/flunearyou">sensor.flunearyou docs</a>)</li>
+<li>Return Netatmo climate operation_mode instead of boiler status (<a href="https://github.com/shanbs" rel="external nofollow">@shanbs<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21633" rel="external nofollow">#21633<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/netatmo/">netatmo docs</a>) (breaking change)</li>
+<li>Expose create/delete cloudhook (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21606" rel="external nofollow">#21606<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>)</li>
+<li>Add storage helper to ZHA and use it for the device node descriptor (<a href="https://github.com/dmulcahey" rel="external nofollow">@dmulcahey<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21500" rel="external nofollow">#21500<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>) (new-platform)</li>
+<li>Allow configuration of update interval for ness_alarm (<a href="https://github.com/nickw444" rel="external nofollow">@nickw444<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21415" rel="external nofollow">#21415<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/ness_alarm/">ness_alarm docs</a>)</li>
+<li>Replace travis (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21641" rel="external nofollow">#21641<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix actions with tox (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21642" rel="external nofollow">#21642<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>GitHub Workflow (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21643" rel="external nofollow">#21643<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Upgrade youtube_dl to 2019.03.01 (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21647" rel="external nofollow">#21647<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/media_extractor/">media_extractor docs</a>)</li>
+<li>Add support for DHT and DS18B20 sensors via Konnected firmware (<a href="https://github.com/heythisisnate" rel="external nofollow">@heythisisnate<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21189" rel="external nofollow">#21189<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/konnected/">konnected docs</a>)</li>
+<li>Allow targeting areas in service calls (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21472" rel="external nofollow">#21472<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/alert/">alert docs</a>) (<a href="/integrations/automation/">automation docs</a>) (<a href="/integrations/group/">group docs</a>) (<a href="/integrations/image_processing/">image_processing docs</a>) (<a href="/integrations/light/">light docs</a>) (<a href="/integrations/scene/">scene docs</a>) (<a href="/integrations/script/">script docs</a>)</li>
+<li>Add camera name to logs (<a href="https://github.com/arsaboo" rel="external nofollow">@arsaboo<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21653" rel="external nofollow">#21653<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/generic_ip_camera">camera.generic docs</a>)</li>
+<li>Netatmo, handle missing thermostat devices (<a href="https://github.com/Danielhiversen" rel="external nofollow">@Danielhiversen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21651" rel="external nofollow">#21651<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/netatmo/">netatmo docs</a>)</li>
+<li>Add SmartThingsAccelCluster to ZHA binary_sensor (<a href="https://github.com/roblandry" rel="external nofollow">@roblandry<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21609" rel="external nofollow">#21609<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>) (new-platform)</li>
+<li>Add support for multiple devices for PS4 component (<a href="https://github.com/ktnrg45" rel="external nofollow">@ktnrg45<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21302" rel="external nofollow">#21302<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/ps4/">ps4 docs</a>)</li>
+<li>Xfinity Gateway device_tracker platform (<a href="https://github.com/cisasteelersfan" rel="external nofollow">@cisasteelersfan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21026" rel="external nofollow">#21026<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/device_tracker/">device_tracker docs</a>) (new-platform)</li>
+<li>Adds option in UPnP component to override callback url (<a href="https://github.com/StevenLooman" rel="external nofollow">@StevenLooman<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21583" rel="external nofollow">#21583<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/dlna_dmr">media_player.dlna_dmr docs</a>)</li>
+<li>Serialize amcrest snapshot commands and bump PyPI package to 1.2.4 (<a href="https://github.com/pnbruckner" rel="external nofollow">@pnbruckner<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21664" rel="external nofollow">#21664<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/amcrest/">amcrest docs</a>)</li>
+<li>Bump nessclient version to 0.9.14 (<a href="https://github.com/nickw444" rel="external nofollow">@nickw444<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21679" rel="external nofollow">#21679<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/ness_alarm/">ness_alarm docs</a>)</li>
+<li>Allow 202 status code as a successful REST notify response (<a href="https://github.com/u1f35c" rel="external nofollow">@u1f35c<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21678" rel="external nofollow">#21678<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/notify/">notify docs</a>)</li>
+<li>Bump teslajsonpy to 0.0.24 (<a href="https://github.com/alandtse" rel="external nofollow">@alandtse<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21675" rel="external nofollow">#21675<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tesla/">tesla docs</a>)</li>
+<li>Fix Z-Wave relative imports (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21693" rel="external nofollow">#21693<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zwave/">zwave docs</a>)</li>
+<li>Use new style for built-in ws commmands (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21694" rel="external nofollow">#21694<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/websocket_api/">websocket_api docs</a>)</li>
+<li>Google Assistant: Create and pass context to service calls (<a href="https://github.com/Swamp-Ig" rel="external nofollow">@Swamp-Ig<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21551" rel="external nofollow">#21551<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/google_assistant/">google_assistant docs</a>)</li>
+<li>Update to teslajsonpy v0.0.25 (<a href="https://github.com/alandtse" rel="external nofollow">@alandtse<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21702" rel="external nofollow">#21702<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tesla/">tesla docs</a>)</li>
+<li>Utility Meter offset defined by a time_period (<a href="https://github.com/dgomes" rel="external nofollow">@dgomes<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/20926" rel="external nofollow">#20926<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/utility_meter/">utility_meter docs</a>) (breaking change)</li>
+<li>Change amcrest camera_image to async (<a href="https://github.com/pnbruckner" rel="external nofollow">@pnbruckner<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21720" rel="external nofollow">#21720<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/amcrest/">amcrest docs</a>)</li>
+<li>Start preparing for homekit_controller config entries (<a href="https://github.com/Jc2k" rel="external nofollow">@Jc2k<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21564" rel="external nofollow">#21564<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homekit_controller/">homekit_controller docs</a>)</li>
+<li>Support multiple keys in ifttt triggers (<a href="https://github.com/zeehio" rel="external nofollow">@zeehio<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21454" rel="external nofollow">#21454<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/ifttt/">ifttt docs</a>)</li>
+<li>Fix initialization and add “pending” status of Satel integra (<a href="https://github.com/c-soft" rel="external nofollow">@c-soft<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21194" rel="external nofollow">#21194<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/satel_integra/">satel_integra docs</a>)</li>
+<li>Fix pylint warning on python 3.7 (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21714" rel="external nofollow">#21714<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/eq3btsmart">climate.eq3btsmart docs</a>)</li>
+<li>Make pytest in tox quite (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21727" rel="external nofollow">#21727<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>tplink - catch SmartDeviceException on is_dimmable call (<a href="https://github.com/ljmerza" rel="external nofollow">@ljmerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21726" rel="external nofollow">#21726<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tplink/">tplink docs</a>)</li>
+<li>Remove pytest warning message (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21713" rel="external nofollow">#21713<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update .travis.yml (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21736" rel="external nofollow">#21736<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Revert Travis until github actions work better for PR (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21746" rel="external nofollow">#21746<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Allow light toggle service to accept all turn on params (<a href="https://github.com/zewelor" rel="external nofollow">@zewelor<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/20912" rel="external nofollow">#20912<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/light/">light docs</a>)</li>
+<li>Introduce target_temperature_state_address for climate device (<a href="https://github.com/marvin-w" rel="external nofollow">@marvin-w<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21541" rel="external nofollow">#21541<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/knx/">knx docs</a>) (breaking change)</li>
+<li>Upgrade pylint to 2.3.1 (<a href="https://github.com/scop" rel="external nofollow">@scop<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21789" rel="external nofollow">#21789<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add Time of Flight Sensor using VL53L1X (<a href="https://github.com/josemotta" rel="external nofollow">@josemotta<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21230" rel="external nofollow">#21230<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tof/">tof docs</a>) (new-platform)</li>
+<li>Upgrade huawei-lte-api to 1.1.5 (<a href="https://github.com/scop" rel="external nofollow">@scop<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21791" rel="external nofollow">#21791<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/huawei_lte/">huawei_lte docs</a>)</li>
+<li>Adding enigma2 media player (<a href="https://github.com/fbradyirl" rel="external nofollow">@fbradyirl<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21271" rel="external nofollow">#21271<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/enigma2">media_player.enigma2 docs</a>) (new-platform)</li>
+<li>Bump loopenergy to 0.1.0. Loop updated their socket.io server from 0.9 to 2.0 - which required a library update. (<a href="https://github.com/pavoni" rel="external nofollow">@pavoni<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21809" rel="external nofollow">#21809<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/loopenergy">sensor.loopenergy docs</a>)</li>
+<li>remove occupancy, as it is not available at this level in the iRail api (<a href="https://github.com/nudded" rel="external nofollow">@nudded<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21810" rel="external nofollow">#21810<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/nmbs">sensor.nmbs docs</a>)</li>
+<li>Onboarding to generate auth code (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21777" rel="external nofollow">#21777<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/auth/">auth docs</a>) (<a href="/integrations/onboarding/">onboarding docs</a>)</li>
+<li>Remove stub from config component (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21822" rel="external nofollow">#21822<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/config/">config docs</a>)</li>
+<li>change paths to be relative (<a href="https://github.com/uchagani" rel="external nofollow">@uchagani<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21827" rel="external nofollow">#21827<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zwave/">zwave docs</a>)</li>
+<li>Change how we import config modules (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21824" rel="external nofollow">#21824<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/config/">config docs</a>)</li>
+<li>Load logger and system_log components as soon as possible (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21799" rel="external nofollow">#21799<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Resolve auth_store loading race condition (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21794" rel="external nofollow">#21794<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Log if aiohttp hits error during IndieAuth (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21780" rel="external nofollow">#21780<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/auth/">auth docs</a>)</li>
+<li>Add support for Cisco Mobility Express (<a href="https://github.com/fbradyirl" rel="external nofollow">@fbradyirl<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21531" rel="external nofollow">#21531<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cisco_mobility_express/">cisco_mobility_express docs</a>) (new-platform)</li>
+<li>Synology sensor quick return if attr is null (<a href="https://github.com/cmsimike" rel="external nofollow">@cmsimike<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21709" rel="external nofollow">#21709<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/synologydsm">sensor.synologydsm docs</a>)</li>
+<li>fix empty TOPIC_BASE issue (<a href="https://github.com/engrbm87" rel="external nofollow">@engrbm87<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21740" rel="external nofollow">#21740<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mqtt/">mqtt docs</a>)</li>
+<li>Updated to pyeconet 0.0.10 (<a href="https://github.com/w1ll1am23" rel="external nofollow">@w1ll1am23<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21837" rel="external nofollow">#21837<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/water_heater/">water_heater docs</a>)</li>
+<li>Fix config entry exception in Ambient PWS (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21836" rel="external nofollow">#21836<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/ambient_station/">ambient_station docs</a>)</li>
+<li>Fixed a misspelling in a docstring (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21846" rel="external nofollow">#21846<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/ambient_station/">ambient_station docs</a>)</li>
+<li>mobile_app improvements (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21607" rel="external nofollow">#21607<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>)</li>
+<li>Update honeywell.py to read current humidity for US Thermostats (<a href="https://github.com/Hackashaq666" rel="external nofollow">@Hackashaq666<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21728" rel="external nofollow">#21728<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/honeywell">climate.honeywell docs</a>)</li>
+<li>Fix TypeError (<a href="https://github.com/wburgers" rel="external nofollow">@wburgers<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21734" rel="external nofollow">#21734<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/dsmr">sensor.dsmr docs</a>)</li>
+<li>Introduce Entity.async_write_ha_state() to not miss state transition (<a href="https://github.com/emontnemery" rel="external nofollow">@emontnemery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21590" rel="external nofollow">#21590<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix authorization header in cors (<a href="https://github.com/piitaya" rel="external nofollow">@piitaya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21662" rel="external nofollow">#21662<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/http/">http docs</a>)</li>
+<li>Only commit if need. (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21848" rel="external nofollow">#21848<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Bump quirks for ZHA and handle resulting battery % change (<a href="https://github.com/dmulcahey" rel="external nofollow">@dmulcahey<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21869" rel="external nofollow">#21869<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>)</li>
+<li>Better cloud check (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21875" rel="external nofollow">#21875<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>)</li>
+<li>Add ClearPass Policy Manger device tracker (<a href="https://github.com/zemerick1" rel="external nofollow">@zemerick1<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21673" rel="external nofollow">#21673<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/device_tracker/">device_tracker docs</a>) (new-platform)</li>
+<li>Add SmartThings climate support for Air Conditioners (<a href="https://github.com/andrewsayre" rel="external nofollow">@andrewsayre<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21840" rel="external nofollow">#21840<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/smartthings/">smartthings docs</a>) (new-feature)</li>
+<li>Add SmartThings sensor support for Three Axis (<a href="https://github.com/andrewsayre" rel="external nofollow">@andrewsayre<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21841" rel="external nofollow">#21841<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/smartthings/">smartthings docs</a>) (new-feature)</li>
+<li>Add user group (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21832" rel="external nofollow">#21832<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update ZHA state handling (<a href="https://github.com/dmulcahey" rel="external nofollow">@dmulcahey<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21866" rel="external nofollow">#21866<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/zha/">zha docs</a>)</li>
+<li>Change lib for whois sensor (<a href="https://github.com/ludeeus" rel="external nofollow">@ludeeus<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21878" rel="external nofollow">#21878<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/whois">sensor.whois docs</a>)</li>
+<li>Don’t wait until final position of Velux cover is reached (<a href="https://github.com/Julius2342" rel="external nofollow">@Julius2342<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21558" rel="external nofollow">#21558<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/velux/">velux docs</a>)</li>
+<li>Fix missing code_required check in async_alarm_arm_night (<a href="https://github.com/ToRvaLDz" rel="external nofollow">@ToRvaLDz<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21858" rel="external nofollow">#21858<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mqtt/">mqtt docs</a>)</li>
+<li>Fix icon for sensor.discogs_random_record (<a href="https://github.com/thibmaek" rel="external nofollow">@thibmaek<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21891" rel="external nofollow">#21891<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/discogs">sensor.discogs docs</a>)</li>
+<li>Add myself to CODEOWNERS for NMBS code (<a href="https://github.com/thibmaek" rel="external nofollow">@thibmaek<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21892" rel="external nofollow">#21892<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Modbus write_register accept single value and array (<a href="https://github.com/gertdb" rel="external nofollow">@gertdb<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21621" rel="external nofollow">#21621<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/modbus/">modbus docs</a>)</li>
+<li>Add custom holidays to workday sensor (<a href="https://github.com/epleypa" rel="external nofollow">@epleypa<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21718" rel="external nofollow">#21718<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/workday">binary_sensor.workday docs</a>)</li>
+<li>Return time based attributes as datetime in Unifi module (<a href="https://github.com/ndonegan" rel="external nofollow">@ndonegan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21146" rel="external nofollow">#21146<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/device_tracker/">device_tracker docs</a>)</li>
+<li>Allow emulated hue to set climate component temperature (<a href="https://github.com/chilicheech" rel="external nofollow">@chilicheech<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/19034" rel="external nofollow">#19034<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/emulated_hue/">emulated_hue docs</a>)</li>
+<li>bump netdisco to 2.4.0 (<a href="https://github.com/fbradyirl" rel="external nofollow">@fbradyirl<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21914" rel="external nofollow">#21914<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Deprecate http.api_password (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21884" rel="external nofollow">#21884<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/api/">api docs</a>) (<a href="/integrations/frontend/">frontend docs</a>) (<a href="/integrations/hassio/">hassio docs</a>) (<a href="/integrations/http/">http docs</a>) (<a href="/integrations/mqtt/">mqtt docs</a>) (<a href="/integrations/websocket_api/">websocket_api docs</a>) (<a href="/integrations/zeroconf/">zeroconf docs</a>) (<a href="/integrations/proxy">camera.proxy docs</a>) (breaking change)</li>
+<li>Don’t hang forever if manually added cast is down (<a href="https://github.com/emontnemery" rel="external nofollow">@emontnemery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21565" rel="external nofollow">#21565<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cast/">cast docs</a>)</li>
+<li>Add WS subscription command for MQTT (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21696" rel="external nofollow">#21696<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mqtt/">mqtt docs</a>) (<a href="/integrations/websocket_api/">websocket_api docs</a>)</li>
+<li>Add ‘ssl’ parameter for FiOS Quantum Gateway and upgrade Pypi (<a href="https://github.com/cisasteelersfan" rel="external nofollow">@cisasteelersfan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21669" rel="external nofollow">#21669<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/device_tracker/">device_tracker docs</a>)</li>
+<li>Add as_timestamp() to Jinja filters. (<a href="https://github.com/rbdixon" rel="external nofollow">@rbdixon<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21910" rel="external nofollow">#21910<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>HomeKit controller config flow fixes (<a href="https://github.com/Jc2k" rel="external nofollow">@Jc2k<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21898" rel="external nofollow">#21898<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homekit_controller/">homekit_controller docs</a>)</li>
+<li>Update enigma2 based on review comments (<a href="https://github.com/fbradyirl" rel="external nofollow">@fbradyirl<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21890" rel="external nofollow">#21890<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/enigma2/">enigma2 docs</a>)</li>
+<li>Remove confusing warning for TTS without entity_id (<a href="https://github.com/amelchio" rel="external nofollow">@amelchio<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21927" rel="external nofollow">#21927<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tts/">tts docs</a>)</li>
+<li>Fixes Modbus service.yaml validity (<a href="https://github.com/gertdb" rel="external nofollow">@gertdb<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21923" rel="external nofollow">#21923<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add cloudhook support to SmartThings component (<a href="https://github.com/andrewsayre" rel="external nofollow">@andrewsayre<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21905" rel="external nofollow">#21905<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/smartthings/">smartthings docs</a>)</li>
+<li>If registration supports encryption then return encrypted payloads (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21853" rel="external nofollow">#21853<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>)</li>
+<li>Allow inverting netdata sensor values (<a href="https://github.com/michaelarnauts" rel="external nofollow">@michaelarnauts<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21711" rel="external nofollow">#21711<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/netdata">sensor.netdata docs</a>)</li>
+<li>Changed from nanoleaf_aurora to nanoleaf (<a href="https://github.com/Oro" rel="external nofollow">@Oro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21913" rel="external nofollow">#21913<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/nanoleaf">light.nanoleaf docs</a>) (breaking change)</li>
+<li>Minor version bump for anthemav package (<a href="https://github.com/nugget" rel="external nofollow">@nugget<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21932" rel="external nofollow">#21932<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/anthemav">media_player.anthemav docs</a>)</li>
+<li>Add area permission check (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21835" rel="external nofollow">#21835<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Add an asyncio Lock around pairing, which cant be used concurrently (<a href="https://github.com/Jc2k" rel="external nofollow">@Jc2k<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21933" rel="external nofollow">#21933<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homekit_controller/">homekit_controller docs</a>)</li>
+<li>Add update user command (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21922" rel="external nofollow">#21922<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/config/">config docs</a>)</li>
+<li>Offload Cloud component (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21937" rel="external nofollow">#21937<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>)</li>
+<li>Upgrade schiene to 0.23 (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21940" rel="external nofollow">#21940<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/deutsche_bahn">sensor.deutsche_bahn docs</a>)</li>
+<li>Live Streams Component (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21473" rel="external nofollow">#21473<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/camera/">camera docs</a>) (<a href="/integrations/stream/">stream docs</a>) (new-platform)</li>
+<li>Update lametric icon to be HA logo (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21957" rel="external nofollow">#21957<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/lametric/">lametric docs</a>)</li>
+<li>Avoid playing queue pollution when restoring Sonos snapshots (<a href="https://github.com/amelchio" rel="external nofollow">@amelchio<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21963" rel="external nofollow">#21963<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/sonos/">sonos docs</a>)</li>
+<li>Update to sense component to fully be async (<a href="https://github.com/kbickar" rel="external nofollow">@kbickar<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21698" rel="external nofollow">#21698<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/sense/">sense docs</a>)</li>
+<li>fix ephember doing http call from property (<a href="https://github.com/ttroy50" rel="external nofollow">@ttroy50<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21855" rel="external nofollow">#21855<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/ephember">climate.ephember docs</a>)</li>
+<li>Add Weather Sensors to Homematic IP (<a href="https://github.com/SukramJ" rel="external nofollow">@SukramJ<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21887" rel="external nofollow">#21887<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homematicip_cloud/">homematicip_cloud docs</a>) (new-platform)</li>
+<li>Add cloud status (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21960" rel="external nofollow">#21960<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>)</li>
+<li>Fix MagicHome LEDs with flux_led component (<a href="https://github.com/autinerd" rel="external nofollow">@autinerd<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/20733" rel="external nofollow">#20733<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/flux_led">light.flux_led docs</a>)</li>
+<li>Stream: Only add base url when needed (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21979" rel="external nofollow">#21979<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/camera/">camera docs</a>) (<a href="/integrations/stream/">stream docs</a>)</li>
+<li>Allow changing password without being admin (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21978" rel="external nofollow">#21978<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/config/">config docs</a>)</li>
+<li>Fix some cloud things (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21977" rel="external nofollow">#21977<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>homekit_controller: Bump homekit to 0.13.0 (<a href="https://github.com/Jc2k" rel="external nofollow">@Jc2k<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21965" rel="external nofollow">#21965<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homekit_controller/">homekit_controller docs</a>)</li>
+<li>skip flaky test (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21981" rel="external nofollow">#21981<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Write state directly in all MQTT platforms (<a href="https://github.com/emontnemery" rel="external nofollow">@emontnemery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21971" rel="external nofollow">#21971<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mqtt/">mqtt docs</a>)</li>
+<li>Use .get to ensure we dont get KeyError (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21993" rel="external nofollow">#21993<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>)</li>
+<li>Fix error introduced by #21933 (<a href="https://github.com/Jc2k" rel="external nofollow">@Jc2k<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21988" rel="external nofollow">#21988<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homekit_controller/">homekit_controller docs</a>)</li>
+<li>Add stream source for amcrest component (<a href="https://github.com/dshokouhi" rel="external nofollow">@dshokouhi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21983" rel="external nofollow">#21983<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/amcrest/">amcrest docs</a>)</li>
+<li>Set homekit controller entity as unavailable if new connections fail (<a href="https://github.com/Jc2k" rel="external nofollow">@Jc2k<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21901" rel="external nofollow">#21901<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homekit_controller/">homekit_controller docs</a>)</li>
+<li>Centrally define Energy Units (kWh and Wh) (<a href="https://github.com/dgomes" rel="external nofollow">@dgomes<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21719" rel="external nofollow">#21719<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Mobile App: Registration schema improvements (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21850" rel="external nofollow">#21850<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>)</li>
+<li>Add a service require_admin wrapper (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21953" rel="external nofollow">#21953<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Update pyhomematic to 0.1.58 (<a href="https://github.com/danielperna84" rel="external nofollow">@danielperna84<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21989" rel="external nofollow">#21989<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homematic/">homematic docs</a>)</li>
+<li>Use asyncio lock (<a href="https://github.com/amelchio" rel="external nofollow">@amelchio<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21985" rel="external nofollow">#21985<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/sonos/">sonos docs</a>)</li>
+<li>Add breaking change section to PR template (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21994" rel="external nofollow">#21994<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Rename ‘firetv’ to ‘androidtv’ and add Android TV functionality (<a href="https://github.com/JeffLIrion" rel="external nofollow">@JeffLIrion<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21944" rel="external nofollow">#21944<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (breaking change)</li>
+<li>Tellstick sensor configuration cleanup (<a href="https://github.com/endor-force" rel="external nofollow">@endor-force<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21402" rel="external nofollow">#21402<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tellstick/">tellstick docs</a>) (breaking change)</li>
+<li>Add availability and next run datetime to RainMachine switches (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21786" rel="external nofollow">#21786<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/rainmachine/">rainmachine docs</a>)</li>
+<li>Add program/zone enable/disable services to RainMachine (<a href="https://github.com/bachya" rel="external nofollow">@bachya<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21785" rel="external nofollow">#21785<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/rainmachine/">rainmachine docs</a>)</li>
+<li>Bump NabuCasa library to 0.5 (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22010" rel="external nofollow">#22010<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>)</li>
+<li>Avoid playing queue pollution with Sonos unjoin (<a href="https://github.com/amelchio" rel="external nofollow">@amelchio<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22004" rel="external nofollow">#22004<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/sonos/">sonos docs</a>)</li>
+<li>Wait for Sonos regrouping in service calls (<a href="https://github.com/amelchio" rel="external nofollow">@amelchio<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22006" rel="external nofollow">#22006<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/sonos/">sonos docs</a>)</li>
+<li>fix error in LutronButton init if Button doesn’t have a type (<a href="https://github.com/beavis9k" rel="external nofollow">@beavis9k<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21921" rel="external nofollow">#21921<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/lutron/">lutron docs</a>)</li>
+<li>HomeKit controller light - remove code that can never execute (<a href="https://github.com/Jc2k" rel="external nofollow">@Jc2k<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21951" rel="external nofollow">#21951<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/homekit_controller/">homekit_controller docs</a>)</li>
+<li>Nanoleaf availability check (<a href="https://github.com/Oro" rel="external nofollow">@Oro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21945" rel="external nofollow">#21945<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/nanoleaf">light.nanoleaf docs</a>)</li>
+<li>Pass Message object to MQTT message callbacks (<a href="https://github.com/emontnemery" rel="external nofollow">@emontnemery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21959" rel="external nofollow">#21959<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mqtt/">mqtt docs</a>) (breaking change)</li>
+<li>Remove default temp unit (<a href="https://github.com/andrewsayre" rel="external nofollow">@andrewsayre<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22012" rel="external nofollow">#22012<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/smartthings/">smartthings docs</a>)</li>
+<li>Allow all success status codes in REST notify response (<a href="https://github.com/isabellaalstrom" rel="external nofollow">@isabellaalstrom<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22011" rel="external nofollow">#22011<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/notify/">notify docs</a>)</li>
+<li>Check updated_date for list and pick first (<a href="https://github.com/GGeezes" rel="external nofollow">@GGeezes<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22008" rel="external nofollow">#22008<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Remove UTF8 decoding for Waze (<a href="https://github.com/philhawthorne" rel="external nofollow">@philhawthorne<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22020" rel="external nofollow">#22020<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/waze_travel_time">sensor.waze_travel_time docs</a>) (beta fix)</li>
+<li>Bring back the boiler status (<a href="https://github.com/cgtobi" rel="external nofollow">@cgtobi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22021" rel="external nofollow">#22021<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/netatmo/">netatmo docs</a>) (beta fix)</li>
+<li>Update additional platforms to use new MQTT message callback (<a href="https://github.com/emontnemery" rel="external nofollow">@emontnemery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22030" rel="external nofollow">#22030<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/device_tracker/">device_tracker docs</a>) (<a href="/integrations/mqtt_eventstream/">mqtt_eventstream docs</a>) (<a href="/integrations/owntracks/">owntracks docs</a>) (<a href="/integrations/snips/">snips docs</a>) (<a href="/integrations/manual_mqtt/">alarm_control_panel.manual_mqtt docs</a>) (<a href="/docs/automation/trigger/#mqtt-trigger">automation.mqtt docs</a>) (<a href="/integrations/arwn">sensor.arwn docs</a>) (<a href="/integrations/mqtt_room">sensor.mqtt_room docs</a>) (beta fix)</li>
+<li>Fix lifx light async error (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22031" rel="external nofollow">#22031<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/lifx/">lifx docs</a>) (beta fix)</li>
+<li>Fix Google Assistant User with Cloud (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22042" rel="external nofollow">#22042<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>) (beta fix)</li>
+<li>Mobile App: Require encryption for registrations that support it (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21852" rel="external nofollow">#21852<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Support rendering multiple templates at once (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21851" rel="external nofollow">#21851<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Update Location schema updates &amp; device ID generation (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21849" rel="external nofollow">#21849<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Register devices into the registry (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21856" rel="external nofollow">#21856<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Sensors (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/21854" rel="external nofollow">#21854<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix) (new-platform)</li>
+<li>Bump androidtv to 0.0.11 (<a href="https://github.com/JeffLIrion" rel="external nofollow">@JeffLIrion<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22025" rel="external nofollow">#22025<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/androidtv/">androidtv docs</a>) (beta fix)</li>
+<li>Mobile App: Enable loading via discovery (surprise inside!) (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22027" rel="external nofollow">#22027<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Discovery to default configuration.yaml, zeroconf to default_config (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22028" rel="external nofollow">#22028<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/default_config/">default_config docs</a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Mobile App: Expose Cloud Remote UI FQDN in registration response (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22055" rel="external nofollow">#22055<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>) (<a href="/integrations/mobile_app/">mobile_app docs</a>) (beta fix)</li>
+<li>Return config entry ID after creation (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22060" rel="external nofollow">#22060<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/config/">config docs</a>) (beta fix)</li>
+<li>Correct context (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22061" rel="external nofollow">#22061<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/alexa/">alexa docs</a>) (beta fix)</li>
+<li>Binary Sensor for Remote UI &amp; Fix timezone (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22076" rel="external nofollow">#22076<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (beta fix)</li>
+<li>Bump androidtv to 0.0.12 (<a href="https://github.com/JeffLIrion" rel="external nofollow">@JeffLIrion<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22072" rel="external nofollow">#22072<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/androidtv/">androidtv docs</a>) (beta fix)</li>
+<li>Prevent cloud remote UI when using 127.0.0.1 as trusted network (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22093" rel="external nofollow">#22093<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>) (beta fix)</li>
+<li>Beta Fix: FFMPEG and Stream component (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22091" rel="external nofollow">#22091<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/camera.ffmpeg/">camera.ffmpeg docs</a>) (<a href="/integrations/generic_ip_camera">camera.generic docs</a>) (<a href="/integrations/onvif">camera.onvif docs</a>) (beta fix)</li>
+<li>delete previously removed service option from services yaml (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22123" rel="external nofollow">#22123<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (beta fix)</li>
+<li>Remove hass.config from aws_lambda notify payload (<a href="https://github.com/awarecan" rel="external nofollow">@awarecan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22125" rel="external nofollow">#22125<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (breaking change) (beta fix)</li>
+<li>Allow non-admins to listen to certain events (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22137" rel="external nofollow">#22137<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/websocket_api/">websocket_api docs</a>) (beta fix)</li>
+<li>Bump tado version (<a href="https://github.com/WebSpider" rel="external nofollow">@WebSpider<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22145" rel="external nofollow">#22145<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/tado/">tado docs</a>) (beta fix)</li>
+<li>Fix resetting access token on streams with keepalive (<a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22148" rel="external nofollow">#22148<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/stream/">stream docs</a>) (beta fix)</li>
+<li>Remove config check over supervisor (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22156" rel="external nofollow">#22156<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/hassio/">hassio docs</a>) (beta fix)</li>
+<li>Upgrade toonapilib to 3.2.2 + lower interval (<a href="https://github.com/frenck" rel="external nofollow">@frenck<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22160" rel="external nofollow">#22160<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/toon/">toon docs</a>) (beta fix)</li>
+<li>bump total_connect_client to 0.24 (<a href="https://github.com/uchagani" rel="external nofollow">@uchagani<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22166" rel="external nofollow">#22166<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/totalconnect/">totalconnect docs</a>) (beta fix)</li>
+<li>Update Hass-NabuCasa 0.8 (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22177" rel="external nofollow">#22177<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (<a href="/integrations/cloud/">cloud docs</a>) (beta fix)</li>
+<li>Always load Hass.io component on Hass.io (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22185" rel="external nofollow">#22185<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (beta fix)</li>
+<li>Fixed typing errors (<a href="https://github.com/Swamp-Ig" rel="external nofollow">@Swamp-Ig<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> - <a href="https://github.com/home-assistant/home-assistant/pull/22207" rel="external nofollow">#22207<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) (beta fix)</li>
+</ul>
+
+
+
+</article>
+
+<div id="post-comments"></div>
+
+
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  DiscourseEmbed = { discourseUrl: 'https://community.home-assistant.io/',
+                     discourseEmbedUrl: 'https://www.home-assistant.io/blog/2019/03/20/release-90/' };
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  
+    
+      <section class="sharing aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:ios-share' title='Ios share'></iconify-icon> Share this post</h1>
+  <ul class="divided">
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2019%2F03%2F20%2Frelease-90%2F&text=0.90%3A+Remote+UI%2C+Streams%2C+User+Groups+via+%40home_assistant"
+      >Tweet</a>
+    </li>
+  
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2019%2F03%2F20%2Frelease-90%2F"
+      >Share on Facebook</a>
+    </li>
+  
+  </ul>
+</section>
+
+      
+
+<section class="recent-posts aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:newspaper-variant-multiple' title='Newspaper variant multiple'></iconify-icon> Recent Posts</h1>
+  <ul class="divided">
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/17/home-assistant-turns-12/">Happy 12th Birthday, Home Assistant!</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/11/ai-in-home-assistant/">Building the AI-powered local smart home</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/03/release-20259/">2025.9: Features for tiles and automations for miles</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/02/frient-joins-works-with-home-assistant/">Frient joins Works with Home Assistant</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/08/21/airgradient-joins-works-with-home-assistant/">AirGradient joins Works with Home Assistant</a>
+        </li>
+      
+    
+  </ul>
+</section>
+
+    
+  
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#camera-streams-for-everyone">Camera streams for everyone</a></li>
+<li class="toc-entry toc-h2"><a href="#user-groups">User Groups</a></li>
+<li class="toc-entry toc-h2"><a href="#smarter-smartthings">Smarter SmartThings</a></li>
+<li class="toc-entry toc-h2"><a href="#area-love">Area love</a></li>
+<li class="toc-entry toc-h2"><a href="#vscode-extension">VSCode extension</a></li>
+<li class="toc-entry toc-h2"><a href="#new-platforms">New Platforms</a></li>
+<li class="toc-entry toc-h2"><a href="#release-0901---march-21">Release 0.90.1 - March 21</a></li>
+<li class="toc-entry toc-h2"><a href="#release-0902---march-26">Release 0.90.2 - March 26</a></li>
+<li class="toc-entry toc-h2"><a href="#if-you-need-help">If you need help…</a></li>
+<li class="toc-entry toc-h2"><a href="#reporting-issues">Reporting Issues</a></li>
+<li class="toc-entry toc-h2"><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li class="toc-entry toc-h2"><a href="#beta-fixes">Beta Fixes</a></li>
+<li class="toc-entry toc-h2"><a href="#all-changes">All changes</a></li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

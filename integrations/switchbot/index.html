@@ -1,0 +1,1356 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>SwitchBot Bluetooth - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to set up SwitchBot Devices.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/switchbot/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="SwitchBot Bluetooth">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/switchbot/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to set up SwitchBot Devices.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="SwitchBot Bluetooth">
+    <meta name="twitter:description" content="Instructions on how to set up SwitchBot Devices.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#how-you-can-use-this-integration">How you can use this integration</a></li>
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#adding-encrypted-switchbot-devices">Adding encrypted SwitchBot devices</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-devices">Supported devices</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#plugs-and-switches">Plugs and switches</a></li>
+<li class="toc-entry toc-h3"><a href="#cover">Cover</a></li>
+<li class="toc-entry toc-h3"><a href="#lights">Lights</a></li>
+<li class="toc-entry toc-h3"><a href="#locks">Locks</a></li>
+<li class="toc-entry toc-h3"><a href="#humidifiers">Humidifiers</a></li>
+<li class="toc-entry toc-h3"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#hubs">Hubs</a></li>
+<li class="toc-entry toc-h3"><a href="#fans">Fans</a></li>
+<li class="toc-entry toc-h3"><a href="#vacuums">Vacuums</a></li>
+<li class="toc-entry toc-h3"><a href="#air-purifiers">Air purifiers</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#works-with-home-assistant">Works with Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-functionality">Supported functionality</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#common">Common</a></li>
+<li class="toc-entry toc-h3"><a href="#plugs-and-switches-1">Plugs and switches</a></li>
+<li class="toc-entry toc-h3"><a href="#cover-1">Cover</a></li>
+<li class="toc-entry toc-h3"><a href="#sensors-1">Sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#lights-1">Lights</a></li>
+<li class="toc-entry toc-h3"><a href="#locks-1">Locks</a></li>
+<li class="toc-entry toc-h3"><a href="#hubs-1">Hubs</a></li>
+<li class="toc-entry toc-h3"><a href="#fans-1">Fans</a></li>
+<li class="toc-entry toc-h3"><a href="#air-purifiers-1">Air Purifiers</a></li>
+<li class="toc-entry toc-h3"><a href="#vacuums-1">Vacuums</a></li>
+<li class="toc-entry toc-h3"><a href="#humidifiers-1">Humidifiers</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a></li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#slow-connection-times">Slow connection times</a></li>
+<li class="toc-entry toc-h3"><a href="#device-names-not-synced">Device names not synced</a></li>
+<li class="toc-entry toc-h3"><a href="#battery-level">Battery level</a></li>
+<li class="toc-entry toc-h3"><a href="#lock-state">Lock state</a></li>
+<li class="toc-entry toc-h3"><a href="#vacuum-state">Vacuum state</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#automation-ideas">Automation ideas</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        SwitchBot Bluetooth
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The SwitchBot integration allows you to control SwitchBot <a href="https://www.switch-bot.com/" rel="external nofollow">devices<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> such as sensors, locks, shades, lights, plugs, robot vacuums, hubs and etc.</p>
+<h2>How you can use this integration <a class="title-link" name="how-you-can-use-this-integration" href="#how-you-can-use-this-integration"></a>
+</h2>
+<p>The SwitchBot integration lets you do many things, such as switching devices on and off, changing device modes, monitoring sensor data and energy usage in the Home Assistant dashboards, and controlling device configurations manually or via automations.</p>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<p>In order to use this integration, it is required to have working <a href="/integrations/bluetooth">Bluetooth</a> set up on the device running Home Assistant. A <a href="https://switch-bot.com/pages/switchbot-hub-mini" rel="external nofollow">SwitchBot Hub<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> is not required for this integration.</p>
+<p>If you have multiple devices of the same type, you need to get the BTLE MAC address of your device to tell your devices apart. You can find the address for your device using the following steps:</p>
+<ol>
+<li>Open the SwitchBot app.</li>
+<li>Open device settings.</li>
+<li>Click on “Device Info”.</li>
+<li>Write down the BTLE MAC address of your device.</li>
+</ol>
+<p>Please note, device names configured in the SwitchBot app are not transferred into Home Assistant.</p>
+<p>Some SwitchBot devices need to be configured within the app before being controlled by Home Assistant, such as calibrating the cover open/close limits or pairing two covers to move together.</p>
+<h3>Adding encrypted SwitchBot devices <a class="title-link" name="adding-encrypted-switchbot-devices" href="#adding-encrypted-switchbot-devices"></a>
+</h3>
+<p>Some types of the SwitchBot devices are encrypted for improved security. More types and models will be added as encrypted devices in the future.</p>
+<p>An encrypted SwitchBot device can be set up in Home Assistant in two different ways.
+You can enter the key ID and encryption key yourself, or Home Assistant can import them from your SwitchBot account.</p>
+<h4>SwitchBot account (recommended) <a class="title-link" name="switchbot-account-recommended" href="#switchbot-account-recommended"></a>
+</h4>
+<p>Using this option you can provide your SwitchBot account login credentials and Home Assistant will import the appropriate encryption key from your account.</p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Username</span><a name="username" class="title-link" href="#username"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>SwitchBot account username</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Password</span><a name="password" class="title-link" href="#password"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>SwitchBot account password</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>This integration doesn’t support SSO accounts (Login with Google, etc.) only username and password accounts.</p>
+  </div>
+</div>
+<h4>Enter the lock encryption key manually <a class="title-link" name="enter-the-lock-encryption-key-manually" href="#enter-the-lock-encryption-key-manually"></a>
+</h4>
+<p>This option is for those that would rather obtain the encryption key themselves, and/or want to know exactly where and how are their account credentials used.</p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Key ID</span><a name="key-id" class="title-link" href="#key-id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Locks’ encryption key ID</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Encryption key</span><a name="encryption-key" class="title-link" href="#encryption-key"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Locks’ encryption key</p>
+</span></div>
+</div>
+</div>
+</div>
+<p>For instructions on how to obtain the encryption key, see README in <a href="https://github.com/Danielhiversen/pySwitchbot#obtaining-locks-encryption-key" rel="external nofollow">PySwitchbot<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> project.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>SwitchBot Bluetooth</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=switchbot" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=switchbot" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>SwitchBot Bluetooth</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h2>Supported devices <a class="title-link" name="supported-devices" href="#supported-devices"></a>
+</h2>
+<h3>Plugs and switches <a class="title-link" name="plugs-and-switches" href="#plugs-and-switches"></a>
+</h3>
+<ul>
+<li><a href="https://switch-bot.com/pages/switchbot-bot" rel="external nofollow">Bot (WoHand)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-plug-mini" rel="external nofollow">Plug Mini (WoPlug)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-plug-mini-homekit-enabled" rel="external nofollow">Plug Mini (HomeKit Enabled)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-relay-switch-1" rel="external nofollow">Relay Switch 1<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-relay-switch-1pm" rel="external nofollow">Relay Switch 1PM<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<h3>Cover <a class="title-link" name="cover" href="#cover"></a>
+</h3>
+<ul>
+<li>
+<a href="https://switch-bot.com/pages/switchbot-curtain" rel="external nofollow">Curtain (WoCurtain)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (version 1 &amp; 2)</li>
+<li><a href="https://switch-bot.com/pages/switchbot-curtain-3" rel="external nofollow">Curtain 3 (WoCtn3)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://switch-bot.com/pages/switchbot-blind-tilt" rel="external nofollow">Blind Tilt (WoBlindTilt)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-roller-shade" rel="external nofollow">Roller Shade<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<h3>Lights <a class="title-link" name="lights" href="#lights"></a>
+</h3>
+<ul>
+<li><a href="https://switch-bot.com/pages/switchbot-color-bulb" rel="external nofollow">Color Bulb (WoBulb)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switchbot.jp/products/switchbot-strip-light" rel="external nofollow">Light Strip (WoStrip)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switchbot.jp/products/switchbot-ceiling-light" rel="external nofollow">Smart Ceiling Light (WoCeiling)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-led-strip-light-3" rel="external nofollow">Strip Light 3<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-floor-lamp" rel="external nofollow">Floor Lamp<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<h3>Locks <a class="title-link" name="locks" href="#locks"></a>
+</h3>
+<ul>
+<li><a href="https://switch-bot.com/pages/switchbot-lock" rel="external nofollow">Lock (WoLock)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/pages/switchbot-lock-pro" rel="external nofollow">Lock Pro (WoLockPro)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-lock-ultra" rel="external nofollow">Lock Ultra (WoLockUltra)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switchbot.jp/products/switchbot-lock-lite" rel="external nofollow">Lock Lite (WoLockLite)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<h3>Humidifiers <a class="title-link" name="humidifiers" href="#humidifiers"></a>
+</h3>
+<ul>
+<li><a href="https://www.switchbot.jp/products/switchbot-smart-humidifier" rel="external nofollow">Humidifier (WoHumi)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-evaporative-humidifier-auto-refill" rel="external nofollow">Evaporative Humidifier<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<h3>Sensors <a class="title-link" name="sensors" href="#sensors"></a>
+</h3>
+<ul>
+<li><a href="https://switch-bot.com/pages/switchbot-meter" rel="external nofollow">Meter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://switch-bot.com/pages/switchbot-meter-plus" rel="external nofollow">Meter Plus (WoSensorTH)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://switch-bot.com/pages/switchbot-indoor-outdoor-thermo-hygrometer" rel="external nofollow">Indoor/Outdoor Meter (WoIOSensorTH)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-meter-pro" rel="external nofollow">Meter Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-meter-pro-co2-monitor" rel="external nofollow">Meter Pro CO2 Monitor<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://switch-bot.com/pages/switchbot-contact-sensor" rel="external nofollow">Contact Sensor (WoContact)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://switch-bot.com/pages/switchbot-motion-sensor" rel="external nofollow">Motion Sensor (WoPresence)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-water-leak-detector" rel="external nofollow">Water Leak Detector<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>
+<a href="https://www.switch-bot.com/products/switchbot-remote" rel="external nofollow">Remote (WoRemote)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (currently only supports battery level monitoring)</li>
+</ul>
+<h3>Hubs <a class="title-link" name="hubs" href="#hubs"></a>
+</h3>
+<ul>
+<li>
+<a href="https://switch-bot.com/pages/switchbot-hub-2" rel="external nofollow">Hub 2 (WoHub2)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (currently only supports retrieving sensor data, does not yet support device control)</li>
+<li>
+<a href="https://www.switch-bot.com/products/switchbot-hub-mini-matter-enabled" rel="external nofollow">Hub Mini Matter Enabled<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>(currently only supports retrieving sensor data, does not yet support device control)</li>
+<li>
+<a href="https://www.switch-bot.com/products/switchbot-hub-3" rel="external nofollow">Hub 3 (WoHub3)<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>(currently only supports retrieving sensor data, does not yet support device control)</li>
+</ul>
+<h3>Fans <a class="title-link" name="fans" href="#fans"></a>
+</h3>
+<ul>
+<li><a href="https://www.switch-bot.com/products/switchbot-battery-circulator-fan" rel="external nofollow">Circulator Fan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<h3>Vacuums <a class="title-link" name="vacuums" href="#vacuums"></a>
+</h3>
+<ul>
+<li><a href="https://www.switch-bot.com/products/switchbot-mini-robot-vacuum-k10" rel="external nofollow">K10+<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-mini-robot-vacuum-k10-pro" rel="external nofollow">K10+ Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-k10-pro-combo" rel="external nofollow">K10+ Pro Combo<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switchbot.jp/products/switchbot-robot-vacuum-cleaner-k20-pro" rel="external nofollow">K20<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-floor-cleaning-robot-s10" rel="external nofollow">S10<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<h3>Air purifiers <a class="title-link" name="air-purifiers" href="#air-purifiers"></a>
+</h3>
+<ul>
+<li><a href="https://www.switch-bot.com/products/switchbot-air-purifier" rel="external nofollow">Air Purifier<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-air-purifier-table" rel="external nofollow">Air Purifier Table<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<h2>Works with Home Assistant <a class="title-link" name="works-with-home-assistant" href="#works-with-home-assistant"></a>
+</h2>
+<p>SwitchBot is committed to making sure their products are up-to-date and ready to use in Home Assistant.
+Devices are certified for both Bluetooth and Matter.</p>
+<p>The following devices are certified for Bluetooth:</p>
+<ul>
+<li><a href="https://www.switch-bot.com/products/switchbot-lock-ultra" rel="external nofollow">SwitchBot Lock Ultra<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-air-purifier" rel="external nofollow">SwitchBot Air Purifier<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-air-purifier-table" rel="external nofollow">SwitchBot Air Purifier Table<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-water-leak-detector" rel="external nofollow">SwitchBot Leak Detector<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-meter" rel="external nofollow">SwitchBot Meter<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-meter-pro" rel="external nofollow">SwitchBot Meter Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-meter-pro-co2-monitor" rel="external nofollow">SwitchBot Meter Pro CO2<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-indoor-outdoor-thermo-hygrometer" rel="external nofollow">SwitchBot Indoor/Outdoor Thermo-Hygrometer<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-curtain-3" rel="external nofollow">SwitchBot Curtain 3<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/contact-sensor" rel="external nofollow">SwitchBot Contact Sensor<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-roller-shade" rel="external nofollow">SwitchBot Roller Shade<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://www.switch-bot.com/products/switchbot-lock-pro" rel="external nofollow">SwitchBot Lock Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<p>To see the list of SwitchBot Matter-certified devices, visit the <a href="/integrations/switchbot_matter/">SwitchBot Matter</a> page.</p>
+<h2>Supported functionality <a class="title-link" name="supported-functionality" href="#supported-functionality"></a>
+</h2>
+<h3>Common <a class="title-link" name="common" href="#common"></a>
+</h3>
+<h4>Options <a class="title-link" name="options" href="#options"></a>
+</h4>
+<ul>
+<li>
+<code>Retry count</code>: How many times to retry sending commands to your SwitchBot devices.</li>
+</ul>
+<h4>Attributes <a class="title-link" name="attributes" href="#attributes"></a>
+</h4>
+<ul>
+<li>
+<code>last_run_success</code>: Returns <code>true</code> if the last action sent to the SwitchBot succeeded. This attribute is useful for error trapping when Bluetooth connectivity is intermittent. If <code>false</code>, see home-assistant.log for specific error messages.</li>
+</ul>
+<h3>Plugs and switches <a class="title-link" name="plugs-and-switches-1" href="#plugs-and-switches-1"></a>
+</h3>
+<p>Switch entities are added for Bot, Plug Mini, and Relay Switch.</p>
+<h4>Bot <a class="title-link" name="bot" href="#bot"></a>
+</h4>
+<p>Password protection: You can set a device password in the SwitchBot app to prevent people nearby take control of your device. When a password is set, you need to enter the correct password in order to add it to the integrations.</p>
+<p>Features:</p>
+<ul>
+<li>turn on or off</li>
+<li>press</li>
+<li>get battery level</li>
+</ul>
+<p>Attributes:</p>
+<ul>
+<li>
+<code>Switch mode</code>: Specifies the mode of the device. If <code>true</code>, the device is in Pull/Retract mode for toggle switches otherwise the device is in momentary switch mode.</li>
+</ul>
+<h4>Plug Mini <a class="title-link" name="plug-mini" href="#plug-mini"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>turn on or off</li>
+<li>get power consumption readings</li>
+</ul>
+<h4>Relay Switch 1 <a class="title-link" name="relay-switch-1" href="#relay-switch-1"></a>
+</h4>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>turn on or off</li>
+</ul>
+<h4>Relay Switch 1PM <a class="title-link" name="relay-switch-1pm" href="#relay-switch-1pm"></a>
+</h4>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>turn on or off</li>
+<li>get power</li>
+<li>get voltage</li>
+<li>get current</li>
+</ul>
+<h3>Cover <a class="title-link" name="cover-1" href="#cover-1"></a>
+</h3>
+<p>Cover entities are added for Curtain, Curtain 3, Blind Tilt, and Roller Shade.</p>
+<h4>Curtain <a class="title-link" name="curtain" href="#curtain"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>open/close/pause</li>
+<li>set position</li>
+<li>get position</li>
+<li>get light level</li>
+<li>get battery level</li>
+<li>get calibration state</li>
+</ul>
+<h4>Curtain 3 <a class="title-link" name="curtain-3" href="#curtain-3"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>open/close/pause</li>
+<li>set position</li>
+<li>get position</li>
+<li>get light level</li>
+<li>get battery level</li>
+<li>get calibration state</li>
+</ul>
+<h4>Blind Tilt <a class="title-link" name="blind-tilt" href="#blind-tilt"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>close up/close down/pause</li>
+<li>set position</li>
+<li>get position</li>
+<li>get light level</li>
+<li>get battery level</li>
+<li>get calibration state</li>
+</ul>
+<p>The blind tilt is exposed as a cover entity with control of the tilt position only:</p>
+<table>
+<thead>
+<tr>
+<th>Tilt Position</th>
+<th>Blind State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100%</td>
+<td>Closed Up</td>
+</tr>
+<tr>
+<td>50%</td>
+<td>Fully Open</td>
+</tr>
+<tr>
+<td>0%</td>
+<td>Closed Down</td>
+</tr>
+</tbody>
+</table>
+<p>The close button will close the blinds to the closest closed position (either 0% or 100%), and defaults to closing down if the blinds are fully open. Because Home Assistant believes 100% is open, the default cards will disable the open button when the tilt is at 100%, but the action will still work and open the blind to 50%.</p>
+<h5>Simple cover template entity <a class="title-link" name="simple-cover-template-entity" href="#simple-cover-template-entity"></a>
+</h5>
+<p>Some integrations may expose your SwitchBot Blind Tilt to other actions which expect that 100% is open and 0% is fully closed. Using a <a href="/integrations/template/#cover">Cover Template</a>, a proxy entity can be created which will be open at 100% and closed at 0%. This template entity is limited to closing in one direction.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">cover</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">template</span>
+    <span class="na">covers</span><span class="pi">:</span>
+      <span class="na">example_blinds_simple</span><span class="pi">:</span>
+        <span class="na">device_class</span><span class="pi">:</span> <span class="s">blind</span>
+        <span class="na">friendly_name</span><span class="pi">:</span> <span class="s">Example Blinds (Simple Down)</span>
+        <span class="na">open_cover</span><span class="pi">:</span>
+          <span class="na">action</span><span class="pi">:</span> <span class="s">cover.set_cover_tilt_position</span>
+          <span class="na">data</span><span class="pi">:</span>
+            <span class="na">tilt_position</span><span class="pi">:</span> <span class="m">50</span>
+          <span class="na">target</span><span class="pi">:</span>
+            <span class="na">entity_id</span><span class="pi">:</span> <span class="s">cover.example_blinds</span>
+        <span class="na">close_cover</span><span class="pi">:</span>
+          <span class="na">action</span><span class="pi">:</span> <span class="s">cover.set_cover_tilt_position</span>
+          <span class="na">data</span><span class="pi">:</span>
+            <span class="na">tilt_position</span><span class="pi">:</span> <span class="m">0</span>
+          <span class="na">target</span><span class="pi">:</span>
+            <span class="na">entity_id</span><span class="pi">:</span> <span class="s">cover.example_blinds</span>
+        <span class="na">position_template</span><span class="pi">:</span> <span class="pi">&gt;</span>
+          <span class="s">{{ int(states.cover.example_blinds.attributes.current_tilt_position)*2 }}</span>
+        <span class="na">set_cover_position</span><span class="pi">:</span>
+          <span class="na">action</span><span class="pi">:</span> <span class="s">cover.set_cover_tilt_position</span>
+          <span class="na">data</span><span class="pi">:</span>
+            <span class="na">tilt_position</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{position/2}}"</span>
+          <span class="na">target</span><span class="pi">:</span>
+            <span class="na">entity_id</span><span class="pi">:</span> <span class="s">cover.example_blinds</span>
+</code></pre></div></div>
+<h4>Roller Shade <a class="title-link" name="roller-shade" href="#roller-shade"></a>
+</h4>
+<p>The Roller Shade is exposed as a cover entity with control of the position only:</p>
+<table>
+<thead>
+<tr>
+<th>position</th>
+<th>Roller Shade state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;=20%</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>&gt;20%</td>
+<td>Close</td>
+</tr>
+</tbody>
+</table>
+<p>Features:</p>
+<ul>
+<li>open/close/pause</li>
+<li>set position</li>
+<li>get position</li>
+<li>get battery level</li>
+</ul>
+<h3>Sensors <a class="title-link" name="sensors-1" href="#sensors-1"></a>
+</h3>
+<p>Sensor entiteis are added for thermometer and hygrometer devices, motion sensor, contact sensor, leak sensor, and remote button.</p>
+<h4>Meter <a class="title-link" name="meter" href="#meter"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>get temperature</li>
+<li>get humidity</li>
+<li>get battery level</li>
+</ul>
+<h4>Meter Plus <a class="title-link" name="meter-plus" href="#meter-plus"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>get temperature</li>
+<li>get humidity</li>
+<li>get battery level</li>
+</ul>
+<h4>Indoor/Outdoor Meter <a class="title-link" name="indooroutdoor-meter" href="#indooroutdoor-meter"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>get temperature</li>
+<li>get humidity</li>
+<li>get battery level</li>
+</ul>
+<h4>Meter Pro <a class="title-link" name="meter-pro" href="#meter-pro"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>get temperature</li>
+<li>get humidity</li>
+<li>get battery level</li>
+</ul>
+<h4>Meter Pro CO2 Monitor <a class="title-link" name="meter-pro-co2-monitor" href="#meter-pro-co2-monitor"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>get temperature</li>
+<li>get humidity</li>
+<li>get carbon dioxide</li>
+<li>get battery level</li>
+</ul>
+<h4>Contact Sensor <a class="title-link" name="contact-sensor" href="#contact-sensor"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>open or closed state</li>
+<li>motion detection state</li>
+<li>get battery level</li>
+</ul>
+<h4>Motion Sensor <a class="title-link" name="motion-sensor" href="#motion-sensor"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>motion detection state</li>
+<li>get battery level</li>
+</ul>
+<h4>Water Leak Detector <a class="title-link" name="water-leak-detector" href="#water-leak-detector"></a>
+</h4>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>leak or dry state</li>
+<li>get battery level</li>
+</ul>
+<h4>Remote <a class="title-link" name="remote" href="#remote"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>get battery level</li>
+</ul>
+<h3>Lights <a class="title-link" name="lights-1" href="#lights-1"></a>
+</h3>
+<p>Light entities are added for Color Bulb, LED Strip Light, and Ceiling Light.</p>
+<h4>Ceiling Light <a class="title-link" name="ceiling-light" href="#ceiling-light"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>turn on or off</li>
+<li>change brightness</li>
+<li>change color temperature</li>
+</ul>
+<h4>Color Bulb <a class="title-link" name="color-bulb" href="#color-bulb"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>turn on or off</li>
+<li>change brightness</li>
+<li>change color temperature</li>
+<li>change color</li>
+<li>set effect</li>
+</ul>
+<h4>LED Strip Light <a class="title-link" name="led-strip-light" href="#led-strip-light"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>turn on or off</li>
+<li>change brightness</li>
+<li>change color</li>
+<li>set effect</li>
+</ul>
+<h4>Strip Light 3 <a class="title-link" name="strip-light-3" href="#strip-light-3"></a>
+</h4>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>turn on or off</li>
+<li>change brightness</li>
+<li>change color temperature</li>
+<li>change color</li>
+<li>set effect</li>
+</ul>
+<h4>Floor Lamp <a class="title-link" name="floor-lamp" href="#floor-lamp"></a>
+</h4>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>turn on or off</li>
+<li>change brightness</li>
+<li>change color temperature</li>
+<li>change color</li>
+<li>set effect</li>
+</ul>
+<h3>Locks <a class="title-link" name="locks-1" href="#locks-1"></a>
+</h3>
+<p>Note: The integration currently only uses the primary lock state; in dual lock mode, not all things might work properly.</p>
+<h4>Lock <a class="title-link" name="lock" href="#lock"></a>
+</h4>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>Lock or unlock</li>
+<li>open or closed state</li>
+<li>auto-lock paused state</li>
+<li>calibration state</li>
+<li>get battery level</li>
+</ul>
+<p>Options:</p>
+<ol>
+<li>To enable nightlatch operation mode, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Under <strong>Integration entries</strong>, find the lock and select <strong>Configure</strong>.</li>
+<li>In the <strong>Options</strong> dialog, configure the nightlatch operation mode.</li>
+</ol>
+<h4>Lock Pro <a class="title-link" name="lock-pro" href="#lock-pro"></a>
+</h4>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>Lock or unlock</li>
+<li>open or closed state</li>
+<li>auto-lock paused state</li>
+<li>calibration state</li>
+<li>get battery level</li>
+</ul>
+<p>Options:</p>
+<ol>
+<li>To enable nightlatch operation mode, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Under <strong>Integration entries</strong>, find the lock and select <strong>Configure</strong>.</li>
+<li>In the <strong>Options</strong> dialog, configure the nightlatch operation mode.</li>
+</ol>
+<h4>Lock Ultra <a class="title-link" name="lock-ultra" href="#lock-ultra"></a>
+</h4>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>Lock or unlock</li>
+<li>open or closed state</li>
+<li>auto-lock paused state</li>
+<li>calibration state</li>
+<li>get battery level</li>
+</ul>
+<p>Options:</p>
+<ol>
+<li>To enable nightlatch operation mode, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</li>
+<li>Under <strong>Integration entries</strong>, find the lock and select <strong>Configure</strong>.</li>
+<li>In the <strong>Options</strong> dialog, configure the nightlatch operation mode.</li>
+</ol>
+<h4>Lock Lite <a class="title-link" name="lock-lite" href="#lock-lite"></a>
+</h4>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>Lock or unlock</li>
+<li>calibration state</li>
+<li>get battery level</li>
+</ul>
+<h3>Hubs <a class="title-link" name="hubs-1" href="#hubs-1"></a>
+</h3>
+<p>Some of the hubs can be served as a bridge while the sensor data can be retrieved via Bluetooth connection. Hub 2 displays temperature and humidity through a sensor cable. Without a digital display, Hub Mini Matter Enabled can also read from a sensor cable.</p>
+<h4>Hub 2 <a class="title-link" name="hub-2" href="#hub-2"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>get temperature</li>
+<li>get humidity</li>
+<li>get light level</li>
+</ul>
+<h4>Hub Mini Matter Enabled <a class="title-link" name="hub-mini-matter-enabled" href="#hub-mini-matter-enabled"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>get temperature</li>
+<li>get humidity</li>
+</ul>
+<h4>Hub3 <a class="title-link" name="hub3" href="#hub3"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>get temperature</li>
+<li>get humidity</li>
+<li>get light level</li>
+<li>motion detection state</li>
+</ul>
+<h3>Fans <a class="title-link" name="fans-1" href="#fans-1"></a>
+</h3>
+<p>Fan entities are added for Battery Circulator Fan/Circulator Fan</p>
+<h4>Battery Circulator Fan/Circulator Fan <a class="title-link" name="battery-circulator-fancirculator-fan" href="#battery-circulator-fancirculator-fan"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>turn on</li>
+<li>turn off</li>
+<li>set speed</li>
+<li>set mode</li>
+<li>oscillate left and right</li>
+<li>get battery level (Battery Circulator Fan only)</li>
+</ul>
+<h3>Air Purifiers <a class="title-link" name="air-purifiers-1" href="#air-purifiers-1"></a>
+</h3>
+<p>Fan entities are added for Air Purifier, and Air Purifier Table.</p>
+<p>Air purifier currently supports three speed levels, which you can adjust by setting the mode.</p>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>turn on</li>
+<li>turn off</li>
+<li>set mode</li>
+</ul>
+<h4>Air Purifier Table <a class="title-link" name="air-purifier-table" href="#air-purifier-table"></a>
+</h4>
+<p>This is an encrypted device.</p>
+<p>Features:</p>
+<ul>
+<li>turn on</li>
+<li>turn off</li>
+<li>set mode</li>
+</ul>
+<h3>Vacuums <a class="title-link" name="vacuums-1" href="#vacuums-1"></a>
+</h3>
+<p>Vacuum entities are added for K10+, K10+ Pro, K10+ Pro Combo, K20, S10.</p>
+<p>Features:</p>
+<ul>
+<li>get states, including <code>cleaning</code>, <code>docked</code>, <code>idle</code>, <code>paused</code>, <code>returning</code>, and <code>error</code>; refer to Known limitations for more details</li>
+<li>start</li>
+<li>return to base</li>
+<li>get battery</li>
+</ul>
+<h3>Humidifiers <a class="title-link" name="humidifiers-1" href="#humidifiers-1"></a>
+</h3>
+<p>Humidifier entities are added for Humidifier and  Evaporative Humidifier.</p>
+<h4>Humidifier <a class="title-link" name="humidifier" href="#humidifier"></a>
+</h4>
+<p>Features:</p>
+<ul>
+<li>turn on</li>
+<li>turn off</li>
+<li>set mode</li>
+<li>set humidity</li>
+</ul>
+<h4>Evaporative Humidifier <a class="title-link" name="evaporative-humidifier" href="#evaporative-humidifier"></a>
+</h4>
+<p>This is an encrypted device.
+Note: Not all modes support unless you bind the temperature and humidity sensor.</p>
+<p>Features:</p>
+<ul>
+<li>turn on</li>
+<li>turn off</li>
+<li>set mode</li>
+<li>set humidity</li>
+</ul>
+<h2>Data updates <a class="title-link" name="data-updates" href="#data-updates"></a>
+</h2>
+<p>SwitchBot devices utilize a <a href="/blog/2016/02/12/classifying-the-internet-of-things/#classifiers">​​local push</a>​​ strategy to maintain real-time status updates. When devices detect state changes, they actively push updates to Home Assistant for immediate synchronization. For user-initiated actions through Home Assistant (for example, when turning a device on/off), the integration performs an additional proactive status fetch to ensure instant confirmation of the new state.
+The integration connects locally to the devices without going via the SwitchBot Cloud.</p>
+<h2>Known limitations <a class="title-link" name="known-limitations" href="#known-limitations"></a>
+</h2>
+<h3>Slow connection times <a class="title-link" name="slow-connection-times" href="#slow-connection-times"></a>
+</h3>
+<p>Move the device closer, or replace the Bluetooth adapter with a faster one. See <a href="/integrations/bluetooth/#improving-connection-times">Improving connection times</a> for more information.</p>
+<h3>Device names not synced <a class="title-link" name="device-names-not-synced" href="#device-names-not-synced"></a>
+</h3>
+<p>Device names configured in the SwitchBot app are not transferred into Home Assistant.</p>
+<h3>Battery level <a class="title-link" name="battery-level" href="#battery-level"></a>
+</h3>
+<p>Due to firmware limitations, early models such as <strong>Lock</strong> and <strong>Lock Lite</strong> report the battery level in coarse ranges rather than an exact value:</p>
+<ul>
+<li>&lt; 10 %  → 10</li>
+<li>10 % – 20 % → 20</li>
+<li>20 % – 60 % → 60</li>
+<li>≥ 60 % → 100</li>
+</ul>
+<p>Refer to the latest version of the <a href="https://github.com/OpenWonderLabs/SwitchBotAPI" rel="external nofollow">OpenAPI doc<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for precise definitions.</p>
+<h3>Lock state <a class="title-link" name="lock-state" href="#lock-state"></a>
+</h3>
+<p>The integration currently only uses the primary lock state; in dual lock mode, not all things might work properly.</p>
+<h3>Vacuum state <a class="title-link" name="vacuum-state" href="#vacuum-state"></a>
+</h3>
+<p>For robot vacuum K10+ and K10+ Pro, due to firmware implementation, it only returns these states, <code>cleaning</code> and <code>docked</code></p>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<p>The SwitchBot integration will automatically discover devices once the <a href="/integrations/bluetooth">Bluetooth</a> integration is enabled and functional.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Config flow could not be loaded</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+Possible custom integration conflict, using a different version of PySwitchbot; Try uninstalling the custom integration.
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>No unconfigured devices found</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+Make sure your devices are powered on and are in range.
+</div>
+  </details>
+</div>
+<h2>Examples <a class="title-link" name="examples" href="#examples"></a>
+</h2>
+<h3>Automation ideas <a class="title-link" name="automation-ideas" href="#automation-ideas"></a>
+</h3>
+<p>You can create all sort of automations using sensors as triggers and switches, shades, and lights as actions.</p>
+<ul>
+<li>Turn on or turn off lights and switches when motion is detected.</li>
+<li>Turn on or turn off the Bot to control a fan, AC remote, or circulator when temperature or humidity are too low.</li>
+<li>Close the curtain when the temperature is too high.</li>
+<li>Turn off Relay Switch when power consumption is too high.</li>
+<li>Change the color of LED Strip Lights or Color Bulb or turn on the circulator using Bot or Relay Switch if carbon dioxide is too high.</li>
+</ul>
+<h2>Removing the integration <a class="title-link" name="removing-the-integration" href="#removing-the-integration"></a>
+</h2>
+<p>This integration follows standard integration removal. No extra steps are required.</p>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/switchbot.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fswitchbot%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20switchbot" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+switchbot%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/switchbot//logo.png' srcset='https://brands.home-assistant.io/_/switchbot/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=switchbot' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The SwitchBot Bluetooth  integration  was introduced in Home Assistant 0.78, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          3.7%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-gold'>🥇 Gold quality</a><br /></div>
+    <div class="section">
+      <a href="https://works-with.home-assistant.io/">
+        <img src="../../images/works_with/works-with.png" alt="Works with Home assistant">
+      </a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/switchbot" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+switchbot%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/danielhiversen" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/danielhiversen?size=96" alt="@danielhiversen"/> @danielhiversen</a><br /><a href="https://github.com/RenierM26" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/RenierM26?size=96" alt="@RenierM26"/> @RenierM26</a><br /><a href="https://github.com/murtas" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/murtas?size=96" alt="@murtas"/> @murtas</a><br /><a href="https://github.com/Eloston" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/Eloston?size=96" alt="@Eloston"/> @Eloston</a><br /><a href="https://github.com/dsypniewski" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/dsypniewski?size=96" alt="@dsypniewski"/> @dsypniewski</a><br /><a href="https://github.com/zerzhang" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/zerzhang?size=96" alt="@zerzhang"/> @zerzhang</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#how-you-can-use-this-integration">How you can use this integration</a></li>
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#adding-encrypted-switchbot-devices">Adding encrypted SwitchBot devices</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-devices">Supported devices</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#plugs-and-switches">Plugs and switches</a></li>
+<li class="toc-entry toc-h3"><a href="#cover">Cover</a></li>
+<li class="toc-entry toc-h3"><a href="#lights">Lights</a></li>
+<li class="toc-entry toc-h3"><a href="#locks">Locks</a></li>
+<li class="toc-entry toc-h3"><a href="#humidifiers">Humidifiers</a></li>
+<li class="toc-entry toc-h3"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#hubs">Hubs</a></li>
+<li class="toc-entry toc-h3"><a href="#fans">Fans</a></li>
+<li class="toc-entry toc-h3"><a href="#vacuums">Vacuums</a></li>
+<li class="toc-entry toc-h3"><a href="#air-purifiers">Air purifiers</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#works-with-home-assistant">Works with Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-functionality">Supported functionality</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#common">Common</a></li>
+<li class="toc-entry toc-h3"><a href="#plugs-and-switches-1">Plugs and switches</a></li>
+<li class="toc-entry toc-h3"><a href="#cover-1">Cover</a></li>
+<li class="toc-entry toc-h3"><a href="#sensors-1">Sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#lights-1">Lights</a></li>
+<li class="toc-entry toc-h3"><a href="#locks-1">Locks</a></li>
+<li class="toc-entry toc-h3"><a href="#hubs-1">Hubs</a></li>
+<li class="toc-entry toc-h3"><a href="#fans-1">Fans</a></li>
+<li class="toc-entry toc-h3"><a href="#air-purifiers-1">Air Purifiers</a></li>
+<li class="toc-entry toc-h3"><a href="#vacuums-1">Vacuums</a></li>
+<li class="toc-entry toc-h3"><a href="#humidifiers-1">Humidifiers</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a></li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#slow-connection-times">Slow connection times</a></li>
+<li class="toc-entry toc-h3"><a href="#device-names-not-synced">Device names not synced</a></li>
+<li class="toc-entry toc-h3"><a href="#battery-level">Battery level</a></li>
+<li class="toc-entry toc-h3"><a href="#lock-state">Lock state</a></li>
+<li class="toc-entry toc-h3"><a href="#vacuum-state">Vacuum state</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#automation-ideas">Automation ideas</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#fan'>Fan</a>
+          </li><li>
+            <a href='/integrations/#humidifier'>Humidifier</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#lock'>Lock</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li><li>
+            <a href='/integrations/#vacuum'>Vacuum</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

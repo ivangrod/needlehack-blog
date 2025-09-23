@@ -1,0 +1,736 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>OpenUV - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate OpenUV within Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/openuv/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="OpenUV">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/openuv/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate OpenUV within Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="OpenUV">
+    <meta name="twitter:description" content="Instructions on how to integrate OpenUV within Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#generating-an-api-key">Generating an API Key</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#updating-data">Updating data</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#protection-window">Protection window</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#examples-of-updating-data">Examples of Updating Data</a></li>
+<li class="toc-entry toc-h2"><a href="#expired-api-keys-and-re-authentication">Expired API Keys and Re-authentication</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        OpenUV
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The OpenUV integration displays UV and Ozone data from <a href="https://www.openuv.io/" rel="external nofollow">openuv.io<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>The guidelines within this documentation constitute estimates which are intended to help
+informed decision making. They should not replace analysis, advice, or diagnosis from a
+trained medical professional.</p>
+  </div>
+</div>
+<h2>Generating an API Key <a class="title-link" name="generating-an-api-key" href="#generating-an-api-key"></a>
+</h2>
+<p>To generate an API key, log in at <a href="https://www.openuv.io/" rel="external nofollow">the OpenUV website<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>OpenUV</strong> service to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=openuv" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=openuv" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>OpenUV</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h2>Sensors <a class="title-link" name="sensors" href="#sensors"></a>
+</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Ozone Level</td>
+<td>Sensor</td>
+<td>ozone level in du (Dobson Units)</td>
+</tr>
+<tr>
+<td>Current UV Index</td>
+<td>Sensor</td>
+<td>UV Index (numerical value)</td>
+</tr>
+<tr>
+<td>Current UV Level</td>
+<td>Sensor</td>
+<td>UV Level (as literal)</td>
+</tr>
+<tr>
+<td>Max UV Index</td>
+<td>Sensor</td>
+<td>max UV Index for the day (at solar noon)</td>
+</tr>
+<tr>
+<td>Protection window</td>
+<td>Binary sensor</td>
+<td>whether sunblock protection should be used</td>
+</tr>
+<tr>
+<td>Skin Type 1 Safe Exposure Time</td>
+<td>Sensor</td>
+<td>the amount of time <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale" rel="external nofollow">Fitzpatrick skin type 1<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> can be in the sun unprotected</td>
+</tr>
+<tr>
+<td>Skin Type 2 Safe Exposure Time</td>
+<td>Sensor</td>
+<td>the amount of time <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale" rel="external nofollow">Fitzpatrick skin type 2<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> can be in the sun unprotected</td>
+</tr>
+<tr>
+<td>Skin Type 3 Safe Exposure Time</td>
+<td>Sensor</td>
+<td>the amount of time <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale" rel="external nofollow">Fitzpatrick skin type 3<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> can be in the sun unprotected</td>
+</tr>
+<tr>
+<td>Skin Type 4 Safe Exposure Time</td>
+<td>Sensor</td>
+<td>the amount of time <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale" rel="external nofollow">Fitzpatrick skin type 4<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> can be in the sun unprotected</td>
+</tr>
+<tr>
+<td>Skin Type 5 Safe Exposure Time</td>
+<td>Sensor</td>
+<td>the amount of time <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale" rel="external nofollow">Fitzpatrick skin type 5<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> can be in the sun unprotected</td>
+</tr>
+<tr>
+<td>Skin Type 6 Safe Exposure Time</td>
+<td>Sensor</td>
+<td>the amount of time <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale" rel="external nofollow">Fitzpatrick skin type 6<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> can be in the sun unprotected</td>
+</tr>
+</tbody>
+</table>
+<h2>Updating data <a class="title-link" name="updating-data" href="#updating-data"></a>
+</h2>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>OpenUV does <em>not</em> automatically update data for its entities! Users must manually
+update data via the <code>homeassistant.update_entity</code> action.</p>
+  </div>
+</div>
+<p>Beginning February 1, 2019, the “Limited” plan (which is what new users are given by
+default) is limited to 50 API requests per day. Because different API plans and
+locations will have different requirements, the OpenUV integration does not automatically
+query the API for new data after it initially loads. To request new data, the
+<code>homeassistant.update_entity</code> action should be used.</p>
+<p>Note that in the case of UV and ozone data, selecting any one of:</p>
+<ul>
+<li>Current Ozone Level</li>
+<li>Current UV Index</li>
+<li>Current UV Level</li>
+<li>Max UV Index</li>
+<li>Skin Type 1 Safe Exposure Time</li>
+<li>Skin Type 2 Safe Exposure Time</li>
+<li>Skin Type 3 Safe Exposure Time</li>
+<li>Skin Type 4 Safe Exposure Time</li>
+<li>Skin Type 5 Safe Exposure Time</li>
+<li>Skin Type 6 Safe Exposure Time</li>
+</ul>
+<p>…as the target for the <code>homeassistant.update_entity</code> action will update the data for
+<em>all</em> of these entities.</p>
+<p>To protect against possible API call waste, all calls to <code>homeassistant.update_entity</code>
+that reference an OpenUV entity are throttled to a minimum of 15 minutes between calls.</p>
+<h3>Protection window <a class="title-link" name="protection-window" href="#protection-window"></a>
+</h3>
+<p>The Protection Window binary sensor will be <code>on</code> when sunblock protection should be used.</p>
+<p>By default, this occurs anytime the UV index is above 3.5. This behavior can be
+configured via the config entry options within the UI. Two parameters are given:</p>
+<ul>
+<li>
+<code>Starting UV index for the protection window</code>: the UV index that, when passed, indicates
+protection should be utilized</li>
+<li>
+<code>Ending UV index for the protection window</code>: the UV index that, when passed, indicates
+protection is no longer required</li>
+</ul>
+<h2>Examples of Updating Data <a class="title-link" name="examples-of-updating-data" href="#examples-of-updating-data"></a>
+</h2>
+<p>Update the UV index data every 20 minutes while the sun is at least 10 degrees above the
+horizon:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Update</span><span class="nv"> </span><span class="s">OpenUV"</span>
+    <span class="na">triggers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">time_pattern</span>
+        <span class="na">minutes</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/20"</span>
+    <span class="na">conditions</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">numeric_state</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sun.sun</span>
+        <span class="na">value_template</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">state.attributes.elevation</span><span class="nv"> </span><span class="s">}}"</span>
+        <span class="na">above</span><span class="pi">:</span> <span class="m">10</span>
+    <span class="na">actions</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homeassistant.update_entity</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.LATITUDE_LONGITUDE_current_uv_index</span>
+</code></pre></div></div>
+<p>Update the protection window once a day at 12:00pm:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Update</span><span class="nv"> </span><span class="s">OpenUV"</span>
+    <span class="na">triggers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">time</span>
+        <span class="na">at</span><span class="pi">:</span> <span class="s2">"</span><span class="s">12:00:00"</span>
+    <span class="na">actions</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homeassistant.update_entity</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">binary_sensor.LATITUDE_LONGITUDE_protection_window</span>
+</code></pre></div></div>
+<p>To perform an optimal amount of API calls in locations where the amount of daylight
+varies, you need to know the total hours of daylight on the longest day of the year. If,
+for example, this is 17 hours, you can perform 2 calls around every 45 minutes without
+running into the 50 API call limit per day:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Update</span><span class="nv"> </span><span class="s">OpenUV"</span>
+    <span class="na">triggers</span><span class="pi">:</span>
+      <span class="c1"># Time pattern of /45 will not work as expected, as it will sometimes be true</span>
+      <span class="c1"># twice per hour (on the whole hour and on the whole hour + 45 minutes); use a</span>
+      <span class="c1"># more frequent time pattern and a condition to get the intended behavior:</span>
+      <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">time_pattern</span>
+        <span class="na">minutes</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/15"</span>
+    <span class="na">conditions</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">sun</span>
+        <span class="na">after</span><span class="pi">:</span> <span class="s">sunrise</span>
+        <span class="na">before</span><span class="pi">:</span> <span class="s">sunset</span>
+        <span class="c1"># The last call will most likely fall before the sunset, leaving the UV index at</span>
+        <span class="c1"># something other than 0 for the remainder of the night; to fix this, we allow</span>
+        <span class="c1"># one more action after the sun has set:</span>
+        <span class="na">before_offset</span><span class="pi">:</span> <span class="s2">"</span><span class="s">+00:45:00"</span>
+      <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">template</span>
+        <span class="c1"># We check if the last trigger has been 40 minutes or more ago so we don't run</span>
+        <span class="c1"># into timing issues; by checking for 40 minutes or greater, we ensure this is</span>
+        <span class="c1"># only true at the 45 minute mark:</span>
+        <span class="na">value_template</span><span class="pi">:</span> <span class="pi">&gt;-</span> 
+          <span class="s">{{</span>
+            <span class="s">state_attr('automation.update_openuv', 'last_triggered') == None</span>
+            <span class="s">or (</span>
+              <span class="s">now() - state_attr('automation.update_openuv', 'last_triggered')</span>
+            <span class="s">) &gt;= timedelta(hours = 0, minutes = 40)</span>
+          <span class="s">}}</span>
+    <span class="na">actions</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homeassistant.update_entity</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span>
+            <span class="c1"># Update both UV and protection window data:</span>
+            <span class="pi">-</span> <span class="s">binary_sensor.LATITUDE_LONGITUDE_protection_window</span>
+            <span class="pi">-</span> <span class="s">sensor.LATITUDE_LONGITUDE_current_uv_index</span>
+</code></pre></div></div>
+<h2>Expired API Keys and Re-authentication <a class="title-link" name="expired-api-keys-and-re-authentication" href="#expired-api-keys-and-re-authentication"></a>
+</h2>
+<p>In OpenUV, an <code>HTTP 403</code> response indicates one of two conditions:</p>
+<ol>
+<li>An invalid API key</li>
+<li>An API key whose daily/monthly limit is reached</li>
+</ol>
+<p>Unfortunately, the integration is unable to determine which is which from the API data
+provided by OpenUV. So, this strategy is followed:</p>
+<ol>
+<li>Any <code>HTTP 403</code> response will create a persistent notification asking you to
+re-authenticate the OpenUV integration.</li>
+<li>In the case of an overrun API call limit, once the <code>homeassistant.update_entity</code>
+service call is again successful, existing re-authentication notifications will
+automatically be removed.</li>
+</ol>
+<p>If you receive a re-authentication notification and are certain that your key has merely
+reached its daily call limit, you can safely ignore it.</p>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/openuv.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fopenuv%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20openuv" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+openuv%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/openuv//logo.png' srcset='https://brands.home-assistant.io/_/openuv/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=openuv' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The OpenUV  service  was introduced in Home Assistant 0.76, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          2691</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:cloud-upload'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Cloud Polling.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/openuv" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+openuv%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/bachya" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/bachya?size=96" alt="@bachya"/> @bachya</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#generating-an-api-key">Generating an API Key</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#updating-data">Updating data</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#protection-window">Protection window</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#examples-of-updating-data">Examples of Updating Data</a></li>
+<li class="toc-entry toc-h2"><a href="#expired-api-keys-and-re-authentication">Expired API Keys and Re-authentication</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#health'>Health</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

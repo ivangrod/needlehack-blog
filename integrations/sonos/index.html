@@ -1,0 +1,1098 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Sonos - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate Sonos devices into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/sonos/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Sonos">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/sonos/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate Sonos devices into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Sonos">
+    <meta name="twitter:description" content="Instructions on how to integrate Sonos devices into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#feature-controls--sensors">Feature controls &amp; sensors</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#controllable-features">Controllable features</a></li>
+<li class="toc-entry toc-h3"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#select">Select</a></li>
+<li class="toc-entry toc-h3"><a href="#battery-support-notes">Battery support notes</a></li>
+<li class="toc-entry toc-h3"><a href="#alarm-support-notes">Alarm support notes</a></li>
+<li class="toc-entry toc-h3"><a href="#microphone-support-notes">Microphone support notes</a></li>
+<li class="toc-entry toc-h3"><a href="#sonos-favorites-support-notes">Sonos Favorites support notes</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#playing-media">Playing media</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#examples">Examples:</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-sonossnapshot">Action sonos.snapshot</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosrestore">Action sonos.restore</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosset_sleep_timer">Action sonos.set_sleep_timer</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosclear_sleep_timer">Action sonos.clear_sleep_timer</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosupdate_alarm">Action sonos.update_alarm</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosplay_queue">Action sonos.play_queue</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosget_queue">Action sonos.get_queue</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosremove_from_queue">Action sonos.remove_from_queue</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#network-requirements">Network requirements</a></li>
+<li class="toc-entry toc-h2"><a href="#advanced-use">Advanced use</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Sonos
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <code>sonos</code> integration allows you to control your <a href="https://www.sonos.com" rel="external nofollow">Sonos<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> wireless speakers from Home Assistant. It also works with IKEA Symfonisk speakers.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Sonos</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=sonos" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>Sonos can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=sonos" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Sonos</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h2>Feature controls &amp; sensors <a class="title-link" name="feature-controls--sensors" href="#feature-controls--sensors"></a>
+</h2>
+<p>Speaker-level controls are exposed as <code>number</code>, <code>select</code> or <code>switch</code> entities. Additionally, various <code>sensor</code> and <code>binary_sensor</code> entities are provided.</p>
+<h3>Controllable features <a class="title-link" name="controllable-features" href="#controllable-features"></a>
+</h3>
+<ul>
+<li>
+<strong>All devices</strong>: Alarms, Bass, Treble, Loudness, Crossfade, Status Light, Touch Controls</li>
+<li>
+<strong>Home theater devices</strong>: Audio Delay (“Lip Sync”), Night Sound, Speech Enhancement, Surround Enabled, Surround Music Full Volume (“Full/Ambient”), Surround Level (“TV Level”), Music Surround Level</li>
+<li>
+<strong>When paired with a sub</strong>: Subwoofer Enabled, Subwoofer Gain, Subwoofer Crossover Frequency (Sonos Amp only)</li>
+</ul>
+<h3>Sensors <a class="title-link" name="sensors" href="#sensors"></a>
+</h3>
+<ul>
+<li>
+<strong>Each Sonos system</strong>: Sonos Favorites</li>
+<li>
+<strong>Devices with battery</strong>: Battery level, Power state</li>
+<li>
+<strong>Home theater devices</strong>: Audio Input Format</li>
+<li>
+<strong>Voice-enabled devices</strong>: Microphone Enabled</li>
+</ul>
+<h3>Select <a class="title-link" name="select" href="#select"></a>
+</h3>
+<p>The following select entities are created:</p>
+<ul>
+<li>
+<strong>Dialog Level</strong><br>
+Lets you set the dialog mode on your <strong>Sonos Arc Ultra</strong> soundbar. You can choose from None, Low, Medium, High, or Max.</li>
+</ul>
+<h3>Battery support notes <a class="title-link" name="battery-support-notes" href="#battery-support-notes"></a>
+</h3>
+<p>Battery sensors are fully supported for the <code>Sonos Roam</code> and <code>Sonos Move</code> devices on S2 firmware. <code>Sonos Move</code> speakers still on S1 firmware are supported but may update infrequently.</p>
+<p>For each speaker with a battery, a <code>sensor</code> showing the current battery charge level and a <code>binary_sensor</code> showing the power state of the speaker are created. The <code>binary_sensor</code> reports if the speaker is currently powered by an external source and its <code>power_source</code> attribute shows which specific source is providing the current power. This source attribute can be one of <code>BATTERY</code>, <code>SONOS_CHARGING_RING</code> if using wireless charging, or <code>USB_POWER</code> if charging via USB cable. Note that the Roam will report <code>SONOS_CHARGING_RING</code> even when using a generic Qi charger.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The battery sensors rely on working change events or updates will be delayed. S1 battery sensors <strong>require</strong> working events to report any data. See more details in <a href="#advanced-use">Advanced use</a>.</p>
+  </div>
+</div>
+<h3>Alarm support notes <a class="title-link" name="alarm-support-notes" href="#alarm-support-notes"></a>
+</h3>
+<p>The Sonos integration adds one <code>switch</code> for each alarm set in the Sonos app. The alarm switches are detected, deleted and assigned automatically and come with several attributes that help to monitor Sonos alarms.</p>
+<h3>Microphone support notes <a class="title-link" name="microphone-support-notes" href="#microphone-support-notes"></a>
+</h3>
+<p>The microphone can only be enabled/disabled from physical buttons on the Sonos device and cannot be controlled from Home Assistant. A <code>binary_sensor</code> reports its current state.</p>
+<h3>Sonos Favorites support notes <a class="title-link" name="sonos-favorites-support-notes" href="#sonos-favorites-support-notes"></a>
+</h3>
+<p>The favorites sensor provides the names and <code>media_content_id</code> values for each of the favorites saved to My Sonos in the native Sonos app. This sensor is intended for users that need to access the favorites in a custom template. For most users, accessing favorites by using the Media Browser functionality and “Play media” script/automation action is recommended.</p>
+<p>When calling the <code>media_player.play_media</code> action, the <code>media_content_type</code> must be set to “favorite_item_id” and the <code>media_content_id</code> must be set to just the key portion of the favorite item.</p>
+<p>Example action using the item id:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.sonos_speaker1</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">favorite_item_id"</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">FV:2/31"</span>
+</code></pre></div></div>
+<p>Example using the Sonos playlist name:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.sonos_speaker1</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s">playlist</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s">stevie_wonder</span>
+</code></pre></div></div>
+<p>Example templates:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Get all favorite names as a list (old behavior)</span>
+<span class="pi">{{</span> <span class="nv">state_attr("sensor.sonos_favorites"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">items"</span><span class="nv">).values() | list</span> <span class="pi">}}</span>
+
+<span class="c1"># Pick a specific favorite name by position</span>
+<span class="pi">{{</span> <span class="nv">(state_attr("sensor.sonos_favorites"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">items"</span><span class="nv">).values() | list)</span><span class="pi">[</span><span class="nv">3</span><span class="pi">]</span> <span class="pi">}}</span>
+
+<span class="c1"># Pick a random item's `media_content_id`</span>
+<span class="pi">{{</span> <span class="nv">state_attr("sensor.sonos_favorites"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">items"</span><span class="nv">) | list | random</span> <span class="pi">}}</span>
+
+<span class="c1"># Loop through and grab name &amp; media_content_id</span>
+<span class="pi">{</span><span class="err">%</span> <span class="nv">for media_id</span><span class="pi">,</span> <span class="nv">name in state_attr("sensor.sonos_favorites"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">items"</span><span class="nv">).items() %</span><span class="pi">}</span>
+  <span class="pi">{{</span> <span class="nv">name</span><span class="pi">,</span> <span class="nv">media_id</span> <span class="pi">}}</span>
+<span class="pi">{</span><span class="err">%</span> <span class="nv">endfor %</span><span class="pi">}</span>
+</code></pre></div></div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>The Sonos favorites sensor (<code>sensor.sonos_favorites</code>) is disabled by default. It can be found and enabled from the entities associated with the Sonos integration on your <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Devices &amp; services</a> page.</p>
+  </div>
+</div>
+<h2>Playing media <a class="title-link" name="playing-media" href="#playing-media"></a>
+</h2>
+<p>Sonos accepts a variety of <code>media_content_id</code> formats in the <code>media_player.play_media</code> action, but most commonly as URIs. For example, both Spotify and Tidal share links can be provided as-is. Playback of <a href="/integrations/plex#sonos-playback">music hosted on a Plex server</a> is possible. Direct HTTP/HTTPS links to local or remote media files can also be used if the Sonos device can reach the URI directly, but specific media encoding support may vary.</p>
+<p>Music services which require an account (e.g., Spotify) must first be configured using the Sonos app.</p>
+<p>Playing TTS (text-to-speech) or audio files as alerts (e.g., a doorbell or alarm) is possible by setting the <code>announce</code> argument to <code>true</code>. Using <code>announce</code> will play the provided media URL as an overlay, gently lowering the current music volume and automatically restoring to the original level when finished. An optional <code>volume</code> argument can also be provided in the <code>extra</code> dictionary to play the alert at a specific volume level. Note that older Sonos hardware or legacy firmware versions (“S1”) may not fully support these features. Additionally, see <a href="#network-requirements">Network Requirements</a> for use in restricted networking environments.</p>
+<p>An optional <code>enqueue</code> argument can be added to the action. If <code>replace</code> or not provided then the queue will be replaced and the item will be replaced. If <code>add</code> the item will be appended to the queue. If <code>next</code> the item will be added into the queue to play next. If <code>play</code>, the item will be added into the queue and played immediately.</p>
+<h3>Examples: <a class="title-link" name="examples" href="#examples"></a>
+</h3>
+<p>Below is an example action that plays an audio file from a web server on the local network (like the Home Assistant built-in webserver) using the <code>announce</code> feature and its associated (optional) <code>volume</code> parameter:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.sonos</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">announce</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">music"</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://192.168.1.50:8123/local/sound_files/doorbell-front.mp3"</span>
+  <span class="na">extra</span><span class="pi">:</span>
+    <span class="na">volume</span><span class="pi">:</span> <span class="m">20</span>
+</code></pre></div></div>
+<p>The standard <code>tts.&lt;source&gt;_say</code> actions do not accept the <code>volume</code> parameter directly. To set the <code>volume</code> for a TTS announcement, you can use a TTS Media Source URL with the standard <code>media_player.play_media</code> action:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.sonos</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">announce</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="s">media-source://tts/cloud?message="I am very loud"</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">music"</span>
+  <span class="na">extra</span><span class="pi">:</span>
+    <span class="na">volume</span><span class="pi">:</span> <span class="m">80</span>
+</code></pre></div></div>
+<p>Sonos can also play music or playlists from Spotify. Both Spotify URIs and URLs can be used directly. An example action using a playlist URI:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.sonos</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">playlist"</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">spotify:playlist:abcdefghij0123456789XY"</span>
+  <span class="na">enqueue</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<p>An example action using a Spotify URL:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.sonos</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">music"</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://open.spotify.com/album/abcdefghij0123456789YZ"</span>
+</code></pre></div></div>
+<p>Run a <a href="/integrations/plex#sonos-playback">Plex Media Server</a> in your home? The Sonos integration can work with that as well. This example plays music directly from your Plex server:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.sonos</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">music"</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="s">plex://{ "library_name": "Music", "artist_name": "M83", "album_name": "Hurry Up, We're Dreaming" }</span>
+</code></pre></div></div>
+<h4>Sonos Music Library <a class="title-link" name="sonos-music-library" href="#sonos-music-library"></a>
+</h4>
+<p>If you have configured a Sonos music library; you can play music from it.</p>
+<p>Play all albums by the Beatles.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.sonos</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s">album</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s">A:ALBUMARTIST/Beatles</span>
+</code></pre></div></div>
+<p>Play a specific album:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.sonos</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s">album</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s">A:ALBUM/The Wall</span>
+  <span class="na">enqueue</span><span class="pi">:</span> <span class="s">replace</span>
+</code></pre></div></div>
+<p>Or add a specific album by a specific artist to the queue.  This is useful in case you have multiple albums with the same name.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.sonos</span>      
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s">album</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s">A:ALBUMARTIST/Neil Young/Greatest Hits</span>
+  <span class="na">enqueue</span><span class="pi">:</span> <span class="s">add</span>
+</code></pre></div></div>
+<p>Play all albums by a composer.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.porch</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s">composer</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s">A:COMPOSER/Carlos Santana</span>
+  <span class="na">enqueue</span><span class="pi">:</span> <span class="s">play</span>
+</code></pre></div></div>
+<p>Play all albums by a genre.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.porch</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s">genre</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">A:GENRE/Classic%20Rock/"</span>
+  <span class="na">enqueue</span><span class="pi">:</span> <span class="s">play</span>
+</code></pre></div></div>
+<p>Play an imported playlist by using its title.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.porch</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">media_content_type</span><span class="pi">:</span> <span class="s">playlist</span>
+  <span class="na">media_content_id</span><span class="pi">:</span> <span class="s">S:/MyPlaylist</span>
+  <span class="na">enqueue</span><span class="pi">:</span> <span class="s">play</span>
+</code></pre></div></div>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<p>The Sonos integration makes various custom actions available in addition to the <a href="/integrations/media_player/#actions">standard media player actions</a>.</p>
+<h3>Action sonos.snapshot <a class="title-link" name="action-sonossnapshot" href="#action-sonossnapshot"></a>
+</h3>
+<p>Take a snapshot of what is currently playing on one or more speakers. This action, and the following one, are useful if you want to play a doorbell or notification sound and resume playback afterwards.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The queue is not snapshotted and must be left untouched until the restore. Using <code>media_player.play_media</code> is safe and can be used to play a notification sound, including <a href="/integrations/tts/">TTS</a> announcements.</p>
+  </div>
+</div>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>The speakers to snapshot. To target all Sonos devices, use <code>all</code>.</td>
+</tr>
+<tr>
+<td><code>with_group</code></td>
+<td>yes</td>
+<td>Should we also snapshot the group layout and the state of other speakers in the group, defaults to true.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action sonos.restore <a class="title-link" name="action-sonosrestore" href="#action-sonosrestore"></a>
+</h3>
+<p>Restore a previously taken snapshot of one or more speakers.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The playing queue is not snapshotted. Using <code>sonos.restore</code> on a speaker that has replaced its queue will restore the playing position, but in the new queue!</p>
+  </div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>A cloud queue cannot be restarted. This includes queues started from within Spotify and queues controlled by Amazon Alexa.</p>
+  </div>
+</div>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>String or list of <code>entity_id</code>s that should have their snapshot restored. To target all Sonos devices, use <code>all</code>.</td>
+</tr>
+<tr>
+<td><code>with_group</code></td>
+<td>yes</td>
+<td>Should we also restore the group layout and the state of other speakers in the group, defaults to true.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action sonos.set_sleep_timer <a class="title-link" name="action-sonosset_sleep_timer" href="#action-sonosset_sleep_timer"></a>
+</h3>
+<p>Sets a timer that will turn off a speaker by tapering the volume down to 0 after a certain amount of time. Protip: If you set the sleep_time value to 0, then the speaker will immediately start tapering the volume down.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>String or list of <code>entity_id</code>s that will have their timers set.</td>
+</tr>
+<tr>
+<td><code>sleep_time</code></td>
+<td>no</td>
+<td>Integer number of seconds that the speaker should wait until it starts tapering. Cannot exceed 86399 (one day).</td>
+</tr>
+</tbody>
+</table>
+<h3>Action sonos.clear_sleep_timer <a class="title-link" name="action-sonosclear_sleep_timer" href="#action-sonosclear_sleep_timer"></a>
+</h3>
+<p>Clear the sleep timer on a speaker, if one is set.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>String or list of <code>entity_id</code>s that will have their timers cleared. Must be a coordinator speaker.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action sonos.update_alarm <a class="title-link" name="action-sonosupdate_alarm" href="#action-sonosupdate_alarm"></a>
+</h3>
+<p>Update an existing Sonos alarm.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>String or list of <code>entity_id</code>s that will have their timers cleared. Must be a coordinator speaker.</td>
+</tr>
+<tr>
+<td><code>alarm_id</code></td>
+<td>no</td>
+<td>Integer that is used in Sonos to refer to your alarm.</td>
+</tr>
+<tr>
+<td><code>time</code></td>
+<td>yes</td>
+<td>Time to set the alarm.</td>
+</tr>
+<tr>
+<td><code>volume</code></td>
+<td>yes</td>
+<td>Float for volume level.</td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td>yes</td>
+<td>Boolean for whether or not to enable this alarm.</td>
+</tr>
+<tr>
+<td><code>include_linked_zones</code></td>
+<td>yes</td>
+<td>Boolean that defines if the alarm also plays on grouped players.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action sonos.play_queue <a class="title-link" name="action-sonosplay_queue" href="#action-sonosplay_queue"></a>
+</h3>
+<p>Starts playing the Sonos queue.</p>
+<p>Force start playing the queue, allows switching from another stream (such as radio) to playing the queue.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>String or list of <code>entity_id</code>s that will start playing. It must be the coordinator if targeting a group.</td>
+</tr>
+<tr>
+<td><code>queue_position</code></td>
+<td>yes</td>
+<td>Position of the song in the queue to start playing from, starts at 0.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action sonos.get_queue <a class="title-link" name="action-sonosget_queue" href="#action-sonosget_queue"></a>
+</h3>
+<p>Returns the media_players queue.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>media_player entity id.</td>
+</tr>
+</tbody>
+</table>
+<p>This example script does the following: get the queue, loop through in reverse order, and remove media containing the words “holiday”.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml">  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">sonos.get_queue</span>
+    <span class="na">target</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.living_room</span>
+    <span class="na">response_variable</span><span class="pi">:</span> <span class="s">queue</span>
+  <span class="pi">-</span> <span class="na">variables</span><span class="pi">:</span>
+      <span class="na">queue_len</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">queue["media_player.living_room"]</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">length</span><span class="nv"> </span><span class="s">}}'</span>
+  <span class="pi">-</span> <span class="na">repeat</span><span class="pi">:</span>
+      <span class="na">sequence</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">variables</span><span class="pi">:</span>
+            <span class="na">title</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">queue["media_player.living_room"][queue_len</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">repeat.index]["media_title"].lower()</span><span class="nv"> </span><span class="s">}}'</span>
+            <span class="na">album</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">queue["media_player.living_room"][queue_len</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">repeat.index]["media_album_name"].lower()</span><span class="nv"> </span><span class="s">}}'</span>
+            <span class="na">position</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">queue_len</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">repeat.index</span><span class="nv"> </span><span class="s">}}'</span>
+        <span class="pi">-</span> <span class="na">if</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">"holiday"</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">"holiday"</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">album</span><span class="nv"> </span><span class="s">}}'</span>
+          <span class="na">then</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">sonos.remove_from_queue</span>
+              <span class="na">target</span><span class="pi">:</span>
+                <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.living_room</span>
+              <span class="na">data</span><span class="pi">:</span>
+                <span class="na">queue_position</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{position}}'</span>
+      <span class="na">until</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">template</span>
+          <span class="na">value_template</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{queue_len</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">repeat.index}}'</span>
+
+</code></pre></div></div>
+<h3>Action sonos.remove_from_queue <a class="title-link" name="action-sonosremove_from_queue" href="#action-sonosremove_from_queue"></a>
+</h3>
+<p>Removes an item from the queue.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>String or list of <code>entity_id</code>s that will remove an item from the queue. It must be the coordinator if targeting a group.</td>
+</tr>
+<tr>
+<td><code>queue_position</code></td>
+<td>yes</td>
+<td>Position in the queue to remove.</td>
+</tr>
+</tbody>
+</table>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example automation to remove just played song from queue</span>
+<span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Remove</span><span class="nv"> </span><span class="s">last</span><span class="nv"> </span><span class="s">played</span><span class="nv"> </span><span class="s">song</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">queue"</span>
+<span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.kitchen</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.bathroom</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.move</span>
+<span class="na">conditions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">and</span>
+    <span class="na">conditions</span><span class="pi">:</span>
+      <span class="c1"># Coordinator</span>
+      <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">template</span>
+        <span class="na">value_template</span><span class="pi">:</span> <span class="pi">&gt;</span>
+          <span class="s">{{ state_attr( trigger.entity_id , 'group_members')[0] ==  trigger.entity_id }}</span>
+      <span class="c1"># Going from queue to queue</span>
+      <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">template</span>
+        <span class="na">value_template</span><span class="pi">:</span> <span class="pi">&gt;</span>
+          <span class="s">{{ 'queue_position' in trigger.from_state.attributes and 'queue_position' in trigger.to_state.attributes }}</span>
+      <span class="c1"># Moving forward</span>
+      <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">template</span>
+        <span class="na">value_template</span><span class="pi">:</span> <span class="pi">&gt;</span>
+          <span class="s">{{ trigger.from_state.attributes.queue_position &lt; trigger.to_state.attributes.queue_position }}</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">sonos.remove_from_queue</span>
+    <span class="na">target</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{{ trigger.entity_id }}</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">queue_position</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{{ trigger.from_state.attributes.queue_position }}</span>
+</code></pre></div></div>
+<h2>Network requirements <a class="title-link" name="network-requirements" href="#network-requirements"></a>
+</h2>
+<p>To work optimally, the Sonos devices must be able to connect back to the Home Assistant host on TCP port 1400. This will allow the push-based updates to work properly. If this port is blocked or otherwise unreachable from the Sonos devices, the integration will fall back to a polling mode which is slower to update and much less efficient. The integration will alert the user if this problem is detected.</p>
+<p>Playing audio using the <code>announce</code> option or TTS requires TCP port 1443 on each Sonos device to be reachable from the Home Assistant host.</p>
+<p>See <a href="#advanced-use">Advanced use</a> below for additional configuration options which may be needed to address this issue in setups with more complex network topologies.</p>
+<h2>Advanced use <a class="title-link" name="advanced-use" href="#advanced-use"></a>
+</h2>
+<p>For advanced uses, there are some manual configuration options available. These are usually only needed if you have a complex network setup where Home Assistant and Sonos are not on the same subnet.</p>
+<p>You can disable auto-discovery by specifying the Sonos IP addresses:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry with manually specified Sonos IP addresses</span>
+<span class="na">sonos</span><span class="pi">:</span>
+  <span class="na">media_player</span><span class="pi">:</span>
+    <span class="na">hosts</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">192.0.2.25</span>
+      <span class="pi">-</span> <span class="s">192.0.2.26</span>
+      <span class="pi">-</span> <span class="s">192.0.2.27</span>
+</code></pre></div></div>
+<p>If your Home Assistant instance has multiple IP addresses, you can select the specific IP address that should be used for Sonos auto-discovery with the <a href="/integrations/network/">Network</a> integration. This should only be necessary if the Sonos speakers are on a network segment not reachable from the default interface.</p>
+<p>The Sonos speakers will attempt to connect back to Home Assistant to deliver change events. By default, Home Assistant will listen on port 1400 but will try the next 100 ports above 1400 if it is in use. You can change the IP address that Home Assistant advertises to Sonos speakers. This can help in NAT scenarios such as when <em>not</em> using the Docker option <code>--net=host</code>:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry modifying the advertised host address</span>
+<span class="na">sonos</span><span class="pi">:</span>
+  <span class="na">media_player</span><span class="pi">:</span>
+    <span class="na">advertise_addr</span><span class="pi">:</span> <span class="s">192.0.2.1</span>
+</code></pre></div></div>
+<h2>Removing the integration <a class="title-link" name="removing-the-integration" href="#removing-the-integration"></a>
+</h2>
+<p>This integration follows the standard integration removal process; no extra steps are required.</p>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/sonos.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fsonos%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20sonos" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+sonos%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/sonos//logo.png' srcset='https://brands.home-assistant.io/_/sonos/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=sonos' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Sonos  integration  was introduced in Home Assistant 0.7.3, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          15.8%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/sonos" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+sonos%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/jjlawren" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/jjlawren?size=96" alt="@jjlawren"/> @jjlawren</a><br /><a href="https://github.com/peterager" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/peterager?size=96" alt="@peterager"/> @peterager</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#feature-controls--sensors">Feature controls &amp; sensors</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#controllable-features">Controllable features</a></li>
+<li class="toc-entry toc-h3"><a href="#sensors">Sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#select">Select</a></li>
+<li class="toc-entry toc-h3"><a href="#battery-support-notes">Battery support notes</a></li>
+<li class="toc-entry toc-h3"><a href="#alarm-support-notes">Alarm support notes</a></li>
+<li class="toc-entry toc-h3"><a href="#microphone-support-notes">Microphone support notes</a></li>
+<li class="toc-entry toc-h3"><a href="#sonos-favorites-support-notes">Sonos Favorites support notes</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#playing-media">Playing media</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#examples">Examples:</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-sonossnapshot">Action sonos.snapshot</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosrestore">Action sonos.restore</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosset_sleep_timer">Action sonos.set_sleep_timer</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosclear_sleep_timer">Action sonos.clear_sleep_timer</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosupdate_alarm">Action sonos.update_alarm</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosplay_queue">Action sonos.play_queue</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosget_queue">Action sonos.get_queue</a></li>
+<li class="toc-entry toc-h3"><a href="#action-sonosremove_from_queue">Action sonos.remove_from_queue</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#network-requirements">Network requirements</a></li>
+<li class="toc-entry toc-h2"><a href="#advanced-use">Advanced use</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#media-player'>Media player</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

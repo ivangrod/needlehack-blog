@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: User-Stories | Home Assistant]]></title>
+  <link href="https://ivangrod.github.io/needlehack-blog/blog/categories/user-stories/atom.xml" rel="self"/>
+  <link href="https://ivangrod.github.io/needlehack-blog/"/>
+  <updated>2025-09-23T16:44:51+00:00</updated>
+  <id>https://ivangrod.github.io/needlehack-blog/</id>
+  <author>
+    <name><![CDATA[Home Assistant]]></name>
+    
+  </author>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Laundry Sensors with NodeMCU and Home Assistant]]></title>
+    <link href="https://ivangrod.github.io/needlehack-blog/blog/2016/08/03/laundry-automation-update/"/>
+    <updated>2016-08-03T17:22:00+00:00</updated>
+    <id>https://ivangrod.github.io/needlehack-blog/blog/2016/08/03/laundry-automation-update</id>
+    <content type="html"><![CDATA[<p><em>This is a guest post by Home Assistant user and contributor <a href="https://github.com/nkgilley">Nolan Gilley</a>.</em></p>
+<p>Today I’ll show you how I used Home Assistant, a NodeMCU (ESP8266), and a couple of accelerometers to automate our laundry room.  This is a rewrite of an <a href="/blog/2015/08/26/laundry-automation-with-moteino-mqtt-and-home-assistant/">old post</a> where I did the same thing using a Moteino &amp; Raspberry Pi.  This version only requires a NodeMCU.</p>
+<p>We have an older washer and dryer which doesn’t have any form of notification when cycles complete.  Home Assistant was the obvious solution, I just needed to create sensors for the washer and dryer.  I tried using sound sensors but found them unreliable.  I ended up using an accelerometer attached to the back of each appliance.  I also added magnetic reed switches on the doors of the washer and dryer to detect whether they’re open or closed.  I connected the accelerometers and reed switches to an NodeMCU which will relay the data to my MQTT broker.</p>
+<p class='img'>
+  <img src='/images/blog/2016-07-laundry-automation/block-diagram.png' />
+  Block diagram of schematic
+</p>
+<!--more-->
+<p>After taking some sample data from the accelerometers while each appliance was in operation, I decided to plot the data to help determine the proper thresholds of when the devices were running or off.  I had to do this in order to get precise ranges so the dryer sensor wouldn’t get tripped by the washer or vice versa.  In the plot below you can see the acceleration in each direction for the accelerometer connected to the dryer.   It’s easy to see when the dryer is in operation here.  I used the same technique for the washer’s accelerometer.</p>
+<p class='img'>
+  <img src='/images/blog/2016-07-laundry-automation/data-graph.png' />
+  Graph showing the accelerometer data
+</p>
+<p>Next it was just a matter of integrating everything with Home Assistant.  I was able to use the <a href="/integrations/mqtt/">MQTT component</a> to read the washer and dryer states from the Moteino and display it in Home Assistant.</p>
+<p class='img'>
+  <img src='/images/blog/2016-07-laundry-automation/screenshot-ha.png' />
+  Status of the dryer and washer in Home Assistant
+</p>
+<p>Next I wrote <a href="/integrations/script/">scripts</a> that are run whenever the washer or dryer completes a load.  This is triggered by the <a href="/getting-started/automation/">automation component</a>.  When the laundry is complete I have the lights in the house turn red and <a href="/integrations/joaoapps_join">notify me via Join</a>.  Once the door is opened and laundry emptied another script runs that sets the lights back to normal.  So far it has been very helpful and very reliable.</p>
+<p class='img'>
+  <a href='/images/blog/2016-07-laundry-automation/protoboard.jpg'>
+    <img src='/images/blog/2016-07-laundry-automation/protoboard.jpg' />
+  </a>
+  NodeMCU connected to MPU-6050 accelerometer.
+</p>
+<p>Materials used:</p>
+<ul>
+<li><a href="https://amzn.to/2Y9Mmxk">NodeMCU</a></li>
+<li><a href="https://amzn.to/2WXa2s5">2 x Accelerometers</a></li>
+<li><a href="https://amzn.to/2X0ZuZ2">2 x Reed switch</a></li>
+</ul>
+<p><a href="https://github.com/nkgilley/nodemcu-laundry/blob/master/nodemcu-laundry.ino">Sketch for the NodeMCU is available here.</a></p>
+<p>Home Assistant Configuration:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">mqtt</span><span class="pi">:</span>
+  <span class="na">broker</span><span class="pi">:</span> <span class="s">192.168.1.100</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">1883</span>
+  <span class="na">keepalive</span><span class="pi">:</span> <span class="m">60</span>
+  <span class="na">qos</span><span class="pi">:</span> <span class="m">0</span>
+
+<span class="na">sensor</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">mqtt</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Dryer</span><span class="nv"> </span><span class="s">Status"</span>
+    <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor/dryer"</span>
+    <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">mqtt</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Washer</span><span class="nv"> </span><span class="s">Status"</span>
+    <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor/washer"</span>
+    <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+
+<span class="na">automation</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Washer</span><span class="nv"> </span><span class="s">complete"</span>
+    <span class="na">trigger</span><span class="pi">:</span>
+      <span class="na">platform</span><span class="pi">:</span> <span class="s">state</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.washer_status</span>
+      <span class="na">from</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Running"</span>
+      <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Complete"</span>
+    <span class="na">action</span><span class="pi">:</span>
+      <span class="na">service</span><span class="pi">:</span> <span class="s">script.turn_on</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">script.washer_complete</span>
+
+  <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Washer</span><span class="nv"> </span><span class="s">emptied"</span>
+    <span class="na">trigger</span><span class="pi">:</span>
+      <span class="na">platform</span><span class="pi">:</span> <span class="s">state</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.washer_status</span>
+      <span class="na">from</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Complete"</span>
+      <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Empty"</span>
+    <span class="na">action</span><span class="pi">:</span>
+      <span class="na">service</span><span class="pi">:</span> <span class="s">scene.turn_on</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">scene.normal</span>
+
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">washer_complete</span><span class="pi">:</span>
+    <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Washer</span><span class="nv"> </span><span class="s">Complete"</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Join</span><span class="nv"> </span><span class="s">Notification"</span>
+        <span class="na">service</span><span class="pi">:</span> <span class="s">notify.join</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">washing</span><span class="nv"> </span><span class="s">machine</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">finished</span><span class="nv"> </span><span class="s">its</span><span class="nv"> </span><span class="s">cycle,</span><span class="nv"> </span><span class="s">please</span><span class="nv"> </span><span class="s">empty</span><span class="nv"> </span><span class="s">it!"</span>
+      <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Lights</span><span class="nv"> </span><span class="s">Blue"</span>
+        <span class="na">service</span><span class="pi">:</span> <span class="s">scene.turn_on</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">scene.blue</span>
+</code></pre></div></div>
+<p>Resources used:</p>
+<ul>
+<li><a href="http://www.instructables.com/id/Uber-Home-Automation-w-Arduino-Pi/step13/Washer-Dryer-Smartifier-Water-Leak-Sensor/">Inspiration and Help with Arduino code</a></li>
+</ul>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Laundry Automation: insight and notifications]]></title>
+    <link href="https://ivangrod.github.io/needlehack-blog/blog/2015/08/26/laundry-automation-with-moteino-mqtt-and-home-assistant/"/>
+    <updated>2015-08-26T15:12:00+00:00</updated>
+    <id>https://ivangrod.github.io/needlehack-blog/blog/2015/08/26/laundry-automation-with-moteino-mqtt-and-home-assistant</id>
+    <content type="html"><![CDATA[<p><em>This is a guest post by Home Assistant user and contributor <a href="https://github.com/nkgilley">Nolan Gilley</a>.</em></p>
+<p>In our house, laundry has been a struggle for quite some time.  Our washer and dryer both lack a buzzer which leads to forgotten laundry, and stinky mess that needs to be rewashed.  I decided to create a solution by monitoring the washer and dryer myself with some cheap electronics.</p>
+<p>As an avid user of Home Assistant, I decided it would be the perfect application to manage the UI and notification system.  Now all I needed was a way to monitor the washer and dryer.  I tried using sound sensors but found them unreliable.  I ended up opting for an accelerometer attached to the back of each appliance.  I also added magnetic reed switches on the doors of the washer and dryer to detect if the doors are open or closed.  I connected the accelerometers and reed switches to a <a href="https://lowpowerlab.com/moteino/">Moteino</a>, an arduino clone with an RF transceiver.  The Moteino can perform the logic to figure out which state the appliances are in and wirelessly communicate that data with another Moteino that is connected via serial to my Raspberry Pi.  The Raspberry Pi reads the serial data and repeats it over MQTT for Home Assistant to use.  This is great because I don’t have to run Home Assistant on the Raspberry Pi.  I can run it on a faster machine and point the <a href="/integrations/mqtt/">MQTT component</a> to my Raspberry Pi.</p>
+<p>After taking some sample data from the accelerometers while each appliance was in operation, I decided to plot the data to help determine the proper thresholds of when the devices were running or off.  I had to do this in order to get precise ranges so the dryer sensor wouldn’t get tripped by the washer or vice versa.  In the plot below you can see the acceleration in the x direction for the accelerometer connected to the washing machine.   It’s easy to see when the washing machine is in operation here.  I used the same technique for the dryer’s accelerometer.</p>
+<p class='img'>
+  <a href='/images/blog/2015-08-laundry-automation/data-graph.png'>
+    <img src='/images/blog/2015-08-laundry-automation/data-graph.png' />
+  </a>
+  Graph showing the accelerometer data
+</p>
+<!--more-->
+<p>Next it was just a matter of integrating everything with Home Assistant.  I was able to use the <a href="/integrations/mqtt/">MQTT component</a> to read the washer and dryer states from the Moteino and display it in Home Assistant.</p>
+<p class='img'>
+  <img src='/images/blog/2015-08-laundry-automation/screenshot-ha.png' />
+  Status of the dryer and washer in Home Assistant
+</p>
+<p>Next I wrote <a href="/integrations/script/">scripts</a> that are run whenever the washer or dryer completes a load.  This is triggered by the <a href="/getting-started/automation/">automation component</a>.  When the laundry is complete I have the lights in the house turn red and <a href="/integrations/pushbullet">notify me via PushBullet</a>.  Once the laundry is taken care of another script runs that sets the lights back to normal.  So far it has been very helpful and very reliable.</p>
+<p class='img'>
+  <a href='/images/blog/2015-08-laundry-automation/moteino-and-sensors.jpg'>
+    <img src='/images/blog/2015-08-laundry-automation/moteino-and-sensors.jpg' />
+  </a>
+  Top left: reed switch. Bottom left: moteino. Right: Accelerometer.
+</p>
+<p>Materials used:</p>
+<ul>
+<li><a href="https://lowpowerlab.com/moteino/">Moteino</a></li>
+<li><a href="https://amzn.to/2WXa2s5">2 x Accelerometers</a></li>
+<li><a href="https://amzn.to/2X0ZuZ2">2 x Reed switch</a></li>
+<li><a href="/">Home Assistant</a></li>
+</ul>
+<p><a href="https://codebender.cc/sketch:144743">Sketch for the Moteino is available here.</a></p>
+<p>Home Assistant Configuration:</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon='mdi:information-outline'></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The automation and script syntax here is using a deprecated and no longer supported format.</p>
+  </div>
+</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">mqtt</span><span class="pi">:</span>
+  <span class="na">broker</span><span class="pi">:</span> <span class="s">192.168.1.100</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">1883</span>
+  <span class="na">keepalive</span><span class="pi">:</span> <span class="m">60</span>
+  <span class="na">qos</span><span class="pi">:</span> <span class="m">0</span>
+
+<span class="na">sensor</span><span class="pi">:</span>
+  <span class="na">platform</span><span class="pi">:</span> <span class="s">mqtt</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Dryer</span><span class="nv"> </span><span class="s">Status"</span>
+  <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor/dryer"</span>
+  <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+
+<span class="na">sensor 2</span><span class="pi">:</span>
+  <span class="na">platform</span><span class="pi">:</span> <span class="s">mqtt</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Washer</span><span class="nv"> </span><span class="s">Status"</span>
+  <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sensor/washer"</span>
+  <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+
+<span class="na">automation</span><span class="pi">:</span>
+  <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Dryer</span><span class="nv"> </span><span class="s">complete"</span>
+
+  <span class="na">platform</span><span class="pi">:</span> <span class="s">state</span>
+  <span class="na">state_entity_id</span><span class="pi">:</span> <span class="s">sensor.dryer_status</span>
+  <span class="na">state_from</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Running"</span>
+  <span class="na">state_to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Complete"</span>
+
+  <span class="na">execute_service</span><span class="pi">:</span> <span class="s">script.turn_on</span>
+  <span class="na">service_entity_id</span><span class="pi">:</span> <span class="s">script.dryer_complete</span>
+
+<span class="na">automation 2</span><span class="pi">:</span>
+  <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Dryer</span><span class="nv"> </span><span class="s">emptied"</span>
+
+  <span class="na">platform</span><span class="pi">:</span> <span class="s">state</span>
+  <span class="na">state_entity_id</span><span class="pi">:</span> <span class="s">sensor.dryer_status</span>
+  <span class="na">state_from</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Complete"</span>
+  <span class="na">state_to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Empty"</span>
+
+  <span class="na">execute_service</span><span class="pi">:</span> <span class="s">script.turn_on</span>
+  <span class="na">service_entity_id</span><span class="pi">:</span> <span class="s">script.dryer_cleared</span>
+
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">dryer_complete</span><span class="pi">:</span>
+    <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Dryer</span><span class="nv"> </span><span class="s">Complete</span><span class="nv"> </span><span class="s">Script"</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Pushbullet</span><span class="nv"> </span><span class="s">Notification"</span>
+        <span class="na">execute_service</span><span class="pi">:</span> <span class="s">notify.notify</span>
+        <span class="na">service_data</span><span class="pi">:</span>
+          <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">dryer</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">finished</span><span class="nv"> </span><span class="s">its</span><span class="nv"> </span><span class="s">cycle,</span><span class="nv"> </span><span class="s">please</span><span class="nv"> </span><span class="s">empty</span><span class="nv"> </span><span class="s">it!"</span>
+      <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Lights</span><span class="nv"> </span><span class="s">Red"</span>
+        <span class="na">execute_service</span><span class="pi">:</span> <span class="s">scene.turn_on</span>
+        <span class="na">service_data</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">scene.red</span>
+      <span class="pi">-</span> <span class="na">delay</span><span class="pi">:</span>
+          <span class="na">seconds</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Lights</span><span class="nv"> </span><span class="s">Off"</span>
+        <span class="na">execute_service</span><span class="pi">:</span> <span class="s">light.turn_off</span>
+        <span class="na">service_data</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">group.living_room</span>
+      <span class="pi">-</span> <span class="na">delay</span><span class="pi">:</span>
+          <span class="na">seconds</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Lights</span><span class="nv"> </span><span class="s">Red"</span>
+        <span class="na">execute_service</span><span class="pi">:</span> <span class="s">scene.turn_on</span>
+        <span class="na">service_data</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">scene.red</span>
+
+  <span class="na">dryer_cleared</span><span class="pi">:</span>
+    <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Dryer</span><span class="nv"> </span><span class="s">Cleared</span><span class="nv"> </span><span class="s">Script"</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Lights</span><span class="nv"> </span><span class="s">Off"</span>
+        <span class="na">execute_service</span><span class="pi">:</span> <span class="s">light.turn_off</span>
+        <span class="na">service_data</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">group.living_room</span>
+      <span class="pi">-</span> <span class="na">delay</span><span class="pi">:</span>
+          <span class="na">seconds</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Lights</span><span class="nv"> </span><span class="s">Normal"</span>
+        <span class="na">execute_service</span><span class="pi">:</span> <span class="s">scene.turn_on</span>
+        <span class="na">service_data</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">scene.normal</span>
+</code></pre></div></div>
+<p>Resources used:</p>
+<ul>
+<li><a href="http://www.instructables.com/id/Uber-Home-Automation-w-Arduino-Pi/step13/Washer-Dryer-Smartifier-Water-Leak-Sensor/">Inspiration and Help with Arduino code</a></li>
+<li><a href="https://github.com/LowPowerLab/RFM69/">Moteino Code</a></li>
+</ul>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,684 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Smarter SmartThings with MQTT and Home Assistant - Home Assistant</title>
+    <meta name="author" content="Jeremiah Wuenschel and St. John Johnson">
+    <meta name="description" content="Jer and St. John describe how they connected SmartThings with Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/blog/2016/02/09/Smarter-Smart-Things-with-MQTT-and-Home-Assistant/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Smarter SmartThings with MQTT and Home Assistant">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/blog/2016/02/09/Smarter-Smart-Things-with-MQTT-and-Home-Assistant/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Jer and St. John describe how they connected SmartThings with Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/blog/2016-02-smartthings/social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Smarter SmartThings with MQTT and Home Assistant">
+    <meta name="twitter:description" content="Jer and St. John describe how they connected SmartThings with Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/blog/2016-02-smartthings/social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="   blog-post ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/integrations/">Integrations</a></li>
+          <li><a class="active" href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#glossary">Glossary</a></li>
+<li class="toc-entry toc-h2"><a href="#setting-up-the-bridge">Setting up the Bridge</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#mqtt">MQTT</a></li>
+<li class="toc-entry toc-h3"><a href="#mqtt-bridge">MQTT Bridge</a></li>
+<li class="toc-entry toc-h3"><a href="#smartthings-device">SmartThings Device</a></li>
+<li class="toc-entry toc-h3"><a href="#smartthings-app">SmartThings App</a></li>
+<li class="toc-entry toc-h3"><a href="#configure-home-assistant">Configure Home Assistant</a></li>
+<li class="toc-entry toc-h3"><a href="#configuring-with-docker-compose">Configuring with Docker-Compose</a></li>
+<li class="toc-entry toc-h3"><a href="#how-it-works">How it works</a></li>
+<li class="toc-entry toc-h3"><a href="#future-improvements">Future Improvements</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="post">
+  
+  <header>
+  
+  <h1>Smarter SmartThings with MQTT and Home Assistant</h1>
+  
+
+  
+  <div class="meta clearfix">
+    
+
+  
+  
+    <span class="byline author vcard"><iconify-icon inline icon="mdi:person" title="Person"></iconify-icon> Jeremiah Wuenschel and St. John Johnson</span>
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<time datetime="2016-02-09T07:44:00+00:00" pubdate data-updated="true"><iconify-icon inline icon="mdi:calendar" title="Calendar"></iconify-icon> February 09, 2016</time>
+    
+
+  <span>
+    <i class="icon-tags"></i>
+    <ul class="tags unstyled">
+    
+      
+        <li><a class="category" href="/blog/categories/how-to/">How-To</a></li>
+      
+        <li><a class="category" href="/blog/categories/mqtt/">MQTT</a></li>
+      
+    
+    </ul>
+  </span>
+
+    
+      <a class="comments" href="#post-comments">Comments</a>
+    
+  </div>
+  
+</header>
+
+
+  <p><em>This is a guest post by Home Assistant users <a href="https://github.com/jer" rel="external nofollow">Jeremiah Wuenschel<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://github.com/stjohnjohnson" rel="external nofollow">St. John Johnson<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</em></p>
+<p>So you own a <a href="http://smartthings.com" rel="external nofollow">SmartThings<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> Hub. You probably bought it when you were looking to get into the whole Home Automation hobby because it worked with pretty much everything and offered you the ability to automate <strong>anything.</strong> After a week of ownership, you realized that building dashboards and automating required writing way more Groovy then you expected. Then one day you were browsing <a href="https://www.reddit.com/r/homeautomation" rel="external nofollow">reddit<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and discovered the amazingness that is Home Assistant! A solution that offered dashboards, graphs, working support for Nest, and REAL EASY automation!</p>
+<p>You spent your weekend getting everything set up, showing it off to your significant other, but in the end you got stumped when it came to integrating with all your existing SmartThings toys. What do I do now? Should I buy another hub? Should I just buy a Z-Wave stick?</p>
+<p>That’s where we came in. We wanted a solution that can bridge the awesomeness of Home Assistant with the SmartThings hub that works with almost everything.</p>
+<p class="img">
+  <img src="/images/blog/2016-02-smartthings/splash.png">
+</p>
+<a name="read-more"></a>
+<h2>Glossary <a class="title-link" name="glossary" href="#glossary"></a>
+</h2>
+<p>This is going to be a pretty detailed tutorial on setting up our SmartThings bridge. However, there are a couple key terms that <em>might</em> be new to you:</p>
+<ul>
+<li>
+<a href="https://en.wikipedia.org/wiki/MQTT" rel="external nofollow">MQTT<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>: A lightweight message protocol for listening and publishing events that happen. Many home automation platforms have built in support for this <a href="/integrations/mqtt/">(especially Home Assistant)</a>.</li>
+<li>
+<a href="https://www.docker.com/" rel="external nofollow">Docker<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>: A tool for running applications that are self-contained. No need for installing any dependencies or worrying about conflicts. Installs easily on Linux and macOS.</li>
+</ul>
+<h2>Setting up the Bridge <a class="title-link" name="setting-up-the-bridge" href="#setting-up-the-bridge"></a>
+</h2>
+<h3>MQTT <a class="title-link" name="mqtt" href="#mqtt"></a>
+</h3>
+<p>Assuming that you already have Home Assistant and Smart Things running, you will first want to get an MQTT broker running. There are a handful of <a href="http://mosquitto.org/" rel="external nofollow">MQTT<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> <a href="https://github.com/emqtt/emqttd" rel="external nofollow">brokers<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> available in Open Source land. We chose <a href="http://www.mosca.io/" rel="external nofollow">Mosca<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for its simplicity.</p>
+<p>There is very little you need to do to get Mosca running. The easiest approach is to use <a href="https://www.docker.com/" rel="external nofollow">Docker<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, and run a command like the following:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nv">$ </span>docker run <span class="se">\</span>
+    <span class="nt">-d</span> <span class="se">\</span>
+    <span class="nt">--name</span><span class="o">=</span><span class="s2">"mqtt"</span> <span class="se">\</span>
+    <span class="nt">-v</span> /opt/mosca:/db <span class="se">\</span>
+    <span class="nt">-p</span> 1883:1883 <span class="se">\</span>
+    matteocollina/mosca
+</code></pre></div></div>
+<p>This will start Mosca up inside of a Docker container, while keeping persistent storage for Mosca in <code>/opt/mosca</code>. The default configuration is the only thing we need to get things up and running.</p>
+<p>If you don’t want to mess with Docker and can get node.js installed without trouble, the <a href="https://github.com/mcollina/mosca#standalone" rel="external nofollow">standalone<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> instructions are all you need.</p>
+<h3>MQTT Bridge <a class="title-link" name="mqtt-bridge" href="#mqtt-bridge"></a>
+</h3>
+<p>This is the small piece of magic that bridges the gap between MQTT and SmartThings. It is a node.js app, and like Mosca it is probably easiest to install with Docker:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash"><span class="nv">$ </span>docker run <span class="se">\</span>
+    <span class="nt">-d</span> <span class="se">\</span>
+    <span class="nt">--name</span><span class="o">=</span><span class="s2">"mqtt-bridge"</span> <span class="se">\</span>
+    <span class="nt">-v</span> /opt/mqtt-bridge:/config <span class="se">\</span>
+    <span class="nt">-p</span> 8080:8080 <span class="se">\</span>
+    stjohnjohnson/smartthings-mqtt-bridge
+</code></pre></div></div>
+<p>The code for this bridge is <a href="https://github.com/stjohnjohnson/smartthings-mqtt-bridge" rel="external nofollow">on Github<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> if you want to start it up independently.</p>
+<p>The MQTT Bridge only needs to know where your MQTT broker lives. If you are using these Docker commands as-is, edit <code>/opt/mqtt-bridge/config.yml</code> to look like this:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">---</span>
+<span class="na">mqtt</span><span class="pi">:</span>
+    <span class="na">host</span><span class="pi">:</span> <span class="s">&lt;IP of the host&gt;</span>
+</code></pre></div></div>
+<p>Restart the bridge, and you are ready to go:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">docker restart mqtt-bridge
+</code></pre></div></div>
+<h3>SmartThings Device <a class="title-link" name="smartthings-device" href="#smartthings-device"></a>
+</h3>
+<p>The next step (and possibly the most confusing) is the device type. Go to the <a href="https://graph.api.smartthings.com/ide/devices" rel="external nofollow">Smart Things Device IDE<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <code>Create New Device Handler</code>. Choose <code>From Code</code> and paste in the <a href="https://github.com/stjohnjohnson/smartthings-mqtt-bridge/blob/master/devicetypes/stj/mqtt-bridge.src/mqtt-bridge.groovy" rel="external nofollow">MQTT Bridge Device Code<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. Click <code>Save</code>, <code>Publish</code>, and then <code>For Me</code>.</p>
+<p>Now to install your new Device Handler. Go back to <code>My Devices</code> in the IDE, and click <code>New Device</code>. Enter a name, and pick any random set of characters for the Device Network Id (this will automatically update later). For Type, scroll to the bottom of the list and find your newly created <code>MQTT Bridge</code>. Fill in the other boxes however you like.</p>
+<p>Go back to <code>My Devices</code>, and click on your new device in the list. This will bring up a page that allows you to edit your device’s Preferences. Click <code>edit</code> and fill in the 3 pieces of information it asks for.</p>
+<ul>
+<li>MQTT Bridge IP Address: &lt;IP address of the MQTT Bridge from the previous step&gt;</li>
+<li>MQTT Bridge Port: &lt;8080 if you have changed nothing in the previous commands&gt;</li>
+<li>MQTT Bridge MAC Address: &lt;Mac address of machine running the Bridge code&gt;</li>
+</ul>
+<p>This will create the link between SmartThings and the MQTT Bridge.</p>
+<h3>SmartThings App <a class="title-link" name="smartthings-app" href="#smartthings-app"></a>
+</h3>
+<p>The last step is to setup the SmartApp. After this, any registered devices will start sending their events to MQTT.</p>
+<p>Go to the <a href="https://graph.api.smartthings.com/ide/apps" rel="external nofollow">Smart App IDE<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. Click <code>New SmartApp</code>, followed by <code>From Code</code>. Paste in the <a href="https://github.com/stjohnjohnson/smartthings-mqtt-bridge/blob/master/smartapps/stj/mqtt-bridge.src/mqtt-bridge.groovy" rel="external nofollow">MQTT Bridge SmartApp code<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and click <code>Save</code>. Click <code>Publish</code> and then <code>For Me</code>. In the SmartThings mobile app, add the new SmartApp and configure it with your devices and MQTT Bridge device. Clicking <code>done</code> will subscribe SmartThings to your MQTT broker and begin 2-way propagation of events.</p>
+<h3>Configure Home Assistant <a class="title-link" name="configure-home-assistant" href="#configure-home-assistant"></a>
+</h3>
+<p>To add SmartThings devices to Home Assistant over MQTT, first enable MQTT in Home Assistant:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">mqtt</span><span class="pi">:</span>
+  <span class="na">broker</span><span class="pi">:</span> <span class="s">localhost</span>
+</code></pre></div></div>
+<p>Replace <code>localhost</code> with the location of the running MQTT Broker. Devices from the MQTT Bridge are published to the path <code>smartthings/&lt;Device Name&gt;/&lt;Attribute&gt;</code></p>
+<p>For example, my Dimmer Z-Wave Lamp is called “Fireplace Lights” in SmartThings. The following topics are published:</p>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>smartthings/Fireplace Lights/level</td>
+<td>Brightness (0-99)</td>
+</tr>
+<tr>
+<td>smartthings/Fireplace Lights/switch</td>
+<td>Switch State (on/off)</td>
+</tr>
+</tbody>
+</table>
+<p>Here is an example Home Assistant config:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">switch</span><span class="pi">:</span>
+  <span class="na">platform</span><span class="pi">:</span> <span class="s">mqtt</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Fireplace</span><span class="nv"> </span><span class="s">Lights"</span>
+  <span class="na">state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">smartthings/Fireplace</span><span class="nv"> </span><span class="s">Lights/switch"</span>
+  <span class="na">command_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">smartthings/Fireplace</span><span class="nv"> </span><span class="s">Lights/switch"</span>
+  <span class="na">brightness_state_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">smartthings/Fireplace</span><span class="nv"> </span><span class="s">Lights/level"</span>
+  <span class="na">brightness_command_topic</span><span class="pi">:</span> <span class="s2">"</span><span class="s">smartthings/Fireplace</span><span class="nv"> </span><span class="s">Lights/level"</span>
+  <span class="na">payload_on</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+  <span class="na">payload_off</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
+  <span class="na">retain</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+<p>We recommend <code>retain: true</code> for every MQTT device in order to keep states in sync when things become disconnected.</p>
+<p>Start digging through the <a href="/integrations/mqtt/">MQTT Components</a> in Home Assistant to find which components map to the new events being published to MQTT.</p>
+<h3>Configuring with Docker-Compose <a class="title-link" name="configuring-with-docker-compose" href="#configuring-with-docker-compose"></a>
+</h3>
+<p>Our personal preference for starting the whole suite of software is to use a single Docker-Compose file. Just create a file called <code>docker-compose.yml</code> like this:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">mqtt</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">matteocollina/mosca</span>
+    <span class="na">ports</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">1883:1883</span>
+
+<span class="na">mqttbridge</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">stjohnjohnson/smartthings-mqtt-bridge</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">./mqtt-bridge:/config</span>
+    <span class="na">ports</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">8080:8080</span>
+    <span class="na">links</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">mqtt</span>
+
+<span class="na">homeassistant</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">homeassistant/home-assistant:latest</span>
+    <span class="na">ports</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">80:80</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">./home-assistant:/config</span>
+        <span class="pi">-</span> <span class="s">/etc/localtime:/etc/localtime:ro</span>
+    <span class="na">links</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">mqtt</span>
+</code></pre></div></div>
+<p>This will start home-assistant, MQTT, and the Bridge, in dependency order. All configuration can reference the name of the Docker container instead of using IP addresses (e.g., MQTT for the broker host in Home Assistant).</p>
+<h3>How it works <a class="title-link" name="how-it-works" href="#how-it-works"></a>
+</h3>
+<p><strong>HTTP Endpoint</strong>: There are really only 2 ways to communicate with the SmartThings hub that we could find. The easiest approach is to create a RESTful SmartApp authenticated with OAuth that provides state changes via HTTP directly. This approach is pretty straightforward to implement, but it requires communication with the SmartThings cloud service, and can’t be done entirely on your LAN. We hoped to keep all communication internal, and came up with a second approach.</p>
+<p><strong>Custom Device Type:</strong> SmartThings custom device types allow developers to define handlers for HTTP events received directly over the local network by the SmartThings hub. Messages received are authenticated by MAC address, and can contain arbitrary strings in their payload. Since a Device Type is only ever tied to a single device, we need to add a SmartApp to the mix in order to translate events between individual devices and our special Home Assistant Bridge device. Here is what we have so far:</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="text">Z-Wave Switch        |
+Zigbee motion sensor |&lt;---&gt; Bridge App &lt;---&gt; Bridge Device Type &lt;---&gt; &lt;Local network&gt;
+Z-Wave light bulb    |
+</code></pre></div></div>
+<p>On the Home Assistant side, there is a powerful platform available based on the MQTT lightweight message bus protocol. Everything from lights to switches to temperature sensors can be defined in Home Assistant as an MQTT component, so it makes for a convenient integration point. This requires an MQTT broker for handling the message bus, and one last piece to translate between the HTTP that SmartThings supports and MQTT.</p>
+<p>Here is the final sequence of events:</p>
+<p class="img">
+  <a href="/images/blog/2016-02-smartthings/SmartThings-HomeAssistant.png">
+    <img src="/images/blog/2016-02-smartthings/SmartThings-HomeAssistant.png" alt="SmartThings Bridge Sequence">
+  </a>
+  SmartThings Bridge Sequence
+</p>
+<p>There are a lot of stops along the way for these events, but each piece is a simple translation layer to shuttle the events between systems.</p>
+<h3>Future Improvements <a class="title-link" name="future-improvements" href="#future-improvements"></a>
+</h3>
+<ul>
+<li>
+<strong>Raspberry Pi</strong>: There is a lot of interest in getting this running on the Raspberry Pi. It only requires binaries compiled for ARM, so we plan to get ARM-compatible versions of the containers going at some point.</li>
+<li>
+<strong>Authentication for MQTT</strong>: At the moment, the MQTT bridge doesn’t understand how to authenticate to MQTT, so only unauthenticated MQTT is supported. This is mitigated to some degree if you use our Docker Compose config, because MQTT’s port is not actually shared publicly.</li>
+<li>
+<strong>Authentication for MQTT Bridge</strong>: Right now the bridge expects that anyone subscribing is the SmartThings hub. This could use proper authentication.</li>
+</ul>
+
+
+
+</article>
+
+<div id="post-comments"></div>
+
+
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  DiscourseEmbed = { discourseUrl: 'https://community.home-assistant.io/',
+                     discourseEmbedUrl: 'https://www.home-assistant.io/blog/2016/02/09/Smarter-Smart-Things-with-MQTT-and-Home-Assistant/' };
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  
+    
+      <section class="sharing aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:ios-share' title='Ios share'></iconify-icon> Share this post</h1>
+  <ul class="divided">
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2016%2F02%2F09%2FSmarter-Smart-Things-with-MQTT-and-Home-Assistant%2F&text=Smarter+SmartThings+with+MQTT+and+Home+Assistant+via+%40home_assistant"
+      >Tweet</a>
+    </li>
+  
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2016%2F02%2F09%2FSmarter-Smart-Things-with-MQTT-and-Home-Assistant%2F"
+      >Share on Facebook</a>
+    </li>
+  
+  </ul>
+</section>
+
+      
+
+<section class="recent-posts aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:newspaper-variant-multiple' title='Newspaper variant multiple'></iconify-icon> Recent Posts</h1>
+  <ul class="divided">
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/17/home-assistant-turns-12/">Happy 12th Birthday, Home Assistant!</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/11/ai-in-home-assistant/">Building the AI-powered local smart home</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/03/release-20259/">2025.9: Features for tiles and automations for miles</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/02/frient-joins-works-with-home-assistant/">Frient joins Works with Home Assistant</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/08/21/airgradient-joins-works-with-home-assistant/">AirGradient joins Works with Home Assistant</a>
+        </li>
+      
+    
+  </ul>
+</section>
+
+    
+  
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#glossary">Glossary</a></li>
+<li class="toc-entry toc-h2"><a href="#setting-up-the-bridge">Setting up the Bridge</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#mqtt">MQTT</a></li>
+<li class="toc-entry toc-h3"><a href="#mqtt-bridge">MQTT Bridge</a></li>
+<li class="toc-entry toc-h3"><a href="#smartthings-device">SmartThings Device</a></li>
+<li class="toc-entry toc-h3"><a href="#smartthings-app">SmartThings App</a></li>
+<li class="toc-entry toc-h3"><a href="#configure-home-assistant">Configure Home Assistant</a></li>
+<li class="toc-entry toc-h3"><a href="#configuring-with-docker-compose">Configuring with Docker-Compose</a></li>
+<li class="toc-entry toc-h3"><a href="#how-it-works">How it works</a></li>
+<li class="toc-entry toc-h3"><a href="#future-improvements">Future Improvements</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,789 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Sony PlayStation 4 - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate a Sony PlayStation 4 into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/ps4/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Sony PlayStation 4">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/ps4/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate a Sony PlayStation 4 into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Sony PlayStation 4">
+    <meta name="twitter:description" content="Instructions on how to integrate a Sony PlayStation 4 into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#requirements">Requirements</a></li>
+<li class="toc-entry toc-h2"><a href="#set-up">Set up</a></li>
+<li class="toc-entry toc-h2"><a href="#granting-port-access">Granting Port Access</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#docker">Docker</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#regions">Regions</a></li>
+<li class="toc-entry toc-h2"><a href="#media-data">Media Data</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#formatting">Formatting</a></li>
+<li class="toc-entry toc-h3"><a href="#editing-with-text-editor">Editing with Text Editor</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-select_source">Action select_source</a></li>
+<li class="toc-entry toc-h3"><a href="#action-send_command">Action send_command</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#cover-art-issues">Cover Art Issues</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#advanced-use">Advanced Use</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ports">Ports</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Sony PlayStation 4
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <code>ps4</code> integration allows you to control a
+<a href="https://www.playstation.com/en-us/explore/ps4/" rel="external nofollow">Sony PlayStation 4 console<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<h2>Requirements <a class="title-link" name="requirements" href="#requirements"></a>
+</h2>
+<ul>
+<li>Android or iOS device</li>
+<li>PS4 Second Screen App for <a href="https://play.google.com/store/apps/details?id=com.playstation.mobile2ndscreen&amp;hl=en_US" rel="external nofollow">Android<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or <a href="https://itunes.apple.com/us/app/ps4-second-screen/id1201372796?mt=8" rel="external nofollow">iOS<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> installed on device.</li>
+</ul>
+<h2>Set up <a class="title-link" name="set-up" href="#set-up"></a>
+</h2>
+<ol>
+<li>Download the Second Screen App and make sure that you can find and control your PlayStation 4 normally.</li>
+</ol>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>Read the section “Granting Port Access” below before continuing.</p>
+  </div>
+</div>
+<ol>
+<li>
+<p>Navigate to <code>Settings -&gt; Integrations</code> and press the plus button in the bottom right corner. Select <code>PlayStation 4</code> from the list of integrations.</p>
+</li>
+<li>
+<p>Follow instructions displayed to generate user credentials. You will know this step is completed when a form with fields appears.</p>
+</li>
+<li>
+<p>On the PS4, go to Settings / Mobile App Connection Settings / Add Device, a PIN will be displayed.</p>
+</li>
+<li>
+<p>Pair Home Assistant to your PlayStation 4 by filling in the fields using the PIN from the above step.</p>
+</li>
+</ol>
+<ul>
+<li>
+<strong>Note:</strong> To find your correct region refer to the section <a href="#regions">Regions</a>
+</li>
+</ul>
+<h2>Granting Port Access <a class="title-link" name="granting-port-access" href="#granting-port-access"></a>
+</h2>
+<p>The PlayStation 4 integration requires the use of privileged ports during configuration to work correctly, specifically UDP port 987 and TCP port 997. Depending on your OS of your Home Assistant instance, you may need to allow usage of privileged ports manually.</p>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>Do not run your <b>Home Assistant Core</b> instance itself as <b>root</b> or with <b>root/sudo privileges</b> to accomplish this. This would create a security risk for your host system.</p>
+  </div>
+</div>
+<p>There are varying methods to perform this, dependent on your OS that is running Home Assistant. Specifically, your <em>Python Interpreter</em>, which runs your Home Assistant instance, needs access to the mentioned ports.</p>
+<h3>Docker <a class="title-link" name="docker" href="#docker"></a>
+</h3>
+<p>When running Home Assistant using Docker, make sure that the Home Assistant container is discoverable by the PS4. This can be achieved by ensuring that the Home Assistant container uses the <code>host</code> network driver (by passing <code>--net=host</code> to the container when creating, or adding <code>network_mode: "host"</code> to your compose file when using <code>docker-compose</code>).</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The PlayStation 4 integration does not use entries from <code>configuration.yaml</code>. You must configure this integration by using <code>Integrations</code></p>
+  </div>
+</div>
+<h2>Regions <a class="title-link" name="regions" href="#regions"></a>
+</h2>
+<p>Some titles will have different SKUs in the PlayStation Store database, depending on your <a href="https://www.playstation.com/country-selector/index.html" rel="external nofollow">region<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. You must select your specific region in the setup in order to retrieve the cover art for such titles correctly. The integration will attempt to search other databases for the correct title if it cannot be found.</p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>The following regions have no database and can not be used by the integration:
+China, Philippines, Serbia, Vietnam.</p>
+  </div>
+</div>
+<h2>Media Data <a class="title-link" name="media-data" href="#media-data"></a>
+</h2>
+<p>The PlayStation 4 integration will fetch information about the game or app that is currently running from your region’s <a href="https://store.playstation.com" rel="external nofollow">PlayStation Store<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> database.</p>
+<p>Occasionally, the integration may fail to get the data at all, or may get incorrect data. To correct this issue, the integration allows for manual editing via any text editor.</p>
+<h3>Formatting <a class="title-link" name="formatting" href="#formatting"></a>
+</h3>
+<p>When the integration retrieves data from the PlayStation Store, it stores it in a JSON file named <code>.ps4-games.json</code> in the same directory as where your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file is located. The first line in the file will be <code>{</code> and the last line will be <code>}</code>. Between these lines, there will be indented entries for each game or app the integration finds. See the following example and table:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"CUSA00129"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"media_content_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"media_image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8123/local/image.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"media_title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some App"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"CUSA00123"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"locked"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"media_content_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"game"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"media_image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://somerandomurl.com/image.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"media_title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some Game"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>locked</code></td>
+<td>boolean</td>
+<td>Must be <code>true</code> or <code>false</code>
+</td>
+</tr>
+<tr>
+<td><code>media_content_type</code></td>
+<td>string</td>
+<td>Must be <code>game</code> or <code>app</code>
+</td>
+</tr>
+<tr>
+<td><code>media_image_url</code></td>
+<td>string</td>
+<td>Any valid URL for an image</td>
+</tr>
+<tr>
+<td><code>media_title</code></td>
+<td>string</td>
+<td>The title of the game or app</td>
+</tr>
+</tbody>
+</table>
+<p>The data in the example shows 2 entries.</p>
+<p>Each entry will begin with the SKU ID of the title, e.g., <code>CUSA00000</code> and will have a field named <code>locked</code> with a value of <code>true</code> or <code>false</code> associated with it. The default value will be <code>false</code> for each entry. If <code>locked</code> is <code>true</code>, the integration will not overwrite the data pertaining to that game or app.</p>
+<p>The <code>media_image_url</code> value can be any valid URL. This includes the <code>local directory</code> of your Home Assistant instance. The first entry in the example directs to a file named <code>image.jpg</code> located in the <code>config/www/</code> directory.</p>
+<h3>Editing with Text Editor <a class="title-link" name="editing-with-text-editor" href="#editing-with-text-editor"></a>
+</h3>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>Backup a copy of your <code>.ps4-games.json</code> file before continuing. If there are errors in the formatting, your file may be deleted.</p>
+  </div>
+</div>
+<p>To edit, simply open the file in a text editor, find the game or app you would like to edit, and edit the value(s) you wish to change and then save the file. The changes will appear the next time you play the game or app on your console.</p>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<h3>Action select_source <a class="title-link" name="action-select_source" href="#action-select_source"></a>
+</h3>
+<p>Opens new application/game and closes currently running application/game. The game/app must be in the entity’s source list. Games will be added automatically when you open them normally.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>No</td>
+<td><code>media_player.ps4</code></td>
+<td>The entity id for your PlayStation 4.</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>No</td>
+<td>
+<code>Some Game</code> or <code>CUSA00123</code>
+</td>
+<td>The game/app you want to open. You can use the title or SKU ID. Using the SKU ID will be the most reliable.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action send_command <a class="title-link" name="action-send_command" href="#action-send_command"></a>
+</h3>
+<p>Emulate button press on PlayStation 4. This emulates the commands available for the PS4 Second Screen App. This is not to be confused with DualShock 4 controller buttons.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>No</td>
+<td><code>media_player.ps4</code></td>
+<td>The entity id for your PlayStation 4.</td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>No</td>
+<td><code>ps</code></td>
+<td>The command you want to send.</td>
+</tr>
+</tbody>
+</table>
+<h4>Available Commands <a class="title-link" name="available-commands" href="#available-commands"></a>
+</h4>
+<p>Full list of supported commands.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Button Emulated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ps</code></td>
+<td>PS (PlayStation)</td>
+</tr>
+<tr>
+<td><code>ps_hold</code></td>
+<td>PS Hold/Long Press</td>
+</tr>
+<tr>
+<td><code>option</code></td>
+<td>Option</td>
+</tr>
+<tr>
+<td><code>enter</code></td>
+<td>Enter</td>
+</tr>
+<tr>
+<td><code>back</code></td>
+<td>Back</td>
+</tr>
+<tr>
+<td><code>up</code></td>
+<td>Swipe Up</td>
+</tr>
+<tr>
+<td><code>down</code></td>
+<td>Swipe Down</td>
+</tr>
+<tr>
+<td><code>left</code></td>
+<td>Swipe Left</td>
+</tr>
+<tr>
+<td><code>right</code></td>
+<td>Swipe Right</td>
+</tr>
+</tbody>
+</table>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<h3>Cover Art Issues <a class="title-link" name="cover-art-issues" href="#cover-art-issues"></a>
+</h3>
+<p>If you are running a game/title on your PS4 that does not display a cover or displays the incorrect cover, post an issue <a href="https://github.com/ktnrg45/pyps4-2ndscreen/issues" rel="external nofollow">here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>Be sure to include the following information:</p>
+<ul>
+<li>Your Country</li>
+</ul>
+<p>As well as the exact values for the following attributes found in the state of your PS4 entity.</p>
+<ul>
+<li>media_title</li>
+<li>media_content_id</li>
+</ul>
+<h2>Advanced Use <a class="title-link" name="advanced-use" href="#advanced-use"></a>
+</h2>
+<h3>Ports <a class="title-link" name="ports" href="#ports"></a>
+</h3>
+<p>This integration uses UDP port 1987 as the source port during runtime. During configuration, the source port will be UDP port 1988. These port assignments can be used to configure firewall rules.</p>
+<p>In the event that these ports cannot be used, the ports will fallback to a random port.</p>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/ps4.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fps4%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20ps4" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+ps4%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/ps4//logo.png' srcset='https://brands.home-assistant.io/_/ps4/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=ps4' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Sony PlayStation 4  integration  was introduced in Home Assistant 0.89, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          1746</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:download-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Polling.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/ps4" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+ps4%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/ktnrg45" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/ktnrg45?size=96" alt="@ktnrg45"/> @ktnrg45</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#requirements">Requirements</a></li>
+<li class="toc-entry toc-h2"><a href="#set-up">Set up</a></li>
+<li class="toc-entry toc-h2"><a href="#granting-port-access">Granting Port Access</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#docker">Docker</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#regions">Regions</a></li>
+<li class="toc-entry toc-h2"><a href="#media-data">Media Data</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#formatting">Formatting</a></li>
+<li class="toc-entry toc-h3"><a href="#editing-with-text-editor">Editing with Text Editor</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-select_source">Action select_source</a></li>
+<li class="toc-entry toc-h3"><a href="#action-send_command">Action send_command</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#cover-art-issues">Cover Art Issues</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#advanced-use">Advanced Use</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ports">Ports</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#media-player'>Media player</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,578 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Frient joins Works with Home Assistant - Home Assistant</title>
+    <meta name="author" content="Miranda Bishop">
+    <meta name="description" content="After a long break, more Zigbee devices join the program, bringing everything from energy meter monitoring to smoke alarms.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/blog/2025/09/02/frient-joins-works-with-home-assistant/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Frient joins Works with Home Assistant">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/blog/2025/09/02/frient-joins-works-with-home-assistant/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="After a long break, more Zigbee devices join the program, bringing everything from energy meter monitoring to smoke alarms.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/blog/2025-09-frient/art.webp">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Frient joins Works with Home Assistant">
+    <meta name="twitter:description" content="After a long break, more Zigbee devices join the program, bringing everything from energy meter monitoring to smoke alarms.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/blog/2025-09-frient/art.webp">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="   blog-post ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/integrations/">Integrations</a></li>
+          <li><a class="active" href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#our-newest-frient">Our newest frient</a></li>
+<li class="toc-entry toc-h2"><a href="#devices">Devices</a></li>
+<li class="toc-entry toc-h2"><a href="#best-frients-forever">Best frients forever</a></li>
+<li class="toc-entry toc-h2"><a href="#faqs">FAQs</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="post">
+  
+  <header>
+  
+  <h1>Frient joins Works with Home Assistant</h1>
+  
+
+  
+  <div class="meta clearfix">
+    
+
+  
+  
+    <span class="byline author vcard">
+      <a href="https://github.com/miranda-gb" target="_blank" rel="external nofollow"><img class="author-avatar" src="https://avatars.githubusercontent.com/miranda-gb?size=64" alt="Miranda Bishop"> Miranda Bishop<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+    </span>
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<time datetime="2025-09-02T00:00:01+00:00" pubdate data-updated="true"><iconify-icon inline icon="mdi:calendar" title="Calendar"></iconify-icon> September 2, 2025</time>
+    
+
+  <span>
+    <i class="icon-tags"></i>
+    <ul class="tags unstyled">
+    
+      
+        <li><a class="category" href="/blog/categories/works-with-home-assistant/">Works-with-Home-Assistant</a></li>
+      
+    
+    </ul>
+  </span>
+
+    
+      <a class="comments" href="#post-comments">Comments</a>
+    
+  </div>
+  
+</header>
+
+
+  <img src="/images/blog/2025-09-frient/art.webp" style="border: 0;box-shadow: none;" alt="Frient joins Works with Home Assistant">
+<p>We’re making new frients this week, and they’re bringing an extensive line of Zigbee devices to our <a href="https://works-with.home-assistant.io/" rel="external nofollow">Works With Home Assistant program<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. Each device is tested by our team, ensuring they provide the best experience possible for Home Assistant. <a href="https://www.frient.com/" rel="external nofollow">Frient<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> is widely available across Europe, and are well-known for their sleek, unobtrusive designs that its customers love for their high Home Approval Factor.<a name="read-more"></a></p>
+<h2>Our newest frient <a class="title-link" name="our-newest-frient" href="#our-newest-frient"></a>
+</h2>
+<p>Based in Denmark, the frient brand was developed by Onics, (formerly Develco Products), and they have years of experience with Zigbee devices. Frient is bringing its proven technology to the Works With Home Assistant program, as well as their Danish design that easily blends into almost any home.</p>
+<p>Recent Works With partners have brought Z-Wave, Matter, and even Bluetooth devices to Home Assistant, but it’s been <em>a couple of years</em> 😅 since Zigbee-specific devices have joined the program. Zigbee is one of the most popular open protocols that is used with Home Assistant, with hundreds of thousands of users making use of it today. It’s a proven technology that connects directly to Home Assistant, no cloud or Wi-Fi connection required. Zigbee is a mesh protocol, where some devices act as repeaters, strengthening the network as more are added. It was built from the ground up to power the smart home, and has been optimized to give devices really long (sometimes multi-year) battery life.</p>
+<div class="alert">
+<p>"Joining the Works With Home Assistant program is a proud milestone for frient. It reflects our strong commitment to open, user-centric smart home experiences and ensures that our products seamlessly integrate with one of the most trusted platforms in the market. For Home Assistant users, it means more choice and flexibility — and for frient, it strengthens our position as a key player in the connected smart home space."</p>
+<em style="text-align: right; display: block;">- Martin Langballe, International Business Development Manager at frient</em>
+</div>
+<p>All you need to get started with Zigbee in Home Assistant is a Zigbee adapter or ‘stick’, such as the <a href="/connectzbt1/">Home Assistant Connect ZBT-1</a> (wow, we released this in 2022, I wonder when we’re finally going to build a successor? 😉). By plugging the adapter into a USB port on your Home Assistant system, it should then discover the device and add the <a href="/integrations/frient/">ZHA integration</a>. After that is set up, you can start adding devices to your Zigbee network.  We’ve even added in a cool <a href="/blog/2025/06/11/release-20256/#making-sense-of-bluetooth">new visualization</a> so that you can see how your Zigbee devices interact with each other.</p>
+<p>ZHA is built with the support of the Open Home Foundation, and it even has a full-time developer (<a href="https://github.com/puddly" rel="external nofollow">@puddly<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) dedicated to improving it and helping certify new Works With partner devices. Your support makes this possible, whether through a Home Assistant Cloud subscription or by purchasing official hardware.</p>
+<h2>Devices <a class="title-link" name="devices" href="#devices"></a>
+</h2>
+<p class="img">
+<img src="/images/blog/2025-09-frient/energy-usage-data.webp" style="border: 0;box-shadow: none;" alt="A frient device attached to a energy meter">
+When your energy company won’t provide your raw usage data, there’s always another way 😉
+</p>
+<p>In case you didn’t know, Works With Home Assistant differs from other certification programs as products are rigorously tested in-house to ensure they work seamlessly out of the box with Home Assistant. Any company joining also commits to providing long-term support and firmware updates while being a positive force in the Home Assistant community. Works With Home Assistant is operated by the <a href="https://www.openhomefoundation.org/">Open Home Foundation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, and the support of <a href="/cloud/">Home Assistant Cloud</a> subscribers funds this work.</p>
+<p>Our team has worked extensively with frient to ensure that the following items work seamlessly with Home Assistant.</p>
+<ul>
+<li>
+<p><a href="https://www.frient.com/products/motion-sensor-pro" rel="external nofollow">frient Motion Sensor Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/io-module" rel="external nofollow">frient IO Module<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/smart-plug-mini" rel="external nofollow">frient Smart Plug Mini<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/entry-sensor-2-pro" rel="external nofollow">frient Entry Sensor 2 Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/smart-siren" rel="external nofollow">frient Smart Siren UK<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/smart-siren" rel="external nofollow">frient Smart Siren EU<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/intelligent-keypad" rel="external nofollow">frient Intelligent Keypad<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/water-leak-detector" rel="external nofollow">frient Water Leak Detector<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/smart-button" rel="external nofollow">frient Smart Button<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/intelligent-smoke-alarm" rel="external nofollow">frient Intelligent Smoke Alarm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/air-quality-sensor" rel="external nofollow">frient Air Quality Sensor<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/smart-humidity-sensor" rel="external nofollow">frient Smart Humidity Sensor<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+<li>
+<p><a href="https://www.frient.com/products/electricity-meter-interface-2-led" rel="external nofollow">frient Electricity Meter Interface 2 LED<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+</li>
+</ul>
+<p>This is a big portion of frient’s product line, and provides energy monitoring, device control, safety, and security sensors. The frient IO Module is the first certified Zigbee module that can be used to turn low-voltage dumb devices like electric blinds or garage doors into devices that can be controlled by Home Assistant.</p>
+<p>There are some great devices here for building a more sustainable smart home. The Electricity Meter Interface 2 LED allows you to get the data off your energy meter and record it into Home Assistant. Another win for sustainability is their use of AA and AAA batteries wherever practical, meaning you can use rechargeables instead of constantly buying and recycling coin cells.</p>
+<p>I also selfishly love to see some great UK-specific devices being brought into the program with the frient Smart Siren having both UK and EU versions.</p>
+<h2>Best frients forever <a class="title-link" name="best-frients-forever" href="#best-frients-forever"></a>
+</h2>
+<p>It’s great to see Zigbee get some high-quality certified Works With Home Assistant devices after a multi-year wait. Frient has put a good deal of work into this launch and are big fans of our work and the community. There are more exciting Zigbee developments to come, so stay tuned!</p>
+<h2>FAQs <a class="title-link" name="faqs" href="#faqs"></a>
+</h2>
+<p><strong>Q: If I have a device that is not listed under “Works With Home Assistant” does this mean it’s not supported?</strong></p>
+<p>A: No! It just means that it hasn’t gone through a testing schedule with our team or doesn’t fit the requirements of the program. It might function perfectly well but be added to the testing schedule later down the road, or it might work under a different connectivity type that we don’t currently test under the program.</p>
+<p><strong>Q: Ok, so what’s the point of the Works With program?</strong></p>
+<p>A: It highlights the devices we know work well with Home Assistant and the brands that make a long-term commitment to keeping support for these devices going. The certification agreement specifies that the devices must have full functionality within Home Assistant, operate locally without the need for cloud, and will continue to do so long-term.</p>
+<p><strong>Q: How were these devices tested?</strong></p>
+<p>A: All devices in this list were tested using a standard HA Green Hub with the ZBT-1 and with the ZHA integration. We haven’t tested these devices with Zigbee2MQTT, so we would recommend checking their <a href="https://www.zigbee2mqtt.io/supported-devices/#v=Frient" rel="external nofollow">device compatibility documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. If you have another hub, Zigbee adapter, or integration, that’s not a problem, but we test against these as they are the most effective way for our team to certify within our ecosystem.</p>
+<p><strong>Q: Will you be adding more frient devices to the program?</strong></p>
+<p>A: Why not! We’re thrilled to foster a close relationship with the team at frient to work together on any upcoming releases or add in further products that are not yet listed here.</p>
+
+
+
+</article>
+
+<div id="post-comments"></div>
+
+
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  DiscourseEmbed = { discourseUrl: 'https://community.home-assistant.io/',
+                     discourseEmbedUrl: 'https://www.home-assistant.io/blog/2025/09/02/frient-joins-works-with-home-assistant/' };
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  
+    
+      <section class="sharing aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:ios-share' title='Ios share'></iconify-icon> Share this post</h1>
+  <ul class="divided">
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2025%2F09%2F02%2Ffrient-joins-works-with-home-assistant%2F&text=Frient+joins+Works+with+Home+Assistant+via+%40home_assistant"
+      >Tweet</a>
+    </li>
+  
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2025%2F09%2F02%2Ffrient-joins-works-with-home-assistant%2F"
+      >Share on Facebook</a>
+    </li>
+  
+  </ul>
+</section>
+
+      
+
+<section class="recent-posts aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:newspaper-variant-multiple' title='Newspaper variant multiple'></iconify-icon> Recent Posts</h1>
+  <ul class="divided">
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/17/home-assistant-turns-12/">Happy 12th Birthday, Home Assistant!</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/11/ai-in-home-assistant/">Building the AI-powered local smart home</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/03/release-20259/">2025.9: Features for tiles and automations for miles</a>
+        </li>
+      
+    
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/08/21/airgradient-joins-works-with-home-assistant/">AirGradient joins Works with Home Assistant</a>
+        </li>
+      
+    
+  </ul>
+</section>
+
+    
+  
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#our-newest-frient">Our newest frient</a></li>
+<li class="toc-entry toc-h2"><a href="#devices">Devices</a></li>
+<li class="toc-entry toc-h2"><a href="#best-frients-forever">Best frients forever</a></li>
+<li class="toc-entry toc-h2"><a href="#faqs">FAQs</a></li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

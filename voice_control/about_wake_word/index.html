@@ -1,0 +1,699 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The Home Assistant approach to wake words  - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts. Perfect to run on a...">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/voice_control/about_wake_word/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="The Home Assistant approach to wake words ">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/voice_control/about_wake_word/">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts. Perfect to run on a Raspberry Pi or a local server.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="The Home Assistant approach to wake words ">
+    <meta name="twitter:description" content="Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts. Perfect to run on a Raspberry Pi or a local server.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="documentation-page   ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a class="active" href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#the-challenge">The challenge</a></li>
+<li class="toc-entry toc-h2"><a href="#the-approach">The approach</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#drawbacks-of-this-approach">Drawbacks of this approach</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#about-the-openwakeword-add-on">About the openWakeWord add-on</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#the-challenge-1">The challenge</a></li>
+<li class="toc-entry toc-h3"><a href="#training-the-model">Training the model</a></li>
+<li class="toc-entry toc-h3"><a href="#supported-languages">Supported languages</a></li>
+<li class="toc-entry toc-h3"><a href="#openwakeword-in-docker">openWakeWord in Docker</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#other-wake-word-engines">Other wake word engines</a></li>
+<li class="toc-entry toc-h2"><a href="#about-on-device-wake-word-processing-microwakeword">About on-device wake word processing (microWakeWord)</a></li>
+<li class="toc-entry toc-h2"><a href="#try-it">Try it!</a></li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/voice_control/">Voice control</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        The Home Assistant approach to wake words 
+      
+    </h1>
+  </header>
+  
+  
+  <h2>The challenge <a class="title-link" name="the-challenge" href="#the-challenge"></a>
+</h2>
+<ul>
+<li>The wake words have to be processed extremely fast: You can’t have a voice assistant start listening 5 seconds after a wake word is spoken.</li>
+<li>There is little room for false positives.</li>
+<li>Wake word processing is based on compute-intensive AI models.</li>
+<li>Voice satellite hardware generally does not have a lot of computing power, so wake word engines need hardware experts to optimize the models to run smoothly.</li>
+</ul>
+<h2>The approach <a class="title-link" name="the-approach" href="#the-approach"></a>
+</h2>
+<p>To avoid being limited to specific hardware, the wake word detection is done inside Home Assistant. Voice satellite devices constantly sample current audio in your room for voice. When it detects voice, the satellite sends audio to Home Assistant where it checks if the wake word was said and handle the command that followed it.</p>
+<p>This means any device that streams audio can be turned into a voice satellite, even if it isn’t powerful enough to run wake word detection locally. It also allows our developer community to experiment with wake word models without having to shrink the model to run on a low-powered voice satellite device.</p>
+<p class="img">
+<img src="/images/blog/2023-10-12-year-of-the-voice-chapter-4/wake-word-architecture.png">
+Overview of the wake word architecture
+</p>
+<h3>Drawbacks of this approach <a class="title-link" name="drawbacks-of-this-approach" href="#drawbacks-of-this-approach"></a>
+</h3>
+<ol>
+<li>
+<p>The quality of the captured audio differs between devices. A speakerphone with multiple microphones and audio processing chips captures voice very cleanly. A device with a single microphone and no post-processing? Not so much. We compensate for poor audio quality with audio post-processing inside Home Assistant and users can use better speech-to-text models to improve accuracy like the one included with Home Assistant Cloud.</p>
+</li>
+<li>
+<p>Each satellite requires ongoing resources inside Home Assistant while it’s streaming audio. Currently, users can have 5 voice satellites streaming audio at the same time without overwhelming a Raspberry Pi 4. To scale up, we’ve updated <a href="https://github.com/rhasspy/wyoming" rel="external nofollow">the Wyoming protocol<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> to allow users to run wake word detection on an external server.</p>
+</li>
+</ol>
+<h2>About the openWakeWord add-on <a class="title-link" name="about-the-openwakeword-add-on" href="#about-the-openwakeword-add-on"></a>
+</h2>
+<p>Home Assistant’s wake words are leveraging a new project called <a href="https://github.com/dscripka/openWakeWord" rel="external nofollow">openWakeWord<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> by David Scripka. This project has real-world accuracy, runs on commodity hardware and anyone can <a href="/voice_control/create_wake_word/">train a basic model of their own wake word</a>.</p>
+<p class="img">
+<img src="/images/blog/2023-10-12-year-of-the-voice-chapter-4/pick-wake-word.png">
+Users can pick per configured voice assistant what wake word to listen for
+</p>
+<h3>The challenge <a class="title-link" name="the-challenge-1" href="#the-challenge-1"></a>
+</h3>
+<p>openWakeWord is created with 4 goals in mind:</p>
+<ul>
+<li>Be fast enough for real-world usage.</li>
+<li>Be accurate enough for real-world usage.</li>
+<li>Have a simple model architecture and inference process.</li>
+<li>Require little to no manual data collection to train new models.</li>
+</ul>
+<h3>Training the model <a class="title-link" name="training-the-model" href="#training-the-model"></a>
+</h3>
+<p>openWakeWord is built around an open source audio embedding model trained by Google and fine-tuned using the text-to-speech system <a href="https://github.com/rhasspy/piper/" rel="external nofollow">Piper<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. Piper generates many thousands of audio clips for each wake word, creating variations of different speakers. These audio clips are then augmented to sound as if they were spoken in multiple kinds of rooms, at specific distances from a microphone, and with varying speeds. Finally, the clips are mixed with background noise like music, environmental sounds, and conversation before being fed into the training process to generate the wake word model.</p>
+<p class="img">
+<img src="/images/blog/2023-10-12-year-of-the-voice-chapter-4/open-wake-word-architecture.png">
+Overview of the openWakeWord training pipeline.
+</p>
+<h3>Supported languages <a class="title-link" name="supported-languages" href="#supported-languages"></a>
+</h3>
+<p>OpenWakeWord currently only works for English wake words. This is because there is still a lack of models in other languages with many different speakers. Similar models for other languages can be trained as more multi-speaker models per language become available.</p>
+<h3>openWakeWord in Docker <a class="title-link" name="openwakeword-in-docker" href="#openwakeword-in-docker"></a>
+</h3>
+<p>If you’re not running Home Assistant OS, openWakeWord is also available as <a href="https://github.com/rhasspy/wyoming-openwakeword#docker-image" rel="external nofollow">a Docker container<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. Once the container is running, you will need to add the Wyoming integration and point it at its IP address and port (typically 10400).</p>
+<h2>Other wake word engines <a class="title-link" name="other-wake-word-engines" href="#other-wake-word-engines"></a>
+</h2>
+<p>Home Assistant ships with defaults but allows users to configure each part of their voice assistants. This also applies to wake words.</p>
+<p>You can add other wake word engines as an integration or run them as a standalone program that communicates with Home Assistant via the <a href="https://github.com/rhasspy/wyoming" rel="external nofollow">Wyoming protocol<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p class="img">
+<img src="/images/blog/2023-10-12-year-of-the-voice-chapter-4/wake-word-integration.png">
+How wake words integrate into Home Assistant
+</p>
+<p>As an example, we’re also making the <strong>Porcupine (v1)</strong> wake word engine available. It supports 29 wake words across English, French, Spanish, and German. The wake words include <em>Computer</em>, <em>Framboise</em>, <em>Manzana</em>, and <em>Stachelschwein</em>.</p>
+<h2>About on-device wake word processing (microWakeWord) <a class="title-link" name="about-on-device-wake-word-processing-microwakeword" href="#about-on-device-wake-word-processing-microwakeword"></a>
+</h2>
+<p>The <a href="https://github.com/kahrendt/microWakeWord" rel="external nofollow">microWakeWord<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> created by <a href="https://www.kevinahrendt.com/" rel="external nofollow">Kevin Ahrendt<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> enables ESPHome to detect wake words on devices like the ESP32-S3-BOX-3.</p>
+<p>Because openWakeWord is too large to run on low-power devices like the S3-BOX-3, openWakeWord runs wake word detection on the Home Assistant server.</p>
+<p>Doing wake word detection on Home Assistant allows low-power devices like the <a href="/voice_control/thirteen-usd-voice-remote/">M5 ATOM Echo Development Kit</a> to simply stream audio and let all of the processing happen elsewhere.
+The downside is that adding more voice assistants requires more CPU usage in Home Assistant as well as more network traffic.</p>
+<p>Enter <em>microWakeWord</em>; a more light-weight model based on <a href="https://towardsdatascience.com/a-simple-guide-to-the-versions-of-the-inception-network-7fc52b863202" rel="external nofollow">Google’s Inception neural network<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. Because his new model is not as large, it can be run on low-power devices with an ESP32 chip, such as the ESP32-S3 chip inside the S3-BOX-3! <em>(It also works on the, now discontinued, S3-BOX and S3-BOX-Lite)</em>.</p>
+<p>Currently, there are <a href="https://github.com/esphome/micro-wake-word-models/tree/main/models" rel="external nofollow">three models<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> trained for microWakeWord:</p>
+<ul>
+<li><em>okay nabu</em></li>
+<li><em>hey jarvis</em></li>
+<li><em>alexa</em></li>
+</ul>
+<h2>Try it! <a class="title-link" name="try-it" href="#try-it"></a>
+</h2>
+<p>Right now, there are two easy options to get started with wake words:</p>
+<ul>
+<li>Follow the guide to the <a href="/voice_control/thirteen-usd-voice-remote/">$13 voice assistant</a>. This tutorial is using the tiny ATOM Echo, detecting wake words with openWakeWord.</li>
+<li>Follow the guide to set up an <a href="/voice_control/s3_box_voice_assistant/">ESP32-S3-BOX-3 voice assistant</a>. This tutorial is using the bigger S3-BOX-3 device which features a display. It can detect wake words using openWakeWord. But it can also do on-device wake word detection using microWakeWord.</li>
+</ul>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    <li>
+      <a href="/voice_control/thirteen-usd-voice-remote/" class="topic">
+        Create a $13 voice assistant
+      </a>
+    </li>
+    
+    
+    
+    
+    
+    
+    <li>
+      <a href="/voice_control/create_wake_word/" class="topic">
+        Create your own wake words
+      </a>
+    </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </ul>
+</div>
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/voice_control/about_wake_word.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fvoice_control%2Fabout_wake_word%2F&amp;version=2025.9.4&amp;labels=current" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?utf8=%E2%9C%93&amp;q=%22%2Fvoice_control%2Fabout_wake_word%2F%22&amp;in=body" target="_blank" title="View given feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View given feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  <section class="vertical-nav aside-module grid__item one-whole lap-one-half">
+  <div class="section">
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:bookshelf' title='Bookshelf'></iconify-icon> Documentation</h1>
+    <ul class="divided sidebar-menu">
+      <li>
+        <a  href='/docs/'>Overview </a>
+        |
+        <a  href='/faq/'>FAQ </a>
+        |
+        <a  href='/docs/glossary/'>Glossary </a>
+      </li>
+
+      <li>
+  <iconify-icon icon="mdi:robot-happy"></iconify-icon> <a  href='/docs/automation/'>Automations </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> <a  href='/dashboards'>Dashboards </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:microphone' title='Microphone'></iconify-icon> <a  href='/voice_control/'>Voice assistants </a>
+  
+  <ul>
+    <li><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> <a  href='/voice_control/'>Assist up and running </a>
+      <ul>
+        <li><a  href='/voice_control/voice_remote_local_assistant/'>Getting started - Local </a></li>
+        <li><a  href='/voice_control/voice_remote_cloud_assistant/'>Getting started - Home Assistant Cloud </a></li>
+      </ul>
+    </li>
+    <li><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> <a  href='/voice_control/best_practices'>Best practices </a>
+      <ul>
+        <li><a  href='/voice_control/voice_remote_expose_devices/'>Exposing entities to Assist </a></li>
+        <li><a  href='/voice_control/assign_areas_floors/'>Assigning devices to areas and areas to floors </a></li>
+        <li><a  href='/voice_control/aliases/'>Aliases for entities, areas and floors </a></li> 
+        <li><a  href='/voice_control/builtin_sentences/'>Talking to Assist - Sentences starter pack </a></li>
+      </ul>
+    </li>
+    <li><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> <a  href='/voice_control/expanding_assist'>Expanding Assist </a>
+      <ul>
+        <li><a  href='/voice_control/assist_create_open_ai_personality/'>Creating a personality with AI </a></li>
+        <li><a  href='/voice_control/custom_sentences/'>Custom sentences </a></li>
+        <li><a  href='/voice_control/android/'>Assist for Android </a></li>
+        <li><a  href='/voice_control/apple/'>Assist for Apple </a></li>
+      </ul>
+    </li>
+    <li><iconify-icon inline icon='mdi:checkbox-marked' title='Checkbox marked'></iconify-icon> Experiment with Assist setups
+      <ul>
+        <li><a class='active' href='/voice_control/about_wake_word/'>The Home Assistant Approach to Wake Words </a></li>
+        <li><a  href='/voice_control/create_wake_word/'>Wake words for Assist </a></li>
+        <li><a  href='/voice_control/s3_box_voice_assistant/'>Tutorial: ESP32-S3-BOX voice assistant </a></li>
+        <li><a  href='/voice_control/s3-box-customize/'>Tutorial: Customize the S3-BOX </a></li>
+        <li><a  href='/voice_control/thirteen-usd-voice-remote/'>Tutorial: $13 voice assistant </a></li>
+        <li><a  href='/voice_control/worlds-most-private-voice-assistant/'>Tutorial: World's most private voice assistant </a></li>
+        <li><a  href='/voice_control/assist_daily_summary/'>Tutorial: Your daily summary by Assist </a></li>
+        <li><a  href='/voice_control/start_assist_from_dashboard/'>Starting Assist from your dashboard </a></li>
+        <li><a  href='/voice_control/contribute-voice/'>Contribute to the Voice initiative </a></li>
+      </ul>
+    </li>
+    <li><iconify-icon inline icon='mdi:account-help' title='Account help'></iconify-icon> Troubleshooting
+      <ul>
+        <li><a  href='/voice_control/troubleshooting/'>Troubleshooting Assist </a></li>
+        <li><a  href='/voice_control/troubleshooting_the_s3_box/'>Troubleshooting the ESP32-S3-BOX </a></li>
+        <li><a  href='/voice_control/using_tts_in_automation/'>Using Piper TTS in automations </a></li>
+      </ul>
+    </li>
+  </ul>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> <a  href='/docs/organizing/'>Organization </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> <a  href='/docs/energy/'>Home energy management </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:update' title='Update'></iconify-icon> <a  href='/common-tasks/general/'>Common tasks </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:cogs' title='Cogs'></iconify-icon> <a  href='/docs/configuration/'>Advanced configuration </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:account-security' title='Account security'></iconify-icon> <a  href='/docs/authentication/'>Authentication </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:database' title='Database'></iconify-icon> <a  href='/docs/backend/'>Backend </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:palette' title='Palette'></iconify-icon> <a  href='/docs/tools/'>Tools and helpers </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:cellphone' title='Cellphone'></iconify-icon> <a href="https://companion.home-assistant.io/docs">iOS and Android apps <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+</li>
+
+<li>
+  <iconify-icon inline icon='simple-icons:mqtt' title='Mqtt'></iconify-icon> <a  href='/integrations/mqtt'>MQTT </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='bitcoin-icons:node-hardware-filled' title='Node hardware filled'></iconify-icon> Official hardware
+  <ul>
+    <li><a href="https://support.nabucasa.com/hc/en-us/categories/24638797677853-Home-Assistant-Green">Home Assistant Green <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+    <li><a href="https://support.nabucasa.com/hc/en-us/categories/24734620813469">Home Assistant Connect ZBT-1 <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+    <li><a href="https://support.nabucasa.com/hc/en-us/categories/28669861145885">Home Assistant Connect ZWA-2 <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+    <li><a href="https://support.nabucasa.com/hc/en-us/categories/24734575925149-Home-Assistant-Yellow">Home Assistant Yellow <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+    <li><a href="https://support.nabucasa.com/hc/en-us/categories/24451727188125-Home-Assistant-Voice-Preview-Edition">Home Assistant Voice Preview Edition <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+  </ul>
+</li>
+
+    </ul>
+  </div>
+</section>
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#the-challenge">The challenge</a></li>
+<li class="toc-entry toc-h2"><a href="#the-approach">The approach</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#drawbacks-of-this-approach">Drawbacks of this approach</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#about-the-openwakeword-add-on">About the openWakeWord add-on</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#the-challenge-1">The challenge</a></li>
+<li class="toc-entry toc-h3"><a href="#training-the-model">Training the model</a></li>
+<li class="toc-entry toc-h3"><a href="#supported-languages">Supported languages</a></li>
+<li class="toc-entry toc-h3"><a href="#openwakeword-in-docker">openWakeWord in Docker</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#other-wake-word-engines">Other wake word engines</a></li>
+<li class="toc-entry toc-h2"><a href="#about-on-device-wake-word-processing-microwakeword">About on-device wake word processing (microWakeWord)</a></li>
+<li class="toc-entry toc-h2"><a href="#try-it">Try it!</a></li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

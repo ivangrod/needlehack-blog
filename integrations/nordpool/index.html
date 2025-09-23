@@ -1,0 +1,967 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Nord Pool - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate with the Nord Pool Energy market prices.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/nordpool/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Nord Pool">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/nordpool/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate with the Nord Pool Energy market prices.">
+    <meta property="og:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Nord Pool">
+    <meta name="twitter:description" content="Instructions on how to integrate with the Nord Pool Energy market prices.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/needlehack-blog/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/installation/">Getting started</a></li>
+          <li>
+            <a  href="/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/integrations/">Integrations</a></li>
+          <li><a  href="/blog/">Blog</a></li>
+          <li><a  href="/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#data-fetching-and-limitations">Data fetching and limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#sensors">Sensors</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#main-sensors">Main sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#peak--off-peak-sensors">Peak &amp; off-peak sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#diagnostic-sensors">Diagnostic sensors</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#get-price-for-date">Get price for date</a></li>
+<li class="toc-entry toc-h3"><a href="#get-price-indices-for-date">Get price indices for date</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ui-template">UI Template</a></li>
+<li class="toc-entry toc-h3"><a href="#yaml-template">YAML Template</a></li>
+<li class="toc-entry toc-h3"><a href="#tomorrows-lowest-price">Tomorrow’s lowest price</a></li>
+<li class="toc-entry toc-h3"><a href="#energy-dashboard">Energy Dashboard</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#remove-the-integration">Remove the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Nord Pool
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <strong>Nord Pool</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> integrates <a href="https://www.nordpoolgroup.com/" rel="external nofollow">Nord Pool Group<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> energy prices into Home Assistant.</p>
+<p>The <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> provides the public market prices displayed on the <a href="https://data.nordpoolgroup.com/auction/day-ahead/prices" rel="external nofollow">Nord Pool Auction page<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p>Most European energy is traded via the Nord Pool Group marketplace. If your energy provider doesn’t have a dedicated Home Assistant integration and you have a spot-price-based contract, you can use the <strong>Nord Pool</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span>. This integration provides spot prices for your selected market, which you can, as an example, use in a <span class="terminology">template<span class="terminology-tooltip">A template is an automation definition that can include variables for the action or data from the trigger values. This allows automations to generate dynamic actions.<a class="terminology-link" href="/docs/automation/templating/"> [Learn more]</a></span></span> to calculate prices for your <a href="#energy-dashboard">energy dashboard</a>.</p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>The energy market is transitioning to 15-minute <abbr title="market time unit">MTU</abbr> instead of 60-minute MTU.</p>
+<p>When this finally occurs, the <strong>Nord Pool</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> will automatically switch and use the 15-minute <abbr title="market time unit">MTU</abbr>. This means during the transition, you may have a current price which is hourly based and a future price that is a 15-minute price.</p>
+<p>If you use this integration to calculate your own energy cost, it is advisable to see how this affects you. Check if any automations, templates, or other settings might need to be modified accordingly.</p>
+<p>You can read more and monitor the timeline <a href="https://www.nordpoolgroup.com/en/trading/transition-to-15-minute-market-time-unit-mtu/" rel="external nofollow">on the page about the transition to 15-minute MTU by Nordpool<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+  </div>
+</div>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Nord Pool</strong> hub to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=nordpool" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=nordpool" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Nord Pool</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Areas</span><a name="areas" class="title-link" href="#areas"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select one or multiple market areas to create sensors for.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Currency</span><a name="currency" class="title-link" href="#currency"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Currency to display prices in. EUR is the base currency in Nord Pool prices.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>Only a single integration entry is supported. To modify the settings, you can use the reconfigure option from the integration entry.</p>
+<p>EUR is the base currency for market prices. If you choose another currency, you can find the conversion rate in the <code>Exchange rate</code> sensor.
+All prices are displayed as <code>[Currency]/kWh</code>.</p>
+  </div>
+</div>
+<h2>Data fetching and limitations <a class="title-link" name="data-fetching-and-limitations" href="#data-fetching-and-limitations"></a>
+</h2>
+<p>Data is polled from the <strong>Nord Pool</strong> API on an hourly basis, exactly on the hour, to ensure the price sensors are displaying the correct price.</p>
+<p>If polling cannot happen because of no connectivity or a malfunctioning API, it will wait a retry a few times before failing.
+The user can use the <a href="homeassistant#action-homeassistantupdate_entity"><code>homeassistant.update_entity</code></a> action to manually try again later, in the case the user has solved the connectivity issue.</p>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<p>This service is reliant on an internet connection and that the <strong>Nord Pool</strong> API is available. Here are the things you can try before raising an issue:</p>
+<ul>
+<li>Check that internet is available from your Home Assistant instance.</li>
+<li>Check that the <strong>Nord Pool</strong> API is available by clicking <a href="https://dataportal-api.nordpoolgroup.com/api/DayAheadPrices" rel="external nofollow">here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. You should get a JSON back with the title <code>Unauthorized</code>.</li>
+<li>Use <code>curl</code> in a terminal on your Home Assistant instance using the same URL as previously opened in the browser. <code>curl https://dataportal-api.nordpoolgroup.com/api/DayAheadPrices</code>
+</li>
+</ul>
+<h2>Sensors <a class="title-link" name="sensors" href="#sensors"></a>
+</h2>
+<p>The integration will create entities showing today’s energy prices for the configured market area. Only the base energy price is shown. VAT and other additional costs are not included.</p>
+<h3>Main sensors <a class="title-link" name="main-sensors" href="#main-sensors"></a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current price</td>
+<td>[Currency]/kWh</td>
+<td>The current (hourly) energy price.</td>
+</tr>
+<tr>
+<td>Previous price</td>
+<td>[Currency]/kWh</td>
+<td>The price of the previous hour.</td>
+</tr>
+<tr>
+<td>Next price</td>
+<td>[Currency]/kWh</td>
+<td>The price of the next hour.</td>
+</tr>
+<tr>
+<td>Daily average</td>
+<td>[Currency]/kWh</td>
+<td>The average of today’s energy prices.</td>
+</tr>
+<tr>
+<td>Lowest price</td>
+<td>[Currency]/kWh</td>
+<td>Today’s lowest price (start and end time are provided in state attributes)</td>
+</tr>
+<tr>
+<td>Highest price</td>
+<td>[Currency]/kWh</td>
+<td>Today’s highest price (start and end time are provided in state attributes)</td>
+</tr>
+</tbody>
+</table>
+<h3>Peak &amp; off-peak sensors <a class="title-link" name="peak--off-peak-sensors" href="#peak--off-peak-sensors"></a>
+</h3>
+<p>Additional sensors are provided for peak and off-peak blocks.</p>
+<ul>
+<li>Peak refers to the price of the period from 8am to 8pm.</li>
+<li>Off-peak 1 refers to the price of the time period from midnight to 8am.</li>
+<li>Off-peak 2 refers to the average price of the time period from 8pm to midnight.</li>
+</ul>
+<p class="img">
+  <img src="/images/integrations/nordpool/nordpool-blocks.png" alt="Time blocks">
+</p>
+<table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[peak/off-peak] highest price</td>
+<td>[Currency]/kWh</td>
+<td>The hightest hourly price during the given timeframe.</td>
+</tr>
+<tr>
+<td>[peak/off-peak] lowest  price</td>
+<td>[Currency]/kWh</td>
+<td>The lowest hourly price during the given timeframe.</td>
+</tr>
+<tr>
+<td>[peak/off-peak] average</td>
+<td>[Currency]/kWh</td>
+<td>The average price of the given timeframe.</td>
+</tr>
+<tr>
+<td>[peak/off-peak] time from</td>
+<td>Datetime</td>
+<td>The start date/time of the given timeframe.</td>
+</tr>
+<tr>
+<td>[peak/off-peak] time until</td>
+<td>Datetime</td>
+<td>The end date/time of the given timeframe.</td>
+</tr>
+</tbody>
+</table>
+<p>The block price sensors are not enabled by default.</p>
+<h3>Diagnostic sensors <a class="title-link" name="diagnostic-sensors" href="#diagnostic-sensors"></a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Currency</td>
+<td>[Currency]</td>
+<td>The configured currency.</td>
+</tr>
+<tr>
+<td>Exchange rate</td>
+<td>Decimal</td>
+<td>The exchange rate between the configure currency and Euro’s.</td>
+</tr>
+<tr>
+<td>Last updated</td>
+<td>Datetime</td>
+<td>The time when the market prices were last updated.</td>
+</tr>
+</tbody>
+</table>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<h3>Get price for date <a class="title-link" name="get-price-for-date" href="#get-price-for-date"></a>
+</h3>
+<p>The integration entities provide price information only for the current date. Use the “Get price for date” action to retrieve pricing information for any date within the last two months or for tomorrow.</p>
+<p>The areas and currency parameters are optional. If omitted, the values configured in the integration will be used.</p>
+<p>See <a href="#examples">examples</a> how to use in a trigger template sensor.</p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Nord Pool configuration entry</span><a name="nord-pool-configuration-entry" class="title-link" href="#nord-pool-configuration-entry"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select the Nord Pool configuration entry to target.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Date</span><a name="date" class="title-link" href="#date"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Pick the date to fetch prices for (see note about possible dates below).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Areas</span><a name="areas" class="title-link" href="#areas"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select one market area to create output for. If omitted it will use the areas from the configuration entry.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Currency</span><a name="currency" class="title-link" href="#currency"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Currency to display prices in. EUR is the base currency in Nord Pool prices.  If omitted it will use the currency from the configuration entry.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The public API only allows us to see past pricing information for up to 2 months.</p>
+<p>Although Nord Pool operates in the CET/CEST timezone, all data is returned in UTC. Depending on how the data is consumed or manipulated, you may need to consider this.</p>
+<p>Tomorrow’s prices are typically released around 13:00 CET/CEST, and trying to get them before that time will generate an error that needs to be considered in such a case.</p>
+  </div>
+</div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>You can get your <code>config_entry</code> by using actions within the <a href="/docs/tools/dev-tools/">developer tools</a>: use one of the Nord Pool actions and view the YAML.</p>
+  </div>
+</div>
+<h4>Example action with data <a class="title-link" name="example-action-with-data" href="#example-action-with-data"></a>
+</h4>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">nordpool.get_prices_for_date</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">config_entry</span><span class="pi">:</span> <span class="s">1234567890a</span>
+  <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-11-10"</span>
+  <span class="na">areas</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">SE3</span>
+    <span class="pi">-</span> <span class="s">SE4</span>
+  <span class="na">currency</span><span class="pi">:</span> <span class="s">SEK</span>
+</code></pre></div></div>
+<h3>Get price indices for date <a class="title-link" name="get-price-indices-for-date" href="#get-price-indices-for-date"></a>
+</h3>
+<p>The integration can also provide price indices for any date with published prices. Use the “Get price indices for date” action to retrieve pricing information with a custom resolution time.</p>
+<p>The areas, currency, and resolution parameters are optional. If omitted, the values configured in the integration will be used and for resolution it will default to 60 minutes.</p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Nord Pool configuration entry</span><a name="nord-pool-configuration-entry" class="title-link" href="#nord-pool-configuration-entry"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select the Nord Pool configuration entry to target.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Date</span><a name="date" class="title-link" href="#date"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Pick the date to fetch prices for (see note about possible dates below).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Areas</span><a name="areas" class="title-link" href="#areas"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select one market area to create output for. If omitted it will use the areas from the configuration entry.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Currency</span><a name="currency" class="title-link" href="#currency"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Currency to display prices in. EUR is the base currency in Nord Pool prices. If omitted, it will use the currency from the configuration entry.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Resolution</span><a name="resolution" class="title-link" href="#resolution"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Resolution time for price indices.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The public API only allows us to see past pricing information for up to 2 months.</p>
+<p>Although Nord Pool operates in the CET/CEST timezone, all data is returned in UTC. Depending on how the data is consumed or manipulated, you may need to consider this.</p>
+<p>Tomorrow’s prices are typically released around 13:00 CET/CEST, and trying to get them before that time will generate an error that needs to be considered in such a case.</p>
+  </div>
+</div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>You can get your <code>config_entry</code> by using actions within the <a href="/docs/tools/dev-tools/">developer tools</a>: use one of the Nord Pool actions and view the YAML.</p>
+  </div>
+</div>
+<h4>Example action with data <a class="title-link" name="example-action-with-data-1" href="#example-action-with-data-1"></a>
+</h4>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">nordpool.get_prices_for_date</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">config_entry</span><span class="pi">:</span> <span class="s">1234567890a</span>
+  <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2024-11-10"</span>
+  <span class="na">areas</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">SE3</span>
+    <span class="pi">-</span> <span class="s">SE4</span>
+  <span class="na">currency</span><span class="pi">:</span> <span class="s">SEK</span>
+</code></pre></div></div>
+<h2>Examples <a class="title-link" name="examples" href="#examples"></a>
+</h2>
+<p>A template sensor to add VAT and fixed cost is useful to get the actual energy cost in the energy dashboard.</p>
+<h3>UI Template <a class="title-link" name="ui-template" href="#ui-template"></a>
+</h3>
+<p>Create a helper using the UI.</p>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; Services</strong></a> and at the top, choose the <strong>Helpers</strong> tab.</li>
+<li>In the bottom right corner, select <strong>Create helper</strong>.</li>
+<li>Select <strong>Template</strong> and <strong>Template a sensor</strong>.</li>
+<li>Enter the fields as shown below.</li>
+</ol>
+<p>The template below takes the current price attributes, adds 0.1293 EUR as fixed costs and adds 21% VAT.</p>
+<p class="img">
+  <img src="/images/integrations/nordpool/nordpool_create_template.png" alt="Screenshot: Create template sensor">
+</p>
+<h3>YAML Template <a class="title-link" name="yaml-template" href="#yaml-template"></a>
+</h3>
+<p>A template sensor to add VAT and a fixed cost from an helper entity <code>input_number.add_fixed_cost</code>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">template</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">sensor</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Nordpool"</span>
+        <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">EUR/kWh"</span>
+        <span class="na">state_class</span><span class="pi">:</span> <span class="s">measurement</span>
+        <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+          <span class="s"># create a variable with the current price</span>
+          <span class="s">{% set cost = states('sensor.nord_pool_nl_current_price') | float(0) %}</span>
+          <span class="s"># create a variable with the additional fixed cost</span>
+          <span class="s">{% set add_cost = states('input_number.add_fixed_cost') | float(0) %}</span>
+          <span class="s"># Add cost and additional fixed cost. Add VAT (25%) by multiplying with 1.25 and round to 2 digits: </span>
+          <span class="s">{{ ((cost + add_cost) * 1.25) | round(2, default=0) }}</span>
+</code></pre></div></div>
+<h3>Tomorrow’s lowest price <a class="title-link" name="tomorrows-lowest-price" href="#tomorrows-lowest-price"></a>
+</h3>
+<p>Using a trigger template, you can create a template sensor to calculate tomorrow’s lowest price which also puts the list of all prices in the attributes of the sensor. All prices are returned in [Currency]/MWh.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Below example will convert the action call response to kWh prices in the selected currency and add all prices for tomorrow as a list in an attribute.</p>
+  </div>
+</div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>You can get your <code>config_entry</code> by using actions within the <a href="/docs/tools/dev-tools/">developer tools</a>: use one of the Nord Pool actions and view the YAML.</p>
+  </div>
+</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">template</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">time_pattern</span>
+        <span class="na">minutes</span><span class="pi">:</span> <span class="s">/10</span>
+      <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">homeassistant</span>
+        <span class="na">event</span><span class="pi">:</span> <span class="s">start</span>
+    <span class="na">action</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">nordpool.get_prices_for_date</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">config_entry</span><span class="pi">:</span> <span class="s">01JEDAR1YEHJ6DZ376MP24MRDG</span>
+          <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">now().date()</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">timedelta(days=1)</span><span class="nv"> </span><span class="s">}}"</span>
+          <span class="na">areas</span><span class="pi">:</span> <span class="s">SE3</span>
+          <span class="na">currency</span><span class="pi">:</span> <span class="s">SEK</span>
+        <span class="na">response_variable</span><span class="pi">:</span> <span class="s">tomorrow_price</span>
+    <span class="na">sensor</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Tomorrow lowest price</span>
+        <span class="na">unique_id</span><span class="pi">:</span> <span class="s">se3_tomorrow_low_price</span>
+        <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+          <span class="s">{% set data = namespace(prices=[]) %}</span>
+          <span class="s">{% for state in tomorrow_price['SE3'] %}</span>
+            <span class="s">{% set data.prices = data.prices + [(state.price / 1000)] %}</span>
+          <span class="s">{% endfor %}</span>
+          <span class="s">{{min(data.prices)}}</span>
+        <span class="na">attributes</span><span class="pi">:</span>
+          <span class="na">data</span><span class="pi">:</span> <span class="pi">&gt;</span>
+            <span class="s">{% set data = namespace(prices=[]) %}</span>
+            <span class="s">{% for state in tomorrow_price['SE3'] %}</span>
+              <span class="s">{% set data.prices = data.prices + [{'start':state.start, 'end':state.end, 'price': state.price/1000}] %}</span>
+            <span class="s">{% endfor %}</span>
+            <span class="s">{{data.prices}}</span>
+</code></pre></div></div>
+<p class="img">
+  <img src="/images/integrations/nordpool/nordpool_tomorrow_lowest_price.png" alt="Screenshot: Trigger template: Tomorrow lowest price">
+</p>
+<h3>Energy Dashboard <a class="title-link" name="energy-dashboard" href="#energy-dashboard"></a>
+</h3>
+<p>To use the Nordpool integration in the <strong>Energy</strong> dashboard, when configuring grid consumption and production, use the <strong>Use an entity with current price</strong> option.</p>
+<p class="img">
+  <img src="/images/integrations/nordpool/nordpool_energy_dashboard.png" alt="Screenshot: Create template sensor">
+</p>
+<h2>Remove the integration <a class="title-link" name="remove-the-integration" href="#remove-the-integration"></a>
+</h2>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/nordpool.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fneedlehack-blog%2Fintegrations%2Fnordpool%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20nordpool" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+nordpool%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/nordpool//logo.png' srcset='https://brands.home-assistant.io/_/nordpool/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=nordpool' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Nord Pool  hub  was introduced in Home Assistant 2024.12, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          1855</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:cloud-upload'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Cloud Polling.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-platinum'>🏆 Platinum quality</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/nordpool" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+nordpool%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/gjohansson-ST" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/gjohansson-ST?size=96" alt="@gjohansson-ST"/> @gjohansson-ST</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#data-fetching-and-limitations">Data fetching and limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#sensors">Sensors</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#main-sensors">Main sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#peak--off-peak-sensors">Peak &amp; off-peak sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#diagnostic-sensors">Diagnostic sensors</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#get-price-for-date">Get price for date</a></li>
+<li class="toc-entry toc-h3"><a href="#get-price-indices-for-date">Get price indices for date</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ui-template">UI Template</a></li>
+<li class="toc-entry toc-h3"><a href="#yaml-template">YAML Template</a></li>
+<li class="toc-entry toc-h3"><a href="#tomorrows-lowest-price">Tomorrow’s lowest price</a></li>
+<li class="toc-entry toc-h3"><a href="#energy-dashboard">Energy Dashboard</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#remove-the-integration">Remove the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#energy'>Energy</a>
+          </li><li>
+            <a href='/integrations/#finance'>Finance</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/community">Our community</li>
+            <li><a href="/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/privacy/">Privacy Notices</a></li>
+            <li><a href="/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/tos/">Terms of Service</a></li>
+            <li><a href="/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/developers/credits/">Credits</a></li>
+            <li><a href="/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>
