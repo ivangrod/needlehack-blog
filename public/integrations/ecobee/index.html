@@ -1,0 +1,963 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ecobee - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions for how to integrate ecobee thermostats and sensors within Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/ecobee/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="ecobee">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/ecobee/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions for how to integrate ecobee thermostats and sensors within Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="ecobee">
+    <meta name="twitter:description" content="Instructions for how to integrate ecobee thermostats and sensors within Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#preliminary-steps">Preliminary steps</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-configuration">Manual configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#notifications">Notifications</a></li>
+<li class="toc-entry toc-h2"><a href="#thermostat">Thermostat</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#concepts">Concepts</a></li>
+<li class="toc-entry toc-h3"><a href="#attributes">Attributes</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#ventilator">Ventilator</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#concepts-1">Concepts</a></li>
+<li class="toc-entry toc-h3"><a href="#switch">Switch</a></li>
+<li class="toc-entry toc-h3"><a href="#number">Number</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#auxiliary-heat">Auxiliary Heat</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#concepts-2">Concepts</a></li>
+<li class="toc-entry toc-h3"><a href="#switch-1">Switch</a></li>
+<li class="toc-entry toc-h3"><a href="#number-1">Number</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-ecobeecreate_vacation">Action ecobee.create_vacation</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeedelete_vacation">Action ecobee.delete_vacation</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeeresume_program">Action ecobee.resume_program</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeeset_fan_min_on_time">Action ecobee.set_fan_min_on_time</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeeset_dst_mode">Action ecobee.set_dst_mode</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeeset_mic_mode">Action ecobee.set_mic_mode</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeeset_occupancy_modes">Action ecobee.set_occupancy_modes</a></li>
+<li class="toc-entry toc-h3"><a href="#service-ecobeeset_sensors_in_climate">Service ecobee.set_sensors_in_climate</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        ecobee
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <strong>ecobee</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> lets you control and view sensor data from <a href="https://ecobee.com" rel="external nofollow">ecobee<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> thermostats.</p>
+<h2>Preliminary steps <a class="title-link" name="preliminary-steps" href="#preliminary-steps"></a>
+</h2>
+<p>You will need to obtain an API key from ecobee’s <a href="https://www.ecobee.com/developers/" rel="external nofollow">developer site<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> to use this integration. To get the key, your thermostat must be registered on ecobee’s website (which you likely would have already done while installing your thermostat). Once you have done that, perform the following steps.</p>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>As of March 28th, 2024, ecobee is no longer accepting new developer subscriptions, nor are existing developer accounts able to create new API keys. There is no ETA for when they will be allowed again. Existing API keys will continue to function.</p>
+<p>In the meantime, you can use the <a href="/integrations/homekit_controller/">HomeKit Device</a> integration as a fully functional alternative.</p>
+  </div>
+</div>
+<ol>
+<li>Click on the <strong>Become a developer</strong> link on the <a href="https://www.ecobee.com/home/developer/loginDeveloper.jsp" rel="external nofollow">developer site<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+<li>Log in with your ecobee credentials. (Make sure multifactor authentication is disabled to meet the developer login form’s limits. If you’ve already enabled MFA, the web portal doesn’t support disabling it. The iOS and Android apps do under Account &gt; Account Security. You can re-enable MFA after becoming a developer.)</li>
+<li>Accept the SDK agreement.</li>
+<li>Fill in the fields.</li>
+<li>Click <strong>save</strong>.</li>
+</ol>
+<p>Log in to the regular consumer portal and click the overflow menu button in the upper right. You will see a new option named <strong>Developer</strong>. Now an application can be created to integrate with Home Assistant.</p>
+<ol>
+<li>Select the <strong>Developer</strong> option from the hamburger menu on the top-right.</li>
+<li>Select <strong>Create New</strong>.</li>
+<li>Complete the form on the right. (Neither of the fields are referenced by Home Assistant)
+<ul>
+<li>Name: Must be unique across all ecobee users.</li>
+<li>Summary: Does not need to be unique.</li>
+</ul>
+</li>
+<li>Click <em>Authorization method</em> and select <strong>ecobee PIN</strong>.</li>
+<li>Click <strong>Create</strong>.</li>
+</ol>
+<p>Your new application will now appear on the left. Upon clicking on the application, API key will appear on the right. Copy this key and use it in the configuration section below. Click <strong>X</strong> to close the Developer section.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<ol>
+<li>In the <strong>Settings</strong> -&gt; <strong>Devices &amp; services</strong> menu, click <strong>+</strong> and then select “ecobee” from the pop-up menu.</li>
+<li>In the pop-up box, enter the API key you obtained from ecobee’s <a href="https://ecobee.com/developers" rel="external nofollow">developer portal<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+<li>In the next pop-up box, you will be presented with a unique 8 character code separated by a dash (format: XXXX-XXXX), which you will need to authorize in the <a href="https://www.ecobee.com/consumerportal/index.html" rel="external nofollow">ecobee consumer portal<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. You can do this by logging in, selecting <strong>My Apps</strong> from the hamburger menu, clicking <strong>Add Application</strong> on the left, entering the PIN code from Home Assistant, clicking <strong>Validate</strong> and then <strong>Add Application</strong> in the bottom right.</li>
+<li>After authorizing the app with ecobee, return to Home Assistant and click <strong>Submit</strong>. If the authorization was successful, a configuration entry will be created and your thermostats, ventilators and sensors will be available in Home Assistant.</li>
+</ol>
+<h2>Manual configuration <a class="title-link" name="manual-configuration" href="#manual-configuration"></a>
+</h2>
+<p>If you prefer to set up the integration in your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file, add your API key (and optional parameters) as follows (however, you must still complete authorization via the <strong>Integrations</strong> panel).
+After changing the <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file, <a href="/docs/configuration/#reloading-the-configuration-to-apply-changes">restart Home Assistant</a> to apply the changes.   The integration is now shown on the integrations page under <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>. Its entities are listed on the integration card itself and on the <a href="https://my.home-assistant.io/redirect/entities" class="my" target="_blank"><strong>Entities</strong></a> tab.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">ecobee</span><span class="pi">:</span>
+  <span class="na">api_key</span><span class="pi">:</span> <span class="s">YOUR_API_KEY</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="ecobee-configuration-variables" href="#ecobee-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="{{site.baseurl}}/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class=""><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> api_key </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="api_key" class="title-link" href="#api_key"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Your ecobee API key. This is only needed for the initial setup of the integration. Once registered it can be removed. If you revoke the key in the ecobee portal, you will need to remove the existing <code>ecobee</code> configuration in the <strong>Integrations</strong> panel, update this, and then configure the integration again.</p>
+</span></div>
+</div></div>
+</div>
+<p class="img">
+  <img src="/images/screenshots/ecobee-sensor-badges.png">
+  <img src="/images/screenshots/ecobee-thermostat-card.png">
+</p>
+<p>You must <a href="/docs/configuration/#reloading-changes">restart Home Assistant</a> for the changes to take effect. After restarting, go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration. Then, select <strong>Configure</strong> and continue to authorize the app according to the above <strong>Automatic Configuration</strong>, starting at step 2.</p>
+<h2>Notifications <a class="title-link" name="notifications" href="#notifications"></a>
+</h2>
+<p>The <code>ecobee</code> notify platform allows you to send notifications to an ecobee thermostat. For each thermostat found, a <code>notify</code> entity will be added.</p>
+<p>Example action:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">notify.send_message</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Hello,</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">thermostat."</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">notify.ecobee</span>
+</code></pre></div></div>
+<p>To use notifications, please see the <a href="/getting-started/automation/">getting started with automation page</a>.</p>
+<h2>Thermostat <a class="title-link" name="thermostat" href="#thermostat"></a>
+</h2>
+<h3>Concepts <a class="title-link" name="concepts" href="#concepts"></a>
+</h3>
+<p>The ecobee thermostat supports the following key concepts.</p>
+<p>The <em>target temperature</em> is the temperature that the device attempts to achieve. The target temperature is either determined by the currently active climate or it may be overridden by a hold. When the
+thermostat is not in auto mode, there is a single target temperature. When the thermostat is in auto HVAC mode, there is a pair of target temperatures: the lower target temperature determines the lowest desired temperature, while the higher target temperature determines the highest desired temperature (the thermostat will switch between heating and cooling to keep the temperature within these limits).</p>
+<p>A <em>climate</em> is a predefined or user-defined set of presets that the thermostat aims to achieve. The ecobee thermostat provides three predefined climates: Home, Away, and Sleep. Ecobee refers to these as <em>comfort settings</em>. The user can define additional climates.</p>
+<p>A <em>preset</em> is an override of the target temperature defined in the currently active climate. The temperature targeted in the preset mode may be explicitly set (temperature preset), it may be derived from a reference climate (home, away, sleep, etc.), or it may be derived from a vacation defined by the thermostat. All holds are temporary. Temperature and climate holds expire when the thermostat transitions to the next climate defined in its program. A vacation hold starts at the beginning of the
+defined vacation period and expires when the vacation period ends.</p>
+<p>When in <em>away preset</em>, the target temperature is permanently overridden by the target temperature defined for the away climate. The away preset is a simple way to emulate a vacation mode.</p>
+<p>The <em>HVAC mode</em> of the device is the currently active operational modes that the ecobee thermostat provides: heat, cool, auto, and off.</p>
+<p>The <em>target humidity</em> is the humidity set point of the thermostat when a humidifier is connected and in manual control or “On” mode.</p>
+<p>On a thermostat configured with auxiliary heat, an aux_heat_only switch will be present. When this switch is turned on, the ecobee thermostat HVAC mode will be changed to “Aux”. However, Home Assistant will reflect that the thermostat is in “heat” mode. Turning off the aux_heat_only switch will change the thermostat back to the last active HVAC mode (heat, auto, etc).</p>
+<h3>Attributes <a class="title-link" name="attributes" href="#attributes"></a>
+</h3>
+<p>The ecobee climate entity has some extra attributes to represent the state of the thermostat.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fan</code></td>
+<td>If the fan is currently on or off: <code>on</code> / <code>off</code>.</td>
+</tr>
+<tr>
+<td><code>climate_mode</code></td>
+<td>This is the climate mode that is active, or would be active if no override is active.</td>
+</tr>
+<tr>
+<td><code>equipment_running</code></td>
+<td>This is a comma-separated list of equipment that is currently running.</td>
+</tr>
+<tr>
+<td><code>fan_min_on_time</code></td>
+<td>The minimum amount of time (in minutes) that the fan will run per hour. This is determined by the minimum fan runtime setting which can be changed in the ecobee app or on the thermostat itself.</td>
+</tr>
+</tbody>
+</table>
+<h2>Ventilator <a class="title-link" name="ventilator" href="#ventilator"></a>
+</h2>
+<h3>Concepts <a class="title-link" name="concepts-1" href="#concepts-1"></a>
+</h3>
+<p>The ecobee thermostat supports the addition of an accessory. If you have an air exchanger (ventilator, HRV, or ERV), you can control it via the minimum time home and minimum time away numbers.</p>
+<h3>Switch <a class="title-link" name="switch" href="#switch"></a>
+</h3>
+<p>The <code>ventilator 20 min</code> switch is behaving like the switch in the physical ecobee device. When switched on, the ventilator turns on for 20 min. When turned off, it stops the ventilator.</p>
+<p><em>Note: this does not interact with the <code>ventilator min time</code></em></p>
+<h3>Number <a class="title-link" name="number" href="#number"></a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ventilator_min_on_time_home</code></td>
+<td>The minimum amount of time (in minutes) that the ventilator will run per hour, when you are home. This is determined by the minimum ventilator runtime setting which can be changed in the ecobee app or on the thermostat itself.</td>
+</tr>
+<tr>
+<td><code>ventilator_min_on_time_away</code></td>
+<td>The minimum amount of time (in minutes) that the ventilator will run per hour, when you are away. This is determined by the minimum ventilator runtime setting which can be changed in the ecobee app or on the thermostat itself.</td>
+</tr>
+</tbody>
+</table>
+<h2>Auxiliary Heat <a class="title-link" name="auxiliary-heat" href="#auxiliary-heat"></a>
+</h2>
+<h3>Concepts <a class="title-link" name="concepts-2" href="#concepts-2"></a>
+</h3>
+<p>When an HVAC system is equipped with a heat pump, a form of auxiliary heat is usually included. This may also be referred to as ‘Emergency Heat’. You can control whether the thermostat requests only auxiliary heat, and adjust the outdoor temperature at which the heat pump compressor will no longer be used, for example, in response to utility costs or solar production in a hybrid system. A hybrid system refers to a system that does not use electricity for the auxiliary heat (natural gas, propane, etc.). This applies more to air source heat pumps than geothermal.</p>
+<h3>Switch <a class="title-link" name="switch-1" href="#switch-1"></a>
+</h3>
+<p>The <code>Auxiliary heat only</code> switch is provided to disable the use of the compressor (heat pump), only using the auxiliary heater. Be careful with this setting, as it can incur additional utility costs from using a less-efficient heat source.</p>
+<h3>Number <a class="title-link" name="number-1" href="#number-1"></a>
+</h3>
+<p>The <code>Compressor minimum temperature</code> number represents the outdoor temperature at which the compressor (heat pump) will not run. This is represented in the temperature units you have selected in Home Assistant; however, ecobee allows configuration only in increments of 5 degrees Fahrenheit. This is also represented in the thermostat user interface. When the outdoor temperature is below this value, only auxiliary heat will be used. Be careful with this setting, as it can incur additional utility costs from using a less-efficient heat source.</p>
+<p>Check your heat pump Owners’ Manual prior to adjusting this value; do not adjust it below the rated minimum operating temperature of the heat pump. <strong>Failure to observe the rated minimum operating temperature can cause damage to the system</strong></p>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<p>Besides the standard actions provided by the Home Assistant <a href="/integrations/climate/">Climate</a> integration, the following extra actions are provided by the ecobee integration:</p>
+<ul>
+<li><code>ecobee.create_vacation</code></li>
+<li><code>ecobee.delete_vacation</code></li>
+<li><code>ecobee.resume_program</code></li>
+<li><code>ecobee.set_fan_min_on_time</code></li>
+<li><code>ecobee.set_dst_mode</code></li>
+<li><code>ecobee.set_mic_mode</code></li>
+<li><code>ecobee.set_occupancy_modes</code></li>
+<li><code>ecobee.set_sensors_in_climate</code></li>
+</ul>
+<h3>Action ecobee.create_vacation <a class="title-link" name="action-ecobeecreate_vacation" href="#action-ecobeecreate_vacation"></a>
+</h3>
+<p>Creates a vacation on the selected ecobee thermostat.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>ecobee thermostat on which to create the vacation</td>
+</tr>
+<tr>
+<td><code>vacation_name</code></td>
+<td>no</td>
+<td>Name of the vacation to create. Must be unique on the thermostat</td>
+</tr>
+<tr>
+<td><code>cool_temp</code></td>
+<td>no</td>
+<td>Cooling temperature during the vacation</td>
+</tr>
+<tr>
+<td><code>heat_temp</code></td>
+<td>no</td>
+<td>Heating temperature during the vacation</td>
+</tr>
+<tr>
+<td><code>start_date</code></td>
+<td>yes</td>
+<td>Date the vacation starts in YYYY-MM-DD format</td>
+</tr>
+<tr>
+<td><code>start_time</code></td>
+<td>yes</td>
+<td>Time the vacation starts in the local time zone. Must be in 24-hour format (HH:MM:SS)</td>
+</tr>
+<tr>
+<td><code>end_date</code></td>
+<td>yes</td>
+<td>Date the vacation ends in YYYY-MM-DD format (14 days from now if not provided)</td>
+</tr>
+<tr>
+<td><code>end_time</code></td>
+<td>yes</td>
+<td>Time the vacation ends in the local time zone. Must be in 24-hour format (HH:MM:SS)</td>
+</tr>
+<tr>
+<td><code>fan_mode</code></td>
+<td>yes</td>
+<td>Fan mode of the thermostat during the vacation (auto or on) (auto if not provided)</td>
+</tr>
+<tr>
+<td><code>fan_min_on_time</code></td>
+<td>yes</td>
+<td>Minimum number of minutes to run the fan each hour (0 to 60) during the vacation (0 if not provided)</td>
+</tr>
+</tbody>
+</table>
+<h3>Action ecobee.delete_vacation <a class="title-link" name="action-ecobeedelete_vacation" href="#action-ecobeedelete_vacation"></a>
+</h3>
+<p>Delete a vacation on the selected ecobee thermostat.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>ecobee thermostat on which to delete the vacation</td>
+</tr>
+<tr>
+<td><code>vacation_name</code></td>
+<td>no</td>
+<td>Name of the vacation to delete</td>
+</tr>
+</tbody>
+</table>
+<h3>Action ecobee.resume_program <a class="title-link" name="action-ecobeeresume_program" href="#action-ecobeeresume_program"></a>
+</h3>
+<p>Resumes the standard active schedule of presets. This cancels any manual temperature settings or selected preset. This will not cancel vacation events, use <code>delete_vacation</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>String or list of strings that point at <code>entity_id</code>s of climate devices to control. Omit to target all ecobee thermostats.</td>
+</tr>
+<tr>
+<td><code>resume_all</code></td>
+<td>no</td>
+<td>
+<code>true</code> will resume the standard schedule. <code>false</code> will only cancel the latest active event, which is not used often.</td>
+</tr>
+</tbody>
+</table>
+<h3>Action ecobee.set_fan_min_on_time <a class="title-link" name="action-ecobeeset_fan_min_on_time" href="#action-ecobeeset_fan_min_on_time"></a>
+</h3>
+<p>Sets the minimum amount of time that the fan will run per hour.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>String or list of strings that point at <code>entity_id</code>’s of climate devices to control. Omit to target all ecobee thermostats.</td>
+</tr>
+<tr>
+<td><code>fan_min_on_time</code></td>
+<td>no</td>
+<td>integer (e.g.,  5)</td>
+</tr>
+</tbody>
+</table>
+<h3>Action ecobee.set_dst_mode <a class="title-link" name="action-ecobeeset_dst_mode" href="#action-ecobeeset_dst_mode"></a>
+</h3>
+<p>Enable/disable automatic daylight savings time.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>ecobee thermostat on which to set daylight savings time mode. Omit to target all ecobee thermostats.</td>
+</tr>
+<tr>
+<td><code>dst_enabled</code></td>
+<td>no</td>
+<td>true or false</td>
+</tr>
+</tbody>
+</table>
+<h3>Action ecobee.set_mic_mode <a class="title-link" name="action-ecobeeset_mic_mode" href="#action-ecobeeset_mic_mode"></a>
+</h3>
+<p>Enable/disable Alexa mic (only for ecobee 4).</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>ecobee thermostat on which to set the mic mode. Omit to target all ecobee thermostats.</td>
+</tr>
+<tr>
+<td><code>mic_enabled</code></td>
+<td>no</td>
+<td>true or false</td>
+</tr>
+</tbody>
+</table>
+<h3>Action ecobee.set_occupancy_modes <a class="title-link" name="action-ecobeeset_occupancy_modes" href="#action-ecobeeset_occupancy_modes"></a>
+</h3>
+<p>Enable/disable Smart Home/Away and Follow Me modes.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>yes</td>
+<td>ecobee thermostat on which to set occupancy modes. Omit to target all ecobee thermostats.</td>
+</tr>
+<tr>
+<td><code>auto_away</code></td>
+<td>yes</td>
+<td>true or false</td>
+</tr>
+<tr>
+<td><code>follow_me</code></td>
+<td>yes</td>
+<td>true or false</td>
+</tr>
+</tbody>
+</table>
+<h3>Service ecobee.set_sensors_in_climate <a class="title-link" name="service-ecobeeset_sensors_in_climate" href="#service-ecobeeset_sensors_in_climate"></a>
+</h3>
+<p>Set which sensors are active on a termostat for a specific climate program.</p>
+<table>
+<thead>
+<tr>
+<th>Service data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>ecobee thermostat on which to set the active sensors.</td>
+</tr>
+<tr>
+<td><code>preset_mode</code></td>
+<td>yes</td>
+<td>Name of the climate program to set the sensors active on (defaults to currently active program).</td>
+</tr>
+<tr>
+<td><code>sensors</code></td>
+<td>no</td>
+<td>Sensors to set as participating for climate. This is the device ID of the sensor/thermostat. These can be found in the available_sensors attribute.</td>
+</tr>
+</tbody>
+</table>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/ecobee.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fecobee%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20ecobee" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+ecobee%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/ecobee//logo.png' srcset='https://brands.home-assistant.io/_/ecobee/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=ecobee' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The ecobee  integration  was introduced in Home Assistant 0.9, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          1.7%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:cloud-upload'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Cloud Polling.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/ecobee" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+ecobee%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+      <div class="section">
+        This integration is community maintained.<br />
+        If you are a developer and would like to help, feel free to contribute!
+      </div>
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#preliminary-steps">Preliminary steps</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-configuration">Manual configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#notifications">Notifications</a></li>
+<li class="toc-entry toc-h2"><a href="#thermostat">Thermostat</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#concepts">Concepts</a></li>
+<li class="toc-entry toc-h3"><a href="#attributes">Attributes</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#ventilator">Ventilator</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#concepts-1">Concepts</a></li>
+<li class="toc-entry toc-h3"><a href="#switch">Switch</a></li>
+<li class="toc-entry toc-h3"><a href="#number">Number</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#auxiliary-heat">Auxiliary Heat</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#concepts-2">Concepts</a></li>
+<li class="toc-entry toc-h3"><a href="#switch-1">Switch</a></li>
+<li class="toc-entry toc-h3"><a href="#number-1">Number</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-ecobeecreate_vacation">Action ecobee.create_vacation</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeedelete_vacation">Action ecobee.delete_vacation</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeeresume_program">Action ecobee.resume_program</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeeset_fan_min_on_time">Action ecobee.set_fan_min_on_time</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeeset_dst_mode">Action ecobee.set_dst_mode</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeeset_mic_mode">Action ecobee.set_mic_mode</a></li>
+<li class="toc-entry toc-h3"><a href="#action-ecobeeset_occupancy_modes">Action ecobee.set_occupancy_modes</a></li>
+<li class="toc-entry toc-h3"><a href="#service-ecobeeset_sensors_in_climate">Service ecobee.set_sensors_in_climate</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#humidifier'>Humidifier</a>
+          </li><li>
+            <a href='/integrations/#notifications'>Notifications</a>
+          </li><li>
+            <a href='/integrations/#number'>Number</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li><li>
+            <a href='/integrations/#weather'>Weather</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

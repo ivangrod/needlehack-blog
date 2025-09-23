@@ -1,0 +1,825 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Scripts - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to setup scripts within Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/script/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Scripts">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/script/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to setup scripts within Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Scripts">
+    <meta name="twitter:description" content="Instructions on how to setup scripts within Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#script-modes">Script modes</a></li>
+<li class="toc-entry toc-h3"><a href="#passing-variables-to-scripts">Passing variables to scripts</a></li>
+<li class="toc-entry toc-h3"><a href="#waiting-for-script-to-complete">Waiting for Script to Complete</a></li>
+<li class="toc-entry toc-h3"><a href="#full-configuration">Full configuration</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#video-tutorial">Video tutorial</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Scripts
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The script integration allows users to specify a sequence of actions to be executed by Home Assistant. These are run when you turn the script on. The script integration will create an entity for each script and allow them to be controlled via actions.</p>
+<p>Scripts can be created via YAML configuration (described below) or via <a href="https://my.home-assistant.io/redirect/scripts" class="my" target="_blank">the UI</a>.</p>
+<p><a href="https://my.home-assistant.io/redirect/scripts" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/scripts.svg"></a></p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>The sequence of actions is specified using the <a href="/getting-started/scripts/">Home Assistant Script Syntax</a>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">message_temperature</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="c1"># This is Home Assistant Script Syntax</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">notify.notify</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Current</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">states('sensor.temperature')</span><span class="nv"> </span><span class="s">}}"</span>
+</code></pre></div></div>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>Script names (e.g., <code>message_temperature</code> in the example above) are not allowed to contain capital letters, or dash (minus) characters, i.e., <code>-</code>. The preferred way to separate words for better readability is to use underscore (<code>_</code>) characters.</p>
+  </div>
+</div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="script-configuration-variables" href="#script-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="{{site.baseurl}}/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> alias </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="alias" class="title-link" href="#alias"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Friendly name for the script.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> icon </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="icon" class="title-link" href="#icon"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Icon for the script.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> description </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="description" class="title-link" href="#description"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A description of the script that will be displayed in the <strong>Actions</strong> tab under <strong>Developer tools</strong>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> variables </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: {}</span>)</span><a name="variables" class="title-link" href="#variables"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Variables that will be available inside your templates</p>
+</span></div>
+<div class="nested"><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> PARAMETER_NAME </span><span class="config-vars-type">any</span><a name="parameter_name" class="title-link" href="#parameter_name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The value of the variable. Any YAML is valid. Templates can also be used to pass a value to the variable.</p>
+</span></div>
+</div></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> fields </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: {}</span>)</span><a name="fields" class="title-link" href="#fields"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Information about the script field parameters; see the <a href="#passing-variables-to-scripts">Passing variables to scripts</a> section below.</p>
+</span></div>
+<div class="nested"><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> FIELD_NAME </span><span class="config-vars-type">map</span><a name="field_name" class="title-link" href="#field_name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A parameter field used by this script. All sub-options are only used for creating a representation of this script in the UI.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The name of this script parameter field.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> description </span><span class="config-vars-type">string</span><a name="description" class="title-link" href="#description"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>A description of this script parameter.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> advanced </span><span class="config-vars-type">boolean</span><a name="advanced" class="title-link" href="#advanced"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Marks this field as an advanced parameter. This causes it only to be shown in the UI, when the user has advanced mode enabled.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> required </span><span class="config-vars-type">boolean</span><a name="required" class="title-link" href="#required"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Mark if this field is required. This is a UI only feature.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> example </span><span class="config-vars-type">string</span><a name="example" class="title-link" href="#example"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>An example value. This will only be shown in table of options available in the <strong>Actions</strong> tab of the <strong>Developer tools</strong>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> default </span><span class="config-vars-type">any</span><a name="default" class="title-link" href="#default"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The default value for this field, as shown in the UI.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> selector </span><span class="config-vars-type"><a href="/docs/blueprint/selectors/">selector</a></span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="selector" class="title-link" href="#selector"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <a href="/docs/blueprint/selectors/">selector</a> to use for this input. A selector defines how the input is displayed in the frontend UI.</p>
+</span></div>
+</div>
+</div>
+</div></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> mode </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: single</span>)</span><a name="mode" class="title-link" href="#mode"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Controls what happens when script is invoked while it is still running from one or more previous invocations. See <a href="#script-modes">Script Modes</a>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> max </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 10</span>)</span><a name="max" class="title-link" href="#max"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Controls maximum number of runs executing and/or queued up to run at a time. Only valid with modes <code>queued</code> and <code>parallel</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> max_exceeded </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: warning</span>)</span><a name="max_exceeded" class="title-link" href="#max_exceeded"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>When <code>max</code> is exceeded (which is effectively 1 for <code>single</code> mode) a log message will be emitted to indicate this has happened. This option controls the severity level of that log message. See <a href="/integrations/logger/#log-levels">Log Levels</a> for a list of valid options. Or <code>silent</code> may be specified to suppress the message from being emitted.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> sequence </span><span class="config-vars-type">list</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="sequence" class="title-link" href="#sequence"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The sequence of actions to be performed in the script.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h3>Script modes <a class="title-link" name="script-modes" href="#script-modes"></a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>single</code></td>
+<td>Do not start a new run. Issue a warning.</td>
+</tr>
+<tr>
+<td><code>restart</code></td>
+<td>Start a new run after first stopping previous run.</td>
+</tr>
+<tr>
+<td><code>queued</code></td>
+<td>Start a new run after all previous runs complete. Runs are guaranteed to execute in the order they were queued.</td>
+</tr>
+<tr>
+<td><code>parallel</code></td>
+<td>Start a new, independent run in parallel with previous runs.</td>
+</tr>
+</tbody>
+</table>
+<p class="img">
+  <img src="/images/integrations/script/script_modes.jpg">
+</p>
+<h3>Passing variables to scripts <a class="title-link" name="passing-variables-to-scripts" href="#passing-variables-to-scripts"></a>
+</h3>
+<p>As part of the action, variables can be passed along to a script so they become available within templates in that script.</p>
+<p>To configure a script to accept variables using the UI, the variables can be added as fields in the script editor.</p>
+<ol>
+<li>In the script editor, in the 3-dots menu, select <strong>Add fields</strong>.</li>
+<li>A new section called <strong>Fields</strong> is added between the basic information and <strong>Sequence</strong> sections.</li>
+<li>Enter a name and choose type and options of each desired field.</li>
+<li>Fields set up here will be shown in other UI editors, such as in an automation that calls the script as inputs depending on the type of field.</li>
+<li>To use the field data, use them as templates using the <strong>Field key name</strong> when they were added, as shown in the example below.</li>
+</ol>
+<p>Using the variables in the script requires the use of templates:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="na">notify_pushover</span><span class="pi">:</span>
+    <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Send</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">pushover</span><span class="nv"> </span><span class="s">notification"</span>
+    <span class="na">fields</span><span class="pi">:</span>
+      <span class="na">title</span><span class="pi">:</span>
+        <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">notification"</span>
+        <span class="na">example</span><span class="pi">:</span> <span class="s2">"</span><span class="s">State</span><span class="nv"> </span><span class="s">change"</span>
+      <span class="na">message</span><span class="pi">:</span>
+        <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">message</span><span class="nv"> </span><span class="s">content"</span>
+        <span class="na">example</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">on!"</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">state</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.pushover_notifications</span>
+        <span class="na">state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">notify.pushover</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}}"</span>
+          <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">message</span><span class="nv"> </span><span class="s">}}"</span>
+</code></pre></div></div>
+<p>Aside from the automation editor UI, variables can be passed to scripts within the action data. This can be used either by calling the script directly or the generic <code>script.turn_on</code> action. The difference is described in <a href="#waiting-for-script-to-complete">Waiting for Script to Complete</a>. All action data will be made available as variables in templates, even if not specified as fields in the script. This example shows how to call the script directly:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">light.bedroom</span>
+      <span class="na">from</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
+      <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">script.notify_pushover</span>
+      <span class="na">data</span><span class="pi">:</span>
+        <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">State</span><span class="nv"> </span><span class="s">change"</span>
+        <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">on!"</span>
+</code></pre></div></div>
+<p>This example shows using <code>script.turn_on</code> action:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">light.bedroom</span>
+      <span class="na">from</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
+      <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">script.turn_on</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">script.notify_pushover</span>
+      <span class="na">data</span><span class="pi">:</span>
+        <span class="na">variables</span><span class="pi">:</span>
+          <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">State</span><span class="nv"> </span><span class="s">change"</span>
+          <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">on!"</span>
+</code></pre></div></div>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Script variables that may be used by templates include the following:</p>
+<ul>
+<li>
+<p>those provided from the configuration as fields</p>
+</li>
+<li>
+<p>those that are passed as data when started from an action,</p>
+</li>
+<li>
+<p>the <code>this</code> variable the value of which is a dictionary of the current script’s state.</p>
+</li>
+</ul>
+</div>
+
+
+</div>
+<h3>Waiting for Script to Complete <a class="title-link" name="waiting-for-script-to-complete" href="#waiting-for-script-to-complete"></a>
+</h3>
+<p>When calling a script “directly” (e.g., <code>script.NAME</code>) the calling script will wait for the called script to finish.
+If any errors occur that cause the called script to abort, the calling script will be aborted as well.</p>
+<p>When calling a script (or multiple scripts) via the <code>script.turn_on</code> action the calling script does <em>not</em> wait. It starts the scripts, in the order listed, and continues as soon as the last script is started.
+Any errors that occur in the called scripts that cause them to abort will <em>not</em> affect the calling script.</p>
+<p class="img">
+  <img src="/images/integrations/script/script_wait.jpg">
+</p>
+<p>Following is an example of the calling script not waiting. It performs some other operations while the called script runs “in the background.” Then it later waits for the called script to complete via a <code>wait_template</code>.
+This technique can also be used for the calling script to wait for the called script, but <em>not</em> be aborted if the called script aborts due to errors.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">script</span><span class="pi">:</span>
+  <span class="na">script_1</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">script.turn_on</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">script.script_2</span>
+      <span class="c1"># Perform some other steps here while second script runs...</span>
+      <span class="c1"># Now wait for called script to complete.</span>
+      <span class="pi">-</span> <span class="na">wait_template</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">is_state('script.script_2',</span><span class="nv"> </span><span class="s">'off')</span><span class="nv"> </span><span class="s">}}"</span>
+      <span class="c1"># Now do some other things...</span>
+  <span class="na">script_2</span><span class="pi">:</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="c1"># Do some things at the same time as the first script...</span>
+</code></pre></div></div>
+<h3>Full configuration <a class="title-link" name="full-configuration" href="#full-configuration"></a>
+</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="s">script: </span>
+  <span class="s">wakeup</span><span class="err">:</span>
+    <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Wake</span><span class="nv"> </span><span class="s">Up"</span>
+    <span class="na">icon</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mdi:party-popper"</span>
+    <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Turns</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">bedroom</span><span class="nv"> </span><span class="s">lights</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">then</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">living</span><span class="nv"> </span><span class="s">room</span><span class="nv"> </span><span class="s">lights</span><span class="nv"> </span><span class="s">after</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">delay"</span>
+    <span class="na">variables</span><span class="pi">:</span>
+      <span class="na">turn_on_entity</span><span class="pi">:</span> <span class="s">group.living_room</span>
+    <span class="na">fields</span><span class="pi">:</span>
+      <span class="na">minutes</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Minutes</span>
+        <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">amount</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">time</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">wait</span><span class="nv"> </span><span class="s">before</span><span class="nv"> </span><span class="s">turning</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">living</span><span class="nv"> </span><span class="s">room</span><span class="nv"> </span><span class="s">lights"</span>
+        <span class="na">selector</span><span class="pi">:</span>
+          <span class="na">number</span><span class="pi">:</span>
+            <span class="na">min</span><span class="pi">:</span> <span class="m">0</span>
+            <span class="na">max</span><span class="pi">:</span> <span class="m">60</span>
+            <span class="na">step</span><span class="pi">:</span> <span class="m">1</span>
+            <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s">minutes</span>
+            <span class="na">mode</span><span class="pi">:</span> <span class="s">slider</span>
+    <span class="c1"># If called again while still running (probably in delay step), start over.</span>
+    <span class="na">mode</span><span class="pi">:</span> <span class="s">restart</span>
+    <span class="na">sequence</span><span class="pi">:</span>
+      <span class="c1"># This is Home Assistant Script Syntax</span>
+      <span class="pi">-</span> <span class="na">event</span><span class="pi">:</span> <span class="s">LOGBOOK_ENTRY</span>
+        <span class="na">event_data</span><span class="pi">:</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">Paulus</span>
+          <span class="na">message</span><span class="pi">:</span> <span class="s">is waking up</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">device_tracker.paulus</span>
+          <span class="na">domain</span><span class="pi">:</span> <span class="s">light</span>
+      <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Bedroom</span><span class="nv"> </span><span class="s">lights</span><span class="nv"> </span><span class="s">on"</span>
+        <span class="na">action</span><span class="pi">:</span> <span class="s">light.turn_on</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">group.bedroom</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">brightness</span><span class="pi">:</span> <span class="m">100</span>
+      <span class="pi">-</span> <span class="na">delay</span><span class="pi">:</span>
+          <span class="c1"># supports seconds, milliseconds, minutes, hours</span>
+          <span class="na">minutes</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">minutes</span><span class="nv"> </span><span class="s">}}"</span>
+      <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Living</span><span class="nv"> </span><span class="s">room</span><span class="nv"> </span><span class="s">lights</span><span class="nv"> </span><span class="s">on"</span>
+        <span class="na">action</span><span class="pi">:</span> <span class="s">light.turn_on</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">turn_on_entity</span><span class="nv"> </span><span class="s">}}"</span>
+</code></pre></div></div>
+<h2>Video tutorial <a class="title-link" name="video-tutorial" href="#video-tutorial"></a>
+</h2>
+<p>This video tutorial explains how scripts work, how to use fields in scripts, and how to use response variables in scripts.</p>
+<p><lite-youtube videoid="vD_xckjQxRk" videotitle="Mastering Scripts in Home Assistant: A Comprehensive Guide" posterquality="maxresdefault"></lite-youtube></p>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/script.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fscript%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20script" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+script%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/script//logo.png' srcset='https://brands.home-assistant.io/_/script/logo@2x.png 2x' /></div>
+
+  <div class='section'>The Scripts  system  was introduced in Home Assistant 0.7, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          99.1%</a> of the active installations.
+        
+      
+    
+  </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-internal'>🏠 Internal integration</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/script" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+script%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            This integration is being maintained by the Home Assistant project.
+          </div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#script-modes">Script modes</a></li>
+<li class="toc-entry toc-h3"><a href="#passing-variables-to-scripts">Passing variables to scripts</a></li>
+<li class="toc-entry toc-h3"><a href="#waiting-for-script-to-complete">Waiting for Script to Complete</a></li>
+<li class="toc-entry toc-h3"><a href="#full-configuration">Full configuration</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#video-tutorial">Video tutorial</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#automation'>Automation</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

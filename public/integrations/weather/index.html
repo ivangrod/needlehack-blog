@@ -1,0 +1,760 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Weather - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to setup your Weather platforms with Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/weather/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Weather">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/weather/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to setup your Weather platforms with Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Weather">
+    <meta name="twitter:description" content="Instructions on how to setup your Weather platforms with Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#state-and-state-attributes">State and state attributes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#condition-mapping">Condition mapping</a></li>
+<li class="toc-entry toc-h3"><a href="#state-attributes">State attributes</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#action-weatherget_forecasts">Action weather.get_forecasts</a></li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Weather
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <code>weather</code> platforms gather meteorological information from web services and display the conditions and other details about the weather at the given location.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p><strong>Building block integration</strong></p>
+<p>This weather is a building block integration that cannot be added to your Home Assistant directly but is used and provided by other integrations.</p>
+<p>A building block integration differs from the typical integration that connects to a device or service. Instead, other integrations that do integrate a device or service into Home Assistant use this weather building block to provide entities, services, and other functionality that you can use in your automations or dashboards.</p>
+<p>If one of your integrations features this building block, this page documents the functionality the weather building block offers.</p>
+  </div>
+</div>
+<p>For a list of weather integrations, on the integrations page, select the <a href="/integrations/#weather">weather category</a>.</p>
+<p>Read the <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> documentation for your particular weather provider to learn how to set it up.</p>
+<p>Home Assistant currently supports free web services some of which require registration.</p>
+<h2>State and state attributes <a class="title-link" name="state-and-state-attributes" href="#state-and-state-attributes"></a>
+</h2>
+<p>A weather <span class="terminology">entity<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span>’s state is used to indicate the current overall conditions, such as ‘cloudy’ or ‘sunny’.</p>
+<h3>Condition mapping <a class="title-link" name="condition-mapping" href="#condition-mapping"></a>
+</h3>
+<p>The <code>weather</code> <span class="terminology">entity<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> can provide the conditions listed below as its state:</p>
+<ul>
+<li>
+<strong>Clear, night</strong>: The sky is clear during the night. <code>clear-night</code>.</li>
+<li>
+<strong>Cloudy</strong>: There are many clouds in the sky. <code>cloudy</code>.</li>
+<li>
+<strong>Fog</strong>: There is a thick mist or fog reducing visibility. <code>fog</code>.</li>
+<li>
+<strong>Hail</strong>: Hailstones are falling. <code>hail</code>.</li>
+<li>
+<strong>Lightning</strong>: Lightning/thunderstorms are occurring. <code>lightning</code>.</li>
+<li>
+<strong>Lightning, rainy</strong>: Lightning/thunderstorm is occurring along with rain. <code>lightning-rainy</code>.</li>
+<li>
+<strong>Partly cloudy</strong>: The sky is partially covered with clouds. <code>partlycloudy</code>.</li>
+<li>
+<strong>Pouring</strong>: It is raining heavily. <code>pouring</code>.</li>
+<li>
+<strong>Rainy</strong>: It is raining. <code>rainy</code>.</li>
+<li>
+<strong>Snowy</strong>: It is snowing. <code>snowy</code>.</li>
+<li>
+<strong>Snowy, rainy</strong>: It is snowing and raining at the same time. <code>snowy-rainy</code>.</li>
+<li>
+<strong>Sunny</strong>: The sky is clear and the sun is shining. <code>sunny</code>.</li>
+<li>
+<strong>Windy</strong>: It is windy. <code>windy</code>.</li>
+<li>
+<strong>Windy, cloudy</strong>: It is windy and cloudy. <code>windy-variant</code>.</li>
+<li>
+<strong>Exceptional</strong>: Exceptional weather conditions are occurring. <code>exceptional</code>.</li>
+</ul>
+<h3>State attributes <a class="title-link" name="state-attributes" href="#state-attributes"></a>
+</h3>
+<p>Detailed weather conditions as well as the unit of measurements used for the conditions are indicated by state attributes. A weather <span class="terminology">entity<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> may not support all the state attributes.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">apparent_temperature</span><span class="pi">:</span> <span class="m">12.0</span>
+<span class="na">cloud_coverage</span><span class="pi">:</span> <span class="m">0</span>
+<span class="na">dew_point</span><span class="pi">:</span> <span class="m">5.0</span>
+<span class="na">humidity</span><span class="pi">:</span> <span class="m">76</span>
+<span class="na">precipitation_unit</span><span class="pi">:</span> <span class="s">mm</span>
+<span class="na">pressure</span><span class="pi">:</span> <span class="m">1019</span>
+<span class="na">pressure_unit</span><span class="pi">:</span> <span class="s">hPa</span>
+<span class="na">temperature</span><span class="pi">:</span> <span class="m">14.2</span>
+<span class="na">temperature_unit</span><span class="pi">:</span> <span class="s">°C</span>
+<span class="na">uv_index</span><span class="pi">:</span> <span class="m">2</span>
+<span class="na">visibility</span><span class="pi">:</span> <span class="m">10</span>
+<span class="na">visibility_unit</span><span class="pi">:</span> <span class="s">km</span>
+<span class="na">wind_bearing</span><span class="pi">:</span> <span class="m">260</span>
+<span class="na">wind_gust_speed</span><span class="pi">:</span> <span class="m">51.56</span>
+<span class="na">wind_speed</span><span class="pi">:</span> <span class="m">35.17</span>
+<span class="na">wind_speed_unit</span><span class="pi">:</span> <span class="s">km/h</span>
+</code></pre></div></div>
+<h2>Action weather.get_forecasts <a class="title-link" name="action-weatherget_forecasts" href="#action-weatherget_forecasts"></a>
+</h2>
+<p>This action populates <a href="/docs/scripts/perform-actions#use-templates-to-handle-response-data">response data</a>
+with a mapping of weather services and their associated forecasts.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td>no</td>
+<td>The type of forecast, must be one of <code>daily</code>, <code>twice_daily</code>, or <code>hourly</code>. The default is <code>daily</code>.</td>
+<td>daily</td>
+</tr>
+</tbody>
+</table>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">weather.get_forecasts</span>
+<span class="na">target</span><span class="pi">:</span>
+  <span class="na">entity_id</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">weather.tomorrow_io_home_nowcast</span>
+    <span class="pi">-</span> <span class="s">weather.toronto_forecast</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">hourly</span>
+<span class="na">response_variable</span><span class="pi">:</span> <span class="s">weather_forecast</span>
+</code></pre></div></div>
+<p>The response data field is a mapping of called target entities, each containing the <code>forecast</code> field.
+<code>forecast</code> is a list of forecasted conditions at a given point in time:</p>
+<table>
+<thead>
+<tr>
+<th>Response data</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>datetime</code></td>
+<td>The time of the forecasted conditions.</td>
+<td>2023-02-17T14:00:00+00:00</td>
+</tr>
+<tr>
+<td><code>is_daytime</code></td>
+<td>Only set for <code>twice_daily</code> forecasts.</td>
+<td>False</td>
+</tr>
+<tr>
+<td><code>apparent_temperature</code></td>
+<td>The apparent (feels-like) temperature in the unit indicated by the <code>temperature_unit</code> state attribute.</td>
+<td>10.2</td>
+</tr>
+<tr>
+<td><code>cloud_coverage</code></td>
+<td>The cloud coverage in %.</td>
+<td>15</td>
+</tr>
+<tr>
+<td><code>condition</code></td>
+<td>The weather condition.</td>
+<td>Sunny</td>
+</tr>
+<tr>
+<td><code>dew_point</code></td>
+<td>The dew point temperature in the unit indicated by the <code>temperature_unit</code> state attribute.</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td><code>humidity</code></td>
+<td>The relative humidity in %.</td>
+<td>82</td>
+</tr>
+<tr>
+<td><code>precipitation_probability</code></td>
+<td>The probability of precipitation in %.</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>precipitation</code></td>
+<td>The precipitation amount in the unit indicated by the <code>precipitation_unit</code> state attribute.</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>pressure</code></td>
+<td>The air pressure in the unit indicated by the <code>pressure_unit</code> state attribute.</td>
+<td>1019</td>
+</tr>
+<tr>
+<td><code>temperature</code></td>
+<td>The temperature in the unit indicated by the <code>temperature_unit</code> state attribute. If <code>templow</code> is also provided, this is the higher temperature.</td>
+<td>14.2</td>
+</tr>
+<tr>
+<td><code>templow</code></td>
+<td>The lower temperature in the unit indicated by the <code>temperature_unit</code> state attribute.</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td><code>uv_index</code></td>
+<td>The UV index.</td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>wind_bearing</code></td>
+<td>The wind bearing in azimuth angle (degrees) or 1-3 letter cardinal direction.</td>
+<td>268</td>
+</tr>
+<tr>
+<td><code>wind_gust_speed</code></td>
+<td>The wind gust speed in the unit indicated by the <code>wind_speed_unit</code> state attribute.</td>
+<td>34.41</td>
+</tr>
+<tr>
+<td><code>wind_speed</code></td>
+<td>The wind speed in the unit indicated by the <code>wind_speed_unit</code> state attribute.</td>
+<td>24.41</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples <a class="title-link" name="examples" href="#examples"></a>
+</h2>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Example template sensor using get_forecasts</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>Example <a href="/integrations/template#yaml-configuration">template sensor</a> that contains the hourly forecast</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">template</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">time_pattern</span>
+        <span class="na">hours</span><span class="pi">:</span> <span class="s">/1</span>
+    <span class="na">action</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">weather.get_forecasts</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">hourly</span>
+        <span class="na">target</span><span class="pi">:</span>
+          <span class="na">entity_id</span><span class="pi">:</span> <span class="s">weather.home</span>
+        <span class="na">response_variable</span><span class="pi">:</span> <span class="s">hourly</span>
+    <span class="na">sensor</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Temperature forecast next hour</span>
+        <span class="na">unique_id</span><span class="pi">:</span> <span class="s">temperature_forecast_next_hour</span>
+        <span class="na">state</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">hourly['weather.home'].forecast[0].temperature</span><span class="nv"> </span><span class="s">}}"</span>
+        <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s">°C</span>
+
+</code></pre></div></div>
+</div>
+  </details>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Example action response</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">weather.tomorrow_io_home_nowcast</span><span class="pi">:</span>
+  <span class="na">forecast</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">datetime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2023-12-07T13:00:00+00:00"</span>
+      <span class="na">condition</span><span class="pi">:</span> <span class="s">cloudy</span>
+      <span class="na">precipitation_probability</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">wind_bearing</span><span class="pi">:</span> <span class="m">241.19</span>
+      <span class="na">temperature</span><span class="pi">:</span> <span class="m">0.1</span>
+      <span class="na">dew_point</span><span class="pi">:</span> <span class="s">-1.9</span>
+      <span class="na">wind_speed</span><span class="pi">:</span> <span class="m">16.88</span>
+      <span class="na">precipitation</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">humidity</span><span class="pi">:</span> <span class="m">86</span>
+    <span class="pi">-</span> <span class="na">datetime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2023-12-07T14:00:00+00:00"</span>
+      <span class="na">condition</span><span class="pi">:</span> <span class="s">cloudy</span>
+      <span class="na">precipitation_probability</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">wind_bearing</span><span class="pi">:</span> <span class="m">232.41</span>
+      <span class="na">temperature</span><span class="pi">:</span> <span class="m">0.8</span>
+      <span class="na">dew_point</span><span class="pi">:</span> <span class="s">-2.8</span>
+      <span class="na">wind_speed</span><span class="pi">:</span> <span class="m">17.82</span>
+      <span class="na">precipitation</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">humidity</span><span class="pi">:</span> <span class="m">77</span>
+    <span class="pi">-</span> <span class="na">datetime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2023-12-07T15:00:00+00:00"</span>
+      <span class="na">condition</span><span class="pi">:</span> <span class="s">cloudy</span>
+      <span class="na">precipitation_probability</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">wind_bearing</span><span class="pi">:</span> <span class="m">236.09</span>
+      <span class="na">temperature</span><span class="pi">:</span> <span class="m">1.1</span>
+      <span class="na">dew_point</span><span class="pi">:</span> <span class="s">-2.6</span>
+      <span class="na">wind_speed</span><span class="pi">:</span> <span class="m">17.89</span>
+      <span class="na">precipitation</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">humidity</span><span class="pi">:</span> <span class="m">77</span>
+<span class="na">weather.toronto_forecast</span><span class="pi">:</span>
+  <span class="na">forecast</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">datetime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2023-12-07T14:00:00+00:00"</span>
+      <span class="na">condition</span><span class="pi">:</span> <span class="s">snowy</span>
+      <span class="na">precipitation_probability</span><span class="pi">:</span> <span class="m">40</span>
+      <span class="na">temperature</span><span class="pi">:</span> <span class="m">0</span>
+    <span class="pi">-</span> <span class="na">datetime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2023-12-07T15:00:00+00:00"</span>
+      <span class="na">condition</span><span class="pi">:</span> <span class="s">snowy</span>
+      <span class="na">precipitation_probability</span><span class="pi">:</span> <span class="m">40</span>
+      <span class="na">temperature</span><span class="pi">:</span> <span class="m">0</span>
+    <span class="pi">-</span> <span class="na">datetime</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2023-12-07T16:00:00+00:00"</span>
+      <span class="na">condition</span><span class="pi">:</span> <span class="s">snowy</span>
+      <span class="na">precipitation_probability</span><span class="pi">:</span> <span class="m">40</span>
+      <span class="na">temperature</span><span class="pi">:</span> <span class="m">0</span>
+</code></pre></div></div>
+</div>
+  </details>
+</div>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/weather.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fweather%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20weather" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+weather%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/weather//logo.png' srcset='https://brands.home-assistant.io/_/weather/logo@2x.png 2x' /></div>
+
+  <div class='section'>The Weather  entity  was introduced in Home Assistant 0.32.
+    
+  </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-internal'>🏠 Internal integration</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/weather" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+weather%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            This integration is being maintained by the Home Assistant project.
+          </div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#state-and-state-attributes">State and state attributes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#condition-mapping">Condition mapping</a></li>
+<li class="toc-entry toc-h3"><a href="#state-attributes">State attributes</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#action-weatherget_forecasts">Action weather.get_forecasts</a></li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#weather'>Weather</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

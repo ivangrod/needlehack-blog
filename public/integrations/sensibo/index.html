@@ -1,0 +1,1153 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Sensibo - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate Sensibo A/C controller into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/sensibo/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Sensibo">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/sensibo/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate Sensibo A/C controller into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Sensibo">
+    <meta name="twitter:description" content="Instructions on how to integrate Sensibo A/C controller into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-devices">Supported devices</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-functionality">Supported functionality</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sensibo-sky-air-air-pro-pure-elements-and-room-sensor">Sensibo Sky, Air, Air Pro, Pure, Elements and Room sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-sky-air-air-pro-pure-and-elements">Sensibo Sky, Air, Air Pro, Pure, and Elements</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-sky-air-and-air-pro">Sensibo Sky, Air, and Air Pro</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-air-air-pro-and-elements">Sensibo Air, Air Pro, and Elements</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-elements">Sensibo Elements</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-pure">Sensibo Pure</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-room-sensor">Sensibo Room sensor</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#get-device-mode-capabilities">Get device mode capabilities</a></li>
+<li class="toc-entry toc-h3"><a href="#set-full-state">Set full state</a></li>
+<li class="toc-entry toc-h3"><a href="#assume-state">Assume state</a></li>
+<li class="toc-entry toc-h3"><a href="#enable-pure-boost">Enable Pure Boost</a></li>
+<li class="toc-entry toc-h3"><a href="#enable-timer">Enable timer</a></li>
+<li class="toc-entry toc-h3"><a href="#enable-climate-react">Enable Climate React</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#template-switch-to-turn-hvac-device-on-or-off">Template switch to turn HVAC device on or off</a></li>
+<li class="toc-entry toc-h3"><a href="#start-the-timer-for-30-minutes-when-i-get-home">Start the timer for 30 minutes when I get home</a></li>
+<li class="toc-entry toc-h3"><a href="#set-a-full-state-of-the-hvac-device-at-6pm">Set a full state of the HVAC device at 6pm</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#data-fetching-and-limitations">Data fetching and limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#specific-log-entries">Specific log entries</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#remove-the-integration">Remove the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Sensibo
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <strong>Sensibo</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> integrates <a href="https://sensibo.com" rel="external nofollow">Sensibo<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> devices into Home Assistant.</p>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<p>Please click <a href="https://home.sensibo.com/me/api" rel="external nofollow">here<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and register to obtain the API key.</p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>If you create the API key using a dedicated user (and not your main user),
+then in the Sensibo app log you will be able to distinguish between actions
+done in the app and actions done by Home Assistant.</p>
+  </div>
+</div>
+<h2>Supported devices <a class="title-link" name="supported-devices" href="#supported-devices"></a>
+</h2>
+<p>The <strong>Sensibo</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> supports the following devices and accessories.</p>
+<ul>
+<li>
+<strong>Sensibo Sky</strong>: Smart AC control device.</li>
+<li>
+<strong>Sensibo Air</strong>: Smart AC control device.</li>
+<li>
+<strong>Sensibo Air Pro</strong>: Smart AC control device with air quality monitoring.</li>
+<li>
+<strong>Sensibo Pure</strong>: Smart air purifier.</li>
+<li>
+<strong>Sensibo Elements</strong>: Smart air quality monitoring.</li>
+<li>
+<strong>Sensibo Room Sensor</strong>: Motion sensor and temperature readings (needs to be connected with an Air device).</li>
+</ul>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Sensibo</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=sensibo" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>Sensibo can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=sensibo" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Sensibo</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="config-vars basic">
+  <div class=""><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">API key</span><a name="api-key" class="title-link" href="#api-key"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The previously created API key.</p>
+</span></div>
+</div></div>
+</div>
+<h2>Supported functionality <a class="title-link" name="supported-functionality" href="#supported-functionality"></a>
+</h2>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Some entities are disabled by default, so you need to <a href="/common-tasks/general/#to-enable-or-disable-a-single-entity">enable them</a> to use them.</p>
+<p>Depending on device support, some entities might not be available as the device does not support them.</p>
+  </div>
+</div>
+<h3>Sensibo Sky, Air, Air Pro, Pure, Elements and Room sensor <a class="title-link" name="sensibo-sky-air-air-pro-pure-elements-and-room-sensor" href="#sensibo-sky-air-air-pro-pure-elements-and-room-sensor"></a>
+</h3>
+<h4>Numbers <a class="title-link" name="numbers" href="#numbers"></a>
+</h4>
+<ul>
+<li>
+<strong>Temperature calibration</strong>: Calibrate the temperature reading of the device.</li>
+<li>
+<strong>Humidity calibration</strong>: Calibrate the humidity reading of the device.</li>
+</ul>
+<h4>Updates <a class="title-link" name="updates" href="#updates"></a>
+</h4>
+<ul>
+<li>
+<strong>Firmware</strong>: Firmware update available.</li>
+</ul>
+<h3>Sensibo Sky, Air, Air Pro, Pure, and Elements <a class="title-link" name="sensibo-sky-air-air-pro-pure-and-elements" href="#sensibo-sky-air-air-pro-pure-and-elements"></a>
+</h3>
+<h4>Binary sensors <a class="title-link" name="binary-sensors" href="#binary-sensors"></a>
+</h4>
+<ul>
+<li>
+<strong>Filter clean required</strong>: Does the A/C’s filter need cleaning.</li>
+</ul>
+<h4>Buttons <a class="title-link" name="buttons" href="#buttons"></a>
+</h4>
+<ul>
+<li>
+<strong>Reset filter</strong>: Reset the filter timer after cleaning.</li>
+</ul>
+<h4>Climates <a class="title-link" name="climates" href="#climates"></a>
+</h4>
+<ul>
+<li>
+<strong>[Name of device]</strong>: The main climate entity for the device to control <abbr title="Heating, ventilation, and air conditioning">HVAC</abbr> mode.</li>
+</ul>
+<h4>Selects <a class="title-link" name="selects" href="#selects"></a>
+</h4>
+<ul>
+<li>
+<strong>Light</strong>: Turn the light on/off or dim for the device.</li>
+</ul>
+<h4>Sensors <a class="title-link" name="sensors" href="#sensors"></a>
+</h4>
+<ul>
+<li>
+<strong>Filter last reset</strong>: Last reset of the filter cleaning.</li>
+</ul>
+<h3>Sensibo Sky, Air, and Air Pro <a class="title-link" name="sensibo-sky-air-and-air-pro" href="#sensibo-sky-air-and-air-pro"></a>
+</h3>
+<h4>Sensors <a class="title-link" name="sensors-1" href="#sensors-1"></a>
+</h4>
+<ul>
+<li>
+<strong>Feels like</strong>: Feels like temperature.</li>
+<li>
+<strong>Timer end time</strong>: End time of timer.</li>
+<li>
+<strong>Climate React type</strong>: Climate React type: Temperature, Feels like, or Humidity.</li>
+<li>
+<strong>Climate React low temperature threshold</strong>: Low temperature threshold setting for Climate react.</li>
+<li>
+<strong>Climate React high temperature threshold</strong>: High temperature threshold setting for Climate react.</li>
+</ul>
+<h4>Switches <a class="title-link" name="switches" href="#switches"></a>
+</h4>
+<ul>
+<li>
+<strong>Timer</strong>: Timer on/off. Enabling the timer, sets it to 10 minutes.</li>
+<li>
+<strong>Climate React</strong>: Enable/Disable Climate React.</li>
+</ul>
+<h3>Sensibo Air, Air Pro, and Elements <a class="title-link" name="sensibo-air-air-pro-and-elements" href="#sensibo-air-air-pro-and-elements"></a>
+</h3>
+<h4>Sensors <a class="title-link" name="sensors-2" href="#sensors-2"></a>
+</h4>
+<ul>
+<li>
+<strong>TVOC</strong>: TVOC reading from device.</li>
+<li>
+<strong>Co2</strong>: Co2 reading from device.</li>
+</ul>
+<h3>Sensibo Elements <a class="title-link" name="sensibo-elements" href="#sensibo-elements"></a>
+</h3>
+<h4>Sensors <a class="title-link" name="sensors-3" href="#sensors-3"></a>
+</h4>
+<ul>
+<li>
+<strong>PM2.5</strong>: PM2.5 reading from device.</li>
+<li>
+<strong>Ethanol</strong>: Ethanol reading from device.</li>
+<li>
+<strong>Air quality</strong>: Air quality based on readings from device.</li>
+</ul>
+<h3>Sensibo Pure <a class="title-link" name="sensibo-pure" href="#sensibo-pure"></a>
+</h3>
+<h4>Binary sensors <a class="title-link" name="binary-sensors-1" href="#binary-sensors-1"></a>
+</h4>
+<ul>
+<li>
+<strong>Pure Boost linked with AC</strong>: Is Pure Boost linked with an A/C device.</li>
+<li>
+<strong>Pure Boost linked with presence</strong>: Is Pure Boost linked to presence.</li>
+<li>
+<strong>Pure Boost linked with indoor air quality</strong>: Is Pure Boost linked with indoor air quality.</li>
+<li>
+<strong>Pure Boost linked with outdoor air quality</strong>: Is Pure Boost linked with outdoor air quality.</li>
+</ul>
+<h4>Sensors <a class="title-link" name="sensors-4" href="#sensors-4"></a>
+</h4>
+<ul>
+<li>
+<strong>Pure AQI</strong>: PM2.5 level indicated as ‘Good’, ‘Moderate’, and ‘Bad’.</li>
+<li>
+<strong>Pure Boost Sensitivity</strong>: Sensitivity for Pure Boost.</li>
+</ul>
+<h4>Switches <a class="title-link" name="switches-1" href="#switches-1"></a>
+</h4>
+<ul>
+<li>
+<strong>Pure Boost</strong>: Enable/Disable Pure Boost.</li>
+</ul>
+<h3>Sensibo Room sensor <a class="title-link" name="sensibo-room-sensor" href="#sensibo-room-sensor"></a>
+</h3>
+<h4>Binary sensors <a class="title-link" name="binary-sensors-2" href="#binary-sensors-2"></a>
+</h4>
+<ul>
+<li>
+<strong>Motion</strong>: Is there motion</li>
+<li>
+<strong>Connectivity</strong>: Is the motion sensor alive and connected</li>
+<li>
+<strong>Main sensor</strong>: Is the connected motion sensor the main sensor for the connected Air device.</li>
+<li>
+<strong>Room occupied</strong>: Is there presence in the room of the connected Air device.</li>
+</ul>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<h3>Get device mode capabilities <a class="title-link" name="get-device-mode-capabilities" href="#get-device-mode-capabilities"></a>
+</h3>
+<p>As the below custom actions <a href="#set-full-state">Full state</a> and <a href="#enable-climate-react">Climate react</a> both require their inputs to match the API requirements precisely, this custom action will provide the capabilities for the device for a certain HVAC mode to help the users on using those actions properly.</p>
+<p><strong>Action configuration:</strong></p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Target</span><a name="target" class="title-link" href="#target"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select the Sensibo climate entity.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">HVAC mode</span><a name="hvac-mode" class="title-link" href="#hvac-mode"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select the HVAC mode for which you want to get the capabilities.</p>
+</span></div>
+</div>
+</div>
+</div>
+<p><strong>Proposed action use:</strong></p>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/server_controls/">Developer Tools</a>.</li>
+<li>Switch to the <strong>Actions</strong> page.</li>
+<li>Use the <code>sensibo.get_device_capabilities</code> action.</li>
+<li>Select the <code>climate</code> entity as the target.</li>
+<li>Select the <code>hvac_mode</code> from the available list.</li>
+<li>Select <strong>Perform action</strong> to retrieve the available options.</li>
+<li>Copy the case-sensitive options as needed to other action calls, automations or scripts.</li>
+</ol>
+<h3>Set full state <a class="title-link" name="set-full-state" href="#set-full-state"></a>
+</h3>
+<p>You can send a full state command to <strong>Sensibo</strong> instead of single commands using the <code>sensibo.full_state</code> action.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>All fields are required to be according to Sensibo API specifications and are case-sensitive.</p>
+<p>Only provide the fields which are supported by the device.</p>
+  </div>
+</div>
+<p><strong>Action configuration:</strong></p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Target</span><a name="target" class="title-link" href="#target"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select the Sensibo climate entity.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">HVAC mode</span><a name="hvac-mode" class="title-link" href="#hvac-mode"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select the HVAC mode for which you want to get the capabilities.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Target temperature</span><a name="target-temperature" class="title-link" href="#target-temperature"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Provide a target temperature if applicable.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Fan mode</span><a name="fan-mode" class="title-link" href="#fan-mode"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Provide a fan mode if applicable.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Swing mode</span><a name="swing-mode" class="title-link" href="#swing-mode"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Provide a swing mode if applicable.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Horizontal swing mode</span><a name="horizontal-swing-mode" class="title-link" href="#horizontal-swing-mode"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Provide a horizontal swing mode if applicable.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Light</span><a name="light" class="title-link" href="#light"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Provide a setting for the light if applicable.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>Use the <a href="#get-device-mode-capabilities">Get device mode capabilities</a> action to provide a list of capabilities.</p>
+  </div>
+</div>
+<h3>Assume state <a class="title-link" name="assume-state" href="#assume-state"></a>
+</h3>
+<p>An HVAC device often has a manual remote or other means of control which can put <strong>Sensibo</strong> out of sync with the HVAC device.</p>
+<p>Use the <code>sensibo.assume_state</code> action to tell <strong>Sensibo</strong> if the HVAC device is currently on or off without sending a control to the actual device.</p>
+<p><strong>Action configuration:</strong></p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Target</span><a name="target" class="title-link" href="#target"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select the Sensibo climate entity.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">State</span><a name="state" class="title-link" href="#state"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select if the HVAC device is on or off.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h3>Enable Pure Boost <a class="title-link" name="enable-pure-boost" href="#enable-pure-boost"></a>
+</h3>
+<p>You can configure your Pure Boost settings using the <code>sensibo.enable_pure_boost</code> action.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>AC integration and Geo integration needs to be pre-configured via the app before first use.</p>
+  </div>
+</div>
+<p><strong>Action configuration:</strong></p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Target</span><a name="target" class="title-link" href="#target"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select the Sensibo climate entity.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">AC integration</span><a name="ac-integration" class="title-link" href="#ac-integration"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Integrate with a HVAC device.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Geo integration</span><a name="geo-integration" class="title-link" href="#geo-integration"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Integrate with presence.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Indoor air quality</span><a name="indoor-air-quality" class="title-link" href="#indoor-air-quality"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Integrate with indoor air quality.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Outdoor air quality</span><a name="outdoor-air-quality" class="title-link" href="#outdoor-air-quality"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Integrate with outdoor air quality.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Sensitivity</span><a name="sensitivity" class="title-link" href="#sensitivity"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Set the sensitivity to <code>Normal</code> or <code>Sensitive</code>.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h3>Enable timer <a class="title-link" name="enable-timer" href="#enable-timer"></a>
+</h3>
+<p>You can enable a timer to turn the HVAC device on or off for a certain time, using the <code>sensibo.enable_timer</code> action that is provided.</p>
+<p><strong>Action configuration:</strong></p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Target</span><a name="target" class="title-link" href="#target"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select the Sensibo climate entity.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Minutes</span><a name="minutes" class="title-link" href="#minutes"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Number of minutes to turn the device on or off.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h3>Enable Climate React <a class="title-link" name="enable-climate-react" href="#enable-climate-react"></a>
+</h3>
+<p>You can configure your Climate React settings using the <code>sensibo.enable_climate_react</code> action.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Configuring this action also turns Climate React on.</p>
+<p>When using the action, the state needs to be set to precisely what Sensibo API expects. The first time, it’s recommended to use the app to configure it.</p>
+  </div>
+</div>
+<p><strong>Action configuration:</strong></p>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Target</span><a name="target" class="title-link" href="#target"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Select the Sensibo climate entity.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Threshold high</span><a name="threshold-high" class="title-link" href="#threshold-high"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>When the trigger goes above this value.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">State high threshold</span><a name="state-high-threshold" class="title-link" href="#state-high-threshold"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The full state to configure above the high threshold.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Threshold low</span><a name="threshold-low" class="title-link" href="#threshold-low"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>When the trigger goes below this value.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">State low threshold</span><a name="state-low-threshold" class="title-link" href="#state-low-threshold"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The full state to configure below the low threshold.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Trigger type</span><a name="trigger-type" class="title-link" href="#trigger-type"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The trigger type (<code>temperature</code>, <code>feelsLike</code>, or <code>humidity</code>).</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>Use the <a href="#get-device-mode-capabilities">Get device mode capabilities</a> action to provide a list of capabilities.</p>
+  </div>
+</div>
+<p><strong>Example full state:</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">on</span><span class="pi">:</span> <span class="kc">true</span>
+<span class="na">fanLevel</span><span class="pi">:</span> <span class="s2">"</span><span class="s">high"</span>
+<span class="na">temperatureUnit</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
+<span class="na">targetTemperature</span><span class="pi">:</span> <span class="m">23</span>
+<span class="na">mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cool"</span>
+<span class="na">swing</span><span class="pi">:</span> <span class="s2">"</span><span class="s">fixedBottom"</span>
+<span class="na">horizontalSwing</span><span class="pi">:</span> <span class="s2">"</span><span class="s">fixedLeft"</span>
+<span class="na">light</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+</code></pre></div></div>
+<h2>Examples <a class="title-link" name="examples" href="#examples"></a>
+</h2>
+<h3>Template switch to turn HVAC device on or off <a class="title-link" name="template-switch-to-turn-hvac-device-on-or-off" href="#template-switch-to-turn-hvac-device-on-or-off"></a>
+</h3>
+<p>A simple switch which has <code>heat</code> or <code>off</code> as mode.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">switch</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">template</span>
+    <span class="na">switches</span><span class="pi">:</span>
+      <span class="na">ac</span><span class="pi">:</span>
+        <span class="na">friendly_name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">AC"</span>
+        <span class="na">value_template</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">is_state('climate.ac',</span><span class="nv"> </span><span class="s">'heat')</span><span class="nv"> </span><span class="s">}}"</span>
+        <span class="na">turn_on</span><span class="pi">:</span>
+          <span class="na">action</span><span class="pi">:</span> <span class="s">climate.set_hvac_mode</span>
+          <span class="na">target</span><span class="pi">:</span>
+            <span class="na">entity_id</span><span class="pi">:</span> <span class="s">climate.ac</span>
+          <span class="na">data</span><span class="pi">:</span>
+            <span class="na">hvac_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heat"</span>
+        <span class="na">turn_off</span><span class="pi">:</span>
+          <span class="na">action</span><span class="pi">:</span> <span class="s">climate.set_hvac_mode</span>
+          <span class="na">target</span><span class="pi">:</span>
+            <span class="na">entity_id</span><span class="pi">:</span> <span class="s">climate.ac</span>
+          <span class="na">data</span><span class="pi">:</span>
+            <span class="na">hvac_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
+</code></pre></div></div>
+<h3>Start the timer for 30 minutes when I get home <a class="title-link" name="start-the-timer-for-30-minutes-when-i-get-home" href="#start-the-timer-for-30-minutes-when-i-get-home"></a>
+</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Example</span><span class="nv"> </span><span class="s">timer"</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">zone</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">person.me</span>
+      <span class="na">zone</span><span class="pi">:</span> <span class="s">zone.home</span>
+      <span class="na">event</span><span class="pi">:</span> <span class="s">enter</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">sensibo.enable_timer</span>
+      <span class="na">data</span><span class="pi">:</span>
+        <span class="na">minutes</span><span class="pi">:</span> <span class="m">30</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">climate.hvac_device</span>
+</code></pre></div></div>
+<h3>Set a full state of the HVAC device at 6pm <a class="title-link" name="set-a-full-state-of-the-hvac-device-at-6pm" href="#set-a-full-state-of-the-hvac-device-at-6pm"></a>
+</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Example</span><span class="nv"> </span><span class="s">full</span><span class="nv"> </span><span class="s">state"</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">time</span>
+      <span class="na">at</span><span class="pi">:</span> <span class="s2">"</span><span class="s">18:00:00"</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">sensibo.full_state</span>
+      <span class="na">data</span><span class="pi">:</span>
+        <span class="na">mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">heat"</span>
+        <span class="na">target_temperature</span><span class="pi">:</span> <span class="m">23</span>
+        <span class="na">fan_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">medium"</span>
+        <span class="na">swing_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">fixedMiddleTop"</span>
+        <span class="na">horizontal_swing_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">fixedCenter"</span>
+        <span class="na">light</span><span class="pi">:</span> <span class="s2">"</span><span class="s">off"</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">climate.hvac_device</span>
+</code></pre></div></div>
+<h2>Data fetching and limitations <a class="title-link" name="data-fetching-and-limitations" href="#data-fetching-and-limitations"></a>
+</h2>
+<p>Data is <span class="terminology">polled<span class="terminology-tooltip">Data polling is the process of querying a device or service at regular intervals to check for updates or retrieve data. By defining a custom polling interval, you can control how frequently your system checks for new data, which can help optimize performance and reduce unnecessary network traffic.<a class="terminology-link" href="/common-tasks/general/#defining-a-custom-polling-interval"> [Learn more]</a></span></span> from the <strong>Sensibo</strong> API once every minute for all devices.</p>
+<p>If <span class="terminology">polling<span class="terminology-tooltip">Data polling is the process of querying a device or service at regular intervals to check for updates or retrieve data. By defining a custom polling interval, you can control how frequently your system checks for new data, which can help optimize performance and reduce unnecessary network traffic.<a class="terminology-link" href="/common-tasks/general/#defining-a-custom-polling-interval"> [Learn more]</a></span></span> cannot happen because of no connectivity or a malfunctioning API, it will retry a few times before failing.
+The user can use the <a href="homeassistant#action-homeassistantupdate_entity"><code>homeassistant.update_entity</code></a> action to manually try again later, in the case the user has solved the connectivity issue.</p>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<p>This service is reliant on an internet connection and that the <strong>Sensibo</strong> API is available. Here are the things you can try before raising an issue:</p>
+<ul>
+<li>Check that internet is available in your Home Assistant instance.</li>
+<li>Check that the <strong>Sensibo</strong> API is available by accessing the <a href="https://home.sensibo.com/api/v1/users/me" rel="external nofollow">Sensibo API page<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. If you have previously logged in to Sensibo web, you will get a JSON back with the provided information about your account. If not logged in, the API will respond with <code>login_required</code>.</li>
+<li>Use <code>curl</code> in a terminal on your Home Assistant instance using the same URL as previously opened in the browser. <code>curl https://home.sensibo.com/api/v1/users/me</code>
+</li>
+</ul>
+<h3>Specific log entries <a class="title-link" name="specific-log-entries" href="#specific-log-entries"></a>
+</h3>
+<p><strong>Log entry:</strong> <code>Device [name of device] not correctly registered with remote on Sensibo cloud.</code></p>
+<p>When setting up a device the first time, a <code>remote</code> needs to be defined for the device in the <strong>Sensibo</strong> app, either automatically or manually.
+The device will appear in Home Assistant, but won’t be usable as no HVAC modes can be selected.</p>
+<h2>Remove the integration <a class="title-link" name="remove-the-integration" href="#remove-the-integration"></a>
+</h2>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/sensibo.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fsensibo%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20sensibo" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+sensibo%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/sensibo//logo.png' srcset='https://brands.home-assistant.io/_/sensibo/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=sensibo' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Sensibo  integration  was introduced in Home Assistant 0.44, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          1.2%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:cloud-upload'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Cloud Polling.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-platinum'>🏆 Platinum quality</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/sensibo" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+sensibo%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/andrey-git" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/andrey-git?size=96" alt="@andrey-git"/> @andrey-git</a><br /><a href="https://github.com/gjohansson-ST" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/gjohansson-ST?size=96" alt="@gjohansson-ST"/> @gjohansson-ST</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-devices">Supported devices</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-functionality">Supported functionality</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sensibo-sky-air-air-pro-pure-elements-and-room-sensor">Sensibo Sky, Air, Air Pro, Pure, Elements and Room sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-sky-air-air-pro-pure-and-elements">Sensibo Sky, Air, Air Pro, Pure, and Elements</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-sky-air-and-air-pro">Sensibo Sky, Air, and Air Pro</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-air-air-pro-and-elements">Sensibo Air, Air Pro, and Elements</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-elements">Sensibo Elements</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-pure">Sensibo Pure</a></li>
+<li class="toc-entry toc-h3"><a href="#sensibo-room-sensor">Sensibo Room sensor</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#get-device-mode-capabilities">Get device mode capabilities</a></li>
+<li class="toc-entry toc-h3"><a href="#set-full-state">Set full state</a></li>
+<li class="toc-entry toc-h3"><a href="#assume-state">Assume state</a></li>
+<li class="toc-entry toc-h3"><a href="#enable-pure-boost">Enable Pure Boost</a></li>
+<li class="toc-entry toc-h3"><a href="#enable-timer">Enable timer</a></li>
+<li class="toc-entry toc-h3"><a href="#enable-climate-react">Enable Climate React</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#template-switch-to-turn-hvac-device-on-or-off">Template switch to turn HVAC device on or off</a></li>
+<li class="toc-entry toc-h3"><a href="#start-the-timer-for-30-minutes-when-i-get-home">Start the timer for 30 minutes when I get home</a></li>
+<li class="toc-entry toc-h3"><a href="#set-a-full-state-of-the-hvac-device-at-6pm">Set a full state of the HVAC device at 6pm</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#data-fetching-and-limitations">Data fetching and limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#specific-log-entries">Specific log entries</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#remove-the-integration">Remove the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#button'>Button</a>
+          </li><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#fan'>Fan</a>
+          </li><li>
+            <a href='/integrations/#number'>Number</a>
+          </li><li>
+            <a href='/integrations/#select'>Select</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li><li>
+            <a href='/integrations/#update'>Update</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

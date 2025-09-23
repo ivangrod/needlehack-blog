@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Technology | Home Assistant]]></title>
+  <link href="https://ivangrod.github.io/blog/categories/technology/atom.xml" rel="self"/>
+  <link href="https://ivangrod.github.io/"/>
+  <updated>2025-09-23T17:02:13+00:00</updated>
+  <id>https://ivangrod.github.io/</id>
+  <author>
+    <name><![CDATA[Home Assistant]]></name>
+    
+  </author>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Matter & Thread: where we’re at]]></title>
+    <link href="https://ivangrod.github.io/blog/2023/02/08/state-of-matter-and-thread/"/>
+    <updated>2023-02-08T00:00:00+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2023/02/08/state-of-matter-and-thread</id>
+    <content type="html"><![CDATA[<p>A lot is happening in Home Assistant around Matter and Thread. It can be hard to keep track of it all, so we wanted to take a moment to write an update on the current state, and what we’re planning next.</p>
+<p>Summary:</p>
+<ul>
+<li>Matter works, including Thread devices via Thread border routers from Apple and Google.</li>
+<li>The Thread border router in Home Assistant is operational but not integrated until the next release, Home Assistant 2023.3.</li>
+<li>We’ve expanded the documentation for Matter and Thread to cover most asked questions and include videos on how to add Matter devices to Home Assistant.</li>
+<li>Users using a <a href="/yellow">Home Assistant Yellow</a> hub can enable an experimental Thread border router.</li>
+<li>Users on other systems can get a Thread Border Router using a <a href="/skyconnect">Home Assistant SkyConnect</a>.</li>
+<li>Announcing <a href="https://github.com/NabuCasa/sl-web-tools">SL Web Tools</a>. It allows users to use their browser to update Zigbee/Thread sticks based on SiLabs chips, like the Home Assistant SkyConnect.</li>
+<li>We’re open sourcing our <a href="https://github.com/NabuCasa/silabs-firmware-builder">automated build scripts</a> to create reproducible firmware builds for Zigbee/Thread sticks based on SiLabs chips.</li>
+</ul>
+<p><lite-youtube videoid="8y79Kq3QfCQ" videotitle="Add Matter device via iOS app in Home Assistant"></lite-youtube></p>
+<h2>Matter</h2>
+<p><a href="/integrations/matter">Matter</a> is a new smart home standard which works locally. Its first release was at the end of last year, and is in the process of being adopted throughout the industry. We’ve been working hard on making it work with Home Assistant.</p>
+<p>Today Home Assistant can control the basic operation of most Matter devices. You can add both Wi-Fi and Thread based devices, and the most common device types work. Matter bridges do not work yet – this will be added in Home Assistant 2023.3.</p>
+<!--more-->
+<p>The Matter implementation in Home Assistant is built on-top of the open source Matter SDK developed by members of the Connectivity Standards Alliance (CSA). This is the same SDK that powers Matter for Google and Apple products. As a member of this alliance, we are collaborating to further improve this Matter SDK making it a solid base for our Matter support.</p>
+<p>Together with this blog post, we’ve released a big update to <a href="/integrations/matter">our Matter documentation</a>. We have added instructions with accompanying videos on how to pair Matter devices with Home Assistant and how to share Matter devices from Apple Home/Google Home to Home Assistant.</p>
+<p><lite-youtube videoid="-B4WWevd2JI" videotitle="Share Matter device from Google Home to Home Assistant"></lite-youtube></p>
+<h2>Thread</h2>
+<p><a href="/integrations/thread">Thread</a> is a low-power mesh networking standard which allows users to connect their devices within a home network. It uses the same RF technology as Zigbee but provides IP connectivity similar to Wi-Fi. Matter supports Thread as a connectivity option for low-power and battery-operated devices.</p>
+<p>Together with this blog post, we’ve released an update to <a href="/integrations/thread">our Thread documentation</a>. We explain the different parts that make up a Thread network and how you can create one at home.</p>
+<p class='img'>
+<img src='/images/blog/2023-02-08-state-of-matter-and-thread/android-thread.png' alt='Screenshot of a Google prompt if Home Assistant can access network credentials.'>
+Google Android asks if you want to share their Google Thread credentials with Home Assistant.
+</p>
+<p>As users acquire more products with Thread in their home, they might end up with multiple Thread networks. Since a Thread device can only communicate with a single Thread network, it is important to be able to unify your Thread networks.</p>
+<p>The goal of the upcoming Home Assistant Thread panel is to allow you to manage your Thread networks and help you to merge them into a single one. This is done in collaboration with the Home Assistant Companion apps, allowing us to synchronize Thread networks between Apple/Google and Home Assistant.</p>
+<p>We’ve created a mockup of this panel that you can <a href="https://www.figma.com/proto/DDz0MNwzzxjJdeEHCamQi1/Thread?node-id=68:2863&amp;scaling=scale-down&amp;page-id=68:2862&amp;starting-point-node-id=68:2863">try out here</a>.</p>
+<p class='img'>
+<a href="https://www.figma.com/proto/DDz0MNwzzxjJdeEHCamQi1/Thread?node-id=68:2863&scaling=scale-down&page-id=68:2862&starting-point-node-id=68:2863" target="_blank"><img src='/images/blog/2023-02-08-state-of-matter-and-thread/thread-mockup.png' alt='Screenshot of a Thread panel mockup.'></a>
+Screenshot of the mockup for the Thread panel. <a href="https://www.figma.com/proto/DDz0MNwzzxjJdeEHCamQi1/Thread?node-id=68:2863&scaling=scale-down&page-id=68:2862&starting-point-node-id=68:2863" target="_blank">Open mockup</a>
+</p>
+<h2>Hardware to use Thread &amp; Matter</h2>
+<p>Both Matter and Thread are technologies that are entering mainstream markets. There are a lot of moving parts in both technologies. We’ve been relying heavily on the work done by Google, Apple, and other members of the CSA to make these technologies accessible to Home Assistant users (thanks!).</p>
+<p>Google and Apple updated their products to support Matter and Thread. However, it is important that we can operate independently. Home Assistant Yellow and Home Assistant SkyConnect include radio chips that are capable of running Zigbee and Thread at the same time. We are working on making this multiprotocol support available to all Home Assistant users.</p>
+<h3>Home Assistant Yellow</h3>
+<p><a href="/yellow">Home Assistant Yellow</a> is our take on a perfect home automation hub. It’s powered by a Raspberry Pi Compute Module 4 (CM4), which you can upgrade if you want more memory. And if you run out of storage, it has space to plug in a hard drive. <a href="https://yellow.home-assistant.io/documentation/">And it’s open hardware.</a></p>
+<p class='img'>
+<img src='/images/blog/2021-09-home-assistant-yellow/overview.png' alt='Overview of Home Assistant Yellow features.'>
+</p>
+<p>For radio connectivity, it includes a module by Silicon Labs, which is set up out of the box, to provide Zigbee. With the latest Home Assistant 2023.2 release, it is possible to turn your Home Assistant Yellow into a Thread border router. This can be done by enabling our experimental multiprotocol support in <a href='https://my.home-assistant.io/redirect/hardware' class='my' target='_blank'>Settings -&gt; Hardware</a> and by clicking Configure.</p>
+<p>Currently, it is not possible to disable multiprotocol support once enabled. We will be offering a way to disable multiprotocol support soon, allowing users to rollback if they run into issues.</p>
+<p>The Home Assistant Yellow was originally crowd funded in October 2021. We’ve been busy with production and last month have fulfilled all original backers and most of the pre-orders.</p>
+<p>That’s why today, we’re happy to announce that RaspberryPi.dk will be our first distributor, outside of Crowd Supply, to start selling the Home Assistant Yellow. They have already been produced and are currently on a boat on their way to them. All variants can be <a href="https://raspberrypi.dk/en/?s=home+assistant+yellow&amp;post_type=product">pre-ordered on their website</a>.</p>
+<p>More distributors will follow as soon as the chip shortage allows!</p>
+<h3>Home Assistant SkyConnect</h3>
+<p>Home Assistant is about choice. You’re not limited to running it on official hardware, you can bring your own. In fact, Raspberry Pi devices are by far the most popular platform to run Home Assistant on, but there is a catch: they lack any smart home radio connectivity.</p>
+<p>We created the <a href="/skyconnect">Home Assistant SkyConnect</a> to provide the missing smart home connectivity. It contains a chip from the same family as the Home Assistant Yellow. It is set out of the box to provide Zigbee. With the latest Home Assistant 2023.2 and when using Home Assistant OS, it is possible to turn your Home Assistant SkyConnect into a Thread border router. This can be done by enabling our experimental multiprotocol support in <a href='https://my.home-assistant.io/redirect/hardware' class='my' target='_blank'>Settings -&gt; Hardware</a> and by clicking Configure.</p>
+<p class='img'>
+<img src='/images/connectzbt1/connectzbt1_isometric.png' alt='Picture of a Home Assistant SkyConnect.'>
+</p>
+<p>Home Assistant SkyConnect was introduced at the end of 2022 via our distributor network (hit “buy” on <a href="/skyconnect">our website</a>). Many distributors sold out right away but most should be receiving new stock soon.</p>
+<p>Together with today’s blog post, we’ve pushed a big update to <a href="https://skyconnect.home-assistant.io">the SkyConnect documentation website</a>, including tutorials on how to migrate from a different Zigbee stick.</p>
+<h2>SiLabs multi-flasher &amp; SL Web Tools</h2>
+<p>It’s our mission to build the Open Home: a smart home that offers privacy, choice, and sustainability. Part of our efforts is to build tooling that helps other creators to make projects and products to help further the Open Home cause.</p>
+<p>As part of this effort, two years ago, we built ESP Web Tools. It revolutionized the DIY firmware world by allowing any ESP32/ESP8266 project to offer an easy web installer on their homepage, allowing users to get started directly from their browser. It has been adopted by all the great projects, including <a href="https://tasmota.github.io/install/">Tasmota</a>, <a href="https://install.wled.me/">WLED</a>, and <a href="https://espresense.com/firmware">ESPresense</a>. Ever since the introduction of ESP Web Tools, we have wanted to expand this to more devices.</p>
+<p>Today we’re announcing <a href="https://github.com/NabuCasa/sl-web-tools">SL Web Tools</a>. It allows users to manage the firmware on Zigbee/Thread sticks using SiLabs chips directly from their browser, no terminals or compilation necessary. This allows any creator to offer easy firmware updates to their users and make experimental updates available to test bug fixes quickly.</p>
+<p>To see it in action, SL Web Tools has been added to <a href="https://skyconnect.home-assistant.io">the Home Assistant SkyConnect documentation</a>.</p>
+<p>SL Web Tools is powered by our new open source Python package <a href="https://github.com/NabuCasa/universal-silabs-flasher"><code>silabs-universal-flasher</code></a>. We run this in the browser using <a href="https://pyodide.org/en/stable/">Pyodide</a>.</p>
+<p><lite-youtube videoid="-88K23e8XYw" videotitle="SL Web Tools: upgrading Zigbee firmware in the browser"></lite-youtube></p>
+<h2>Building firmware for Silicon Labs chips</h2>
+<p>It can be a pain to compile firmware for SiLabs chips. It’s hard to track different versions, your patch sets, and different chips. We’re fans of automation, so we have created an automated build system to create reproducible firmware builds for the Home Assistant Yellow and Home Assistant SkyConnect.</p>
+<p>We’re open sourcing this to make it easier for other creators to provide their users with up-to-date firmware. In combination with SL Web Tools, we offer a complete package that empowers other creators to provide their users with the latest firmware updates.</p>
+<p><a href="https://github.com/NabuCasa/silabs-firmware-builder">Find the repository on GitHub.</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Celebrate the holidays with open standards]]></title>
+    <link href="https://ivangrod.github.io/blog/2019/12/20/all-i-want-is-open-standards/"/>
+    <updated>2019-12-20T00:43:02+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2019/12/20/all-i-want-is-open-standards</id>
+    <content type="html"><![CDATA[<p>It’s been a busy week with a lot of announcements around IoT standards, so I thought I would do a quick round up of them, and how it might impact Home Assistant users.</p>
+<h2>New IoT standard announced</h2>
+<p>As it’s been a while, the industry has announced yet a new effort to create a new IoT standard called <a href="https://buildwithmatter.com">Project Matter</a> (formally called: ‘Connected Home over IP’). I think that there are a few interesting bits to this standard:</p>
+<p>The standard will be royalty-free. This is big, as it means that it will be easy for companies to build products. Take, for example, Homekit, which is a great IP-based local standard. Homekit has strict licensing and royalties, which prevented it from widespread adoption.</p>
+<p>The new standard specification will be written in conjunction with building an open source implementation of the standard. Once it’s all finished, we’ll be able to integrate this implementation into Home Assistant.</p>
+<p>Finally, Apple, Google and Amazon are seriously involved, even contributing their own IoT standards to help bootstrap this specification. This significantly increases the odds of them also integrating it into their products. Since their products are everywhere, it means that more companies might incorporate the standard and it can get widespread adoption.</p>
+<p>But don’t hold your breath. Developing a standard takes time. They aim for a draft to be released at the end of 2020. And that’s just the specification. Not any of the devices built with it. If (and that’s a big IF) everything works out, expect this standard to get into your home in 2022.</p>
+<!--more-->
+<h2>Z-Wave to become an open standard</h2>
+<p>Silicon Labs and the Z-Wave Alliance have announced plans to <a href="https://news.silabs.com/2019-12-19-Silicon-Labs-and-Z-Wave-Alliance-Expand-Smart-Home-Ecosystem-by-Opening-Z-Wave-to-Silicon-and-Stack-Suppliers">open up Z-Wave</a> in the second half of 2020. Among other things, this allows other companies to create Z-Wave radios, which could result in wider adoption and cheaper devices.</p>
+<h2>Open Source HomeKit Accessory Development Kit</h2>
+<p>As part of the Connected Home over IP announcement, Apple has released an <a href="https://github.com/apple/HomeKitADK">open source version</a> of their Accessory Development Kit (ADK). The ADK allows devices to be controlled by HomeKit controllers like Home Assistant (and ok, iOS devices). The spec was already open and Home Assistant implements it via the <a href="/integrations/homekit/">Homekit integration</a>. Opening up the ADK still helps because it gives a reference implementation to see how the spec should work.</p>
+<h2>Bonus: deCONZ hass.io add-on gets Ingress support</h2>
+<p>It’s not really related, but a little. deCONZ is Zigbee controller software that works with the Conbee Zigbee stick. It’s a platinum Home Assistant integration and we’ve been working with <a href="https://phoscon.de">Phoscon</a>, the company behind deCONZ and Conbee, to add Ingress support to the Hass.io add-on.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Wait... did I just release the deCONZ add-on 4.0 for <a href="https://twitter.com/home_assistant?ref_src=twsrc%5Etfw">@home_assistant</a> with Ingress support? 🎉<br><br>Thanks to <a href="https://twitter.com/phosconde?ref_src=twsrc%5Etfw">@phosconde</a> for solving the last issues in deCONZ 2.05.72, that allows for this awesomeness! <a href="https://t.co/t9aVNdLJEg">pic.twitter.com/t9aVNdLJEg</a></p>&mdash; Franck Nijhof (@Frenck) <a href="https://twitter.com/Frenck/status/1207770759273353231?ref_src=twsrc%5Etfw">December 19, 2019</a>
+</blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Deprecating Python 3.4 support]]></title>
+    <link href="https://ivangrod.github.io/blog/2017/10/06/deprecating-python-3.4-support/"/>
+    <updated>2017-10-06T00:36:00+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2017/10/06/deprecating-python-3.4-support</id>
+    <content type="html"><![CDATA[<p><strong>Update February 16, 2018</strong>:
+Home Assistant 0.64 will be the last release to support Python 3.4. Starting with release 0.65, Home Assistant will require a minimum version of Python 3.5.3.</p>
+<hr />
+<p>Starting with our next release, 0.55, we will deprecate Python 3.4 support. The current plan is to remove support for Python 3.4 at the beginning of 2018.</p>
+<p>Python 3.5 was released on September 13th, 2015. It has since then become the default Python installation on the stable releases of Debian, Ubuntu, Raspbian and Hassbian. Our other own operating system, Hass.io, is more advanced and is already running the greatly improved Python 3.6.</p>
+<p>The jump to Python 3.5 as a minimum version is driven by the Home Assistant core, which is based on asyncio. Starting with Python 3.5, asyncio got improved support in the language with dedicated keywords <code>async</code> and <code>await</code>. As this is the proper way of doing async in Python, we’re seeing a move by async libraries to either only support the new syntax from the beginning or dropping support for the Python 3.4 approach. Not moving along means an increased maintenance burden as we cannot use the latest releases of our libraries. Next to that it will prevent our users from being able to leverage the bug fixes and performance improvements that come with Python 3.5.</p>
+<h4>Hass.io</h4>
+<p>If you’re running Hass.io, you don’t have to do anything. Your system will always stay up to date.</p>
+<h4>Hassbian</h4>
+<p>If you’re running Hassbian it’s recommended that you make a backup of your configuration files and restore them on a fresh install. Upgrading an existing installation isn’t recommended.</p>
+<h4>Windows</h4>
+<p>If you’re on Windows, you’re fine as our minimum version for Windows has been 3.5 for a while now.</p>
+<h4>Other Debian based systems</h4>
+<p>If you’re running a Debian based system, follow <a href="https://linuxconfig.org/raspbian-gnu-linux-upgrade-from-jessie-to-raspbian-stretch-9">these instructions</a> to upgrade.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Improved Hass.io build system]]></title>
+    <link href="https://ivangrod.github.io/blog/2017/09/26/new-hassio-build-system/"/>
+    <updated>2017-09-26T03:00:00+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2017/09/26/new-hassio-build-system</id>
+    <content type="html"><![CDATA[<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon='mdi:information-outline'></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>This is going to be a technical post for Hass.io add-on developers and people that run locally build add-ons (not the default).</p>
+  </div>
+</div>
+<p>Two months ago we <a href="/blog/2017/07/25/introducing-hassio/">introduced Hass.io</a>, allowing our users to easily install, update and manage their Home Assistant installation. In this short time we’ve seen great adoption from the community. Around 20% of our users are choosing Hass.io as their method of running Home Assistant today. We’ve also seen many add-ons being made available on <a href="https://community.home-assistant.io/tags/hassio-repository">the forums</a>. There are currently 14 reposities full of add-ons being shared!</p>
+<p>Hass.io is built on top of Docker, a container runtime. One thing that Docker did not support was dynamic build environements. That was annoying for Hass.io because by supporting multiple CPU architectures, that was exactly what we needed! Luckily this feature has been added in Docker 17.05. By moving to Docker 17.05 as the minimum supported version we will be able to replace our templated Dockerfile approach with standard Dockerfiles that work out of the box. Thanks to <a href="https://github.com/frenck">Frenck</a> for notifying us of this new build feature.</p>
+<p>This change only impacts people that build add-ons or use add-ons that are built locally. You can check if your add-on is building locally on the detail page of add-ons.</p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon='mdi:lightbulb-outline'></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>If you are an add-on developer, read <a href="/developers/hassio/addon_publishing/#custom-add-ons">the documentation</a> on how to publish your add-ons to Docker Hub. This will greatly improve the user experience.</p>
+  </div>
+</div>
+<h3>Template changes</h3>
+<p>As an add-on developer, you will only have to change one line in your template to make it compatible with the new system. If you wish, you can also change the default build options for your image using the new <a href="/developers/hassio/addon_config/#add-on-extended-build"><code>build.json</code></a> file.</p>
+<p>Old:</p>
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="dockerfile"><span class="k">FROM</span><span class="s"> %%BASE_IMAGE%%</span>
+</code></pre></div></div>
+<p>New:</p>
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="dockerfile"><span class="k">ARG</span><span class="s"> BUILD_FROM</span>
+<span class="k">FROM</span><span class="s"> $BUILD_FROM</span>
+</code></pre></div></div>
+<h3>When</h3>
+<p>The new system will become active with Hass.io 0.64 and Host OS 1.1. Host OS 1.1 is available today. Navigate to Advanced Settings in the Hass.io panel to start the OTA update.</p>
+<p>We have also updated our build scripts and replaced it with a <a href="https://github.com/home-assistant/hassio-builder">builder docker engine</a>. This builder makes deploying Hass.io components very easy. All basic functionality is supported. If you want more functionality, check out <a href="https://github.com/hassio-addons/build-env">the builder by the Community Hass.io Add-ons project</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hassbian 1.3 - A bit of a stretch]]></title>
+    <link href="https://ivangrod.github.io/blog/2017/09/16/hassbian-1.3-a-bit-of-a-stretch/"/>
+    <updated>2017-09-16T15:00:00+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2017/09/16/hassbian-1.3-a-bit-of-a-stretch</id>
+    <content type="html"><![CDATA[<p>This new release finally brings us the release of Hassbian based on the release of Raspbian Stretch. The most significant change with this is that we now run Home Assistant on Python 3.5.
+Other than that the changes are mostly to our tool <code>hassbian-config</code>.</p>
+<h3>Hassbian-config</h3>
+<p>To allow you to customize your installation further, we have made a few additions to our tool called <code>hassbian-config</code>. Majority of these changes where contributed by <a href="http://github.com/ludeeus">@Ludeeus</a>.</p>
+<h4>Upgrade scripts</h4>
+<p><a href="http://github.com/ludeeus">@Ludeeus</a> contributed the possibility to run upgrade scripts to the <code>hassbian-config</code> tool.</p>
+<ul>
+<li>Upgrade Hassbian: Upgrades packages of the base operating system. Contributed by <a href="http://github.com/landrash">@Landrash</a>.</li>
+<li>Upgrade Hassbian-script: Downloads and upgrades the latest release of Hassbian-scripts. Contributed by <a href="http://github.com/ludeeus">@Ludeeus</a>.</li>
+<li>Upgrade Home-assistant: Upgrades the Home Assistant installation to the latest release. Contributed by <a href="http://github.com/ludeeus">@Ludeeus</a>.</li>
+</ul>
+<p>To follow discussions about the development of the HASSbian image or to contribute join our <a href="https://discord.gg/RkajcgS">Discord chat server</a>.</p>
+<p>To get started with the new image, check out the installation instructions on the installing Hassbian page.</p>
+]]></content>
+  </entry>
+  
+</feed>

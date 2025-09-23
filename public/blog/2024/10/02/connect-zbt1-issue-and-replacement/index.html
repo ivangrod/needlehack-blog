@@ -1,0 +1,555 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Home Assistant Connect ZBT-1 issue and replacement - Home Assistant</title>
+    <meta name="author" content="Andy Gill">
+    <meta name="description" content="Through extensive testing, we’ve found a fault, but we’re setting up a replacement program.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/blog/2024/10/02/connect-zbt1-issue-and-replacement/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Home Assistant Connect ZBT-1 issue and replacement">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/blog/2024/10/02/connect-zbt1-issue-and-replacement/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Through extensive testing, we’ve found a fault, but we’re setting up a replacement program.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/blog/2024-10-zbt1-issue/art.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Home Assistant Connect ZBT-1 issue and replacement">
+    <meta name="twitter:description" content="Through extensive testing, we’ve found a fault, but we’re setting up a replacement program.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/blog/2024-10-zbt1-issue/art.jpg">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="   blog-post ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a class="active" href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#background">Background</a></li>
+<li class="toc-entry toc-h2"><a href="#do-i-have-a-zbt-1">Do I have a ZBT-1?</a></li>
+<li class="toc-entry toc-h2"><a href="#pausing-sales">Pausing sales</a></li>
+<li class="toc-entry toc-h2"><a href="#replacement-program">Replacement Program</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="post">
+  
+  <header>
+  
+  <h1>Home Assistant Connect ZBT-1 issue and replacement</h1>
+  
+
+  
+  <div class="meta clearfix">
+    
+
+  
+  
+    <span class="byline author vcard">
+      <a href="https://github.com/ncandyg" target="_blank" rel="external nofollow"><img class="author-avatar" src="https://avatars.githubusercontent.com/ncandyg?size=64" alt="Andy Gill"> Andy Gill<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+    </span>
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<time datetime="2024-10-02T00:01:01+00:00" pubdate data-updated="true"><iconify-icon inline icon="mdi:calendar" title="Calendar"></iconify-icon> October 2, 2024</time>
+    
+
+  <span>
+    <i class="icon-tags"></i>
+    <ul class="tags unstyled">
+    
+      
+        <li><a class="category" href="/blog/categories/public-service-announcement/">Public-Service-Announcement</a></li>
+      
+    
+    </ul>
+  </span>
+
+    
+      <a class="comments" href="#post-comments">Comments</a>
+    
+  </div>
+  
+</header>
+
+
+  <img src="/images/blog/2024-10-zbt1-issue/art.jpg" alt="Home Assistant Connect ZBT-1 issue and replacement">
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The replacement program is now operational, please contact the retailer where you purchased your device to request a replacement. The replacement program only covers ZBT-1 branded devices purchased prior to October 2024, and not SkyConnect-branded devices (identify which device you have <a href="#do-i-have-a-zbt-1">with this graphic</a>).</p>
+  </div>
+</div>
+<p>We’ve found an issue in Home Assistant Connect ZBT-1 that has affected a small number of customers, which appears to be the result of a faulty part incorporated in the first production run of ZBT-1 devices, causing the device to fail and become completely unresponsive. We want to make sure everyone can get a replacement ZBT-1 and ensure they are covered far into the future.</p>
+<p>Though Home Assistant SkyConnect is identical to the ZBT-1 under the hood, <strong>it is not affected</strong>. The design is not what’s at fault, but instead, a defective voltage regulator that was used in this specific production run that is causing the issue. When a ZBT-1 is inserted into certain USB-A ports, the voltage regulator can fail, fully bricking the device. We used high-quality manufacturing and quality control in this and previous production runs. We are undertaking an investigation to find out how this could happen and most importantly, to avoid a repeat of anything remotely similar in the future.</p>
+<p>We’re sorry for any inconvenience this may cause you. Below are details on our investigation, how devices are affected, and the replacement program.</p>
+<ul>
+<li><a href="#background">Background</a></li>
+<li><a href="#do-i-have-a-zbt-1">Do I have a ZBT-1?</a></li>
+<li><a href="#pausing-sales">Pausing sales</a></li>
+<li><a href="#replacement-program">Replacement Program</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+<a name="read-more"></a>
+<h2>Background <a class="title-link" name="background" href="#background"></a>
+</h2>
+<p>Around a month ago, we were contacted about one of our latest (and <a href="/blog/2024/06/13/zbt1-annoucement/">recently rebranded</a>) Home Assistant Connect ZBT-1s not being detected and showing a deformation on the housing. A couple more similar issues were reported, and we began a dialogue with the small number of people who were affected, having them send us the devices to test.</p>
+<p class="img"><img src="/images/blog/2024-10-zbt1-issue/zbt1-issue.jpg" style="border: 0;box-shadow: none;" alt="ZBT-1 case deformation and faulty voltage regulator">Circled in red the deformation on the case and the board showing the failed chip</p>
+<p>Indeed, the device no longer worked at all, not being detected by any device it was connected to. When we opened them, we found a dead voltage regulator. Though SkyConnect devices can also develop a small discoloration on the outside casing after long-term use, and this is not a sign of failure, the deeper deformation in the outer casing pictured above is a sign that the ZBT-1 has overheated and failed. All of our devices are certified by CE and ROHS, and the plastic shell has been designed not to combust. This is a real-life demonstration of just how important this certification is and why we take that step.</p>
+<p>We replaced the voltage regulator on the devices we tested, and the devices sprang back to life. We found our culprit, but why was it failing? As mentioned, the SkyConnect internal design and the manufacturing were effectively identical to the ZBT-1, and we received no reports of any such failures in the literally tens of thousands of them in the wild. In manufacturing runs there is always a little variance, and in this run, something went wrong with the voltage regulator that was sourced - again, we’re looking into this.</p>
+<p>It took us a couple of weeks to replicate the problem with our own units. We went down some wrong paths, but eventually found it was triggered only by certain devices, specifically certain desktop PCs (internally, we have only found one desktop that causes this failure). We have not observed the failure occur when the device has only been connected to a Home Assistant Green, Raspberry Pi, or even a Mac. If you have plugged your ZBT-1 into a different device, specifically a desktop PC, and it is not recognized by that system, inspect it for this deformation pictured above. Obviously, we want you to be able to use the device with any hardware, and even if only a small number of devices from this production run have reported issues, it is still unacceptable to us.</p>
+<h2>Do I have a ZBT-1? <a class="title-link" name="do-i-have-a-zbt-1" href="#do-i-have-a-zbt-1"></a>
+</h2>
+<img src="/images/blog/2024-10-zbt1-issue/skyconnect-zbt1.png" style="border: 0;box-shadow: none;" alt="SkyConnect (left) and ZBT-1 (right)">
+<p style="text-align: center; font-size: 0.9rem;">SkyConnect (left) and ZBT-1 (right) branded devices, SkyConnect are unaffected by this issue.</p>
+<h2>Pausing sales <a class="title-link" name="pausing-sales" href="#pausing-sales"></a>
+</h2>
+<p>We have asked our distributors to pause sales and return all stock. For the next month, you will see “Out of Stock” banners, and if you are attempting to get a replacement device for a failed unit, this will not be possible until production is resumed.</p>
+<p>We are working to have replacement ZBT-1s shipped by early November.</p>
+<h2>Replacement Program <a class="title-link" name="replacement-program" href="#replacement-program"></a>
+</h2>
+<p>If you have purchased Home Assistant Connect ZBT-1, we are working on a replacement program. This program will see Nabu Casa provide a replacement device free of charge for a period of 60 months (5 years) for verified purchases. Regardless of whether the device has failed, we will provide a replacement upon request.</p>
+<p>It is a core value of ours to do things as sustainably as possible, and that’s why we’ve provided such a long coverage period. We want to give owners with working ZBT-1s, who do not expect to use the device in a different system for the foreseeable future, the ability to keep it operating with peace of mind.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>All ZBT-1 branded devices produced, as of October 2024, are believed to have this fault. You can tell if your device is a ZBT-1 by checking the white label on the back for “ZBT-1” (identify which device you have <a href="#do-i-have-a-zbt-1">with this graphic</a>). There is no need to test if your device is affected by this fault.</p>
+  </div>
+</div>
+<p>If it’s working, keep it plugged into the device it’s working with, and don’t worry about a replacement until you need it. If you need or want a replacement, please contact the seller where you purchased your device, and they will arrange the return process and replacement. Replacement devices are expected by early November, and we will be prioritizing people with non-functioning devices.</p>
+<h2>Conclusion <a class="title-link" name="conclusion" href="#conclusion"></a>
+</h2>
+<p>We’re sorry for the inconvenience and any disruption to your smart home. As someone who uses Zigbee in their home, which many smart devices rely on, I would hate to have it out of commission.</p>
+<p>Worse things can happen, but this has been a gut punch. All our work at Nabu Casa is to fund the development of Home Assistant and support the Open Home. Issues like this eat into our time, and rob our users of new and great things. Ultimately, we’re going to take this setback as a chance to prove we stand by our values and do the right thing.</p>
+
+
+
+</article>
+
+<div id="post-comments"></div>
+
+
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  DiscourseEmbed = { discourseUrl: 'https://community.home-assistant.io/',
+                     discourseEmbedUrl: 'https://www.home-assistant.io/blog/2024/10/02/connect-zbt1-issue-and-replacement/' };
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  
+    
+      <section class="sharing aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:ios-share' title='Ios share'></iconify-icon> Share this post</h1>
+  <ul class="divided">
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2024%2F10%2F02%2Fconnect-zbt1-issue-and-replacement%2F&text=Home+Assistant+Connect+ZBT-1+issue+and+replacement+via+%40home_assistant"
+      >Tweet</a>
+    </li>
+  
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2024%2F10%2F02%2Fconnect-zbt1-issue-and-replacement%2F"
+      >Share on Facebook</a>
+    </li>
+  
+  </ul>
+</section>
+
+      
+
+<section class="recent-posts aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:newspaper-variant-multiple' title='Newspaper variant multiple'></iconify-icon> Recent Posts</h1>
+  <ul class="divided">
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/17/home-assistant-turns-12/">Happy 12th Birthday, Home Assistant!</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/11/ai-in-home-assistant/">Building the AI-powered local smart home</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/03/release-20259/">2025.9: Features for tiles and automations for miles</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/02/frient-joins-works-with-home-assistant/">Frient joins Works with Home Assistant</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/08/21/airgradient-joins-works-with-home-assistant/">AirGradient joins Works with Home Assistant</a>
+        </li>
+      
+    
+  </ul>
+</section>
+
+    
+  
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#background">Background</a></li>
+<li class="toc-entry toc-h2"><a href="#do-i-have-a-zbt-1">Do I have a ZBT-1?</a></li>
+<li class="toc-entry toc-h2"><a href="#pausing-sales">Pausing sales</a></li>
+<li class="toc-entry toc-h2"><a href="#replacement-program">Replacement Program</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

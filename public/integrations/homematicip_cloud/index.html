@@ -1,0 +1,916 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>HomematicIP Cloud - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions for integrating HomematicIP into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/homematicip_cloud/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="HomematicIP Cloud">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/homematicip_cloud/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions for integrating HomematicIP into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="HomematicIP Cloud">
+    <meta name="twitter:description" content="Instructions for integrating HomematicIP into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-configuration">Manual configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#adding-and-removing-devices-and-group-via-native-homematicip-app">Adding and removing devices and group via native HomematicIP APP</a></li>
+<li class="toc-entry toc-h2"><a href="#use-hmip-dld-door-lock-drive-in-home-assistant">Use HmIP-DLD Door Lock Drive in Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#implemented-and-tested-devices">Implemented and tested devices</a></li>
+<li class="toc-entry toc-h2"><a href="#what-to-do-if-a-device-is-missing-in-home-assistant">What to do, if a device is missing in Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-examples">Action examples</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#additional-info">Additional info</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        HomematicIP Cloud
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+      <div class="integration-alert-container">
+        <a class="integration-alert" href="https://alerts.home-assistant.io/alerts/homematicip_cloud/" target="_blank">
+          <svg preserveaspectratio="xMidYMid meet" focusable="false" role="img" aria-hidden="true" viewbox="0 0 24 24" color="currentColor">
+            <g><path d="M12,2L1,21H23M12,6L19.53,19H4.47M11,10V14H13V10M11,16V18H13V16"></path></g>
+          </svg>
+          <div class="content">There is an active alert for this integration!</div>
+          <div class="learn-more">LEARN MORE</div>
+        </a>
+      </div>
+    
+  
+  
+  <p>The <a href="https://www.homematic-ip.com/" rel="external nofollow">HomematicIP<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> integration platform is used as an interface to the cloud server. Since there is no official documentation about this API, everything was done via reverse engineering. Use at your own risk.</p>
+<p>There is currently support for the following device types within Home Assistant:</p>
+<ul>
+<li>Alarm</li>
+<li>Binary sensor</li>
+<li>Button</li>
+<li>Climate</li>
+<li>Cover</li>
+<li>Event</li>
+<li>Light</li>
+<li>Lock</li>
+<li>Sensor</li>
+<li>Switch</li>
+<li>Valve</li>
+<li>Weather</li>
+</ul>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>HomematicIP Cloud</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=homematicip_cloud" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=homematicip_cloud" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>HomematicIP Cloud</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h2>Manual configuration <a class="title-link" name="manual-configuration" href="#manual-configuration"></a>
+</h2>
+<p>Generate the authentication token:</p>
+<p><code>hmip_generate_auth_token.py</code></p>
+<p>Add the information to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">homematicip_cloud</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">accesspoint</span><span class="pi">:</span> <span class="s">IDENTIFIER</span>
+    <span class="na">authtoken</span><span class="pi">:</span> <span class="s">AUTHTOKEN</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Location2</span>
+    <span class="na">accesspoint</span><span class="pi">:</span> <span class="s">IDENTIFIER2</span>
+    <span class="na">authtoken</span><span class="pi">:</span> <span class="s">AUTHTOKEN2</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="homematicip_cloud-configuration-variables" href="#homematicip_cloud-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="{{site.baseurl}}/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name to identify your access point, this will be used to prefix your device names.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> accesspoint </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="accesspoint" class="title-link" href="#accesspoint"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>This is the access point ID (SGTIN).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> authtoken </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="authtoken" class="title-link" href="#authtoken"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Authentication token generated with <code>generate_auth_token.py</code>.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Adding and removing devices and group via native HomematicIP APP <a class="title-link" name="adding-and-removing-devices-and-group-via-native-homematicip-app" href="#adding-and-removing-devices-and-group-via-native-homematicip-app"></a>
+</h2>
+<p>Devices and groups are instantly removed from Home Assistant when removed in the native HomematicIP APP.
+Groups are instantly created in Home Assistant when created in the native HomematicIP APP.
+Devices are created with a delay of 30 seconds in Home Assistant when created in the native HomematicIP APP.
+Within this delay the device registration should be completed in the App, otherwise the device name will be a default one based on the device type. This can easily be fixed in the Home Assistant entity registry afterwards.</p>
+<h2>Use HmIP-DLD Door Lock Drive in Home Assistant <a class="title-link" name="use-hmip-dld-door-lock-drive-in-home-assistant" href="#use-hmip-dld-door-lock-drive-in-home-assistant"></a>
+</h2>
+<p>If you are unable to control the <strong>HmIP-DLD</strong> device via Home Assistant, you may need to allow the Home Assistant device to control the <strong>HmIP-DLD</strong> in the HomematicIP app.</p>
+<p>To do this, navigate to the <strong>Access Control</strong> section in your HomematicIP app and enable the necessary permissions.</p>
+<p>Currently, the <strong>HmIP-DLD</strong> can only be used in Home Assistant without a PIN. Ensure that no PIN is set for the device in the HomematicIP app.</p>
+<h2>Implemented and tested devices <a class="title-link" name="implemented-and-tested-devices" href="#implemented-and-tested-devices"></a>
+</h2>
+<ul>
+<li>
+<p>homematicip_cloud.alarm_control_panel</p>
+<ul>
+<li>Combined Alarm Control Panal with INTERNAL and EXTERNAL Security zones (<em>HmIP-SecurityZone</em>)</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.binary_sensor</p>
+<ul>
+<li>Access Point Cloud Connection (<em>HmIP-HAP, HmIP-HAP-B1</em>)</li>
+<li>Acceleration Sensor (<em>HMIP-SAM</em>)</li>
+<li>Inclination and vibration Sensor (<em>HMIP-STV</em>)</li>
+<li>Window and door contact (<em>HmIP-SWDO, HmIP-SWDO-PL, HmIP-SWDO-I, HmIP-SWDM, HmIP-SWDM-B2</em>)</li>
+<li>Contact Interface flush-mount – 1x channel (<em>HmIP-FCI1</em>)</li>
+<li>Contact Interface flush-mount – 6x channels (<em>HmIP-FCI6</em>)</li>
+<li>Contact Interface (<em>HmIP-SCI</em>)</li>
+<li>Window Rotary Handle Sensor (<em>HmIP-SRH</em>)</li>
+<li>Smoke sensor and alarm (<em>HmIP-SWSD</em>)</li>
+<li>Motion Detector with Brightness Sensor - indoor (<em>HmIP-SMI</em>)</li>
+<li>Motion Detector with Brightness Sensor - outdoor (<em>HmIP-SMO</em>)</li>
+<li>Presence Sensor – indoor (<em>HmIP-SPI</em>)</li>
+<li>Rain Sensor (<em>HmIP-SRD</em>)</li>
+<li>Water Sensor (<em>HmIP-SWD</em>)</li>
+<li>Remote Control - 8x buttons (<em>HmIP-RC8</em>) (battery only)</li>
+<li>Wall-mount Remote Control - 2x buttons (<em>HmIP-WRC2</em>) (battery only)</li>
+<li>Wall-mount Remote Control - flat - 2x buttons (<em>HmIP-WRCC2</em>) (battery only)</li>
+<li>Wall-mount Remote Control - 6x buttons (<em>HmIP-WRC6</em>) (battery only)</li>
+<li>Key Ring Remote Control - 4x buttons (<em>HmIP-KRC4</em>) (battery only)</li>
+<li>Key Ring Remote Control - alarm  (<em>HmIP-KRCA</em>) (battery only)</li>
+<li>Alarm Siren (<em>HmIP-ASIR, -B1</em>) (battery only)</li>
+<li>Remote Control for brand switches – 2x buttons (<em>HmIP-BRC2</em>) (battery only)</li>
+<li>Pluggable Power Supply Monitoring (<em>HmIP-PMFS</em>)</li>
+<li>Wired Inbound module – 32x channels (<em>HMIPW-DRI32</em>)</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.button</p>
+<ul>
+<li>Wall Mounted Garage Door Controller (<em>HmIP-WGC</em>)</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.climate</p>
+<ul>
+<li>Climate group (<em>HmIP-HeatingGroup</em>)</li>
+<li>This includes temperature/humidity measures for climate devices of a room delivered by:
+<ul>
+<li>Wall-mounted thermostat (<em>HmIP-WTH, HmIP-WTH-2, HmIP-WTH-B</em>)</li>
+<li>Brand Wall-mounted thermostat (<em>HmIP-BWTH, HmIP-BWTH-24</em>)</li>
+<li>Radiator thermostat (<em>HmIP-eTRV, HmIP-eTRV-2, HmIP-eTRV-C</em>) - should also work with (<em>HmIP-eTRV-2-UK, HmIP-eTRV-2-B, HmIP-eTRV-2-B1</em>)</li>
+<li>Temperature and humidity sensor (<em>HmIP-STH</em>)</li>
+<li>Temperature and humidity Sensor with display (<em>HmIP-STHD</em>)</li>
+<li>Alpha IP Wall Thermostat Display (<em>ALPHA-IP-RBG</em>)</li>
+<li>Alpha IP Wall Thermostat Display analog (<em>ALPHA-IP-RBGa</em>)</li>
+</ul>
+</li>
+<li>There is no need to directly support the following devices by Home Assistant, because their integration is done by the required wall thermostats:
+<ul>
+<li>Floor Heating Actuator – 6x channels, 230V (<em>HMIP-FAL230-C6</em>)</li>
+<li>Floor Heating Actuator – 10x channels, 230V (<em>HMIP-FAL230-C10</em>)</li>
+<li>Floor Heating Actuator – 6x channels, 24V (<em>HMIP-FAL24-C6</em>)</li>
+<li>Floor Heating Actuator – 10x channels, 24V (<em>HMIP-FAL24-C10</em>)</li>
+<li>Floor Heating Actuator – 12x channels, motorized (<em>HMIP-FALMOT-C12</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.cover</p>
+<ul>
+<li>Shutter actuator for brand-mount (<em>HmIP-BROLL</em>)</li>
+<li>Shutter actuator for flush-mount (<em>HmIP-FROLL</em>)</li>
+<li>Blind Actuator for brand switches (<em>HmIP-BBL</em>)</li>
+<li>Blind Actuator for DIN rail mount – 4x channels (<em>HMIP-DRBLI4</em>)</li>
+<li>Blind Actuator for flush-mount (<em>HmIP-FBL</em>)</li>
+<li>Garage door module for Tormatic (<em>HmIP-MOD_TM</em>)</li>
+<li>Module for Hoermann drives (<em>HMIP-MOD-HO</em>)</li>
+<li>Hunter Douglas &amp; erfal window blinds (<em>HMIP-HDM1</em>)</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.event</p>
+<ul>
+<li>Doorbell Event for devices <em>HmIP-DSD-PCB</em> and others where ChannelRole equals DOOR_BELL_INPUT</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.light</p>
+<ul>
+<li>Switch actuator and meter for brand switches (<em>HmIP-BSM</em>)</li>
+<li>Dimming actuator for brand switches (<em>HmIP-BDT</em>)</li>
+<li>Dimming actuator flush-mount (<em>HmIP-FDT</em>)</li>
+<li>Pluggable Dimmer – trailing edge (<em>HmIP-PDT</em>)</li>
+<li>Switch Actuator for brand switches – with signal lamp (<em>HmIP-BSL</em>)</li>
+<li>Wired Dimmer module – 3x channels (<em>HMIPW-DRD3</em>)</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.lock</p>
+<ul>
+<li>Door Lock Drive - currently, usage just without a pin is possible (<em>HmIP-DLD</em>)</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.sensor</p>
+<ul>
+<li>Access Point Duty Cycle (<em>HmIP-HAP, HmIP-HAP-B1</em>)</li>
+<li>Wall Mounted Thermostat (<em>HmIP-WTH, HmIP-WTH2, HmIP-WTH-B</em>)</li>
+<li>Radiator thermostat (<em>HmIP-eTRV, HmIP-eTRV-2, HmIP-eTRV-C</em>) - should also work with (<em>HmIP-eTRV-2-UK, HmIP-eTRV-2-B, HmIP-eTRV-2-B1</em>)</li>
+<li>Temperature and Humidity Sensor without display - indoor (<em>HmIP-STH</em>)</li>
+<li>Temperature and Humidity Sensor with display - indoor (<em>HmIP-STHD</em>)</li>
+<li>Temperature and Humidity sensor - outdoor (<em>HmIP-STHO, -A</em>)</li>
+<li>Temperature sensor with external probes - 2-way (<em>HmIP-STE2-PCB</em>)</li>
+<li>Motion Detector with Brightness Sensor - indoor (<em>HmIP-SMI</em>)</li>
+<li>Motion Detector with Brightness Sensor - outdoor (<em>HmIP-SMO</em>)</li>
+<li>Presence Sensor – indoor (<em>HmIP-SPI</em>)</li>
+<li>Light Sensor - outdoor (<em>HmIP-SLO</em>)</li>
+<li>Passage Sensor with Direction Recognition (<em>HmIP-SPDR</em>) (delta counter)</li>
+<li>Alpha IP Wall Thermostat Display (<em>ALPHA-IP-RBG</em>)</li>
+<li>Alpha IP Wall Thermostat Display analog (<em>ALPHA-IP-RBGa</em>)</li>
+<li>Floor Heating Actuator – 12x channels, motorized - Valve positions (<em>HmIP-FALMOT-C12</em>)</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.switch</p>
+<ul>
+<li>Pluggable Switch (<em>HmIP-PS</em>)</li>
+<li>Pluggable Switch and Meter (<em>HmIP-PSM</em>) - should also work with (<em>HmIP-PSM-CH, HmIP-PSM-IT, HmIP-PSM-UK, HmIP-PSM-PE</em>)</li>
+<li>Switch Actuator and Meter – flush-mount (<em>HmIP-FSM, HmIP-FSM16</em>)</li>
+<li>Switch Actuator with Push-button Input – flush-mount (<em>HmIP-FSI16</em>)</li>
+<li>Open Collector Module Receiver - 8x channels (<em>HmIP-MOD-OC8</em>)</li>
+<li>Multi IO Box - 2x (<em>HmIP-MIOB</em>)</li>
+<li>Switch Circuit Board - 1x channels (<em>HmIP-PCBS</em>)</li>
+<li>Switch Circuit Board - 2x channels (<em>HmIP-PCBS2</em>)</li>
+<li>Printed Circuit Board Switch Battery (<em>HmIP-PCBS-BAT</em>)</li>
+<li>Switch Actuator for heating systems – 2x channels (<em>HmIP-WHS2</em>)</li>
+<li>Wired Switch Actuator – 8x channels (<em>HMIPW-DRS8</em>)</li>
+<li>Switch Actuator for DIN rail mount – 4x channels (<em>HMIP-DRSI4</em>)</li>
+<li>Switch Actuator for DIN rail mount – 1x channels (<em>HMIP-DRSI1</em>)</li>
+<li>Switch Actuator - 2x channels (<em>HmIP-BS2</em>)</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.valve</p>
+<ul>
+<li>Smart Watering Actuator (<em>ELV-SH-WSM</em>)</li>
+</ul>
+</li>
+<li>
+<p>homematicip_cloud.weather</p>
+<ul>
+<li>Weather Sensor – basic (<em>HmIP-SWO-B</em>)</li>
+<li>Weather Sensor – plus (<em>HmIP-SWO-PL</em>)</li>
+<li>Weather Sensor – pro (<em>HmIP-SWO-PR</em>)</li>
+</ul>
+</li>
+</ul>
+<h2>What to do, if a device is missing in Home Assistant <a class="title-link" name="what-to-do-if-a-device-is-missing-in-home-assistant" href="#what-to-do-if-a-device-is-missing-in-home-assistant"></a>
+</h2>
+<p>In order for a device to be integrated into Home Assistant, it must first be implemented in the upstream library. A dump of your configuration is required for this, which is then attached to a new issue in the <a href="https://github.com/hahn-th/homematicip-rest-api" rel="external nofollow">upstream lib’s<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> GitHub repository.</p>
+<ol>
+<li>Create a dump of your access point configuration in Home Assistant:
+<strong>Developer Tools</strong> -&gt; <strong>Actions</strong> -&gt; Select <code>homematicip_cloud.dump_hap_config</code> -&gt; Execute.
+The default dump is anonymized and is written to your configuration directory (<code>hmip_config_XXXX.json</code>).</li>
+<li>Create a <a href="https://github.com/hahn-th/homematicip-rest-api/issues/new" rel="external nofollow">new issue<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> at this GitHub repository and attach the created dump file.</li>
+</ol>
+<p>Please be patient, wait for the implementation and a new release of the upstream library.
+Afterward, this device can be implemented into Home Assistant.</p>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<p>Executable by all users:</p>
+<ul>
+<li>
+<code>homematicip_cloud.activate_eco_mode_with_duration</code>: Activate eco mode with duration.</li>
+<li>
+<code>homematicip_cloud.activate_eco_mode_with_period</code>: Activate eco mode with period.</li>
+<li>
+<code>homematicip_cloud.activate_vacation</code>: Activates the vacation mode until the given time.</li>
+<li>
+<code>homematicip_cloud.deactivate_eco_mode</code>: Deactivates the eco mode immediately.</li>
+<li>
+<code>homematicip_cloud.deactivate_vacation</code>: Deactivates the vacation mode immediately.</li>
+<li>
+<code>homematicip_cloud.set_active_climate_profile</code>: Set the active climate profile index.</li>
+<li>
+<code>homematicip_cloud.set_home_cooling_mode</code>: Enable or disable cooling for the home.</li>
+</ul>
+<p>Executable by administrators or within the context of an automation:</p>
+<ul>
+<li>
+<code>homematicip_cloud.dump_hap_config</code>: Dump the configuration of the Homematic IP Access Point(s).</li>
+<li>
+<code>homematicip_cloud.reset_energy_counter</code>: Reset energy counter of measuring actuators.</li>
+</ul>
+<h3>Action examples <a class="title-link" name="action-examples" href="#action-examples"></a>
+</h3>
+<p><code>accesspoint_id</code> (SGTIN) is optional for all actions and only relevant if you have multiple Homematic IP Accesspoints connected to HA. If empty, the action will be performed for all configured Homematic IP Access Points.
+The <code>accesspoint_id</code> (SGTIN) can be found on top of the integration page, or on the back of your Homematic IP Accesspoint.</p>
+<p>Activate eco mode with duration.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematicip_cloud.activate_eco_mode_with_duration</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">duration</span><span class="pi">:</span> <span class="m">60</span>
+      <span class="na">accesspoint_id</span><span class="pi">:</span> <span class="s">3014xxxxxxxxxxxxxxxxxxxx</span>
+</code></pre></div></div>
+<p>Activate eco mode with period.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematicip_cloud.activate_eco_mode_with_period</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">endtime</span><span class="pi">:</span> <span class="s">2019-09-17 18:00</span>
+      <span class="na">accesspoint_id</span><span class="pi">:</span> <span class="s">3014xxxxxxxxxxxxxxxxxxxx</span>
+</code></pre></div></div>
+<p>Activates the vacation mode until the given time.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematicip_cloud.activate_vacation</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">endtime</span><span class="pi">:</span> <span class="s">2019-09-17 18:00</span>
+      <span class="na">temperature</span><span class="pi">:</span> <span class="m">18.5</span>
+      <span class="na">accesspoint_id</span><span class="pi">:</span> <span class="s">3014xxxxxxxxxxxxxxxxxxxx</span>
+</code></pre></div></div>
+<p>Deactivates the eco mode immediately.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematicip_cloud.deactivate_eco_mode</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">accesspoint_id</span><span class="pi">:</span> <span class="s">3014xxxxxxxxxxxxxxxxxxxx</span>
+</code></pre></div></div>
+<p>Deactivates the vacation mode immediately.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematicip_cloud.deactivate_vacation</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">accesspoint_id</span><span class="pi">:</span> <span class="s">3014xxxxxxxxxxxxxxxxxxxx</span>
+</code></pre></div></div>
+<p>Set the active climate profile index.</p>
+<p>The index of the climate profile is 1-based.
+You can get the required index from the native Homematic IP App.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematicip_cloud.set_active_climate_profile</span>
+    <span class="na">target</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">climate.livingroom</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">climate_profile_index</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+<p>Dump the configuration of the Homematic IP Access Point(s).</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematicip_cloud.dump_hap_config</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">anonymize</span><span class="pi">:</span> <span class="s">True</span>
+</code></pre></div></div>
+<p>Reset energy counter of measuring actuators.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematicip_cloud.reset_energy_counter</span>
+    <span class="na">target</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.livingroom</span>
+</code></pre></div></div>
+<p>Enable (or disable) Cooling mode for the entire home. Disabling Cooling mode will revert to Heating.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="nn">...</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">homematicip_cloud.set_home_cooling_mode</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">cooling</span><span class="pi">:</span> <span class="s">True</span>
+      <span class="na">accesspoint_id</span><span class="pi">:</span> <span class="s">3014xxxxxxxxxxxxxxxxxxxx</span>
+</code></pre></div></div>
+<h2>Additional info <a class="title-link" name="additional-info" href="#additional-info"></a>
+</h2>
+<p>Push button devices are only available with a battery sensor. This is due to a limitation of the vendor API (eq3).
+It’s not possible to detect a key press event on these devices at the moment.</p>
+<ul>
+<li>Remote Control - 8x buttons (<em>HmIP-RC8</em>)</li>
+<li>Wall-mount Remote Control for brand switches - 2x buttons (<em>HmIP-BRC2</em>)</li>
+<li>Motion Detector for 55mm frames - indoor (HmIP-SMI55)(Push button)</li>
+<li>Wall-mount Remote Control - 2x buttons (<em>HmIP-WRC2</em>)</li>
+<li>Wall-mount Remote Control - flat - 2x buttons (<em>HmIP-WRCC2</em>)</li>
+<li>Wall-mount Remote Control - 6x buttons (<em>HmIP-WRC6</em>)</li>
+<li>Key Ring Remote Control - 4x buttons (<em>HmIP-KRC4</em>)</li>
+<li>Key Ring Remote Control - alarm  (<em>HmIP-KRCA</em>)</li>
+<li>Wall-mount Remote Control – flat (<em>HmIP-WRCC2</em>)</li>
+<li>Rotary Button (<em>HmIP-WRCR</em>)</li>
+</ul>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/homematicip_cloud.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fhomematicip_cloud%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20homematicip_cloud" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+homematicip_cloud%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/homematicip_cloud//logo.png' srcset='https://brands.home-assistant.io/_/homematicip_cloud/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=homematicip_cloud' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The HomematicIP Cloud  integration  was introduced in Home Assistant 0.66, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          1.2%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:cloud-download'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Cloud Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/homematicip_cloud" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+homematicip_cloud%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/hahn-th" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/hahn-th?size=96" alt="@hahn-th"/> @hahn-th</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-configuration">Manual configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#adding-and-removing-devices-and-group-via-native-homematicip-app">Adding and removing devices and group via native HomematicIP APP</a></li>
+<li class="toc-entry toc-h2"><a href="#use-hmip-dld-door-lock-drive-in-home-assistant">Use HmIP-DLD Door Lock Drive in Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#implemented-and-tested-devices">Implemented and tested devices</a></li>
+<li class="toc-entry toc-h2"><a href="#what-to-do-if-a-device-is-missing-in-home-assistant">What to do, if a device is missing in Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-examples">Action examples</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#additional-info">Additional info</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#alarm'>Alarm</a>
+          </li><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#button'>Button</a>
+          </li><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#event'>Event</a>
+          </li><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#lock'>Lock</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li><li>
+            <a href='/integrations/#valve'>Valve</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

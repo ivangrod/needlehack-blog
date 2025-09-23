@@ -1,0 +1,566 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Z-Wave is not dead - Home Assistant</title>
+    <meta name="author" content="Paulus Schoutsen">
+    <meta name="description" content="Z-Wave is alive and well, partly due to a strong community that is building new open-source resources.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/blog/2024/05/08/zwave-is-not-dead/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Z-Wave is not dead">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/blog/2024/05/08/zwave-is-not-dead/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Z-Wave is alive and well, partly due to a strong community that is building new open-source resources.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/blog/2024-05-zwave-is-not-dead/art.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Z-Wave is not dead">
+    <meta name="twitter:description" content="Z-Wave is alive and well, partly due to a strong community that is building new open-source resources.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/blog/2024-05-zwave-is-not-dead/art.jpg">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="   blog-post ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a class="active" href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#a-little-background-on-z-wave">A little background on Z-Wave</a></li>
+<li class="toc-entry toc-h2"><a href="#opening-keynote">Opening Keynote</a></li>
+<li class="toc-entry toc-h2"><a href="#range-testing-our-z-wave-stick-prototype">Range testing our Z-Wave stick prototype</a></li>
+<li class="toc-entry toc-h2"><a href="#unplug-fest">Unplug fest</a></li>
+<li class="toc-entry toc-h2"><a href="#z-wave-js-is-everywhere">Z-Wave JS is EVERYWHERE</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="post">
+  
+  <header>
+  
+  <h1>Z-Wave is not dead</h1>
+  
+
+  
+  <div class="meta clearfix">
+    
+
+  
+  
+    <span class="byline author vcard">
+      <a href="https://github.com/balloob" target="_blank" rel="external nofollow"><img class="author-avatar" src="https://avatars.githubusercontent.com/balloob?size=64" alt="Paulus Schoutsen"> Paulus Schoutsen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+    </span>
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<time datetime="2024-05-08T00:00:01+00:00" pubdate data-updated="true"><iconify-icon inline icon="mdi:calendar" title="Calendar"></iconify-icon> May 8, 2024</time>
+    
+
+  <span>
+    <i class="icon-tags"></i>
+    <ul class="tags unstyled">
+    
+      
+        <li><a class="category" href="/blog/categories/z-wave/">Z-Wave</a></li>
+      
+    
+    </ul>
+  </span>
+
+    
+      <a class="comments" href="#post-comments">Comments</a>
+    
+  </div>
+  
+</header>
+
+
+  <p class="img"><img src="/images/blog/2024-05-zwave-is-not-dead/art.jpg"><i>Art by Clelia Rella</i></p>
+<p><strong>TL;DR: Z-Wave is alive and well, partly due to a strong community that is building new open-source resources. To thrive well into the future, it must take further steps to open its technology.</strong></p>
+<p>Last week, Dominic, Uwe, and I (Paulus) attended the Z-Wave Alliance member meeting in Austin, Texas. It was the first meeting since we <a href="/blog/2024/02/15/nabu-casa-joins-z-wave-alliance/">became a member</a> and we came with a mission: tell Alliance members about the work done by the open-source community for Z-Wave and find new avenues for collaboration.</p>
+<p>Three of us attended, each representing different facets of Z-Wave within the Open Home Foundation: Dominic is the founder and maintainer of Z-Wave JS, which powers the Z-Wave integration in Home Assistant. Uwe leads the development of the Home Assistant Z-Wave stick that we’re working on, and I was there to enable collaborations with other Z-Wave members. Big thanks to <a href="https://www.nabucasa.com/">Home Assistant Cloud subscribers<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> – thanks to you we can do this work full-time at Nabu Casa.</p>
+<h3>A little background on Z-Wave <a class="title-link" name="a-little-background-on-z-wave" href="#a-little-background-on-z-wave"></a>
+</h3>
+<p>To use Z-Wave in Home Assistant, our users buy a Z-Wave certified USB stick and combine it with Z-Wave certified devices. Home Assistant then connects to the stick using Z-Wave JS, developed by Dominic, and we’re off to the races. Z-Wave JS was developed completely outside of the Z-Wave Alliance, and is based on the published version of the Z-Wave specification.</p>
+<p>Z-Wave wasn’t always this open - Z-Wave used to be owned by a single company, which was later acquired by Silicon Labs. SiLabs decided it was time for change and turned the Z-Wave Alliance into a Standards Development Organization (SDO) that is controlled by its members and a standard that is open.</p>
+<p>As it stands, there are still parts of Z-Wave that are not open yet, including the firmware that is running on Z-Wave sticks. I might have mentioned <em>a couple of times,</em> including in my keynote, that we should open up more. It is a good thing to let everyone help fix bugs, improve code quality, and improve diagnostics.</p>
+<a name="read-more"></a>
+<h2>Opening Keynote <a class="title-link" name="opening-keynote" href="#opening-keynote"></a>
+</h2>
+<p>One of the conditions that we negotiated when joining the Z-Wave Alliance was that we would be allowed to give an opening keynote to explain the work we have been doing. For the last 8 years, Home Assistant has been doing its own thing with Z-Wave. We have contact with manufacturers of Z-Wave devices via <a href="https://partner.home-assistant.io/">our partner program</a>, but never established an official relationship with the Alliance. We decided that it was time to change that.</p>
+<p>We launched the <a href="https://www.openhomefoundation.org/blog/announcing-the-open-home-foundation/">Open Home Foundation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> last month, a nonprofit that fights for privacy, choice, and sustainability in the smart home – and anyone who lives in one. Open smart home standards like Z-Wave are an important building block for this. With Z-Wave, your data stays at home as communication is fully local. It’s a standard meant to offer consumers choice, and with no reliance on the cloud, devices can continue to work long after a manufacturer ends support, or frankly doesn’t care anymore.</p>
+<p>If you follow tech news, you might be wondering now: What about Matter? With the OHF, we believe in choice, including at the standard level. Each standard is built on top of different technologies, and each has pros and cons. Z-Wave is great because it works without Wi-Fi, and its sub-GHz frequency is less busy, allowing it to travel further.</p>
+<p class="img"><img src="/images/blog/2024-05-zwave-is-not-dead/paulus-z-wave.jpeg">Paulus Schoutsen presenting</p>
+<p>In my keynote to the Alliance, I introduced the work we’ve been doing with Home Assistant, Z-Wave JS, and the Open Home Foundation. According to <a href="https://analytics.home-assistant.io">our opt-in analytics</a>, 9.7% of our users use Z-Wave. This also means that 90.3% of installations are one Z-Wave stick away from being able to use Z-Wave. Z-Wave JS has opt-in statistics, which show on average there are 17 Z-Wave devices per network. <strong>Math time:</strong></p>
+<p align="center"><b>
+1 million active Home Assistant installations<br>
+x<br>
+9.7% using Z-Wave<br>
+x<br>
+17 Z-Wave devices<br>
+=<br>
+1.7 million Z-Wave devices in use </b></p>
+<p>When it comes to smart home standards, all big smart home platforms are all-in on Matter and have skipped or forgotten about Z-Wave – except for Home Assistant. We have always featured Z-Wave in our list of integrations and are big promoters of the standard.</p>
+<p>This is where I introduced our goal for Z-Wave to the Alliance: we want Z-Wave to be a successful consumer-facing brand. Z-Wave is very popular among companies in the US making security products (like Ring). However, the consumer doesn’t know they are using Z-Wave because it is an implementation detail. This holds Z-Wave back from becoming a rich ecosystem.</p>
+<p>For us, success means that there are many manufacturers making Z-Wave devices and that users have an abundance of choice in each product category.</p>
+<p class="img"><img src="/images/blog/2024-05-zwave-is-not-dead/keynote.png"></p>
+<p>Z-Wave JS is an independent driver created from the ground up based on the published Z-Wave specification. Dominic has put a lot of effort into this, and his work has formed a community of people passionate about developing the best open Z-Wave driver. Our community has many power users who test Z-Wave JS and make sure it scales and works with both old and new devices.</p>
+<p>We are working on getting Z-Wave JS certified to get companies to consider adopting it. Good news on that front – there is already one company that has dropped their 20-year-old Z-Wave stack in favor of Z-Wave JS. Let’s get more on board!</p>
+<p>Our efforts to make Z-Wave a success go beyond making an open source Z-Wave driver and smart home platform. We also created the Z-Wave JS Firmware Update service to provide updates for Z-Wave devices. For this service we are currently working with 8 different manufacturers to provide firmware for 187 devices. In my keynote I told the audience that we want to help more manufacturers provide updates to their users.</p>
+<p class="img"><img src="/images/blog/2024-05-zwave-is-not-dead/firmware.png">The companies that contribute their firmware to the Z-Wave JS Firmware Update service.</p>
+<p>In the end, I wrapped up my talk pushing the Alliance to open up more: we all want Z-Wave to succeed. If it is more open, it will be easier for users to adopt. This will lead to more tooling, more apps, more everything. That will, in return, lead to a bigger Z-Wave ecosystem where we can all thrive. Some will do it for sales, or in our case, to drive forward products that value privacy, choice, and sustainability.</p>
+<p>We are all in this Alliance to have our devices work together. Let’s not compete on who can best control a Z-Wave light bulb.</p>
+<p>OPEN SOURCE!</p>
+<h2>Range testing our Z-Wave stick prototype <a class="title-link" name="range-testing-our-z-wave-stick-prototype" href="#range-testing-our-z-wave-stick-prototype"></a>
+</h2>
+<p>One of our team’s first stops at the Z-Wave Summit was attending <a href="https://drzwave.blog/" rel="external nofollow">DrZWave<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>’s range test down at the Colorado River. This was a perfect opportunity to see how well the prototype of our Z-Wave stick performs. While others tested with huge antennas on both sides to reach the longest range possible, we deliberately chose <a href="https://www.silabs.com/development-tools/wireless/efr32xg28-explorer-kit?tab=overview" rel="external nofollow">end devices with tiny antennas<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> to recreate a more real-world scenario. After all, many devices out in the wild don’t have room for big external antennas, and we want to have the best possible experience for our users with existing networks. Also, we tested both classic Z-Wave and Z-Wave Long Range because a majority of existing devices still use classic Z-Wave.</p>
+<p>Bikes and scooters weren’t allowed on the bridges and near the water, so Uwe got some exercise that day, walking several miles up and down the river with the end devices in his pockets. Dominic performed the range test using <a href="https://github.com/zwave-js/zwave-js-ui" rel="external nofollow">Z-Wave JS UI<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and a simple script that sent on/off commands to the end devices to make them blink. Due to encryption, even a single corrupted bit would be noticeable by an interruption of the blinking pattern and missing responses from the end device.</p>
+<p>It is barely visible in the photo, but we reached the bridge behind the bridge all the way in the background. We used classic Z-Wave and Z-Wave Long Range, although classic Z-Wave was not as reliable at that distance. That is a 0.7-mile (1.13-km) <strong>line of sight!</strong> With a better antenna on the other side or using EU frequencies (which allow higher transmit power), even further ranges are definitely possible.</p>
+<p class="img"><img src="/images/blog/2024-05-zwave-is-not-dead/drzwave.jpeg">Left: Dominic, slightly jetlagged, with our stick prototype (green). Right: DrZWave with the controller reference design (purple). Background: Uwe, 0.7 miles away.</p>
+<h2>Unplug fest <a class="title-link" name="unplug-fest" href="#unplug-fest"></a>
+</h2>
+<p>Afterward, everyone headed inside for the unplug fest, where manufacturers of end devices and controllers/gateways could connect and test how well they interact with each other. Here’s an example of a HomeSeer prototype that already has great support in Z-Wave JS:</p>
+<p class="img"><img src="/images/blog/2024-05-zwave-is-not-dead/unplug.jpeg"></p>
+<p>Since there was still some time left, we took the chance to perform more range tests with our prototype and the reference design, this time indoors going up through multiple layers of concrete. Depending on the end device, we were able to bridge between 2 and 8 floors.</p>
+<h2>Z-Wave JS is EVERYWHERE <a class="title-link" name="z-wave-js-is-everywhere" href="#z-wave-js-is-everywhere"></a>
+</h2>
+<p>Besides powering the Z-Wave integration in Home Assistant, Z-Wave JS is a great tool for development. Built with diagnostics in mind, Z-Wave JS helps understand what the controller and devices are doing and whether they are behaving as expected.</p>
+<p>Although we set out to tell people about Z-Wave JS, we learned that a lot of engineers from established companies already use it for development – and in their presentations!</p>
+<p class="img"><img src="/images/blog/2024-05-zwave-is-not-dead/slide.png"></p>
+<p>They use it to reproduce issues, do load testing, write scripts to automate certain tasks, and run their own test suites. This includes using the CLI tools to update firmware, for example, to investigate changes between different Z-Wave SDK versions. The Javascript API makes it trivial to perform arbitrary actions and automate things that are hard or impossible to do using UI-based applications.</p>
+<p>Another valuable development tool is the Zniffer, a special Z-Wave controller that can capture and decode all Z-Wave radio traffic. Like most of the existing tooling, this requires using Windows. Prior to the summit, Dominic had started working on adding support for Zniffer devices to Z-Wave JS. Although this was still a work in progress, people were already using it for development purposes and told us they were looking forward to it being officially released.</p>
+<h2>Conclusion <a class="title-link" name="conclusion" href="#conclusion"></a>
+</h2>
+<p>Z-Wave is a powerful technology with a large install base, and in certain use cases, it provides real advantages over other connectivity standards. Meeting Alliance members, I can see they are enthusiastic about the future, but it’s the community that will drive the next chapter of Z-Wave. Further opening Z-Wave will empower both the vendors and the community - and help build an open home that serves everyone in it, providing greater privacy, choice, and sustainability.</p>
+
+
+
+</article>
+
+<div id="post-comments"></div>
+
+
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  DiscourseEmbed = { discourseUrl: 'https://community.home-assistant.io/',
+                     discourseEmbedUrl: 'https://www.home-assistant.io/blog/2024/05/08/zwave-is-not-dead/' };
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  
+    
+      <section class="sharing aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:ios-share' title='Ios share'></iconify-icon> Share this post</h1>
+  <ul class="divided">
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2024%2F05%2F08%2Fzwave-is-not-dead%2F&text=Z-Wave+is+not+dead+via+%40home_assistant"
+      >Tweet</a>
+    </li>
+  
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2024%2F05%2F08%2Fzwave-is-not-dead%2F"
+      >Share on Facebook</a>
+    </li>
+  
+  </ul>
+</section>
+
+      
+
+<section class="recent-posts aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:newspaper-variant-multiple' title='Newspaper variant multiple'></iconify-icon> Recent Posts</h1>
+  <ul class="divided">
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/17/home-assistant-turns-12/">Happy 12th Birthday, Home Assistant!</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/11/ai-in-home-assistant/">Building the AI-powered local smart home</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/03/release-20259/">2025.9: Features for tiles and automations for miles</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/02/frient-joins-works-with-home-assistant/">Frient joins Works with Home Assistant</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/08/21/airgradient-joins-works-with-home-assistant/">AirGradient joins Works with Home Assistant</a>
+        </li>
+      
+    
+  </ul>
+</section>
+
+    
+  
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#a-little-background-on-z-wave">A little background on Z-Wave</a></li>
+<li class="toc-entry toc-h2"><a href="#opening-keynote">Opening Keynote</a></li>
+<li class="toc-entry toc-h2"><a href="#range-testing-our-z-wave-stick-prototype">Range testing our Z-Wave stick prototype</a></li>
+<li class="toc-entry toc-h2"><a href="#unplug-fest">Unplug fest</a></li>
+<li class="toc-entry toc-h2"><a href="#z-wave-js-is-everywhere">Z-Wave JS is EVERYWHERE</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

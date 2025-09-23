@@ -1,0 +1,1539 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Reolink - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate Reolink devices (NVR/cameras) into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/reolink/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Reolink">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/reolink/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate Reolink devices (NVR/cameras) into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Reolink">
+    <meta name="twitter:description" content="Instructions on how to integrate Reolink devices (NVR/cameras) into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a></li>
+<li class="toc-entry toc-h2"><a href="#asterisk--next-to-entities-listed-in-this-documentation">Asterisk (*) next to entities listed in this documentation</a></li>
+<li class="toc-entry toc-h2"><a href="#data-updates-plus--next-to-entities-listed-in-this-documentation">Data updates: plus (+) next to entities listed in this documentation</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-functionality">Supported functionality</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#camera-streams">Camera streams</a></li>
+<li class="toc-entry toc-h3"><a href="#binary-sensors">Binary sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#number-entities">Number entities</a></li>
+<li class="toc-entry toc-h3"><a href="#button-entities">Button entities</a></li>
+<li class="toc-entry toc-h3"><a href="#select-entities">Select entities</a></li>
+<li class="toc-entry toc-h3"><a href="#siren-entities">Siren entities</a></li>
+<li class="toc-entry toc-h3"><a href="#switch-entities">Switch entities</a></li>
+<li class="toc-entry toc-h3"><a href="#light-entities">Light entities</a></li>
+<li class="toc-entry toc-h3"><a href="#sensor-entities">Sensor entities</a></li>
+<li class="toc-entry toc-h3"><a href="#update-entity">Update entity</a></li>
+<li class="toc-entry toc-h3"><a href="#media-browser-for-playback-of-recordings">Media browser for playback of recordings</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#tested-models">Tested models</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#tested-directly-connected-models">Tested directly connected models</a></li>
+<li class="toc-entry toc-h3"><a href="#tested-battery-powered-models">Tested battery-powered models</a></li>
+<li class="toc-entry toc-h3"><a href="#models-only-compatible-using-a-nvrhome-hub">Models only compatible using a NVR/Home Hub</a></li>
+<li class="toc-entry toc-h3"><a href="#incompatible-models">Incompatible models</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#initial-setup">Initial setup</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-initializing-and-configuring-camera-credentials">1. Initializing and configuring camera credentials.</a></li>
+<li class="toc-entry toc-h3"><a href="#2-add-integration-in-home-assistant">2. Add integration in Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#removing-a-directly-connected-cameranvrhome-hub">Removing a directly connected camera/NVR/Home Hub</a></li>
+<li class="toc-entry toc-h3"><a href="#removing-a-camera-from-a-nvrhome-hub">Removing a camera from a NVR/Home Hub</a></li>
+<li class="toc-entry toc-h3"><a href="#removing-a-chime">Removing a chime</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#showing-the-camera-in-the-dashboard">Showing the camera in the dashboard</a></li>
+<li class="toc-entry toc-h3"><a href="#sending-rich-notifications">Sending rich notifications</a></li>
+<li class="toc-entry toc-h3"><a href="#automation-ideas">Automation ideas</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#cant-setup-the-integration">Can’t setup the integration</a></li>
+<li class="toc-entry toc-h3"><a href="#entities-intermittently-become-unavailable">Entities intermittently become unavailable</a></li>
+<li class="toc-entry toc-h3"><a href="#battery-drains-fast">Battery drains fast</a></li>
+<li class="toc-entry toc-h3"><a href="#streams-or-recordings-not-playing">Streams or recordings not playing</a></li>
+<li class="toc-entry toc-h3"><a href="#reducing-latency-of-motion-events">Reducing latency of motion events</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+<li class="toc-entry toc-h2"><a href="#related-links">Related links</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Reolink
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The integration allows you to control <a href="https://reolink.com/" rel="external nofollow">Reolink<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> NVRs or cameras. Reolink cameras are known for their local storage, without the need for a cloud subscription or account. Reolink cameras can operate fully locally on your network, putting privacy first. When blocking internet access for the Reolink devices, the Home Assistant integration, as well as the Reolink app/client, will continue to work as usual. Reolink cameras provide excellent day- and nighttime video clarity at an affordable price. An SD card in the camera offers local recording, while an optional Reolink NVR/Hub can offer a large recording capacity indoors. As evident by the list of entities in this documentation, Reolink cameras are highly configurable and tightly integrated into Home Assistant.</p>
+<p>This integration is officially authorized by Reolink, with @StarkillerOG as the main developer, and it is built with the support of Reolink’s official resources.</p>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<p>A brand new Reolink camera needs to be connected to the network and initialized. During initialization, the camera’s credentials need to be set. Refer to the <a href="#initial-setup">Initial setup</a> section for detailed instructions.</p>
+<ul>
+<li>On the Reolink device, a user account with admin privileges is needed for the proper operation of this integration.</li>
+<li>The password used for the Reolink device can only contain characters <code>a-z, A-Z, 0-9 or @$*~_-+=!?.,:;'()[]</code>. Other special characters will cause encoding issues in the video streams used by this integration and are, therefore, not allowed. When using an incompatible special character in the password, the integration will prompt you to change the password.</li>
+</ul>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Reolink</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=reolink" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>Reolink can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=reolink" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Reolink</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Host</span><a name="host" class="title-link" href="#host"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The hostname or IP address of your Reolink device. For example: ‘192.168.1.25’. You can find it in your router or in the Reolink app under <strong>Settings</strong> -&gt; <strong>Device</strong> (top icon) -&gt; <strong>Networkinformation</strong> -&gt; <strong>IP-address</strong>. Normally, the Reolink device is automatically discovered, and you do not need to provide this.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Username</span><a name="username" class="title-link" href="#username"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Username to log in to the Reolink device itself. Not the Reolink cloud account.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Password</span><a name="password" class="title-link" href="#password"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Password to log in to the Reolink device itself. Not the Reolink cloud account.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Options <a class="title-link" name="options" href="#options"></a>
+</h2>
+<p>Options for Reolink can be set via the user interface, by taking the following steps:</p>
+<ul>
+<li>Browse to your Home Assistant instance.</li>
+<li>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; Services</a></strong>.</li>
+<li>If multiple instances of Reolink are configured, choose the instance you want to configure.</li>
+<li>Select the integration, then select <strong>Configure</strong>.</li>
+</ul>
+<div class="config-vars basic">
+  <div class=""><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Protocol</span><a name="protocol" class="title-link" href="#protocol"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Switch between <abbr title="real-time streaming protocol">RTSP</abbr>, <abbr title="real-time messaging protocol">RTMP</abbr>, or <abbr title="flash video">FLV</abbr> streaming protocol. <abbr title="real-time streaming protocol">RTSP</abbr> supports 4K streams (h265 encoding) while <abbr title="real-time messaging protocol">RTMP</abbr> and <abbr title="flash video">FLV</abbr> do not. <abbr title="flash video">FLV</abbr> is the least demanding on the camera.</p>
+</span></div>
+</div></div>
+</div>
+<h2>Asterisk (*) next to entities listed in this documentation <a class="title-link" name="asterisk--next-to-entities-listed-in-this-documentation" href="#asterisk--next-to-entities-listed-in-this-documentation"></a>
+</h2>
+<p>If an entity listed below has an asterisk (*) next to its name, it means it is disabled by default. To use such an entity, you must <a href="/common-tasks/general/#enabling-entities">enable the entity</a> first.</p>
+<h2>Data updates: plus (+) next to entities listed in this documentation <a class="title-link" name="data-updates-plus--next-to-entities-listed-in-this-documentation" href="#data-updates-plus--next-to-entities-listed-in-this-documentation"></a>
+</h2>
+<p>If an entity listed below has a plus (+) next to its name, it means this entity supports push updates. These entities will have almost instant state changes.
+For redundancy, the state of all entities is also polled every 60 seconds. For entities without a plus (+), this is the only update method. Therefore, a device’s state change can take up to 60 seconds to be reflected in Home Assistant.
+An exception is the firmware update entity, which is polled every 24 hours.
+Another exception are battery cameras, most <span class="terminology">entities<span class="terminology-tooltip">An entity represents a sensor, actor, or function in Home Assistant. Entities are used to monitor physical properties or to control other entities. An entity is usually part of a device or a service.<a class="terminology-link" href="/docs/configuration/entities_domains/"> [Learn more]</a></span></span> are still <span class="terminology">polls<span class="terminology-tooltip">Data polling is the process of querying a device or service at regular intervals to check for updates or retrieve data. By defining a custom polling interval, you can control how frequently your system checks for new data, which can help optimize performance and reduce unnecessary network traffic.<a class="terminology-link" href="/common-tasks/general/#defining-a-custom-polling-interval"> [Learn more]</a></span></span> every 60 seconds. However, the entities that would cause the camera to wake from sleep will only be polled during the following events:</p>
+<ul>
+<li>The camera wakes by itself (PIR event) and the last update was more than 1 hour ago.</li>
+<li>The camera did not wake for more than 6 hours.</li>
+<li>All battery cameras have not been awake at the same time for more than 12 hours.</li>
+</ul>
+<p>A full update of all entities, which will wake all battery cameras connected to the same hub/NVR, can be performed by calling the <code>homeassistant.update_entity</code> action on a single Reolink entity of a camera (for example the motion detection binary sensor).</p>
+<h2>Supported functionality <a class="title-link" name="supported-functionality" href="#supported-functionality"></a>
+</h2>
+<h3>Camera streams <a class="title-link" name="camera-streams" href="#camera-streams"></a>
+</h3>
+<p>This integration creates a few camera entities, one for each stream type with different resolutions:</p>
+<ul>
+<li>Fluent (Low resolution)</li>
+<li>Balanced* (Mid resolution)</li>
+<li>Clear* (High resolution, resource intensive)</li>
+<li>Snapshots Fluent* (Low resolution)</li>
+<li>Snapshots Clear* (High resolution)</li>
+</ul>
+<p>The Fluent stream camera entity is enabled by default; the other streams are disabled by default.
+The Snapshots stream provides a sequence of image snapshots giving very low latency at the cost of a very low frame rate; this can be used when the RTMP/RTSP/FLV video stream has too much lag.
+Dual lens cameras provide additional streams for the second lens.</p>
+<h3>Binary sensors <a class="title-link" name="binary-sensors" href="#binary-sensors"></a>
+</h3>
+<p>Depending on the supported features of the camera (<a href="#tested-models">see specifications of the camera model on Reolink.com</a>), binary sensors are added for:</p>
+<ul>
+<li>Motion detection++</li>
+<li>Visitor++ (Doorbell presses)</li>
+<li>AI person detection++</li>
+<li>AI vehicle detection++</li>
+<li>AI pet detection++</li>
+<li>AI animal detection++</li>
+<li>AI face detection++</li>
+<li>AI package detection++</li>
+<li>AI baby crying detection+ (sound detection)</li>
+<li>AI crossline person+ (up to 3 lines)</li>
+<li>AI crossline vehicle+ (up to 3 lines)</li>
+<li>AI crossline animal+ (up to 3 lines)</li>
+<li>AI intrusion person+ (up to 3 zones)</li>
+<li>AI intrusion vehicle+ (up to 3 zones)</li>
+<li>AI intrusion animal+ (up to 3 zones)</li>
+<li>AI linger person+ (up to 3 zones)</li>
+<li>AI linger vehicle+ (up to 3 zones)</li>
+<li>AI linger animal+ (up to 3 zones)</li>
+<li>AI item forgotten+ (up to 3 zones)</li>
+<li>AI item taken+ (up to 3 zones)</li>
+<li>Sleep status+</li>
+</ul>
+<p>++ These sensors receive events using the following 4 methods (in order): TCP push, ONVIF push, ONVIF long polling or fast polling (every 5 seconds).
+The latency for receiving the events is the best for TCP push and the worst for fast polling, the fastest available method that is detected to work will be used, and slower methods will not be used.
+For redundancy, these sensors are polled every 60 seconds together with the update of all other entities.
+To ensure you have the best latency possible, refer to the <a href="#reducing-latency-of-motion-events">Reducing latency of motion events</a> section.</p>
+<p>For the <strong>crossline</strong>, <strong>intrusion</strong>, <strong>linger</strong>, <strong>item forgotten</strong>, and <strong>item taken</strong> entities, you first need to configure the lines/zones in the Reolink app (<strong>Settings</strong> &gt; <strong>Detection alarm</strong> &gt; <strong>Smart event detection</strong>). In the Reolink app, you can add up to 3 zones/lines, and for each zone/line, you can enable/disable the person/vehicle/animal detection. Within 60 seconds after making a change in the Reolink app, the corresponding entities will automatically show up in Home Assistant.</p>
+<h3>Number entities <a class="title-link" name="number-entities" href="#number-entities"></a>
+</h3>
+<p>Depending on the supported features of the camera (<a href="#tested-models">see specifications of the camera model on Reolink.com</a>), number entities are added for:</p>
+<ul>
+<li>Optical zoom control</li>
+<li>Focus control</li>
+<li>Floodlight turn on brightness+</li>
+<li>Infrared light brightness</li>
+<li>Volume (Camera)</li>
+<li>Volume speak (Camera)</li>
+<li>Volume doorbell (Camera)</li>
+<li>Alarm volume (Home Hub)</li>
+<li>Message volume (Home Hub)</li>
+<li>Chime volume</li>
+<li>Chime silent time</li>
+<li>Guard return time</li>
+<li>Motion sensitivity</li>
+<li>PIR sensitivity</li>
+<li>AI face sensitivity</li>
+<li>AI person sensitivity</li>
+<li>AI vehicle sensitivity</li>
+<li>AI package sensitivity</li>
+<li>AI pet sensitivity</li>
+<li>AI animal sensitivity</li>
+<li>AI crossline sensitivity+ (up to 3 lines)</li>
+<li>AI intrusion sensitivity+ (up to 3 zones)</li>
+<li>AI linger sensitivity+ (up to 3 zones)</li>
+<li>AI item forgotten sensitivity+ (up to 3 zones)</li>
+<li>AI item taken sensitivity+ (up to 3 zones)</li>
+<li>AI face delay*</li>
+<li>AI person delay*</li>
+<li>AI vehicle delay*</li>
+<li>AI package delay*</li>
+<li>AI pet delay*</li>
+<li>AI animal delay*</li>
+<li>AI intrusion delay+ (up to 3 zones)</li>
+<li>AI linger delay+ (up to 3 zones)</li>
+<li>AI item forgotten delay+ (up to 3 zones)</li>
+<li>AI item taken delay+ (up to 3 zones)</li>
+<li>Baby cry sensitivity</li>
+<li>Auto quick reply time</li>
+<li>Auto track limit left</li>
+<li>Auto track limit right</li>
+<li>Auto track disappear time</li>
+<li>Auto track stop time</li>
+<li>Day night switch threshold*</li>
+<li>Image brightness*+ (default 128)</li>
+<li>Image contrast*+ (default 128)</li>
+<li>Image saturation*+ (default 128)</li>
+<li>Image sharpness*+ (default 128)</li>
+<li>Image hue*+ (default 128)</li>
+<li>Pre-recording time*</li>
+<li>Pre-recording stop battery level*</li>
+</ul>
+<p><strong>Floodlight turn on brightness</strong> controls the brightness of the floodlight when it is turned on internally by the camera (see <strong>Floodlight mode</strong> select entity) or when using the <strong>Floodlight</strong> light entity.</p>
+<p>When the camera is not moved and no person/pet/animal/vehicle is detected for the <strong>Guard return time</strong> in seconds, and the <strong>Guard return</strong> switch is ON, the camera will move back to the guard position.</p>
+<p>When a Reolink doorbell is pressed the quick reply message from the <strong>Auto quick reply message</strong> select entity will be played after <strong>Auto quick reply time</strong> seconds, unless the <strong>Auto quick reply message</strong> is set to off.</p>
+<p>If the <strong>Auto tracking</strong> switch entity is enabled, and a object disappears from view OR stops moving for the <strong>Auto track disappear time</strong>/<strong>Auto track stop time</strong>, the camera goes back to its original position.</p>
+<p><strong>Day night switch threshold</strong> determines at which light level the camera switches from <strong>Color</strong> to <strong>Black &amp; white</strong>. This value only applies if the <strong>Day night mode</strong> select is on <strong>Auto</strong>.</p>
+<h3>Button entities <a class="title-link" name="button-entities" href="#button-entities"></a>
+</h3>
+<p>Depending on the supported features of the camera (<a href="#tested-models">see specifications of the camera model on Reolink.com</a>), button entities are added for:</p>
+<ul>
+<li>
+<abbr title="pan, tilt, and zoom">PTZ</abbr> stop</li>
+<li>PTZ left</li>
+<li>PTZ right</li>
+<li>PTZ up</li>
+<li>PTZ down</li>
+<li>PTZ calibrate</li>
+<li>PTZ zoom in*</li>
+<li>PTZ zoom out*</li>
+<li>Guard go to</li>
+<li>Guard set current position</li>
+<li>Restart*</li>
+</ul>
+<p><strong>PTZ left</strong>, <strong>right</strong>, <strong>up</strong>, <strong>down</strong>, <strong>zoom in</strong> and <strong>zoom out</strong> will continually move the camera in the respective position until the <strong>PTZ stop</strong> is called or the hardware limit is reached.</p>
+<p><strong>Guard set current position</strong> will set the current position as the new guard position.</p>
+<h4>Action reolink.ptz_move <a class="title-link" name="action-reolinkptz_move" href="#action-reolinkptz_move"></a>
+</h4>
+<p>Some Reolink <abbr title="pan, tilt, and zoom">PTZ</abbr> cameras can move at different speeds. For those cameras, the <code>reolink.ptz_move</code> action can be used in combination with the <strong>PTZ left</strong>, <strong>right</strong>, <strong>up</strong>, <strong>down</strong>, <strong>zoom in</strong>, or <strong>zoom out</strong> entity which allows specifying the speed attribute. If the <abbr title="pan, tilt, and zoom">PTZ</abbr> button entities for a specific camera are not shown under <strong>Choose entity</strong> under <strong>targets</strong> of the <code>reolink.ptz_move</code> action, it means that this camera does not support custom <abbr title="pan, tilt, and zoom">PTZ</abbr> speeds.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>Name of the Reolink <abbr title="pan, tilt, and zoom">PTZ</abbr> button entity to control. For example, <code>button.trackmix_ptz_left</code>.</td>
+</tr>
+<tr>
+<td><code>speed</code></td>
+<td>no</td>
+<td>
+<abbr title="pan, tilt, and zoom">PTZ</abbr> move speed. For example <code>10</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Select entities <a class="title-link" name="select-entities" href="#select-entities"></a>
+</h3>
+<p>Depending on the supported features of the camera (<a href="#tested-models">see specifications of the camera model on Reolink.com</a>), select entities are added for:</p>
+<ul>
+<li>Floodlight mode (Off, Auto, Schedule)</li>
+<li>Day night mode+ (Auto, Color, Black&amp;White)</li>
+<li>
+<abbr title="pan, tilt, and zoom">PTZ</abbr> preset</li>
+<li>Play quick reply message</li>
+<li>Auto quick reply message</li>
+<li>Auto track method (Digital, Digital first, Pan/Tilt first)</li>
+<li>Doorbell LED (Stay off, Auto, Auto &amp; always on at night)</li>
+<li>HDR* (Off, On, Auto)</li>
+<li>Binning mode* (Off, On, Auto)</li>
+<li>Clear frame rate*</li>
+<li>Fluent frame rate*</li>
+<li>Clear bit rate*</li>
+<li>Fluent bit rate*</li>
+<li>Chime motion ringtone</li>
+<li>Chime person ringtone</li>
+<li>Chime vehicle ringtone</li>
+<li>Chime visitor ringtone</li>
+<li>Hub alarm ringtone</li>
+<li>Hub visitor ringtone</li>
+<li>Hub scene mode (Off, Disarmed, Home, Away)</li>
+<li>Recording packing time</li>
+<li>Pre-recording frame rate*</li>
+<li>Post-recording time</li>
+</ul>
+<p><strong>PTZ preset</strong> positions can be set in the Reolink app/windows/web client, the names of the presets will be loaded into Home Assistant at the start of the integration. When adding new preset positions, please restart the Reolink integration.</p>
+<p><strong>Play quick reply messages</strong>/<strong>Auto quick reply messages</strong> can be recorded in the Reolink phone app where a name is also supplied. New or updated quick reply messages will be loaded into Home Assistant at the start of the integration. When adding new quick reply messages, please restart the Reolink integration.</p>
+<p><strong>Hub scene modes</strong> can be set in the Reolink app/client. The scene names are loaded into Home Assistant at the start of the integration. After adding new custom scenes, restart the Reolink integration.</p>
+<h4>Action reolink.play_chime <a class="title-link" name="action-reolinkplay_chime" href="#action-reolinkplay_chime"></a>
+</h4>
+<p>To play a ringtone on a Reolink chime, the <code>reolink.play_chime</code> action can be used.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>no</td>
+<td>List of device ids of the Reolink Chimes to control. For example, <code>- 12a34b56c7d8ef9ghijklm0n1op2345q</code>.</td>
+</tr>
+<tr>
+<td><code>ringtone</code></td>
+<td>no</td>
+<td>The ringtone to play. For example <code>operetta</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Siren entities <a class="title-link" name="siren-entities" href="#siren-entities"></a>
+</h3>
+<p>If the camera supports a siren, a siren entity will be created.
+When using the siren turn-on action, the siren will continue to sound until the siren turn-off action is called.</p>
+<p>In some camera models, there is a delay of up to 5 seconds between the turn-off command and the sound stopping. The siren turn-on action supports setting a volume and a duration (no turn-off action call is needed in that case).</p>
+<h3>Switch entities <a class="title-link" name="switch-entities" href="#switch-entities"></a>
+</h3>
+<p>Depending on the supported features of the camera (<a href="#tested-models">see specifications of the camera model on Reolink.com</a>), switch entities are added for:</p>
+<ul>
+<li>Infrared lights in night mode</li>
+<li>Record audio</li>
+<li>Siren on event</li>
+<li>Auto tracking</li>
+<li>Auto focus</li>
+<li>Guard return</li>
+<li>PTZ patrol (start/stop)</li>
+<li>Doorbell button sound</li>
+<li>Record</li>
+<li>Manual record+</li>
+<li>Pre-recording</li>
+<li>Privacy mode+</li>
+<li>Privacy mask</li>
+<li>Push notifications</li>
+<li>Hub ringtone on event</li>
+<li>Email on event</li>
+<li>FTP upload</li>
+<li>PIR enabled*</li>
+<li>PIR reduce false alarm*</li>
+<li>Chime LED</li>
+<li>Hardwired chime enabled*</li>
+</ul>
+<p>When the <strong>Privacy mode</strong> is ON, almost all other entities will be unavailable because the camera shuts down the API and camera streams. When turning OFF the <strong>Privacy mode</strong>, all entities will become available again. Take this into consideration when making automations; ensure the <strong>Privacy mode</strong> is OFF before changing camera settings using other entities.</p>
+<p>The <strong>Privacy mask</strong> switch will only be added when the privacy mask is configured in the Reolink app/client under <strong>settings</strong> (gear icon) &gt; <strong>Display</strong> &gt; <strong>Privacy Mask</strong>. After adding the privacy mask, the reolink integration in Home Assistant needs to be reloaded for the <strong>Privacy mask</strong> switch to show up.</p>
+<p>When the <strong>Infrared lights in night mode</strong> entity is set to OFF, the infrared LEDs are always OFF. When the <strong>Infrared lights in night mode</strong> entity is set to ON, the infrared LEDs will be on when the camera is in night vision mode. For more information, see the <strong>Day night mode</strong> select entity.</p>
+<p>For NVRs, a global switch for <strong>Record</strong>, <strong>Push</strong>, <strong>Hub ringtone on event</strong>, <strong>Email</strong>, and <strong>FTP</strong> will be available under the NVR device as well as a switch per channel of the NVR under the camera device. The respective feature will only be active for a given channel if both the global and that channel switch are enabled (as is also the case in the Reolink app/client).</p>
+<p><strong>Push</strong> notifications to a phone will only be provided if the following conditions are met:</p>
+<ul>
+<li>The <strong>Push notifications</strong> switch in Home Assistant is ON.</li>
+<li>For NVRs,  both the global and channel switch are ON.</li>
+<li>The Push-notification in the Reolink App of that phone is ON.</li>
+</ul>
+<p>The Push-notification in the Reolink app is independent of the Home Assistant setting. It is also independent of the settings on other phones connected to the same camera. Reolink does this so you have an independent way of turning off push notifications per phone.</p>
+<p>The <strong>PTZ patrol</strong> positions first need to be configured using the Reolink <a href="https://support.reolink.com/hc/en-us/articles/360008746833/" rel="external nofollow">app<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>/<a href="https://support.reolink.com/hc/en-us/articles/900003738126/" rel="external nofollow">windows<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>/web client. When no positions are configured, the PTZ patrol entity will not be added. When adding patrol positions for the first time, you need to restart the Reolink integration.</p>
+<p>The <strong>Manual record</strong> switch will turn off automatically after 10 minutes. Therefore the recording will end as soon as the manual record switch is turned off, or 10 minutes have passed.</p>
+<p>Polling the status of the <strong>Hardwired chime enabled</strong> switch can make the hardwired chime rattle a bit depending on the model of the chime. Therefore the status of this switch is only polled one time (about 1 minute after the integration starts). The rattle at startup can only happen if you chose to enable this switch.</p>
+<h3>Light entities <a class="title-link" name="light-entities" href="#light-entities"></a>
+</h3>
+<p>Depending on the supported features of the camera (<a href="#tested-models">see specifications of the camera model on Reolink.com</a>), light entities are added for:</p>
+<ul>
+<li>Floodlight+</li>
+<li>Status LED</li>
+</ul>
+<p>When the <strong>floodlight</strong> entity is ON always ON, when OFF controlled based on the internal camera floodlight mode (Off, Auto, Schedule), see the <strong>Floodlight mode</strong> select entity.</p>
+<h3>Sensor entities <a class="title-link" name="sensor-entities" href="#sensor-entities"></a>
+</h3>
+<p>Depending on the supported features of the camera (<a href="#tested-models">see specifications of the camera model on Reolink.com</a>), the following sensor entities are added:</p>
+<ul>
+<li>PTZ pan position</li>
+<li>PTZ tilt position</li>
+<li>Day night state+</li>
+<li>Wi-Fi signal*</li>
+<li>CPU usage*</li>
+<li>HDD/SD storage*</li>
+<li>Battery percentage+</li>
+<li>Battery temperature*+</li>
+<li>Battery state*+ (discharging, charging, charge complete)</li>
+</ul>
+<h3>Update entity <a class="title-link" name="update-entity" href="#update-entity"></a>
+</h3>
+<p>An update entity is available that checks for firmware updates every 24 hours.
+Updates are checked both through the camera API and directly from the <a href="https://reolink.com/download-center/" rel="external nofollow">Reolink download center<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.
+Therefore the update entity in Home Assistant can find and install a firmware update from the <a href="https://reolink.com/download-center/" rel="external nofollow">Reolink download center<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> while the Reolink app/windows/web client does not always find this update.</p>
+<h3>Media browser for playback of recordings <a class="title-link" name="media-browser-for-playback-of-recordings" href="#media-browser-for-playback-of-recordings"></a>
+</h3>
+<p>If the camera supports recording to an SD card or NVR/Hub (<a href="#tested-models">see specifications of the camera model on Reolink.com</a>), the Reolink integration will provide a media browser through which recorded videos of the camera can be accessed.
+In the sidebar, select “Media” &gt; “Reolink” and select the <strong>camera</strong> of which you want to see recordings. Optionally, select if you want a high or low <strong>resolution</strong> stream and select the recording <strong>date</strong>. Here, all available video files of that day will be shown.
+Recordings up to 1 month old can be viewed in Home Assistant.</p>
+<h2>Tested models <a class="title-link" name="tested-models" href="#tested-models"></a>
+</h2>
+<p>Models marked as bold in the lists below have been certified under the <strong>Works with Home Assistant</strong> program.</p>
+<h3>Tested directly connected models <a class="title-link" name="tested-directly-connected-models" href="#tested-directly-connected-models"></a>
+</h3>
+<p>The following models have been tested and confirmed to work with a direct link to Home Assistant:</p>
+<ul>
+<li>C1 Pro*</li>
+<li>C2 Pro*</li>
+<li><a href="https://reolink.com/product/cx410/" rel="external nofollow">CX410<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/cx810/" rel="external nofollow">CX810<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>
+<a href="https://reolink.com/product/e1-pro/" rel="external nofollow">E1 Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (5MP models - hardware version IPC_NT1NA45MP - or newer†)</li>
+<li><a href="https://reolink.com/product/e1-zoom/" rel="external nofollow">E1 Zoom<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/e1-outdoor/" rel="external nofollow">E1 Outdoor<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/e1-outdoor-poe/" rel="external nofollow">E1 Outdoor PoE<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/e1-outdoor-pro/" rel="external nofollow">E1 Outdoor Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>
+<a href="https://reolink.com/product/elite-floodlight-wifi/" rel="external nofollow">Elite Floodlight WiFi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (needs mains power, cannot be integrated when powered through USB)</li>
+<li>
+<a href="https://reolink.com/product/fe-p/" rel="external nofollow">FE-P<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (only “fisheye” or “5-in-1” view for the streams, not “dual panoramic”, “quad”, “cylindrical”, “defished”, or “hemispheric” view)</li>
+<li>
+<a href="https://reolink.com/product/fe-w/" rel="external nofollow">FE-W<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (only “fisheye” or “5-in-1” view for the streams, not “dual panoramic”, “quad”, “cylindrical”, “defished”, or “hemispheric” view)</li>
+<li><a href="https://reolink.com/product/lumus-pro/" rel="external nofollow">Lumus Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>RLC-410*</li>
+<li><a href="https://reolink.com/product/rlc-410w/" rel="external nofollow">RLC-410W<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>RLC-411*</li>
+<li>RLC-420*</li>
+<li>RLC-423*</li>
+<li><a href="https://reolink.com/product/rlc-510a/" rel="external nofollow">RLC-510A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>RLC-511*</li>
+<li>RLC-511W*</li>
+<li>
+<a href="https://reolink.com/product/rlc-511wa/" rel="external nofollow">RLC-511WA<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>*</li>
+<li>RLC-520*</li>
+<li><a href="https://reolink.com/product/rlc-520a/" rel="external nofollow">RLC-520A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>RLC-522*</li>
+<li><a href="https://reolink.com/product/rlc-810a/" rel="external nofollow">RLC-810A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rlc-810wa/" rel="external nofollow">RLC-810WA<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rlc-811a/" rel="external nofollow">RLC-811A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rlc-81ma/" rel="external nofollow">RLC-81MA<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rlc-81pa/" rel="external nofollow">RLC-81PA<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rlc-820a/" rel="external nofollow">RLC-820A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rlc-822a/" rel="external nofollow">RLC-822A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rlc-823a/" rel="external nofollow">RLC-823A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><strong><a href="https://reolink.com/product/rlc-823s2/" rel="external nofollow">RLC-823S2<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></strong></li>
+<li><a href="https://reolink.com/product/rlc-830a/" rel="external nofollow">RLC-830A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rlc-833a/" rel="external nofollow">RLC-833A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rlc-843a/" rel="external nofollow">RLC-843A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rlc-1212a/" rel="external nofollow">RLC-1212A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><strong><a href="https://reolink.com/product/rlc-1224a/" rel="external nofollow">RLC-1224A<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></strong></li>
+<li><a href="https://reolink.com/product/rln8-410/" rel="external nofollow">RLN8-410 NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rln16-410/" rel="external nofollow">RLN16-410 NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rln36/" rel="external nofollow">RLN36 NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/rln12w/" rel="external nofollow">RLN12W NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>
+<a href="https://reolink.com/product/nvs8/" rel="external nofollow">NVS8 NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (Retail version of RLN8)</li>
+<li>
+<a href="https://reolink.com/product/nvs16/" rel="external nofollow">NVS16 NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (Retail version of RLN16)</li>
+<li>
+<a href="https://reolink.com/product/reolink-chime/" rel="external nofollow">Reolink Chime<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (when connected to a doorbell)</li>
+<li><a href="https://reolink.com/product/reolink-duo-wifi-v1/" rel="external nofollow">Reolink Duo WiFi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/reolink-duo-wifi/" rel="external nofollow">Reolink Duo 2 WiFi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><strong><a href="https://reolink.com/product/reolink-duo-3-poe/" rel="external nofollow">Reolink Duo 3 PoE<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></strong></li>
+<li><a href="https://reolink.com/product/reolink-duo-3v-poe/" rel="external nofollow">Reolink Duo 3V PoE<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>Reolink Duo Floodlight (<a href="https://reolink.com/product/reolink-duo-floodlight-poe/" rel="external nofollow">PoE<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://reolink.com/product/reolink-duo-floodlight-wifi/" rel="external nofollow">Wi-Fi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li><a href="https://reolink.com/product/elite-wifi/" rel="external nofollow">Reolink Elite WiFi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/reolink-floodlight/" rel="external nofollow">Reolink Floodlight PoE and Wi-Fi*<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/reolink-home-hub/" rel="external nofollow">Reolink Home Hub<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/reolink-home-hub-pro/" rel="external nofollow">Reolink Home Hub Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><strong><a href="https://reolink.com/product/reolink-trackmix-poe/" rel="external nofollow">Reolink TrackMix PoE<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></strong></li>
+<li><a href="https://reolink.com/product/reolink-trackmix-wifi/" rel="external nofollow">Reolink TrackMix Wi-Fi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>Reolink Video Doorbell (<a href="https://reolink.com/product/reolink-video-doorbell/" rel="external nofollow">PoE Black<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://reolink.com/product/reolink-video-doorbell/" rel="external nofollow">PoE White<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li><strong>Reolink Video Doorbell (<a href="https://reolink.com/product/reolink-video-doorbell-wifi/" rel="external nofollow">Wi-Fi Black<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://reolink.com/product/reolink-video-doorbell-wifi/" rel="external nofollow">Wi-Fi White<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</strong></li>
+</ul>
+<p>*These models are discontinued and not sold anymore, they will continue to work with Home Assistant.</p>
+<p>†Requires a <a href="https://support.reolink.com/hc/en-us/articles/900000638583-Introduction-to-the-Hardware-Version-of-Reolink-Cameras/" rel="external nofollow">camera hardware version<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> that supports remote access.  All 5MP or newer E1 Pro models (where the hardware version includes “5MP”) meet this requirement.  Most sellers (including ReoLink) do not explicitly state the hardware version, so verify the resolution is 5MP or greater to ensure compatibility.</p>
+<h3>Tested battery-powered models <a class="title-link" name="tested-battery-powered-models" href="#tested-battery-powered-models"></a>
+</h3>
+<p>Battery-powered Reolink cameras can be used with Home Assistant with the help of a <a href="https://reolink.com/product/reolink-home-hub/" rel="external nofollow">Reolink Home Hub<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or NVR. The Home Hub/NVR will act as a bridge between the battery-powered cameras and Home Assistant, conserving the battery life. All features of the battery-powered cameras will be available just like regular-powered cameras. Viewing the camera stream in Home Assistant will keep the battery camera awake during viewing, consuming battery life. Therefore, ensure you do not use the camera stream on a dashboard that is constantly being viewed, like a wall panel dashboard. You can check proper operation by ensuring that the “Sleep status” entity will go to “Sleeping” if the battery camera is not being actively used.</p>
+<p>The following hubs/NVRs have been tested and confirmed to work with battery-powered models in Home Assistant:</p>
+<ul>
+<li><strong><a href="https://reolink.com/product/reolink-home-hub/" rel="external nofollow">Reolink Home Hub<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></strong></li>
+<li><a href="https://reolink.com/product/reolink-home-hub-pro/" rel="external nofollow">Reolink Home Hub Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>
+<a href="https://reolink.com/product/rln8-410/" rel="external nofollow">RLN8-410 NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (only hardware versions N7MB01, N3MB01, N2MB02, or H3MB18. Hardware versions H3MB02 and H3MB16 did not get firmware updates since 2022)</li>
+<li>
+<a href="https://reolink.com/product/rln16-410/" rel="external nofollow">RLN16-410 NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (only hardware versions N6MB01 or H3MB18. Hardware version H3MB02 did not get firmware updates since 2022)</li>
+<li><a href="https://reolink.com/product/rln36/" rel="external nofollow">RLN36 NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li>
+<a href="https://reolink.com/product/nvs8/" rel="external nofollow">NVS8 NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (Retail version of RLN8)</li>
+<li>
+<a href="https://reolink.com/product/nvs16/" rel="external nofollow">NVS16 NVR<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (Retail version of RLN16)</li>
+</ul>
+<p>The following battery-powered models have been tested and confirmed to work through the Reolink Home Hub/NVR:</p>
+<ul>
+<li><a href="https://reolink.com/product/argus-3-pro/" rel="external nofollow">Argus 3 Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/argus-4-pro/" rel="external nofollow">Argus 4 Pro<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/argus-eco/" rel="external nofollow">Argus Eco<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/argus-eco-ultra/" rel="external nofollow">Argus Eco Ultra<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/argus-pt/" rel="external nofollow">Argus PT<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><strong><a href="https://reolink.com/product/argus-track/" rel="external nofollow">Argus Track<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></strong></li>
+<li><a href="https://reolink.com/product/reolink-altas/" rel="external nofollow">Reolink Altas<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://reolink.com/product/altas-pt-ultra/" rel="external nofollow">Reolink Altas PT Ultra<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><strong><a href="https://reolink.com/roadmap/" rel="external nofollow">Reolink Doorbell Battery<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></strong></li>
+</ul>
+<p>Reolink provides <a href="https://support.reolink.com/hc/en-us/articles/32379509281561-Reolink-Home-Hub-Compatibility/" rel="external nofollow">this larger list of battery camera models<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> which are compatible with the Home Hub and should work with Home Assistant.</p>
+<h3>Models only compatible using a NVR/Home Hub <a class="title-link" name="models-only-compatible-using-a-nvrhome-hub" href="#models-only-compatible-using-a-nvrhome-hub"></a>
+</h3>
+<p>The following models are lacking the HTTP web server API and can, therefore, not work directly with this integration.
+However, these cameras can work with this integration through an NVR or Home Hub in which the NVR/Home Hub is connected to Home Assistant.</p>
+<ul>
+<li>E1 Pro (The IPC_NT1NA45MP hardware version also works with a direct connection)</li>
+<li>E1</li>
+<li>Reolink Lumus</li>
+<li>B400*</li>
+<li>B500*</li>
+<li>B500W*</li>
+<li>B800*</li>
+<li>B800W*</li>
+<li>B1200*</li>
+<li>D400*</li>
+<li>D500*</li>
+<li>D800*</li>
+<li>D1200*</li>
+</ul>
+<p>*These models are only sold as a kit which includes a NVR.</p>
+<h3>Incompatible models <a class="title-link" name="incompatible-models" href="#incompatible-models"></a>
+</h3>
+<p>Reolink LTE cameras do not work with this integration.</p>
+<ul>
+<li>Reolink Go Plus</li>
+<li>Reolink Go PT Plus</li>
+<li>Reolink Go PT Ultra</li>
+<li>Reolink Go Ranger PT</li>
+<li>Reolink Go Ultra</li>
+<li>Reolink TrackMix LTE</li>
+<li>Reolink TrackMix LTE Plus</li>
+</ul>
+<h2>Initial setup <a class="title-link" name="initial-setup" href="#initial-setup"></a>
+</h2>
+<h3>1. Initializing and configuring camera credentials. <a class="title-link" name="1-initializing-and-configuring-camera-credentials" href="#1-initializing-and-configuring-camera-credentials"></a>
+</h3>
+<p>A brand new Reolink camera first needs to be connected to the network and initialized. During initialization, the credentials for the camera need to be set.
+There are several ways to achieve this:</p>
+<h4>Connecting Reolink via app/client <a class="title-link" name="connecting-reolink-via-appclient" href="#connecting-reolink-via-appclient"></a>
+</h4>
+<p>The recommended way is to use the <a href="https://reolink.com/software-and-manual/" rel="external nofollow">Reolink mobile app, Windows, or Mac client<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, and follow the on-screen instructions.</p>
+<h4>Connecting Reolink via a web browser <a class="title-link" name="connecting-reolink-via-a-web-browser" href="#connecting-reolink-via-a-web-browser"></a>
+</h4>
+<p>When your camera has a LAN port (most Wi-Fi cameras also have a LAN port):</p>
+<ol>
+<li>First connect the camera to your network using a LAN cable.</li>
+<li>Find the IP address of the camera (for example by checking in your router) and go to the IP address in a web browser.</li>
+<li>Follow the on-screen instructions to first setup the credentials (use the same credentials in Home Assistant).</li>
+<li>If it is a Wi-Fi camera:
+<ul>
+<li>Go to <strong>settings</strong> (gear icon) &gt; <strong>Network</strong> and fill in your Wi-Fi SSID and password.
+<ul>
+<li>If you have both a 2.4 GHz and 5 GHz network, check your camera’s user guide to see which operating frequency is supported.</li>
+</ul>
+</li>
+<li>After that you can disconnect the LAN cable and the camera will automatically switch to the Wi-Fi connection.</li>
+</ul>
+</li>
+</ol>
+<h4>QR code <a class="title-link" name="qr-code" href="#qr-code"></a>
+</h4>
+<p>You can also connect a Wi-Fi camera using a self-made QR code. Once connected, follow the instructions under <strong>Web browser</strong>.
+Create a QR code using ISO-8859-1 character encoding (not UTF-8) with the following XML string:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;QR&gt;&lt;S&gt;ssid&lt;/S&gt;&lt;P&gt;password&lt;/P&gt;&lt;C&gt;last4&lt;/C&gt;&lt;/QR&gt;
+</code></pre></div></div>
+<p>Use the <code>ssid</code> and <code>password</code> of your Wi-Fi network.
+The <code>last4</code> are the last 4 digits of the QR code which is printed (on the underside) of the camera itself.
+Normally, the digits are printed directly under the QR code. Alternatively, you could scan the QR code and grab the last 4 digits.</p>
+<p>Then power up the camera while pointing it at the QR code. It takes about a minute to initialize, read the QR code, and connect to your Wi-Fi.</p>
+<h3>2. Add integration in Home Assistant <a class="title-link" name="2-add-integration-in-home-assistant" href="#2-add-integration-in-home-assistant"></a>
+</h3>
+<p>Set up the Reolink integration in Home Assistant using the credentials you set in step 1.</p>
+<h2>Removing the integration <a class="title-link" name="removing-the-integration" href="#removing-the-integration"></a>
+</h2>
+<h3>Removing a directly connected camera/NVR/Home Hub <a class="title-link" name="removing-a-directly-connected-cameranvrhome-hub" href="#removing-a-directly-connected-cameranvrhome-hub"></a>
+</h3>
+<p>Removing a directly connected camera/NVR/Home Hub can be done by removing the integration following these steps:</p>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+<p>This will also remove all cameras/chimes connected to the NVR/Home Hub from Home Assistant.</p>
+<h3>Removing a camera from a NVR/Home Hub <a class="title-link" name="removing-a-camera-from-a-nvrhome-hub" href="#removing-a-camera-from-a-nvrhome-hub"></a>
+</h3>
+<p>Removing a camera from a NVR/Home Hub can be done by deleting the device following these steps:</p>
+<ol>
+<li>First physically disconnect the ethernet cable of the camera from the NVR if the camera is directly connected to the NVR (PoE).</li>
+<li>Then remove the camera from the NVR/Home Hub following the <a href="https://support.reolink.com/hc/en-us/articles/900003769346-How-to-delete-offline-camera-information-on-Channel-Management-Page-via-Reolink-NVR-New-UI-/" rel="external nofollow">NVR instructions<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or <a href="https://support.reolink.com/hc/en-us/articles/33883674141977-How-to-Change-Camera-Order-Remove-Device-from-Reolink-Home-Hub/" rel="external nofollow">Home Hub instructions<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of integration entries, select the <strong>x devices</strong> underneath the integration instance of the NVR/Home Hub from which you want to remove a camera.</li>
+<li>Select the camera you want to remove from the list of devices</li>
+<li>Underneath the <strong>Device info</strong>, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+<h3>Removing a chime <a class="title-link" name="removing-a-chime" href="#removing-a-chime"></a>
+</h3>
+<p>Removing a chime from a doorbell can be done by deleting the chime following these steps:</p>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of integration entries, select the <strong>x devices</strong> underneath the integration instance of the Doorbell/NVR/Home Hub from which you want to remove a chime.</li>
+<li>Select the chime you want to remove from the list of devices</li>
+<li>Underneath the <strong>Device info</strong>, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+<p>This will also decouple the chime from the doorbell in the Reolink app/client. Therefore, the chime will no longer ring when the doorbell is pressed.</p>
+<h2>Examples <a class="title-link" name="examples" href="#examples"></a>
+</h2>
+<h3>Showing the camera in the dashboard <a class="title-link" name="showing-the-camera-in-the-dashboard" href="#showing-the-camera-in-the-dashboard"></a>
+</h3>
+<p>One way to show the camera in the dashboard is by using the picture glance card.
+For example, you can place arrow buttons on the card to <a href="/dashboards/picture-glance/#creating-a-card-to-control-the-camera">control the camera</a>.</p>
+<h3>Sending rich notifications <a class="title-link" name="sending-rich-notifications" href="#sending-rich-notifications"></a>
+</h3>
+<p>You can receive rich notifications on your phone when someone rings a Reolink doorbell or a Reolink camera detects an event like motion or a person.</p>
+<p class="img">
+  <img src="/images/integrations/reolink/rich_notification__small_notification.jpg" alt="Screenshot: Small phone notification">
+  <img src="/images/integrations/reolink/rich_notification__big_notification.jpg" alt="Screenshot: Expanded phone notification">
+</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Rich notification tutorial</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>Prerequisites:</p>
+<ul>
+<li>This <a href="#configuration">Reolink integration</a>
+</li>
+<li><a href="https://companion.home-assistant.io/docs/getting_started#setting-up">Android or iOS companion app</a></li>
+<li>
+<a href="https://www.home-assistant.io/docs/configuration/remote/">Remote access to Home Assistant</a>. Although you can receive text notifications without remote access, to see the camera image in the notification (rich notification), the phone needs to be able to reach Home Assistant. The rich notification will always work, even without remote access, when the phone is on the same network as Home Assistant.</li>
+</ul>
+<ol>
+<li>In order to receive such a rich notification, we are going to make an automation in Home Assistant. In Home Assistant go to <a href="https://my.home-assistant.io/redirect/automations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Automations &amp; scenes</strong></a> and select <strong>Create automation</strong> &gt; <strong>Create new automation</strong>.</li>
+</ol>
+<p><img src="/images/integrations/reolink/rich_notification__settings.png" alt="Settings button">
+<img src="/images/integrations/reolink/rich_notification__automations_and_scenes.png" alt="Automations &amp; scenes button">
+<img src="/images/integrations/reolink/rich_notification__create_automation.png" alt="Create automation button"></p>
+<p class="img">
+  <img src="/images/integrations/reolink/rich_notification__new_automation.png" alt="Screenshot: new automation">
+</p>
+<ol start="2">
+<li>Under <strong>When</strong>, select: <strong>Add trigger</strong> &gt; <strong>Entity</strong> &gt; <strong>State</strong>.</li>
+</ol>
+<p><img src="/images/integrations/reolink/rich_notification__add_trigger.png" alt="Add trigger">
+<img src="/images/integrations/reolink/rich_notification__entity.png" alt="Entity">
+<img src="/images/integrations/reolink/rich_notification__state.png" alt="State"></p>
+<p class="img">
+  <img src="/images/integrations/reolink/rich_notification__new_trigger.png" alt="Screenshot: new trigger">
+</p>
+<p>Then under <strong>Entity</strong>, select the binary sensor from the drop-down list corresponding to the camera event for which you want to receive a rich notification. For the Reolink integration the options are:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- binary_sensor.*camera name*_motion
+- binary_sensor.*camera name*_person
+- binary_sensor.*camera name*_vehicle
+- binary_sensor.*camera name*_pet
+- binary_sensor.*camera name*_animal
+- binary_sensor.*camera name*_visitor (doorbell press)
+- binary_sensor.*camera name*_package
+</code></pre></div></div>
+<p class="img">
+  <img src="/images/integrations/reolink/rich_notification__entity_select.png" alt="Screenshot: Entity select">
+</p>
+<p>Note that these entity names will be translated into the language you configured Home Assistant in. You can type to search through all your entities. You can add multiple triggers if you want to send the same message for multiple camera events like person and vehicle detection. You can also create multiple automations with different messages for each event. In this case, we chose the visitor detection for doorbell presses:</p>
+<ol start="3">
+<li>Under <strong>To</strong> select the state in which the event is detected: for visitor <strong>On</strong> for the other sensors <strong>Detected</strong>:</li>
+</ol>
+<p class="img">
+  <img src="/images/integrations/reolink/rich_notification__state_select.png" alt="Screenshot: State select">
+</p>
+<ol start="4">
+<li>Under <strong>And if</strong> you can <strong>optionally</strong> limit when the notifications need to be sent.</li>
+</ol>
+<ul>
+<li>
+<p>For instance only when you are not home. The companion app will provide a device_tracker entity based on the GPS of your phone if you allow location tracking during the setup of the app. We will use this as an example but you can add as many conditions as you like:</p>
+<p>Select <strong>+ Add Condition</strong> &gt; <strong>Entity</strong> &gt; <strong>State</strong>. Then under <strong>Entity</strong> select the device_tracker entity of your phone and under <strong>State</strong> select <strong>Home</strong>.</p>
+</li>
+</ul>
+<p class="img">
+  <img src="/images/integrations/reolink/rich_notification__device_tracker_condition.png" alt="Screenshot: Device tracker condition">
+</p>
+<ul>
+<li>
+<p>If you want to limit the amount of notifications being sent using a cooldown time you can use the following template condition:</p>
+<p>Select <strong>Add Condition</strong> again &gt; <strong>Other conditions</strong> &gt; <strong>Template</strong>. Then, under <strong>Value template</strong>, type the following:</p>
+</li>
+</ul>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="pi">{{</span><span class="nv">as_timestamp(now()) - as_timestamp(state_attr('automation.reolink_push'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">last_triggered'</span><span class="nv">)</span><span class="pi">,</span> <span class="nv">0) &gt; 30</span><span class="pi">}}</span>
+</code></pre></div></div>
+<p>The <code>automation.reolink_push</code> is the name of this automation, which will be set under step 7, and the <code>30</code> is the cooldown time in seconds.</p>
+<p class="img">
+  <img src="/images/integrations/reolink/rich_notification__cooldown_time_condition.png" alt="Screenshot: cooldown time condition">
+</p>
+<ol start="5">
+<li>Under <strong>Then do</strong>, select <strong>Add Action</strong> &gt; <strong>Camera</strong> &gt; <strong>Take snapshot</strong>.</li>
+</ol>
+<p><img src="/images/integrations/reolink/rich_notification__add_action.png" alt="Add action button">
+<img src="/images/integrations/reolink/rich_notification__camera.png" alt="Camera button">
+<img src="/images/integrations/reolink/rich_notification__take_snapshot.png" alt="Take snapshot button"></p>
+<p>Under <strong>Targets</strong>, select <strong>Choose entity</strong> and select the camera for which you want to add the image to the notification.</p>
+<p><img src="/images/integrations/reolink/rich_notification__chose_entity.png" alt="Choose entity button">
+<img src="/images/integrations/reolink/rich_notification__select_fluent_camera.png" alt="Select Fluent camera"></p>
+<p>Under <strong>Filename</strong>, fill in <code>/media/reolink_snapshot/last_snapshot_doorbell.jpg</code>. The first part <code>/media/</code> is absolutely necessary to allow your phone to access the saved image when it receives the notification. The reset of the folder and filename can be changed at will as long as you fill in the same filename under step 6.</p>
+<p class="img">
+  <img src="/images/integrations/reolink/rich_notification__screenshot_take_snapshot.png" alt="Screenshot: take snapshot">
+</p>
+<ol start="6">
+<li>Add another action underneath by selecting <strong>Add Action</strong> &gt; <strong>Notifications</strong> &gt; <strong>Send a notification via mobile_app_<phone name></phone></strong>.</li>
+</ol>
+<p><img src="/images/integrations/reolink/rich_notification__add_action.png" alt="Add action button">
+<img src="/images/integrations/reolink/rich_notification__notifications.png" alt="Notifications button">
+<img src="/images/integrations/reolink/rich_notification__send_to_mobile_button.png" alt="Send a notification via mobile app"></p>
+<p>Under <strong>message</strong>, type the text you want to receive in the notification. For instance, “Someone rang the doorbell”.
+If you want to give the notification a title, select the <strong>title</strong> option. For instance, if you have multiple cameras that send you notifications, select the camera name: <code>Doorbell</code>.
+Select the <strong>data</strong> option and fill in <code>image: /media/local/reolink_snapshot/last_snapshot_doorbell.jpg</code>. Note that <code>/media/</code> of the filename of step 5 now needs to be changed to <code>/media/local/</code>. The rest of the filename needs to be the same as in step 5.</p>
+<p class="img">
+  <img src="/images/integrations/reolink/rich_notification__send_to_mobile.png" alt="Screenshot: send notification">
+</p>
+<p>You can personalize the notification further and even control what happens if you tap the notification on your phone, <a href="https://companion.home-assistant.io/docs/notifications/notifications-basic/">read more about this here</a>.</p>
+<ol start="7">
+<li>Select <strong>Save</strong>, give your automation a name like <code>doorbell notification</code>, and select <strong>save</strong> again.</li>
+</ol>
+<p><img src="/images/integrations/reolink/rich_notification__save.png" alt="Save"></p>
+<p>You are all set, ring your doorbell and see the notification on your phone. Remember the conditions under <strong>And if</strong> need to be met, otherwise you will not receive the notification.</p>
+</div>
+  </details>
+</div>
+<h3>Automation ideas <a class="title-link" name="automation-ideas" href="#automation-ideas"></a>
+</h3>
+<ul>
+<li>Turn on (outdoor) lights near the camera to improve image clarity at night once the camera detects a person, vehicle, or animal.</li>
+<li>Turn off notifications and recording when you get home (based on, e.g., geofencing) and turn it back on when you leave home.</li>
+<li>Auto-pause rich notifications for x time</li>
+</ul>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Auto-pause rich notifications tutorial</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<p><strong>Goal</strong>: At the end of this tutorial, you will have a drop-down on your dashboard with different time choices to pause your notifications. When the time is up, the notifications will become active again. It will look like this:</p>
+<p><img src="/images/integrations/reolink/auto_pause__overview.png" alt="Overview of end result"></p>
+<ol>
+<li>
+<p>First, create the dropdown from <strong>Settings</strong> &gt; <strong>Devices &amp; services</strong> &gt; <strong>Helpers</strong> &gt; <strong>+ Create Helper</strong> &gt; <strong>Dropdown</strong>.</p>
+<ul>
+<li>Decide how many time delay choices you want.</li>
+<li>Add them all to the dropdown like below.</li>
+<li>Your first entry needs to be “Notifications active” (or simular phrasing) for when the notifications are turned on.</li>
+<li>You can define as many time options as you want. And you can define any time interval you like, for example, 22 minutes, 2 hours.</li>
+</ul>
+<p><img src="/images/integrations/reolink/auto_pause__dropdown.png" alt="Dropdown"></p>
+</li>
+<li>
+<p>Next, also from the <strong>Helpers</strong> menu create a <strong>Timer</strong>.</p>
+<ul>
+<li>
+<p>Leave the time duration all zeros. Select the <strong>Restore state and time</strong> box.</p>
+<p><img src="/images/integrations/reolink/auto_pause__timer.png" alt="Timer"></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Now you will create a new automation script.</p>
+<ul>
+<li>For the <strong>When</strong> select <strong>+ Add Trigger</strong> &gt; <strong>Entity</strong> &gt; <strong>State</strong> and choose your dropdown box for the entity and in the <strong>From</strong> choose your “Notifications active” or whatever you chose for the top item.</li>
+</ul>
+<p><img src="/images/integrations/reolink/auto_pause__automation_when.png" alt="Automation When dropdown"></p>
+</li>
+<li>
+<p>Add another trigger using <strong>+ Add Trigger</strong> &gt; <strong>Entity</strong> &gt; <strong>State</strong> and choose your timer for the entity and in the <strong>To</strong> choose “Idle”.</p>
+<ul>
+<li>Now select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu of this trigger and press <strong>Edit ID</strong>. In the <strong>Trigger ID</strong> type “TIMER DONE”.</li>
+</ul>
+<p><img src="/images/integrations/reolink/auto_pause__automation_when_timer.png" alt="Automation When timer"></p>
+</li>
+<li>
+<p>There is nothing in the <strong>And if</strong> section. For the <strong>Then do</strong> section choose <strong>add building block</strong> and use <strong>Choose</strong>.</p>
+<ul>
+<li>You will have as many options as you have times in your dropdown box plus one to reset the dropdown box.</li>
+<li>First, we make the option to reset the dropdown box. This needs to be the first option.</li>
+<li>Under <strong>Option 1</strong>, select <strong>+ Add Condition</strong> &gt; <strong>Other conditions</strong> &gt; <strong>Triggered by</strong>.</li>
+<li>Now check the box in front of “TIMER DONE”.</li>
+</ul>
+<p><img src="/images/integrations/reolink/auto_pause__automation_triggered_by.png" alt="Automation Triggered by"></p>
+</li>
+<li>
+<p>Add an action under this <strong>Option 1</strong>, choose <strong>Select</strong> as your action and then choose <strong>First</strong>.</p>
+<ul>
+<li>Then enter your dropdown box as the entity.</li>
+<li>This will change your dropdown box back to the first item when the timer is done.</li>
+<li>This will allow your notification automation to run again.</li>
+</ul>
+<p><img src="/images/integrations/reolink/auto_pause__automation_select_first.png" alt="Automation Select first"></p>
+</li>
+<li>
+<p>Let’s code the first option to pause the notifications now.</p>
+<ul>
+<li>Under <strong>Option 2</strong>, select <strong>+ Add Condition</strong> &gt; <strong>Entity</strong> &gt; <strong>State</strong>.</li>
+<li>Your dropdown box goes in the <strong>Entity</strong> and for <strong>State</strong> choose your first time delay.</li>
+</ul>
+<p><img src="/images/integrations/reolink/auto_pause__automation_choose.png" alt="Automation Choose"></p>
+</li>
+<li>
+<p>For <strong>+ Add Action</strong>, choose <strong>Helpers</strong> &gt; <strong>Timer</strong> &gt; <strong>Start</strong> and enter your timer entity.</p>
+<ul>
+<li>Check the duration box and enter the time delay you used for your first time delay. Format is HH:MM:SS</li>
+</ul>
+<p><img src="/images/integrations/reolink/auto_pause__automation_start_timer.png" alt="Automation Start timer"></p>
+</li>
+<li>
+<p>The only thing left here is to duplicate Option 2 as many items as you have in your dropdown box.</p>
+<ul>
+<li>The only changes you will need to make for each new option is to choose the correct state (time amount) for the dropdown box and then change the amount of time in the timer.</li>
+<li>You can easliy duplicate by clicking the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu at the far right of the option.</li>
+</ul>
+</li>
+<li>
+<p>Lastly, you need to apply this new feature.</p>
+<ul>
+<li>Go into your rich notifications automation, or for that matter any automation that you would like to have pause control over, and add a condition.</li>
+<li>Below is an example. In the <strong>And if</strong> press <strong>+ Add condition</strong> &gt; <strong>Entity</strong> &gt; <strong>State</strong> add select the dropdown box as the entity and “Notifications Active”, the first item, as the state.</li>
+</ul>
+<p><img src="/images/integrations/reolink/auto_pause__condition.png" alt="Condition"></p>
+</li>
+<li>
+<p>Add the dropdown box and the timer onto your dashboard and you are all set.</p>
+<ul>
+<li>Here is what it looks like when it is running (holding notifications).</li>
+<li>You can end it early by just selecting the timer, then selecting finish. That ends the timer, it goes to idle, and the automation resets the dropdown box to active.</li>
+</ul>
+<p><img src="/images/integrations/reolink/auto_pause__result_when_running.png" alt="Result when running"></p>
+</li>
+</ol>
+</div>
+  </details>
+</div>
+<ul>
+<li>When someone presses the doorbell, play ringtones on speakers (Echo Dot/Google Home/smart hubs) throughout the house.</li>
+<li>Pause a TV and show a notification badge on the TV when the doorbell is pressed (only when the TV is already on).</li>
+<li>Play the quick replay messages of a Reolink doorbell only when not home (geofencing)</li>
+<li>Wake up and start recording on other battery cameras nearby if one camera/motion sensor detects an event.</li>
+<li>Turn on the spotlights or sirens of other cameras nearby when one camera detects a person, vehicle, or animal.</li>
+<li>If a camera detects a person/vehicle/animal, then point other PTZ cameras in that direction using PTZ presets.</li>
+<li>Make a timelapse in different directions using PTZ presets and the snapshot service.</li>
+<li>Switch day night mode (Color/IR Black&amp;White) based on sunset/sunrise times or the status of (outdoor) lights instead of relying on the internal light sensor.</li>
+<li>Change the camera volume based on the time and/or when you are home or not (geofencing)</li>
+<li>Increase the framerate and maximum bitrate of a camera when a person/vehicle/animal is detected and lower them again after 1 minute of no detection. This saves storage space, so you can record longer when recording 24/7 without compromising image clarity during events.</li>
+<li>Turn on indoor lights close to windows in a sequence with some time delays if a camera detects a person to make it look like someone is home.</li>
+<li>Show a camera stream on a full screen on a wall panel, tablet, or Google Home display when someone rings the doorbell.</li>
+<li>Switch HDR mode of the camera based on sunset/sunrise</li>
+<li>Make an input boolean helper to easily disable notifications on all cameras and automatically enable notifications again after 1 hour.</li>
+</ul>
+<h2>Known limitations <a class="title-link" name="known-limitations" href="#known-limitations"></a>
+</h2>
+<ul>
+<li>2-way audio or Text-to-speech is not available in the Reolink Home Assistant integration.</li>
+<li>The 4K camera streams are H265 encoded, support for playing H265 encoding in browsers (Chrome/Firefox/Edge/Safari etc.) is still very limited, therefore the 4K clear stream may not play in all browsers or on all phones in the Home Assistant Companion app. By default only the lower resolution Fluent camera entity is enabled in Home Assistant. This Fluent stream is H264 encoded and will play on any browser or phone.</li>
+</ul>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<h3>Can’t setup the integration <a class="title-link" name="cant-setup-the-integration" href="#cant-setup-the-integration"></a>
+</h3>
+<ul>
+<li>Older firmware versions do not expose the necessary information the integration needs to function. Ensure the camera is updated to the <a href="https://reolink.com/download-center/" rel="external nofollow">latest firmware<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> prior to setting up the integration. Note that Reolink auto update and check for update functions in the app/windows/web client often do not show the latest available firmware version. Therefore check the version in the <a href="https://reolink.com/download-center/" rel="external nofollow">Reolink download center<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> online.</li>
+<li>Test if you can access the camera by its IP address in your browser <code>https://&lt;your-camera-ip&gt;</code>. If you cannot, in the <a href="https://reolink.com/software-and-manual/" rel="external nofollow">Reolink mobile app, Windows, or Mac client<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> ensure at least one of the HTTP/HTTPS ports are enabled under <strong>Settings</strong> &gt; <strong>top camera model box</strong> &gt; <strong>Network Information</strong> &gt; <strong>Advanced</strong> (mobile) or <strong>Settings</strong> &gt; <strong>Network</strong> &gt; <strong>Advanced</strong> &gt; <strong>Port Settings</strong> (PC). See <a href="https://support.reolink.com/hc/en-us/articles/900000621783-How-to-Set-up-Reolink-Ports-Settings/" rel="external nofollow">additional instructions<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> on the Reolink site.</li>
+<li>On some camera models, the RTMP port needs to be enabled in order for the HTTP(S) port to function properly. Make sure this port is also enabled if you get a <code>Cannot connect to host</code> error while one of the HTTP/HTTPS ports is already enabled.</li>
+<li>If the integration and the browser can’t connect to the camera even after you enable the HTTP/HTTPS ports, try to create a new user on the camera; that fixes the problem in some cases.</li>
+<li>Using a VLAN or other network restrictions between the Home Assistant device and the Reolink device is possible, but is also known to cause issues when not properly configured. Ensure HTTP (port 80), HTTPS (port 443), RTMP (port 1935), RTSP (port 554), ONVIF (port 8000) and TCP (port 9000) communication is not being blocked. When experiencing issues, please first test if moving the Reolink device to the same VLAN as the Home Assistant device and lifting all restrictions between them solves the issue.</li>
+</ul>
+<h3>Entities intermittently become unavailable <a class="title-link" name="entities-intermittently-become-unavailable" href="#entities-intermittently-become-unavailable"></a>
+</h3>
+<ul>
+<li>Note that almost all entities, including motion/ai detection and the camera streams, will be unavailable when privacy mode is turned ON. Check the history of the <strong>Privacy mode</strong> entity to see if this is causing the issues.</li>
+<li>Setting a static IP address for Reolink cameras/NVRs in your router is advisable to prevent (temporal) connectivity issues when the IP address changes.</li>
+<li>Do not set a static IP in the Reolink device itself, but leave the <strong>Connection Type</strong> on <strong>DHCP</strong> under <strong>Settings</strong> &gt; <strong>Network</strong> &gt; <strong>Network Information</strong> &gt; <strong>Set Up</strong>. If you set it to <strong>static</strong> on the Reolink device itself, this is known to cause incorrect DHCP requests on the network. The incorrect DHCP request causes Home Assistant to use the wrong IP address for the camera, resulting in connection issues. The issue originates from the Reolink firmware, which keeps sending DHCP requests even when you set a static IP address in the Reolink device.</li>
+<li>Reolink cameras can support a limited amount of simultaneous connections. Therefore using third-party software like Frigate, Blue Iris, or Scrypted, or using the ONVIF integration at the same time can cause the camera to drop connections. This results in short unavailabilities of the Reolink entities in Home Assistant. Especially when the connections are coming from the same device (IP) where Home Assistant is running, the Reolink cameras can get confused, dropping one connection in favor of the other originating from the same host IP. If you experience disconnections/unavailabilities of the entities, please first temporarily shut down the other connections (like Frigate) to diagnose if that is the problem. If that is indeed the problem, you could try moving the third-party software to a different host (IP address) since that is known to solve the problem most of the time. You could also try switching the protocol to FLV on Home Assistant and/or the third-party software, as that is known to be less resource-intensive on the camera.</li>
+<li>If the Reolink entities go to unavailable for short periods, the camera may be overloaded with requests resulting in short connection drops. To resolve this, first, check if the integration is using <code>ONVIF push</code> instead of <code>ONVIF long polling</code> (resource intensive) or <code>Fast polling</code> (very resource intensive), see the <a href="#reducing-latency-of-motion-events">Reducing latency of motion events</a> section. Moreover, try switching to the <abbr title="flash video">FLV</abbr> streaming protocol which is the least resource-intensive for the camera, see the <a href="#options">options</a> section.</li>
+</ul>
+<h3>Battery drains fast <a class="title-link" name="battery-drains-fast" href="#battery-drains-fast"></a>
+</h3>
+<p>The Reolink Home Assistant integration is supposed to only wake battery cameras once per hour for about 10 seconds, which should not have a big impact on battery life. You can check this using the <strong>Sleep status</strong> entity. However, there are several factors that can have significant impact on battery life:</p>
+<ul>
+<li>Make sure the <strong>Preload camera stream</strong> option is turned off for all battery camera entities under <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> &gt; Reolink integration card &gt; <strong>x devices</strong> &gt; select the battery camera &gt; select the camera stream (do this for all enabled streams) &gt; Gear icon <iconify-icon inline icon="mdi:cog-outline" title="Cog outline"></iconify-icon>. The Preload camera stream will keep a active stream open, keeping the camera awake. This will drain the battery.</li>
+<li>Make sure the <strong>Manual Record</strong> switch is turned off. While this switch is on, the camera will be awake and recording. Excessive use of this entity will drain the battery.</li>
+<li>
+<strong>Automations</strong> which use entities from a Reolink battery camera can wake up the camera. Changing settings or requesting a snapshot will wake the battery camera for 10-30 seconds. When automations trigger very often, this can cause excessive battery use.</li>
+<li>Some <strong>Custom cards</strong> that can be used to view the camera in a dashboard are known to keep a battery camera constantly awake, draining its battery.</li>
+<li>Viewing a <strong>dashboard</strong> with a picture-entity card of a Reolink battery camera, will wake that camera to show the latest snapshot and/or stream. Therefore, it is recommended to place the picture-entity cards in a separate dashboard/tab, which is only accessed when actually wanting to view the battery camera streams.</li>
+</ul>
+<h3>Streams or recordings not playing <a class="title-link" name="streams-or-recordings-not-playing" href="#streams-or-recordings-not-playing"></a>
+</h3>
+<ul>
+<li>Most Reolink cameras use h265 encoding for the high resolution recording and clear stream to save storage space and bandwidth. Playback of this h265 encoding is not supported by all browsers or apps. Therefore, the high-resolution recording and/or clear stream may not function on all your devices from which you acces Home Assistant. To see if a Reolink camera is using h264 or h265 encoding, <a href="/docs/configuration/troubleshooting/#download-diagnostics">download the diagnostics text file</a> and find the <code>"encoding main": "h265"\"h264"</code> in the txt file. The low-resolution recording and fluent stream always use h264 encoding and, therefore, do not suffer from this issue.</li>
+</ul>
+<h3>Reducing latency of motion events <a class="title-link" name="reducing-latency-of-motion-events" href="#reducing-latency-of-motion-events"></a>
+</h3>
+<p>TCP push and ONVIF push will result in slightly faster state changes of the binary motion/AI event sensors than ONVIF long polling.
+Moreover, TCP push and ONVIF push are less demanding for the camera than ONVIF long polling or fast polling, resulting in potentially less connection issues.
+TCP push does not have any particular requirements. However, ONVIF push has some additional network configuration requirements:</p>
+<ul>
+<li>
+<p>Reolink products can not push ONVIF motion events to an HTTPS address (SSL).
+Therefore, make sure a (local) HTTP address at which HA is reachable is configured under <strong>Home Assistant URL</strong> in the <a href="https://my.home-assistant.io/redirect/network" class="my" target="_blank">network settings</a>.
+A valid address could, for example, be <code>http://192.168.1.10:8123</code> where <code>192.168.1.10</code> is the IP of the Home Assistant device.</p>
+</li>
+<li>
+<p>Since a HTTP address is needed, Reolink push is incompatible with a global SSL certificate.
+Therefore, ensure no Global SSL certificate is configured in the <a href="/integrations/http/#ssl_certificate"><code>configuration.yaml</code> under HTTP</a>.
+An SSL certificate can still be enforced for external connections, by, for instance, using the <a href="https://github.com/home-assistant/addons/tree/master/nginx_proxy" rel="external nofollow">NGINX add-on<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or <a href="https://github.com/hassio-addons/addon-nginx-proxy-manager" rel="external nofollow">NGINX Proxy Manager add-on<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> instead of a globally enforced SSL certificate.</p>
+</li>
+</ul>
+<p>To see if a Reolink integration is currently using <code>TCP push</code>, <code>ONVIF push</code>, <code>ONVIF long polling</code> or <code>Fast polling</code>, <a href="/docs/configuration/troubleshooting/#download-diagnostics">download the diagnostics text file</a> and find the <code>"event connection": "TCP push"\"ONVIF push"\"ONVIF long polling"\"Fast polling"</code> in the txt file.</p>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    <li>
+      <a href="/needlehack-blog/dashboards/picture-glance/#creating-a-card-to-control-the-camera" class="topic">
+        Controlling the camera from the dashboard
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+<div class="text related-links">
+  <h2>Related links<a class="title-link" href="#related-links" name="related-links"></a>
+</h2>
+  <ul>
+    
+    <li><a href="https://reolink.com/" class="link" target="_blank" rel="external nofollow">Reolink product page<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+    
+  </ul>
+</div>
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/reolink.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Freolink%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20reolink" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+reolink%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/reolink//logo.png' srcset='https://brands.home-assistant.io/_/reolink/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=reolink' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Reolink  integration  was introduced in Home Assistant 2023.1, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          9.2%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-platinum'>🏆 Platinum quality</a><br /></div>
+    <div class="section">
+      <a href="https://works-with.home-assistant.io/">
+        <img src="../../images/works_with/works-with.png" alt="Works with Home assistant">
+      </a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/reolink" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+reolink%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/starkillerOG" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/starkillerOG?size=96" alt="@starkillerOG"/> @starkillerOG</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a></li>
+<li class="toc-entry toc-h2"><a href="#asterisk--next-to-entities-listed-in-this-documentation">Asterisk (*) next to entities listed in this documentation</a></li>
+<li class="toc-entry toc-h2"><a href="#data-updates-plus--next-to-entities-listed-in-this-documentation">Data updates: plus (+) next to entities listed in this documentation</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-functionality">Supported functionality</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#camera-streams">Camera streams</a></li>
+<li class="toc-entry toc-h3"><a href="#binary-sensors">Binary sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#number-entities">Number entities</a></li>
+<li class="toc-entry toc-h3"><a href="#button-entities">Button entities</a></li>
+<li class="toc-entry toc-h3"><a href="#select-entities">Select entities</a></li>
+<li class="toc-entry toc-h3"><a href="#siren-entities">Siren entities</a></li>
+<li class="toc-entry toc-h3"><a href="#switch-entities">Switch entities</a></li>
+<li class="toc-entry toc-h3"><a href="#light-entities">Light entities</a></li>
+<li class="toc-entry toc-h3"><a href="#sensor-entities">Sensor entities</a></li>
+<li class="toc-entry toc-h3"><a href="#update-entity">Update entity</a></li>
+<li class="toc-entry toc-h3"><a href="#media-browser-for-playback-of-recordings">Media browser for playback of recordings</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#tested-models">Tested models</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#tested-directly-connected-models">Tested directly connected models</a></li>
+<li class="toc-entry toc-h3"><a href="#tested-battery-powered-models">Tested battery-powered models</a></li>
+<li class="toc-entry toc-h3"><a href="#models-only-compatible-using-a-nvrhome-hub">Models only compatible using a NVR/Home Hub</a></li>
+<li class="toc-entry toc-h3"><a href="#incompatible-models">Incompatible models</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#initial-setup">Initial setup</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-initializing-and-configuring-camera-credentials">1. Initializing and configuring camera credentials.</a></li>
+<li class="toc-entry toc-h3"><a href="#2-add-integration-in-home-assistant">2. Add integration in Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#removing-a-directly-connected-cameranvrhome-hub">Removing a directly connected camera/NVR/Home Hub</a></li>
+<li class="toc-entry toc-h3"><a href="#removing-a-camera-from-a-nvrhome-hub">Removing a camera from a NVR/Home Hub</a></li>
+<li class="toc-entry toc-h3"><a href="#removing-a-chime">Removing a chime</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#showing-the-camera-in-the-dashboard">Showing the camera in the dashboard</a></li>
+<li class="toc-entry toc-h3"><a href="#sending-rich-notifications">Sending rich notifications</a></li>
+<li class="toc-entry toc-h3"><a href="#automation-ideas">Automation ideas</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#cant-setup-the-integration">Can’t setup the integration</a></li>
+<li class="toc-entry toc-h3"><a href="#entities-intermittently-become-unavailable">Entities intermittently become unavailable</a></li>
+<li class="toc-entry toc-h3"><a href="#battery-drains-fast">Battery drains fast</a></li>
+<li class="toc-entry toc-h3"><a href="#streams-or-recordings-not-playing">Streams or recordings not playing</a></li>
+<li class="toc-entry toc-h3"><a href="#reducing-latency-of-motion-events">Reducing latency of motion events</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+<li class="toc-entry toc-h2"><a href="#related-links">Related links</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#camera'>Camera</a>
+          </li><li>
+            <a href='/integrations/#doorbell'>Doorbell</a>
+          </li><li>
+            <a href='/integrations/#media-source'>Media source</a>
+          </li><li>
+            <a href='/integrations/#update'>Update</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

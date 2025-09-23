@@ -1,0 +1,616 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>0.28: Reload automation and groups, API documentation, car tracking, Pi-Hole stats - Home Assistant</title>
+    <meta name="author" content="Fabian Affolter">
+    <meta name="description" content="No Home Assistant restart for reloading automations and groups, Automatic car tracking, Pi-Hole and battery details, and bugfixes for climate and cover">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/blog/2016/09/10/notify-group-reload-api-pihole/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="0.28: Reload automation and groups, API documentation, car tracking, Pi-Hole stats">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/blog/2016/09/10/notify-group-reload-api-pihole/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="No Home Assistant restart for reloading automations and groups, Automatic car tracking, Pi-Hole and battery details, and bugfixes for climate and cover">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    <meta name="twitter:creator" content="@fabaff">
+    <meta name="twitter:title" content="0.28: Reload automation and groups, API documentation, car tracking, Pi-Hole stats">
+    <meta name="twitter:description" content="No Home Assistant restart for reloading automations and groups, Automatic car tracking, Pi-Hole and battery details, and bugfixes for climate and cover">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="   blog-post ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a class="active" href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#reload-automation-rules">Reload automation rules</a></li>
+<li class="toc-entry toc-h3"><a href="#raspberry-pi-installation-guide">Raspberry Pi installation guide</a></li>
+<li class="toc-entry toc-h3"><a href="#climate-and--cover">Climate and  cover</a></li>
+<li class="toc-entry toc-h3"><a href="#api-documentation">API documentation</a></li>
+<li class="toc-entry toc-h3"><a href="#configuration-validation">Configuration validation</a></li>
+<li class="toc-entry toc-h3"><a href="#all-changes">All changes</a></li>
+<li class="toc-entry toc-h3"><a href="#hotfix-0281---september-12">Hotfix 0.28.1 - September 12</a></li>
+<li class="toc-entry toc-h3"><a href="#hotfix-0282---september-13">Hotfix 0.28.2 - September 13</a></li>
+<li class="toc-entry toc-h3"><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li class="toc-entry toc-h3"><a href="#if-you-need-help">If you need help…</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="post">
+  
+  <header>
+  
+  <h1>0.28: Reload automation and groups, API documentation, car tracking, Pi-Hole stats</h1>
+  
+
+  
+  <div class="meta clearfix">
+    
+
+  
+  
+    <span class="byline author vcard"><iconify-icon inline icon="mdi:person" title="Person"></iconify-icon> Fabian Affolter</span>
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<time datetime="2016-09-10T06:00:00+00:00" pubdate data-updated="true"><iconify-icon inline icon="mdi:calendar" title="Calendar"></iconify-icon> September 10, 2016</time>
+    
+
+  <span>
+    <i class="icon-tags"></i>
+    <ul class="tags unstyled">
+    
+      
+        <li><a class="category" href="/blog/categories/core/">Core</a></li>
+      
+        <li><a class="category" href="/blog/categories/release-notes/">Release-Notes</a></li>
+      
+    
+    </ul>
+  </span>
+
+    
+      <a class="comments" href="#post-comments">Comments</a>
+    
+  </div>
+  
+</header>
+
+
+  <p>It’s already time for 0.28 thanks to our super short release cycles. Now, it’ official…we hit 4000 stars on Github. That’s amazing. Sorry, not as amazing as all the stuff that was going on for 0.27 but still pretty awesome.</p>
+<h3>Reload automation rules <a class="title-link" name="reload-automation-rules" href="#reload-automation-rules"></a>
+</h3>
+<p>This release brings you a huge improvement of the <a href="/integrations/automation/">automation</a> and <a href="/integrations/group/">group</a> handling. Both can be reloaded without a Home Assistant restart by calling their new reload services. The automations can be controlled directly from the frontend.</p>
+<p class="img">
+  <img src="/images/screenshots/automation-switches.png">
+</p>
+<h3>Raspberry Pi installation guide <a class="title-link" name="raspberry-pi-installation-guide" href="#raspberry-pi-installation-guide"></a>
+</h3>
+<p>Singleboard computers are very popular to run Home Assistant. To support this fact, the <a href="/getting-started/installation-raspberry-pi/">installation documentation</a> for the Raspberry Pi devices was re-written to get users started as quickly as possible. <a href="https://github.com/Landrash" rel="external nofollow">@Landrash<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> took the lead with on this tasks with help from <a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://github.com/MartinHjelmare" rel="external nofollow">@MartinHjelmare<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<h3>Climate and  cover <a class="title-link" name="climate-and--cover" href="#climate-and--cover"></a>
+</h3>
+<p>There are countless bugfixes included in this release which will make your experience with the <code>climate</code> and the <code>cover</code> platforms better. Two week ago was the biggest merger of implementations released that ever happened in the history of Home Assistant. Thanks to <a href="https://github.com/turbokongen" rel="external nofollow">@turbokongen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/djbanks" rel="external nofollow">@djbanks<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/danielperna84" rel="external nofollow">@danielperna84<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, and others the improvements on the code and the frontend side is continuing…</p>
+<h3>API documentation <a class="title-link" name="api-documentation" href="#api-documentation"></a>
+</h3>
+<p>The <a href="https://dev-docs.home-assistant.io/en/dev/" rel="external nofollow">Home Assistant API Documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> is a great addition to the already existing user documentation. The focus is not end-users but developers who want to get details about the code without actually browsing the code on Github.</p>
+<h3>Configuration validation <a class="title-link" name="configuration-validation" href="#configuration-validation"></a>
+</h3>
+<p>The validation of the configuration is still on-going. Approximately 80 % is done. This means that we will propably talk about this topic in the next release notes again. To align the configuration of components and platforms we needed to break some. Please refer to the Backward-incompatible changes section to check if you need to update your configuration or simple check your log for configuration validation errors. Thanks to <a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/Teagan42" rel="external nofollow">@Teagan42<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, and <a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for your effort!</p>
+<h3>All changes <a class="title-link" name="all-changes" href="#all-changes"></a>
+</h3>
+<p><img src="/images/supported_brands/xbox-live.png" style="clear: right; margin-left: 5px; border:none; box-shadow: none; float: right; margin-bottom: 16px;" width="100"><img src="https://brands.home-assistant.io/automatic/icon.png" style="clear: right; margin-left: 5px; border:none; box-shadow: none; float: right; margin-bottom: 16px;" width="100"><img src="/images/supported_brands/pi_hole.png" style="clear: right; margin-left: 5px; border:none; box-shadow: none; float: right; margin-bottom: 16px;" width="100"></p>
+<ul>
+<li>Light: Added bitfield to Flux LED since we are supporting effects (<a href="https://github.com/tchellomello" rel="external nofollow">@tchellomello<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device tracker: <a href="/integrations/owntracks">Owntracks</a> waypoint import (<a href="https://github.com/pavoni" rel="external nofollow">@pavoni<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Climate: A lot of bugfix (<a href="https://github.com/turbokongen" rel="external nofollow">@turbokongen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/djbanks" rel="external nofollow">@djbanks<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Notify: Improvement of the title handling (<a href="https://github.com/lwis" rel="external nofollow">@lwis<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>RFXtrx: Sensor cleanup (<a href="https://github.com/turbokongen" rel="external nofollow">@turbokongen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device tracker: Fix for BLE device tracker (<a href="https://github.com/open-homeautomation" rel="external nofollow">@open-homeautomation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device tracker: Allow ‘None’ MAC addresses to be loaded from <code>known_devices</code> file (<a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Cover: Bugfixes (<a href="https://github.com/turbokongen" rel="external nofollow">@turbokongen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/danielperna84" rel="external nofollow">@danielperna84<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: Support for displaying details about <a href="/integrations/coinmarketcap">crypto currencies</a> (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device tracker: Support for automatic to track your vehicles (<a href="https://github.com/Teagan42" rel="external nofollow">@Teagan42<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Devie tracker: Add exclude option to <a href="/integrations/nmap_tracker">Nmap</a> device tracker (<a href="https://github.com/danieljkemp" rel="external nofollow">@danieljkemp<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device tracker: Improved login errors for Asus device tracker (<a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: Support for displaying the status of <a href="/integrations/xbox_live">Xbox</a> Live accounts (<a href="https://github.com/mKerix" rel="external nofollow">@mKerix<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Notify: Adding <code>link_names</code> for sending Slack message (<a href="https://github.com/salt-lick" rel="external nofollow">@salt-lick<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Binary sensor: Add the occupancy sensor class (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fan: Add supoort for <a href="/integrations/fan.mqtt/">MQTT fans</a> (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Docs: Add Sphinx API doc generation (<a href="https://github.com/bbangert" rel="external nofollow">@bbangert<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Core: Allow reloading automation without restart (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: Added scale and offset to the <a href="/integrations/temper">Temper</a> sensor (<a href="https://github.com/mKerix" rel="external nofollow">@mKerix<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: New support for [Trend] sensor (<a href="https://github.com/pavoni" rel="external nofollow">@pavoni<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device tracker: Keep looking for new BLE devices (<a href="https://github.com/Bart274" rel="external nofollow">@Bart274<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Switch: Added device state attributes and support for legacy firmware for D-Link switches (<a href="https://github.com/LinuxChristian" rel="external nofollow">@LinuxChristian<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: Improve 1-Wire device family detection (<a href="https://github.com/Ardetus" rel="external nofollow">@Ardetus<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Modbus: Update to be thread safe (<a href="https://github.com/persandstrom" rel="external nofollow">@persandstrom<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Camera: FFMpeg is abale to get the images (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Core: Reload groups without restart (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Core: Fix remove listener (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: Support for monitoring your <a href="/integrations/linux_battery">battery</a> on a Linux host (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Core: Add support for complex template structures to <code>data_template</code> (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>
+<code>check_config</code>: Improve yaml fault tolerance and handle border cases (<a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Core: Add additional <a href="/topics/templating/">template</a> for custom date formats (<a href="https://github.com/lwis" rel="external nofollow">@lwis<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: Support for getting stats from Pi-Hole systems (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Modbus: New <code>write_registers</code> <a href="/integrations/modbus/">Modbus</a> service (<a href="https://github.com/persandstrom" rel="external nofollow">@persandstrom<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device tracker: Fix TP-Link Archer C7 long passwords (<a href="https://github.com/snikch" rel="external nofollow">@snikch<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+</ul>
+<h3>Hotfix 0.28.1 - September 12 <a class="title-link" name="hotfix-0281---september-12" href="#hotfix-0281---september-12"></a>
+</h3>
+<ul>
+<li>Fix: Simplisafe alarm control panels accept any string for code (<a href="https://github.com/tchellomello" rel="external nofollow">@tchellomello<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix: Z-Wave would sometimes not detect all thermostats (<a href="https://github.com/turbokongen" rel="external nofollow">@turbokongen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix: Automatic device tracker when 2 or more cars are tracked (<a href="https://github.com/Teagan42" rel="external nofollow">@teagan42<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix: Group ordering is now based on config again (<a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+</ul>
+<h3>Hotfix 0.28.2 - September 13 <a class="title-link" name="hotfix-0282---september-13" href="#hotfix-0282---september-13"></a>
+</h3>
+<ul>
+<li>Light - pilight: Fix send RF code (<a href="https://github.com/DavidLP" rel="external nofollow">@DavidLP<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Recorder: Fix specifying SQLite (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Wink: Fix garage door detection (<a href="https://github.com/turbokongen" rel="external nofollow">@turbokongen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Climate - Ecobee: Fix inverted high and low temperatures (<a href="https://github.com/turbokongen" rel="external nofollow">@turbokongen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Allow changing covers using scenes (<a href="https://github.com/nvella" rel="external nofollow">@nvella<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device tracker - Automatic: Fix polling (<a href="https://github.com/Teagan42" rel="external nofollow">@teagan42<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+</ul>
+<h3>Backward-incompatible changes <a class="title-link" name="backward-incompatible-changes" href="#backward-incompatible-changes"></a>
+</h3>
+<ul>
+<li>
+<a href="/integrations/openweathermap#sensor">OpenweatherMap</a> entity IDs are now like <code>sensor.owm_temperature</code>. Previously they were like <code>sensor.weather_temperature</code>. Apologies for this change, but we needed to make OpenWeatherMap more generic now that we have many weather platforms.</li>
+<li>Updates of configuration variables due to configuration check or alignment with other platforms. Please update your configuration entries according to the documentation:
+<ul>
+<li>
+<a href="/integrations/octoprint/">OctoPrint</a> component</li>
+<li>mFi platform (<a href="/integrations/mfi#switch">switch</a> and <a href="/integrations/mfi#sensor">sensor</a>)</li>
+<li>NX584 Alarm Control Panel</li>
+<li>Mediaplayer platforms <a href="/integrations/androidtv">FireTV</a>, <a href="/integrations/kodi">Kodi</a> and <a href="/integrations/mpd">MPD</a>
+</li>
+<li>
+<a href="/integrations/switch.command_line/">switch</a> and the <a href="/integrations/cover.command_line/">cover</a> <code>command_line</code> platforms</li>
+</ul>
+</li>
+<li>Custom components extending <code>BaseNotificationService</code> need to be aware that <code>kwargs.get(ATTR_TITLE)</code> will now return <code>None</code> if a title has not been set, and will need to specify <code>kwargs.get(ATTR_TITLE, ATTR_TITLE_DEFAULT)</code> if they always require a title.</li>
+</ul>
+<h3>If you need help… <a class="title-link" name="if-you-need-help" href="#if-you-need-help"></a>
+</h3>
+<p>…don’t hesitate to use our <a href="https://community.home-assistant.io/">Forum</a> or join us for a little <a href="https://discord.gg/c5DvZ4e" rel="external nofollow">chat<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+
+
+
+</article>
+
+<div id="post-comments"></div>
+
+
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  DiscourseEmbed = { discourseUrl: 'https://community.home-assistant.io/',
+                     discourseEmbedUrl: 'https://www.home-assistant.io/blog/2016/09/10/notify-group-reload-api-pihole/' };
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  
+    
+      <section class="sharing aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:ios-share' title='Ios share'></iconify-icon> Share this post</h1>
+  <ul class="divided">
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2016%2F09%2F10%2Fnotify-group-reload-api-pihole%2F&text=0.28%3A+Reload+automation+and+groups%2C+API+documentation%2C+car+tracking%2C+Pi-Hole+stats+via+%40home_assistant"
+      >Tweet</a>
+    </li>
+  
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2016%2F09%2F10%2Fnotify-group-reload-api-pihole%2F"
+      >Share on Facebook</a>
+    </li>
+  
+  </ul>
+</section>
+
+      
+
+<section class="recent-posts aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:newspaper-variant-multiple' title='Newspaper variant multiple'></iconify-icon> Recent Posts</h1>
+  <ul class="divided">
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/17/home-assistant-turns-12/">Happy 12th Birthday, Home Assistant!</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/11/ai-in-home-assistant/">Building the AI-powered local smart home</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/03/release-20259/">2025.9: Features for tiles and automations for miles</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/02/frient-joins-works-with-home-assistant/">Frient joins Works with Home Assistant</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/08/21/airgradient-joins-works-with-home-assistant/">AirGradient joins Works with Home Assistant</a>
+        </li>
+      
+    
+  </ul>
+</section>
+
+    
+  
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#reload-automation-rules">Reload automation rules</a></li>
+<li class="toc-entry toc-h3"><a href="#raspberry-pi-installation-guide">Raspberry Pi installation guide</a></li>
+<li class="toc-entry toc-h3"><a href="#climate-and--cover">Climate and  cover</a></li>
+<li class="toc-entry toc-h3"><a href="#api-documentation">API documentation</a></li>
+<li class="toc-entry toc-h3"><a href="#configuration-validation">Configuration validation</a></li>
+<li class="toc-entry toc-h3"><a href="#all-changes">All changes</a></li>
+<li class="toc-entry toc-h3"><a href="#hotfix-0281---september-12">Hotfix 0.28.1 - September 12</a></li>
+<li class="toc-entry toc-h3"><a href="#hotfix-0282---september-13">Hotfix 0.28.2 - September 13</a></li>
+<li class="toc-entry toc-h3"><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li class="toc-entry toc-h3"><a href="#if-you-need-help">If you need help…</a></li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

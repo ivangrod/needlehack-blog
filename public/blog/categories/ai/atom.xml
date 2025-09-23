@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: AI | Home Assistant]]></title>
+  <link href="https://ivangrod.github.io/blog/categories/ai/atom.xml" rel="self"/>
+  <link href="https://ivangrod.github.io/"/>
+  <updated>2025-09-23T17:02:13+00:00</updated>
+  <id>https://ivangrod.github.io/</id>
+  <author>
+    <name><![CDATA[Home Assistant]]></name>
+    
+  </author>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Building the AI-powered local smart home]]></title>
+    <link href="https://ivangrod.github.io/blog/2025/09/11/ai-in-home-assistant/"/>
+    <updated>2025-09-11T00:00:01+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2025/09/11/ai-in-home-assistant</id>
+    <content type="html"><![CDATA[<img src='/images/blog/2025-09-ai/art.webp' style='border: 0;box-shadow: none;' alt="Building the AI-powered local smart home">
+<p>Last year, we laid out <a href="/blog/2024/06/07/ai-agents-for-the-smart-home/">our vision for AI in the smart home</a>, which opened up experimentation with AI in Home Assistant. In that update, we made it easier to integrate all sorts of local and cloud AI tools, and provided ways to use them to control and automate your home. A year has passed, a lot has happened in the AI space, and our community has made sure that Home Assistant has stayed at the frontier.</p>
+<p>We beat big tech to the punch; we were the first to make AI useful in the home. We did it by giving our community complete control over how and when they use AI, making AI a powerful <em>tool</em> to use in the home. As opposed to something that takes over your home. Our community is taking advantage of AI’s unique abilities (for instance, its image recognition or summarizing skills), while having the ability to exclude it from mission-critical things they’d prefer it not to handle. Best of all, this can all be run locally, without any data leaving your home!</p>
+<p>Moreover, if users don’t want AI in their homes, that’s their choice, and they can choose not to enable any of these features. I hope to see big tech take an approach this measured, but judging by their last couple of keynotes, I’m not holding my breath.</p>
+<p>Over the past year, we’ve added many new AI features and made them easy to use directly through Home Assistant’s user interface. We have kept up with all the developments in AI land and are using the latest standard to integrate more models and tools than ever before. We’re also continuing to benchmark local and cloud models to give users an idea of what works best. Keep reading to check out everything new, and maybe you can teach your smart home some cool new tricks.</p>
+<p class="img">
+    <lite-youtube videoid="iZ-JdpxEx3o" videotitle="Multiple commands with Ollama"></lite-youtube>
+    Local AI is making the home very natural to control
+</p>
+<p>Big thanks to our AI community contributor team:<br>
+<a href="https://github.com/allenporter">@AllenPorter</a>, <a href="https://github.com/shulyaka">@shulyaka</a>, <a href="https://github.com/tronikos">@tronikos</a>, <a href="https://github.com/IvanLH">@IvanLH</a>, <a href="https://github.com/Joostlek">@Joostlek</a>!</p>
+<!--more-->
+<h2>Supercharging voice control with AI</h2>
+<p>We were doing voice assistants before AI was cool. In 2023, we kicked off our <a href="/blog/2022/12/20/year-of-voice/">Year of the Voice</a>. Since then, we’ve worked towards our goal of building all the parts needed for a local, open, and private voice assistant. When AI became the rage, we were quick to integrate it.</p>
+<p>Today, users can chat with any large language model (LLM) that is integrated into Home Assistant, whether that’s in the cloud or run locally via a service like <a href="/integrations/ollama/">Ollama</a>. Where <a href="/voice_control/">Assist</a>, our home-grown (non-AI) voice assistant agent, is focused on a predetermined list of mostly home control commands, AI allows you to ask more open-ended questions. Summarize what’s happening across the smart home sensors you’ve <a href="/voice_control/voice_remote_expose_devices/">exposed to Assist</a>, or get answers to trivia questions. You can even <a href="/voice_control/assist_create_open_ai_personality/">give your LLM a personality</a>!</p>
+<p>Users can also leverage the power of AI to speak the way <em>they speak</em>, as LLMs are much better at understanding the intent behind the words. By default, Assist will handle commands first. Only questions or commands it can’t understand will be sent to the AI you’ve set up. For instance, <em>“Turn on the kitchen light”</em> can be handled by Assist, while <em>“It’s dark in the kitchen, can you help?”</em> could be processed by an AI. This speeds up response times for simple commands and makes for a more sustainable voice assistant.</p>
+<p>Another powerful addition from the past year is context sharing between agents. So your Assist agent can share the most recent commands with your chosen AI agent. This shared context lets you say something like <em>“Add milk to my shopping list,”</em> which Assist will act on, and to add more items, just say <em>“Add rice.”</em> The AI agent understands that these commands are connected and can act accordingly.</p>
+<p class="img">
+    <lite-youtube videoid="mLtFUG4YG1A" videotitle="Current state of conversational AI - September 2025"></lite-youtube>
+    Here is an excellent walkthrough video of JLo's AI-powered home, showing many of these new features in action
+</p>
+<p>Another helpful addition keeps the conversation going; if the LLM asks you a question, your Assist hardware will listen for your reply. If you say something like “It’s dark”, it might ask whether you’d like to turn on some lights, and you could tell it to proceed. We have taken this even further than other voice assistants, as you can now have Home Assistant initiate conversations. For example, you could set up an automation that detects when the garage door is open and asks if you’d like to close it (though this can also be done without AI with a very clever <a href="https://my.home-assistant.io/redirect/blueprint_import?blueprint_url=https%3A%2F%2Fwww.home-assistant.io%2Fblueprints%2Fblog%2F2025-07%2Fask_yes_no_question.yaml">Blueprint</a>).</p>
+<p>AI pushed us to completely revamp our Text-to-Speech (TTS) system to take advantage of streaming responses from LLMs. While local AI models can be slow, we use a simple trick to make the delay almost unnoticeable. Now, both <a href="https://github.com/OHF-Voice/piper1-gpl">Piper</a> (our local TTS) and <a href="/cloud/">Home Assistant Cloud</a> TTS can begin generating audio as soon as the LLM produces the first few words, improving the speed of the spoken response by a factor of ten.</p>
+<p><strong>Prompt: “Tell me a long story about a frog”</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Setup</strong></th>
+<th><strong>Time to start speaking</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cloud, non-streaming</td>
+<td>6.62 sec</td>
+</tr>
+<tr>
+<td>Cloud, streaming</td>
+<td>0.51 sec (13x faster)</td>
+</tr>
+<tr>
+<td>Piper, non-streaming</td>
+<td>5.31 sec</td>
+</tr>
+<tr>
+<td>Piper, streaming</td>
+<td>0.56 sec (9.5x faster)</td>
+</tr>
+</tbody>
+</table>
+<p><em>Ollama gemma3:4b on an RTX 3090, and Piper on an i5</em></p>
+<h2>Great hardware to work with AI</h2>
+<p>People built some really cool voice hardware, from landline telephones to little talking robots, but the fact that it was so DIY was always a barrier to entry. To make our voice assistant available to everyone, we released the <a href="/blog/2024/12/19/voice-preview-edition-the-era-of-open-voice/">Home Assistant Voice Preview Edition</a>. This is an easy and affordable way to try Home Assistant Voice. It has some seriously powerful audio processing hardware inside its sleek package. If you were on the fence about trying out voice, it really is <a href="/voice-pe/">the best way to get started</a>.</p>
+<p class="img">
+    <img src="/needlehack-blog/images/blog/2025-09-ai/voice-pe.webp" style='border: 0;box-shadow: none;' alt="Home Assistant Voice Preview Edition">
+    Voice Preview Edition is not only open and powerful, but it looks and feels great too!
+</p>
+<p>It’s now easier than ever to set up your Assist hardware to work with LLMs with our <a href="https://my.home-assistant.io/redirect/voice_assistants/">Voice Assistants</a> settings page, and you can even assign a different LLM to each device. The LLM can recognize the room it’s in and the devices within it, making its responses more relevant. Assist was built to be a great way to control devices in your home, but with AI, it becomes so much more.</p>
+<h2>AI-powered suggestions</h2>
+<p><a href="/blog/2025/08/06/release-20258/">Last month</a>, Home Assistant launched a new opt-in feature to leverage the power of AI when automating with Home Assistant. The goal is to shorten the journey from a blank slate to your finished idea.</p>
+<p>When saving an automation or script, users can now leverage the new Suggest button: <img src="/needlehack-blog/images/blog/2025-09-ai/suggest.webp" style='border: 0;box-shadow: none;'> When clicked, it will send your automation configuration along with the titles of your existing automations and labels to AI to suggest a name, description, category, and labels for your new automation. Over the coming months, we’re going to explore what other features can benefit from AI suggestions.</p>
+<div class="contain nb">
+    <img src="/needlehack-blog/images/blog/2025-09-ai/suggest-button.webp" alt="A rename modal open with the new Suggest button top right">
+</div>
+<p>To opt-in to this feature, you need to take two steps. First, you need to configure an integration that provides an <a href="/integrations/?cat=ai"><em>AI Tasks</em> entity</a>. For local AI, you can configure Ollama, or you can also leverage cloud-based AI like Google, OpenAI, or Anthropic. Once configured, you need to go to the new <a href="https://my.home-assistant.io/redirect/config_ai_task/">AI Task preferences pane</a> under <strong><em>System -&gt; General</em></strong> and pick the AI Task entity to power suggestions in the UI. If you don’t configure an AI Tasks entity, the Suggest button will not be visible.</p>
+<div class="contain nb">
+    <img src="/needlehack-blog/images/blog/2025-09-ai/ai-suggestions.webp" alt="The AI Suggestions setting within Home Assistant">
+</div>
+<h2>AI Tasks gets the job done</h2>
+<p>Enabling <a href="/integrations/ai_task/">AI Tasks</a> does more than quickly label and summarize your automations; its true superpower is making AI easy to use in templates, scripts, and automations. AI Tasks allow other code to leverage AI to generate data, including options to attach files and define how you want that data output (for instance, a JSON schema).</p>
+<p>We have all seen those incredible community creations, where a user leverages AI image recognition and analysis to <a href="https://www.reddit.com/r/homeassistant/comments/1lytyv9/parking_spot_detection/">detect available parking spots</a> or <a href="https://houndhillhomestead.com/google-gemini-powered-goose-coop-door/">count the number of chickens in the chicken coop</a>. It’s likely that AI Tasks can now help you easily do this in Home Assistant, without the need for complex scripts, extra add-ons, or HACS integrations.</p>
+<p>Below is a template entity that counts chickens in a video feed, all via a short and simple set of instructions.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">template</span><span class="pi">:</span>
+<span class="na"> - triggers</span><span class="pi">:</span>
+<span class="na">     - trigger</span><span class="pi">:</span> <span class="s">homeassistant</span>
+<span class="na">       event</span><span class="pi">:</span> <span class="s">start</span>
+<span class="na">     - trigger</span><span class="pi">:</span> <span class="s">time_pattern</span>
+<span class="na">       minutes</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/5"</span>
+<span class="na">   actions</span><span class="pi">:</span>
+<span class="na">     - action</span><span class="pi">:</span> <span class="s">ai_task.generate_data</span>
+<span class="na">       data</span><span class="pi">:</span>
+<span class="na">         task_name</span><span class="pi">:</span> <span class="s">Count chickens</span>
+<span class="na">         instructions</span><span class="pi">:</span> <span class="pi">&gt;-</span>
+<span class="err"> </span><span class="s">          This is the inside of my coop. How many birds (chickens, geese, and</span>
+<span class="err"> </span><span class="s">          ducks) are inside the coop?</span>
+<span class="err"> </span><span class="s">        structure:</span>
+<span class="err"> </span><span class="s">          birds:</span>
+<span class="err"> </span><span class="s">            selector:</span>
+<span class="err"> </span><span class="s">              number:</span>
+<span class="err"> </span><span class="s">        attachments:</span>
+<span class="err"> </span><span class="s">          media_content_id: media-source://camera/camera.chicken_coop</span>
+<span class="err"> </span><span class="s">          media_content_type: image/jpeg</span>
+<span class="err"> </span><span class="s">      response_variable: result</span>
+<span class="err"> </span><span class="s">  sensor:</span>
+<span class="err"> </span><span class="s">    - name: "Chickens"</span>
+<span class="err"> </span><span class="s">      state: "{{ result.data.birds }}"</span>
+<span class="err"> </span><span class="s">      state_class: total</span>
+</code></pre></div></div>
+<p>This template sends a snapshot of the camera to the AI, asking it to analyze what is going on. It defines that the output should always be a number, since we want to use that information in Home Assistant. All of this is embedded in a template entity that automatically updates every 5 minutes. An AI Task could also be embedded in an automation, a script, or any other place that can execute actions.</p>
+<div class="contain">
+    <img src="/needlehack-blog/images/blog/2025-09-ai/activity.webp" alt="Activity view in Home Assistant of the doorbell image analyzed by AI Tasks">
+    An automation triggers an AI Task to identify what caused motion on a camera.
+</div>
+<p>Lastly, users can set a default AI Task entity. This allows users to skip picking an entity ID when creating AI automations. It also lets you migrate everything that uses AI Tasks to the latest model with a single click. This also makes it easy to share blueprints that leverage AI Tasks, like this blueprint that analyzes a camera snapshot when motion is detected:</p>
+<p><a href='https://my.home-assistant.io/redirect/blueprint_import?blueprint_url=https%3A%2F%2Fcommunity.home-assistant.io%2Ft%2Fai-camera-analysis%2F911634' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/blueprint_import.svg' /></a></p>
+<h2>MCP opens a whole new world</h2>
+<p><a href="/integrations/mcp/">Model Context Protocol</a> (MCP) is a thin layer allowing LLMs to integrate <em>anything</em>. When the specification was announced, we quickly jumped on it and integrated it into Home Assistant. Effectively, these servers give Home Assistant’s Assist conversation agent access to all sorts of new tools. You could connect MCP servers that give Assist access to the latest news stories, your to-do lists, or a server that catalogues your vinyl collection, allowing you to have richer conversations (<em>“Okay Nabu, which Replacements albums do I have, and which aren’t on my Vinyl-to-Purchase list?”</em>).</p>
+<p>On the flip side, you can also <a href="/integrations/mcp_server/">turn Home Assistant into an MCP server</a>, allowing an AI system to access information about your home. For instance, you could create a local AI that’s great at making Home Assistant automations, and it could include all your entity names or available actions. MCP keeps gaining more support, and there are some great cloud and self-hosted solutions available.</p>
+<h2>How to pick a model</h2>
+<p>There are a lot of models available, it’s hard to know where to start. Luckily, Home Assistant’s resident AI guru <a href="https://github.com/allenporter">@AllenPorter</a> is here to help. He has put together an incredibly useful <a href="https://github.com/allenporter/home-assistant-datasets/tree/main/reports">Home LLM Leaderboard</a>. This dataset includes his extensive tests of cloud and local LLM options, and even has tests that give small local LLMs a fighting chance (see <a href="https://github.com/allenporter/home-assistant-datasets/tree/main/reports#assist-mini">assist-mini</a>).</p>
+<p>Currently, the charts show the big cloud players’ most recent models ranking pretty close to each other, while recent local models that use 8GB or more of VRAM are nearly keeping up. In the past, there was a big disparity between most models, but now it’s hard to go wrong.</p>
+<p>This is especially helpful as the options for LLMs in Home Assistant have just grown exponentially with the addition of <a href="/integrations/open_router">OpenRouter</a>, a unified interface for LLMs. With OpenRouter, users can access over 400 new models in Home Assistant, and it supports AI Tasks right from day one. We really are spoiled for choice.</p>
+<h2>The future is Open, and Open Source</h2>
+<p>Home Assistant is open. We believe that you should be in control of your data, and your smart home. All of it. Local LLMs and the way we have architected Home Assistant extends this choice to the AI space, all while maintaining your privacy.</p>
+<p>Most crucially, we’ve made all of this open source. We are community-driven and work on this together with our community. The Open Home Foundation has no investors and is not beholden to anyone but our users. Our work is funded through hardware purchases and <a href="/cloud/">Home Assistant Cloud</a> subscriptions, allowing us to make all the technology we build free and open.</p>
+]]></content>
+  </entry>
+  
+</feed>

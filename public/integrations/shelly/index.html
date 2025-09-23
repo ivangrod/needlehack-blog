@@ -1,0 +1,1180 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Shelly - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Integrate Shelly devices">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/shelly/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Shelly">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/shelly/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Integrate Shelly devices">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Shelly">
+    <meta name="twitter:description" content="Integrate Shelly devices">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#shelly-device-generations">Shelly device generations</a></li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#shelly-device-configuration-generation-1">Shelly device configuration (generation 1)</a></li>
+<li class="toc-entry toc-h3"><a href="#shelly-device-configuration-generation-2">Shelly device configuration (generation 2+)</a></li>
+<li class="toc-entry toc-h3"><a href="#shelly-entities-that-poll-data-from-the-device-generation-1">Shelly entities that poll data from the device (generation 1)</a></li>
+<li class="toc-entry toc-h3"><a href="#shelly-entities-that-poll-data-from-the-device-generation-2">Shelly entities that poll data from the device (generation 2+)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#bluetooth-support">Bluetooth Support</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a></li>
+<li class="toc-entry toc-h2"><a href="#range-extender-support">Range Extender Support</a></li>
+<li class="toc-entry toc-h2"><a href="#entity-naming-generation-1">Entity naming (generation 1)</a></li>
+<li class="toc-entry toc-h2"><a href="#entity-naming-generation-2">Entity naming (generation 2+)</a></li>
+<li class="toc-entry toc-h2"><a href="#cover-entities">Cover entities</a></li>
+<li class="toc-entry toc-h2"><a href="#binary-input-sensors">Binary input sensors</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#binary-input-sensors-generation-1">Binary input sensors (generation 1)</a></li>
+<li class="toc-entry toc-h3"><a href="#binary-input-sensors-generation-2">Binary input sensors (generation 2+)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#event-entities">Event entities</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#event-entities-generation-1">Event entities (generation 1)</a></li>
+<li class="toc-entry toc-h3"><a href="#event-entities-generation-2">Event entities (generation 2+)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#listening-for-events">Listening for events</a></li>
+<li class="toc-entry toc-h3"><a href="#automations">Automations</a></li>
+<li class="toc-entry toc-h3"><a href="#possible-values-for-click_type">Possible values for click_type</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#appliance-type-generation-1">Appliance type (generation 1)</a></li>
+<li class="toc-entry toc-h2"><a href="#consumption-type-generation-2">Consumption type (generation 2+)</a></li>
+<li class="toc-entry toc-h2"><a href="#light-transition">Light transition</a></li>
+<li class="toc-entry toc-h2"><a href="#device-actions">Device actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ota-firmware-update">OTA firmware update</a></li>
+<li class="toc-entry toc-h3"><a href="#reboot">Reboot</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#shelly-thermostatic-radiator-valve-trv">Shelly Thermostatic Radiator Valve (TRV)</a></li>
+<li class="toc-entry toc-h2"><a href="#shelly-gas-with-valve-add-on">Shelly Gas with Valve add-on</a></li>
+<li class="toc-entry toc-h2"><a href="#coap-port-generation-1">CoAP port (generation 1)</a></li>
+<li class="toc-entry toc-h2"><a href="#virtual-components">Virtual components</a></li>
+<li class="toc-entry toc-h2"><a href="#scripts-generation-2">Scripts (generation 2+)</a></li>
+<li class="toc-entry toc-h2"><a href="#additional-info">Additional info</a></li>
+<li class="toc-entry toc-h2"><a href="#known-issues-and-limitations">Known issues and limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Shelly
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>Integrate <a href="https://shelly.com" rel="external nofollow">Shelly devices<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> into Home Assistant.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Shelly</strong> device to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=shelly" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>Shelly can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=shelly" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Shelly</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Host</span><a name="host" class="title-link" href="#host"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The Hostname or IP address of your Shelly device. You can find it in your router.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Port</span><a name="port" class="title-link" href="#port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Custom TCP port of the device. Change this only if the device is connected via Shelly Range Extender.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Shelly device generations <a class="title-link" name="shelly-device-generations" href="#shelly-device-generations"></a>
+</h2>
+<p>There are four generations of devices and all generations are supported by this integration. There are some differences in how devices should be configured and in the naming of entities and devices between generations.</p>
+<p>Shelly BLU series devices (e.g. Shelly BLU H&amp;T) are not supported; please use BTHome integration to configure such devices with Home Assistant. The exception to this is Shelly BLU TRV, which is supported by this integration via Shelly BLU Gateway Gen3.</p>
+<h2>Data updates <a class="title-link" name="data-updates" href="#data-updates"></a>
+</h2>
+<p>Shelly devices push updates to Home Assistant upon changes for all main functions of the device. For push updates to work correctly, some devices need additional configuration:</p>
+<h3>Shelly device configuration (generation 1) <a class="title-link" name="shelly-device-configuration-generation-1" href="#shelly-device-configuration-generation-1"></a>
+</h3>
+<p>Generation 1 devices use the <code>CoIoT</code> protocol to communicate with the integration. <code>CoIoT</code> must be enabled in the device settings. Navigate to the local IP address of your Shelly device, <strong>Internet &amp; Security</strong> &gt; <strong>ADVANCED - DEVELOPER SETTINGS</strong> and check the box <strong>Enable CoIoT</strong>.</p>
+<p>We recommend using <code>unicast</code> for communication. To enable this, enter the local IP address of the Home Assistant server and port <code>5683</code> into the <strong>CoIoT peer</strong> field and push <strong>SAVE</strong> button. <strong>This is mandatory for battery operated devices</strong> (even if USB connected). After changing the <strong>CoIoT peer</strong>, the Shelly device needs to be manually restarted.</p>
+<p>Home Assistant will display a repair issue for the Shelly device if push updates from this device do not reach the Home Assistant server.</p>
+<p>The list below will help you diagnose and fix the problem:</p>
+<ul>
+<li>Check if your Shelly devices have a properly configured <code>CoIoT peer</code>.</li>
+<li>If you can’t find the <code>CoIoT peer</code> settings in the device’s web panel, it’s probably using an ancient firmware version, and you should update it to the current one.</li>
+<li>If Shelly devices are in a different subnet than the Home Assistant server, you should ensure communication on <code>UDP</code> port <code>5683</code> between these subnets.</li>
+<li>If Home Assistant is running as a virtual machine or service on an operating system other than Home Assistant OS, you should open <code>UDP</code> port <code>5683</code> on the device’s firewall and/or ensure that communication from this port is redirected to the Home Assistant service.</li>
+<li>The missing push updates may be related to the WiFi network range. If using a WiFi network with several access points, enable <strong>Internet &amp; Security</strong> &gt;&gt; <strong>WiFi Client AP Roaming</strong> option. Consider moving Shelly device closer to the WiFi access point. Consider adding another WiFi access point, which will improve the connection quality with the device.</li>
+<li>If you think your Shelly devices are working correctly and don’t want to change your network/configuration, you can ignore the repair issue. Still, you must know you are giving up the best experience of using first-generation Shelly devices with Home Assistant.</li>
+</ul>
+<h3>Shelly device configuration (generation 2+) <a class="title-link" name="shelly-device-configuration-generation-2" href="#shelly-device-configuration-generation-2"></a>
+</h3>
+<p>Generation 2+ devices use the <code>RPC</code> protocol to communicate with the integration. <strong>Battery-operated devices</strong> (even if USB connected) may need manual outbound WebSocket configuration if Home Assistant cannot correctly determine your instance’s internal URL or the outbound WebSocket was previously configured for a different Home Assistant instance. In this case, navigate to the local IP address of your Shelly device, <strong>Settings</strong> &gt;&gt; <strong>Connectivity</strong> &gt;&gt; <strong>Outbound WebSocket</strong> and check the box <strong>Enable Outbound WebSocket</strong>, under server enter the following address:</p>
+<p><code>ws://</code> + <code>Home_Assistant_local_ip_address:Port</code> + <code>/api/shelly/ws</code> (for example: <code>ws://192.168.1.100:8123/api/shelly/ws</code>), click <strong>Apply</strong> to save the settings.
+In case your installation is set up to use SSL encryption (HTTP<strong>S</strong> with certificate), an additional <code>s</code> needs to be added to the WebSocket protocol, too, so that it reads <code>wss://</code> (for example: <code>wss://192.168.1.100:8123/api/shelly/ws</code>).</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Integration is communicating directly with the device; cloud connection is not needed.</p>
+  </div>
+</div>
+<h3>Shelly entities that poll data from the device (generation 1) <a class="title-link" name="shelly-entities-that-poll-data-from-the-device-generation-1" href="#shelly-entities-that-poll-data-from-the-device-generation-1"></a>
+</h3>
+<p>The following disabled by default entities <span class="terminology">poll<span class="terminology-tooltip">Data polling is the process of querying a device or service at regular intervals to check for updates or retrieve data. By defining a custom polling interval, you can control how frequently your system checks for new data, which can help optimize performance and reduce unnecessary network traffic.<a class="terminology-link" href="/common-tasks/general/#defining-a-custom-polling-interval"> [Learn more]</a></span></span> data from the device every 60 seconds:</p>
+<ul>
+<li>Cloud connected sensor</li>
+<li>RSSI sensor</li>
+<li>Uptime sensor</li>
+<li>Firmware update</li>
+</ul>
+<h3>Shelly entities that poll data from the device (generation 2+) <a class="title-link" name="shelly-entities-that-poll-data-from-the-device-generation-2" href="#shelly-entities-that-poll-data-from-the-device-generation-2"></a>
+</h3>
+<p>The following disabled by default entities <span class="terminology">poll<span class="terminology-tooltip">Data polling is the process of querying a device or service at regular intervals to check for updates or retrieve data. By defining a custom polling interval, you can control how frequently your system checks for new data, which can help optimize performance and reduce unnecessary network traffic.<a class="terminology-link" href="/common-tasks/general/#defining-a-custom-polling-interval"> [Learn more]</a></span></span> data from the device every 60 seconds:</p>
+<ul>
+<li>Device temperature sensor</li>
+<li>RSSI sensor</li>
+<li>Uptime sensor</li>
+</ul>
+<h2>Bluetooth Support <a class="title-link" name="bluetooth-support" href="#bluetooth-support"></a>
+</h2>
+<p>Shelly Gen 2 and newer devices (excluding battery-powered models) can act as Bluetooth proxies, forwarding advertisement data. You can enable either active or passive listening through the device’s options flow.</p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>Shelly devices do <strong>not</strong> support proxying active (GATT) connections.</p>
+  </div>
+</div>
+<p>For more details, see <a href="/integrations/bluetooth/#remote-adapters-bluetooth-proxies">Remote Adapters</a> in the <a href="/integrations/bluetooth">Bluetooth integration</a>.</p>
+<h2>Options <a class="title-link" name="options" href="#options"></a>
+</h2>
+<p>Options for Shelly can be set via the user interface, by taking the following steps:</p>
+<ul>
+<li>Browse to your Home Assistant instance.</li>
+<li>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; Services</a></strong>.</li>
+<li>If multiple instances of Shelly are configured, choose the instance you want to configure.</li>
+<li>Select the integration, then select <strong>Configure</strong>.</li>
+</ul>
+<h2>Range Extender Support <a class="title-link" name="range-extender-support" href="#range-extender-support"></a>
+</h2>
+<p>Shelly generation 2+ devices that are not battery-powered can act as a Range Extender.
+Devices of the same generations can be configured via those Range Extenders specifying a custom TCP port during the configuration flow.
+Currently, only static IP or DHCP reserved IP are supported for the main device.</p>
+<h2>Entity naming (generation 1) <a class="title-link" name="entity-naming-generation-1" href="#entity-naming-generation-1"></a>
+</h2>
+<p>The integration uses the following strategy to name its devices and entities if the device has only one relay (channel) or no relays at all:</p>
+<ul>
+<li>If a <code>Device Name</code> is set in the device, the integration will use it to generate the device name and entity names.</li>
+<li>If a <code>Device Name</code> is not set, the integration will use the <code>Device ID</code> to generate the device name and entity names.</li>
+</ul>
+<p>The integration creates a sub-device for every relay and uses the following strategy to name its entities if the device has more than one relay:</p>
+<ul>
+<li>If a <code>Device Name</code> is set in the device, the integration will use it to generate the main device name and entity names assigned to the main device.</li>
+<li>If a <code>Device Name</code> is not set, the integration will use the <code>Device ID</code> to generate the main device name and entity names assigned to the main device.</li>
+<li>If a <code>Channel Name</code> is set in the device, the integration will use it to generate the sub-device name and entity names assigned to this sub-device (channel/relay).</li>
+<li>If a <code>Channel Name</code> is not set in the device, the integration will use the device name and channel/relay number to generate the sub-device name and entity names assigned to this sub-device (channel/relay).</li>
+</ul>
+<p>Examples:</p>
+<table>
+<thead>
+<tr>
+<th>Device Name</th>
+<th>Channel Name</th>
+<th>Main Device Name</th>
+<th>Sub-device Name</th>
+<th>Entity Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Not set</code></td>
+<td><code>Not Set</code></td>
+<td>shellyswitch25-ABC123</td>
+<td>shellyswitch25-ABC123 Channel 1</td>
+<td>shellyswitch25-ABC123 Channel 1</td>
+</tr>
+<tr>
+<td><code>Not set</code></td>
+<td>Kids Room Bulb</td>
+<td>shellyswitch25-ABC123</td>
+<td>Kids Room Bulb</td>
+<td>Kids Room Bulb</td>
+</tr>
+<tr>
+<td>Kitchen</td>
+<td><code>Not Set</code></td>
+<td>Kitchen</td>
+<td>Kitchen Channel 1</td>
+<td>Kitchen Channel 1</td>
+</tr>
+<tr>
+<td>Bedroom</td>
+<td>Round Bulb</td>
+<td>Bedroom</td>
+<td>Round Bulb</td>
+<td>Round Bulb</td>
+</tr>
+</tbody>
+</table>
+<p>Names are set from the device web page:</p>
+<ul>
+<li>Device name can be set in <strong>Settings</strong> &gt;&gt; <strong>DEVICE NAME</strong>
+</li>
+<li>Channel name for single-channel devices can be set in <strong>Settings</strong> &gt;&gt; <strong>CHANNEL NAME</strong>
+</li>
+<li>Channel name for multi-channel devices can be set in <strong>Settings</strong> &gt;&gt; <strong>CHANNEL NAME</strong> after selecting the channel, by clicking on the channel name.</li>
+</ul>
+<h2>Entity naming (generation 2+) <a class="title-link" name="entity-naming-generation-2" href="#entity-naming-generation-2"></a>
+</h2>
+<p>The integration uses the following strategy to name its devices and entities if the device has only one relay (channel) or no relays at all:</p>
+<ul>
+<li>If a <code>Device Name</code> is set in the device, the integration will use it to generate the device name and entity names.</li>
+<li>If a <code>Device Name</code> is not set, the integration will use the <code>Device ID</code> to generate the device name and entity names.</li>
+<li>If a <code>Channel Name</code> is set in the device, the integration will add it as a suffix to the entity names.</li>
+</ul>
+<p>Examples:</p>
+<table>
+<thead>
+<tr>
+<th>Device Name</th>
+<th>Channel Name</th>
+<th>Integration Device Name</th>
+<th>Entity Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Not set</code></td>
+<td><code>Not Set</code></td>
+<td>shelly1gen3-aabbccddeeff</td>
+<td>shelly1gen3-aabbccddeeff</td>
+</tr>
+<tr>
+<td><code>Not set</code></td>
+<td>Kids Room Bulb</td>
+<td>shelly1gen3-aabbccddeeff</td>
+<td>shelly1gen3-aabbccddeeff Kids Room Bulb</td>
+</tr>
+<tr>
+<td>Kitchen</td>
+<td><code>Not Set</code></td>
+<td>Kitchen</td>
+<td>Kitchen</td>
+</tr>
+<tr>
+<td>Bedroom</td>
+<td>Round Bulb</td>
+<td>Bedroom</td>
+<td>Bedroom Round Bulb</td>
+</tr>
+</tbody>
+</table>
+<p>The integration creates a sub-device for every relay (channel) and uses the following strategy to name its devices and entities if the device has more than one relay:</p>
+<ul>
+<li>If a <code>Device Name</code> is set in the device, the integration will use it to generate the main device name and entity names assigned to the main device.</li>
+<li>If a <code>Device Name</code> is not set, the integration will use the <code>Device ID</code> to generate the main device name and entity names assigned to the main device.</li>
+<li>If a <code>Channel Name</code> is set in the device, the integration will use it to generate the sub-device name and entity names assigned to this sub-device (channel/relay).</li>
+<li>If a <code>Channel Name</code> is set to the default value in the device, the integration will use the device name and this ddefault channel name to generate the sub-device name and entity names assigned to this sub-device (channel/relay).</li>
+</ul>
+<p>Examples:</p>
+<table>
+<thead>
+<tr>
+<th>Device Name</th>
+<th>Channel Name</th>
+<th>Main Device Name</th>
+<th>Sub-device Name</th>
+<th>Entity Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Not set</code></td>
+<td><code>Not Set</code></td>
+<td>shelly2pmgen3-aabbccddeeff</td>
+<td>shelly2pmgen3-aabbccddeeff Switch 1</td>
+<td>shelly2pmgen3-aabbccddeeff Switch 1</td>
+</tr>
+<tr>
+<td><code>Not set</code></td>
+<td>Kids Room Bulb</td>
+<td>shelly2pmgen3-aabbccddeeff</td>
+<td>Kids Room Bulb</td>
+<td>Kids Room Bulb</td>
+</tr>
+<tr>
+<td>Kitchen</td>
+<td><code>Not Set</code></td>
+<td>Kitchen</td>
+<td>Kitchen Switch 1</td>
+<td>Kitchen Switch 1</td>
+</tr>
+<tr>
+<td>Bedroom</td>
+<td>Round Bulb</td>
+<td>Bedroom</td>
+<td>Round Bulb</td>
+<td>Round Bulb</td>
+</tr>
+</tbody>
+</table>
+<h2>Cover entities <a class="title-link" name="cover-entities" href="#cover-entities"></a>
+</h2>
+<p>Shelly 2PM Gen3 supports <code>tilt</code> for <code>cover</code> entities. To enable this feature, you need to configure the device:</p>
+<ul>
+<li>Change the device profile to <code>Cover</code> (<strong>Settings</strong> &gt; <strong>Device profile</strong>)</li>
+<li>Calibrate the cover (<strong>Home</strong> &gt; <strong>Cover</strong> &gt; <strong>Calibration</strong> &gt; <strong>Start</strong>)</li>
+<li>Enable and configure <strong>Slat control</strong> (<strong>Home</strong> &gt; <strong>Cover</strong> &gt; <strong>Slat control</strong>)</li>
+</ul>
+<h2>Binary input sensors <a class="title-link" name="binary-input-sensors" href="#binary-input-sensors"></a>
+</h2>
+<h3>Binary input sensors (generation 1) <a class="title-link" name="binary-input-sensors-generation-1" href="#binary-input-sensors-generation-1"></a>
+</h3>
+<p>Depending on how a device’s button type is configured, the integration will create binary sensors corresponding to those inputs. binary sensors are not created when the button type is <code>momentary</code> or <code>momentary_on_release</code>, for these types you need to use events for your automations.</p>
+<h3>Binary input sensors (generation 2+) <a class="title-link" name="binary-input-sensors-generation-2" href="#binary-input-sensors-generation-2"></a>
+</h3>
+<p>For generation 2+ hardware, it’s possible to select if a device’s input is connected to a button or a switch. Binary sensors are created only if the <strong>Input Mode</strong> is set to <code>Switch</code>. When the <strong>Input Mode</strong> is set to <code>Button</code> you need to use events for your automations.</p>
+<h2>Event entities <a class="title-link" name="event-entities" href="#event-entities"></a>
+</h2>
+<h3>Event entities (generation 1) <a class="title-link" name="event-entities-generation-1" href="#event-entities-generation-1"></a>
+</h3>
+<p>If the <strong>BUTTON TYPE</strong> of the switch connected to the device is set to <code>Momentary</code> or <code>Detached Switch</code>, the integration creates an event entity for this switch. You can use this entity in your automations.</p>
+<h3>Event entities (generation 2+) <a class="title-link" name="event-entities-generation-2" href="#event-entities-generation-2"></a>
+</h3>
+<p>If the <strong>Input Mode</strong> of the switch connected to the device is set to <code>Button</code>, the integration creates an event entity for this switch. You can use this entity in your automations.</p>
+<p>Each script which generates events using <a href="https://shelly-api-docs.shelly.cloud/gen2/Scripts/ShellyScriptLanguageFeatures#shellyemitevent" rel="external nofollow">Shelly.emitEvent()<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> also gets an corresponding event entity. This entity is disabled by default. After changing a script, it’s required to manually reload the device before new event types show up.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>To avoid increased startup time, only the first 5 KB of the script is downloaded and analyzed. If your script exceeds 5 KB, place the event emitting function at the beginning to ensure it is processed.</p>
+  </div>
+</div>
+<p>For example, the following script will emit an event every time an input (button or switch) on the device is changed.</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="javascript"><span class="c1">// Example shelly script</span>
+<span class="kd">function</span> <span class="nf">eventHandler</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">userdata</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span>
+    <span class="k">typeof</span> <span class="nx">event</span><span class="p">.</span><span class="nx">component</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span> <span class="o">&amp;&amp;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">component</span><span class="p">.</span><span class="nf">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">input</span><span class="dl">"</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="nc">Number</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">component</span><span class="p">.</span><span class="nf">substring</span><span class="p">(</span><span class="mi">6</span><span class="p">));</span>
+    <span class="nx">Shelly</span><span class="p">.</span><span class="nf">emitEvent</span><span class="p">(</span><span class="dl">"</span><span class="s2">input_event</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="nx">id</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">Shelly</span><span class="p">.</span><span class="nf">addEventHandler</span><span class="p">(</span><span class="nx">eventHandler</span><span class="p">);</span>
+</code></pre></div></div>
+<h2>Events <a class="title-link" name="events" href="#events"></a>
+</h2>
+<p>The integration fires events under the type <code>shelly.click</code> when the switch is used if:</p>
+<ul>
+<li>The <strong>BUTTON TYPE</strong> of the switch connected to the device is set to <code>Momentary</code> or <code>Detached Switch</code> – for generation 1 devices.</li>
+<li>The <strong>Input Mode</strong> of the switch connected to the device is set to <code>Button</code> – for generation 2+ devices.</li>
+</ul>
+<p>You can use these events in your automations.</p>
+<p>Also, some devices do not add an entity for the button/switch. For example, the Shelly Button1 has only one entity for the battery level. It does not have an entity for the button itself. To trigger automations based on button presses, use the <code>shelly.click</code> event.</p>
+<h3>Listening for events <a class="title-link" name="listening-for-events" href="#listening-for-events"></a>
+</h3>
+<p>You can subscribe to the <code>shelly.click</code> event type in <a href="/docs/tools/dev-tools/">Developer Tools/Events</a> in order to examine the event data JSON for the correct parameters to use in your automations. For example, <code>shelly.click</code> returns event data JSON similar to the following when you press the Shelly Button1.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="err">Event</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">fired</span><span class="w"> </span><span class="mi">9</span><span class="err">:</span><span class="mi">53</span><span class="w"> </span><span class="err">AM:</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shelly.click"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e09c64a22553484d804353ef97f6fcd6"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"device"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shellybutton1-A4C12A45174"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"click_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"generation"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"origin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LOCAL"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"time_fired"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-04-28T08:53:12.755729+00:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e0f379706563aaa0c2c1fda5174b5a0e"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"parent_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p>The <code>generation</code> value indicates the generation of the device that is the source of the event.</p>
+<h3>Automations <a class="title-link" name="automations" href="#automations"></a>
+</h3>
+<p>The simplest way to create automations is to use the Home Assistant automation editor. For example, to set an automation triggered by a double press of a particular Shelly Button1:</p>
+<ol>
+<li>In the Triggers section of the automation, set Trigger Type to <code>Device</code>.</li>
+<li>In the Device dropdown menu. find the Shelly Button1.</li>
+<li>In the Trigger dropdown menu, select <code>Button double clicked</code>.</li>
+<li>Set any conditions and actions to complete your automation.</li>
+</ol>
+<p>You can also create automations using YAML, for example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Toggle</span><span class="nv"> </span><span class="s">living</span><span class="nv"> </span><span class="s">room</span><span class="nv"> </span><span class="s">light"</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">shelly.click</span>
+      <span class="na">event_data</span><span class="pi">:</span>
+        <span class="na">device</span><span class="pi">:</span> <span class="s">shellyswitch25-AABBCC</span>
+        <span class="na">channel</span><span class="pi">:</span> <span class="m">1</span>
+        <span class="na">click_type</span><span class="pi">:</span> <span class="s">single</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">light.toggle</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">light.living_room</span>
+
+<span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Toggle</span><span class="nv"> </span><span class="s">living</span><span class="nv"> </span><span class="s">room</span><span class="nv"> </span><span class="s">lamp"</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">shelly.click</span>
+      <span class="na">event_data</span><span class="pi">:</span>
+        <span class="na">device</span><span class="pi">:</span> <span class="s">shellyswitch25-AABBCC</span>
+        <span class="na">channel</span><span class="pi">:</span> <span class="m">2</span>
+        <span class="na">click_type</span><span class="pi">:</span> <span class="s">long</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">light.toggle</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">light.lamp_living_room</span>
+</code></pre></div></div>
+<h3>Possible values for click_type <a class="title-link" name="possible-values-for-click_type" href="#possible-values-for-click_type"></a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Shelly input event</th>
+<th>Click Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>S</code></td>
+<td><code>single</code></td>
+</tr>
+<tr>
+<td><code>SS</code></td>
+<td><code>double</code></td>
+</tr>
+<tr>
+<td><code>SSS</code></td>
+<td><code>triple</code></td>
+</tr>
+<tr>
+<td><code>L</code></td>
+<td><code>long</code></td>
+</tr>
+<tr>
+<td><code>SL</code></td>
+<td><code>single_long</code></td>
+</tr>
+<tr>
+<td><code>LS</code></td>
+<td><code>long_single</code></td>
+</tr>
+</tbody>
+</table>
+<p>Generation 2 and 3 devices use the values <code>btn_down</code>, <code>btn_up</code>, <code>single_push</code>, <code>double_push</code>, <code>triple_push</code> and <code>long_push</code> as <code>click_type</code>.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Not all devices support all input events. You can check on <a href="https://shelly-api-docs.shelly.cloud/" rel="external nofollow">Shelly API Reference<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> website what types of Shelly input events your device supports.</p>
+  </div>
+</div>
+<h2>Appliance type (generation 1) <a class="title-link" name="appliance-type-generation-1" href="#appliance-type-generation-1"></a>
+</h2>
+<p>Shelly device relays are added to Home Assistant by default as <code>switch</code> entities. A relay can be added as a <code>light</code> entity if <strong>Settings</strong> &gt;&gt; <strong>APPLIANCE TYPE</strong> value in the WebUI of the device is set to <code>light</code>.</p>
+<h2>Consumption type (generation 2+) <a class="title-link" name="consumption-type-generation-2" href="#consumption-type-generation-2"></a>
+</h2>
+<p>Shelly device relays are added to Home Assistant by default as <code>switch</code> entities. A relay can be added as a <code>light</code> entity if <strong>EXTERNAL CONSUMPTION TYPE</strong> value in the WebUI of the device is set to <code>light</code>.</p>
+<h2>Light transition <a class="title-link" name="light-transition" href="#light-transition"></a>
+</h2>
+<p>Shelly lights supporting light transition:</p>
+<ul>
+<li>Shelly Bulb RGBW</li>
+<li>Shelly DUO</li>
+<li>Shelly Dimmer</li>
+<li>Shelly Dimmer 2</li>
+<li>Shelly RGBW2</li>
+<li>Shelly Vintage</li>
+</ul>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The firmware limits the transition time to 5 seconds.</p>
+  </div>
+</div>
+<h2>Device actions <a class="title-link" name="device-actions" href="#device-actions"></a>
+</h2>
+<p>The integration offers device actions which can be triggered by a configuration button.</p>
+<h3>OTA firmware update <a class="title-link" name="ota-firmware-update" href="#ota-firmware-update"></a>
+</h3>
+<p>Trigger device OTA firmware update.</p>
+<h4>Update entities <a class="title-link" name="update-entities" href="#update-entities"></a>
+</h4>
+<ul>
+<li>Firmware update
+<ul>
+<li>triggers the OTA firmware update process to the latest stable version</li>
+</ul>
+</li>
+<li>Beta firmware update (<em>disabled by default</em>)
+<ul>
+<li>triggers the OTA firmware update process to the latest beta version</li>
+</ul>
+</li>
+</ul>
+<h3>Reboot <a class="title-link" name="reboot" href="#reboot"></a>
+</h3>
+<p>Trigger reboot of device.</p>
+<h4>Buttons <a class="title-link" name="buttons" href="#buttons"></a>
+</h4>
+<ul>
+<li>Reboot
+<ul>
+<li>triggers the reboot</li>
+</ul>
+</li>
+</ul>
+<h2>Shelly Thermostatic Radiator Valve (TRV) <a class="title-link" name="shelly-thermostatic-radiator-valve-trv" href="#shelly-thermostatic-radiator-valve-trv"></a>
+</h2>
+<p>Shelly TRV generates 2 entities that can be used to control the device behavior: <code>climate</code> and <code>number</code>.
+The first will allow specifying a temperature, the second instead of a percentage of the valve position.</p>
+<p><strong>Note</strong>: that if you change the valve position then automatic temperature control
+will be disabled.
+As soon as you change the temperature, it gets enabled again.</p>
+<h2>Shelly Gas with Valve add-on <a class="title-link" name="shelly-gas-with-valve-add-on" href="#shelly-gas-with-valve-add-on"></a>
+</h2>
+<p>If you have the Valve add-on connected to Shelly Gas, the integration will create two entities for the valve. The <code>valve</code> entity allows you to control the valve, the <code>sensor</code> entity shows exact states of the valve.</p>
+<h2>CoAP port (generation 1) <a class="title-link" name="coap-port-generation-1" href="#coap-port-generation-1"></a>
+</h2>
+<p>In some cases, it may be needed to customize the CoAP UDP port (default: <code>5683</code>) your Home Assistant instance is listening to.</p>
+<p>In order to change it, add the following key to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span>:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">shelly</span><span class="pi">:</span>
+  <span class="na">coap_port</span><span class="pi">:</span> <span class="m">12345</span>
+</code></pre></div></div>
+<h2>Virtual components <a class="title-link" name="virtual-components" href="#virtual-components"></a>
+</h2>
+<p>Shelly generation 2 devices (Pro models with firmware 1.4.0 or later) and generation 3 devices (with firmware 1.2.0 or later) allow the creation of virtual components. Virtual components are a special set of components that do not initially exist on the device and are dynamically created by the user to interact with Shelly scripts. You can add virtual components to the device configuration in the <strong>Components</strong> section in the device’s web panel.</p>
+<p>The integration supports the following virtual components:</p>
+<ul>
+<li>
+<code>boolean</code> in <code>toggle</code> mode, for which a <code>switch</code> platform entity is created</li>
+<li>
+<code>boolean</code> in <code>label</code> mode, for which a <code>binary_sensor</code> platform entity is created</li>
+<li>
+<code>enum</code> in <code>dropdown</code> mode, for which a <code>select</code> platform entity is created</li>
+<li>
+<code>enum</code> in <code>label</code> mode, for which a <code>sensor</code> platform entity is created</li>
+<li>
+<code>number</code> in <code>field</code> mode, for which a <code>number</code> platform entity in <code>box</code> mode is created</li>
+<li>
+<code>number</code> in <code>slider</code> mode, for which a <code>number</code> platform entity in <code>slider</code> mode is created</li>
+<li>
+<code>number</code> in <code>label</code> mode, for which a <code>sensor</code> platform entity is created</li>
+<li>
+<code>text</code> in <code>field</code> mode, for which a <code>text</code> platform entity is created</li>
+<li>
+<code>text</code> in <code>label</code> mode, for which a <code>sensor</code> platform entity is created</li>
+</ul>
+<h2>Scripts (generation 2+) <a class="title-link" name="scripts-generation-2" href="#scripts-generation-2"></a>
+</h2>
+<p>For each device script, the integration creates a <code>switch</code> entity that allows you to control the script. These entities are disabled by default.</p>
+<h2>Additional info <a class="title-link" name="additional-info" href="#additional-info"></a>
+</h2>
+<p>Shelly devices rely on <a href="https://en.wikipedia.org/wiki/Network_Time_Protocol#SNTP" rel="external nofollow">SNTP<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for features like power measurement.
+Please check from the device Web UI that the configured server is reachable.</p>
+<h2>Known issues and limitations <a class="title-link" name="known-issues-and-limitations" href="#known-issues-and-limitations"></a>
+</h2>
+<ul>
+<li>Only supports firmware 1.9 and later for generation 1 devices</li>
+<li>Only supports firmware 1.0 and later for generation 2 devices</li>
+<li>The following generation 1 devices only support firmware 1.11 and later (due to incompatible API):
+<ul>
+<li>Shelly DUO</li>
+<li>Shelly Bulb RGBW</li>
+<li>Shelly Dimmer</li>
+<li>Shelly Dimmer 2</li>
+<li>Shelly RGBW2</li>
+<li>Shelly Vintage</li>
+</ul>
+</li>
+<li>Generation 1 “Shelly 4Pro” and “Shelly Sense” are not supported (devices based on old CoAP v1 protocol)</li>
+<li>Before set up, battery-powered devices must be woken up by pressing the button on the device.</li>
+<li>For battery-powered devices, the <code>update</code> platform entities only inform about the availability of firmware updates but are not able to trigger the update process.</li>
+<li>Using the <code>homeassistant.update_entity</code> action for an entity belonging to a battery-powered device is not possible because most of the time these devices are sleeping (are offline).</li>
+</ul>
+<h2>Removing the integration <a class="title-link" name="removing-the-integration" href="#removing-the-integration"></a>
+</h2>
+<p>This integration follows standard integration removal, no extra steps are required.</p>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/shelly.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fshelly%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20shelly" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+shelly%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/shelly//logo.png' srcset='https://brands.home-assistant.io/_/shelly/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=shelly' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Shelly  device  was introduced in Home Assistant 0.115, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          22.5%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-silver'>🥈 Silver quality</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/shelly" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+shelly%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/balloob" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/balloob?size=96" alt="@balloob"/> @balloob</a><br /><a href="https://github.com/bieniu" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/bieniu?size=96" alt="@bieniu"/> @bieniu</a><br /><a href="https://github.com/thecode" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/thecode?size=96" alt="@thecode"/> @thecode</a><br /><a href="https://github.com/chemelli74" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/chemelli74?size=96" alt="@chemelli74"/> @chemelli74</a><br /><a href="https://github.com/bdraco" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/bdraco?size=96" alt="@bdraco"/> @bdraco</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#shelly-device-generations">Shelly device generations</a></li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#shelly-device-configuration-generation-1">Shelly device configuration (generation 1)</a></li>
+<li class="toc-entry toc-h3"><a href="#shelly-device-configuration-generation-2">Shelly device configuration (generation 2+)</a></li>
+<li class="toc-entry toc-h3"><a href="#shelly-entities-that-poll-data-from-the-device-generation-1">Shelly entities that poll data from the device (generation 1)</a></li>
+<li class="toc-entry toc-h3"><a href="#shelly-entities-that-poll-data-from-the-device-generation-2">Shelly entities that poll data from the device (generation 2+)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#bluetooth-support">Bluetooth Support</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a></li>
+<li class="toc-entry toc-h2"><a href="#range-extender-support">Range Extender Support</a></li>
+<li class="toc-entry toc-h2"><a href="#entity-naming-generation-1">Entity naming (generation 1)</a></li>
+<li class="toc-entry toc-h2"><a href="#entity-naming-generation-2">Entity naming (generation 2+)</a></li>
+<li class="toc-entry toc-h2"><a href="#cover-entities">Cover entities</a></li>
+<li class="toc-entry toc-h2"><a href="#binary-input-sensors">Binary input sensors</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#binary-input-sensors-generation-1">Binary input sensors (generation 1)</a></li>
+<li class="toc-entry toc-h3"><a href="#binary-input-sensors-generation-2">Binary input sensors (generation 2+)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#event-entities">Event entities</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#event-entities-generation-1">Event entities (generation 1)</a></li>
+<li class="toc-entry toc-h3"><a href="#event-entities-generation-2">Event entities (generation 2+)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#listening-for-events">Listening for events</a></li>
+<li class="toc-entry toc-h3"><a href="#automations">Automations</a></li>
+<li class="toc-entry toc-h3"><a href="#possible-values-for-click_type">Possible values for click_type</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#appliance-type-generation-1">Appliance type (generation 1)</a></li>
+<li class="toc-entry toc-h2"><a href="#consumption-type-generation-2">Consumption type (generation 2+)</a></li>
+<li class="toc-entry toc-h2"><a href="#light-transition">Light transition</a></li>
+<li class="toc-entry toc-h2"><a href="#device-actions">Device actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ota-firmware-update">OTA firmware update</a></li>
+<li class="toc-entry toc-h3"><a href="#reboot">Reboot</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#shelly-thermostatic-radiator-valve-trv">Shelly Thermostatic Radiator Valve (TRV)</a></li>
+<li class="toc-entry toc-h2"><a href="#shelly-gas-with-valve-add-on">Shelly Gas with Valve add-on</a></li>
+<li class="toc-entry toc-h2"><a href="#coap-port-generation-1">CoAP port (generation 1)</a></li>
+<li class="toc-entry toc-h2"><a href="#virtual-components">Virtual components</a></li>
+<li class="toc-entry toc-h2"><a href="#scripts-generation-2">Scripts (generation 2+)</a></li>
+<li class="toc-entry toc-h2"><a href="#additional-info">Additional info</a></li>
+<li class="toc-entry toc-h2"><a href="#known-issues-and-limitations">Known issues and limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#energy'>Energy</a>
+          </li><li>
+            <a href='/integrations/#event'>Event</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#number'>Number</a>
+          </li><li>
+            <a href='/integrations/#select'>Select</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li><li>
+            <a href='/integrations/#text'>Text</a>
+          </li><li>
+            <a href='/integrations/#update'>Update</a>
+          </li><li>
+            <a href='/integrations/#valve'>Valve</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

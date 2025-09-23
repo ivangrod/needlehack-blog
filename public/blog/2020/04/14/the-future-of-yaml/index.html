@@ -1,0 +1,698 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The future of YAML - Home Assistant</title>
+    <meta name="author" content="Franck Nijhof">
+    <meta name="description" content="A blog post answering the 'Is YAML going away?' question.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/blog/2020/04/14/the-future-of-yaml/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="The future of YAML">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/blog/2020/04/14/the-future-of-yaml/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="A blog post answering the 'Is YAML going away?' question.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/blog/2020-04-14-the-future-of-yaml/social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    <meta name="twitter:creator" content="@frenck">
+    <meta name="twitter:title" content="The future of YAML">
+    <meta name="twitter:description" content="A blog post answering the 'Is YAML going away?' question.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/blog/2020-04-14-the-future-of-yaml/social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="   blog-post ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a class="active" href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#enabling-configuration-via-the-ui">Enabling configuration via the UI</a></li>
+<li class="toc-entry toc-h2"><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li class="toc-entry toc-h2"><a href="#shareability--security">Shareability &amp; Security</a></li>
+<li class="toc-entry toc-h2"><a href="#both-yaml--ui">Both YAML &amp; UI</a></li>
+<li class="toc-entry toc-h2"><a href="#we-are-still-an-open-source-project">We are still an open-source project</a></li>
+<li class="toc-entry toc-h2"><a href="#the-future-of-yaml">The future of YAML</a></li>
+<li class="toc-entry toc-h2"><a href="#myth-busting">Myth-busting</a></li>
+<li class="toc-entry toc-h2"><a href="#is-yaml-going-away">Is YAML going away?</a></li>
+<li class="toc-entry toc-h2"><a href="#special-home-assistant-podcast-episode">Special Home Assistant Podcast episode</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="post">
+  
+  <header>
+  
+  <h1>The future of YAML</h1>
+  
+
+  
+  <div class="meta clearfix">
+    
+
+  
+  
+    <span class="byline author vcard">
+      <a href="https://github.com/frenck" target="_blank" rel="external nofollow"><img class="author-avatar" src="https://avatars.githubusercontent.com/frenck?size=64" alt="Franck Nijhof"> Franck Nijhof<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+    </span>
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<time datetime="2020-04-14T00:00:00+00:00" pubdate data-updated="true"><iconify-icon inline icon="mdi:calendar" title="Calendar"></iconify-icon> April 14, 2020</time>
+    
+
+  <span>
+    <i class="icon-tags"></i>
+    <ul class="tags unstyled">
+    
+      
+        <li><a class="category" href="/blog/categories/announcements/">Announcements</a></li>
+      
+    
+    </ul>
+  </span>
+
+    
+      <a class="comments" href="#post-comments">Comments</a>
+    
+  </div>
+  
+</header>
+
+
+  <p>Recently, comments and questions in the community have been posted, about the
+announcement of integrations becoming available via the frontend and the removal
+of YAML support from some of them.</p>
+<p>This raises questions and opinions that need addressing. It mainly comes down to
+this single question:</p>
+<blockquote>
+<p><em>“Is YAML going away?”</em></p>
+</blockquote>
+<p>The answer to this question is: <em>“<strong>No!</strong>, but…”</em></p>
+<p>Realizing you may not like that loose answer and, in that case, you are possibly
+looking for a hard and simple “NO” answer to this question. However, things are
+a bit more complicated.</p>
+<p>This blog post aims to bring more clarity to this question, so everybody knows
+why things are the way they are right now and what to expect for the future of
+configuring Home Assistant.</p>
+<h2>Enabling configuration via the UI <a class="title-link" name="enabling-configuration-via-the-ui" href="#enabling-configuration-via-the-ui"></a>
+</h2>
+<p>Before talking about YAML, let’s explain the reasoning behind all the UI
+features introduced.</p>
+<p>The Home Assistant project has grown at a ludicrous rate in the last few years.
+Being one of the few solutions to provide a local home automation platform,
+that puts privacy first, has gathered interest from all kinds of people on this
+planet.</p>
+<p>In the beginning, Home Assistant was a small project; aimed at developers and
+the tech-savvy. With the growth of privacy concerns, but also the growth in the
+availability of IoT devices in our homes in general, the project gained
+traction; attracting lots of new community members that are not always the
+tech-savvy types.</p>
+<p>This is great, but that also means we need to adjust, to make it usable for
+everybody. We want everybody to enjoy what we all have been enjoying already.
+No matter your level of experience.</p>
+<p>Considering that, enabling and empowering people with managing their
+Home Assistant instance via the user interface is needed. Not just for the
+lesser tech-savvy, since it also brings convenience, that even many technically
+capable users enjoy and prefer.</p>
+<p>Goal: <em><strong>Making things easier.</strong></em></p>
+<p>The goal of making it easier is currently the main focus.</p>
+<h2>Backward-incompatible changes <a class="title-link" name="backward-incompatible-changes" href="#backward-incompatible-changes"></a>
+</h2>
+<p>We all dislike them, those backward-incompatible changes when a new release is published.
+We all scan the release notes hoping you are not affected by any of them in
+that release.</p>
+<p>There is a big upside on using configuration via the UI: Home Assistant manages
+that configuration part for you and handles the upgrades and migrations.
+Virtually removing the chances of hitting a breaking change,
+we all hate just as much.</p>
+<h2>Shareability &amp; Security <a class="title-link" name="shareability--security" href="#shareability--security"></a>
+</h2>
+<p>This is a screenshot of one of the slides,
+<a href="https://youtu.be/tc17q1Zn0Xs?t=1809" rel="external nofollow">showed during the State of the Union 2019<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>:</p>
+<p class="img">
+<img src="/images/blog/2020-04-14-the-future-of-yaml/sharing.png" alt="Presentation slide showed during the State of the Union 2019">
+  Presentation slide showed during the State of the Union 2019.
+</p>
+<p>We all like to share our experiences, and thus parts of our configurations.
+GitHub is <a href="https://github.com/topics/home-assistant-config" rel="external nofollow">full of repositories<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> that shares people’s homes.</p>
+<p>This is great! Sharing ideas, providing inspiration for all of us!</p>
+<p>There is a great downside to this, which is privacy and security. There are a
+lot of things we don’t want to share. For example, our passwords,
+sensitive (personal) information or (historical) data.</p>
+<p>A bit more technical, but integrations using OAuth2 as the authentication method
+to integrate with, for example, a service like Somfy don’t need to store the
+username/password at all.</p>
+<h2>Both YAML &amp; UI <a class="title-link" name="both-yaml--ui" href="#both-yaml--ui"></a>
+</h2>
+<p>Home Assistant is moving towards a better separation of YAML configuration
+versus configuration done in the UI. This is already partly showing in things
+like zones, Lovelace and the recently introduced “Helpers”
+(also known as the <code>input_*</code> integrations in YAML).</p>
+<p>Zones can be configured via the UI and via YAML (even at the same time!).
+Both configuration sources will be loaded by Home Assistant when considering
+the configured zones and both can be changed on the fly without restarting
+Home Assistant.</p>
+<p>For the future, Home Assistant will be moving towards that concept more
+and more. This allows anybody to use the method they prefer.</p>
+<p>In these cases, YAML support has been extended and improved by adding features
+like reloading and by removing parts that mess with your YAML files.</p>
+<h2>We are still an open-source project <a class="title-link" name="we-are-still-an-open-source-project" href="#we-are-still-an-open-source-project"></a>
+</h2>
+<p>Home Assistant is an open-source project and relies on contributors adding
+those amazing integrations, maintaining them and extending their functionality
+to make them even more capable.</p>
+<p>Those contributors do this in their free spare time, for which we all are
+eternally grateful. It is their work that enables Home Assistant to do what it
+can right now. It is what automates your home.</p>
+<p>So what about integrations that remove YAML support?</p>
+<p>Some contributors have decided to remove the YAML support to reduce their
+maintenance and support burden. The amount of energy that needs to be put in
+(to maintain both capabilities) can be too much and is complex. We have to
+understand and accept that. If we do not do that, a contributor could simply
+stop contributing.</p>
+<p>Unfortunately, such a move creates backward-incompatible changes and often leads to a few
+pretty de-motivating comments, towards the contributor and the project in
+general. This is harmful to everybody, as the contributors get demotivated or,
+even worse, don’t want to implement new features or create a breaking change.</p>
+<p>This halts our project goals, slows down innovation and induces the risk of
+losing contributors and maintainers. In the end, leads to a greater loss for
+everybody.</p>
+<h2>The future of YAML <a class="title-link" name="the-future-of-yaml" href="#the-future-of-yaml"></a>
+</h2>
+<p>So, with all of the above set context: What is the future of YAML?</p>
+<p>As of today, <a href="https://github.com/home-assistant/architecture/blob/master/adr/0010-integration-configuration.md" rel="external nofollow">ADR-0010<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (Architectural Decision Record) has been approved
+that states:</p>
+<ul>
+<li>Any new integration that communicates with devices and/or services, must use
+configuration via the UI. Configuration via YAML is only allowed in very rare
+cases, which will be determined on a case by case basis.</li>
+<li>Existing integrations that communicate with devices and/or services, are
+allowed and encouraged to implement configuration via the UI
+and remove YAML support.</li>
+<li>We will no longer accept any changes to the YAML configuration for existing
+integrations that communicate with devices and/or services.</li>
+</ul>
+<p>So what stays available in YAML in the end?</p>
+<p>All other integrations that do not communicate with a device and/or service,
+are configured via YAML or via Storage Collections (these enable both YAML and
+UI capabilities used by, e.g., Lovelace and zones).
+Examples of these other integrations:</p>
+<ul>
+<li>Integrations that integrate transports. These integrations allow users to
+define their own protocol, e.g., MQTT, serial, GPIO.</li>
+<li>Integrations that process Home Assistant data and make this available to
+other integrations, e.g., template, stats, derivative, utility meter.</li>
+<li>Integrations that provide automations, e.g., automation,
+device_sun_light_trigger, alert.</li>
+<li>Integrations that help controlling devices and services, e.g., script, scene.</li>
+<li>Integrations that expose Home Assistant data to other services, e.g.,
+Google Assistant, HomeKit.</li>
+</ul>
+<p>This ADR is set to remove confusion and questions for everybody, builds upon the
+goals that have been set out (as presented during the State of the Union),
+and sets the guidelines for our contributors to work with.
+This ADR brings clarity for us all.</p>
+<h2>Myth-busting <a class="title-link" name="myth-busting" href="#myth-busting"></a>
+</h2>
+<p>In the raised concerns and comments across the community, some comments have
+been found multiple times. Please note, these are not exact quotes, as we don’t
+want to address anybody personally.</p>
+<ul>
+<li>
+<p><em>“Making backups became harder!”</em></p>
+<p>Using the Home Assistant snapshot feature, this is not an issue. However,
+if you do manual backups on a system that runs just Core, you need to make
+sure to back up the <code>.storage</code> folder as well
+(which hopefully you’re already doing). Otherwise, there is no difference.</p>
+</li>
+<li>
+<p><em>“It is harder to test my configuration if integration does not support YAML”.</em></p>
+<p>YAML configuration testing is often done to see if a specific YAML
+configuration is still valid against (newer versions of) Home Assistant.
+With integrations set up via the UI, this is not a concern,
+since Home Assistant ensures the data structure is compatible between
+versions and migrates it for you.</p>
+</li>
+<li>
+<p><em>“I like to use a private git repository where I store all my data in,
+including my sensitive data, since it is not public.
+Without YAML this is not possible.”</em></p>
+<p>This is actually not true, the <code>.storage</code> folder contains all Home Assistant
+managed configuration files in JSON format, which in those cases,
+can be stored and versioned in a git repository.</p>
+</li>
+</ul>
+<h2>Is YAML going away? <a class="title-link" name="is-yaml-going-away" href="#is-yaml-going-away"></a>
+</h2>
+<p><strong>No</strong>!</p>
+<p>Not for the things we like to share publicly. It will also remain available for
+the advanced features we currently cannot provide a UI for. The goal is not
+phasing out YAML, the goal is to make the best home automation platform in the
+world that is easy to use for everybody. Enabling users of all experience
+levels, to enjoy this wonderful hobby we all share and allowing everyone to
+focus on what matters most: automating our homes.</p>
+<p>Closing with the YouTube recording of the State of the Union 2019,
+starting at the part discussing this.</p>
+<div class="videoWrapper">
+  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/tc17q1Zn0Xs?start=1809&amp;end=2030" frameborder="0" allowfullscreen></iframe>
+</div>
+<h2>Special Home Assistant Podcast episode <a class="title-link" name="special-home-assistant-podcast-episode" href="#special-home-assistant-podcast-episode"></a>
+</h2>
+<p>A special edition of the Home Assistant Podcast has been put out.
+In this episode, <a href="https://twitter.com/philhawthorne" rel="external nofollow">Phil<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://twitter.com/rohank9" rel="external nofollow">Rohan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> talk with
+<a href="https://twitter.com/balloob" rel="external nofollow">Paulus<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> about the changes announced in this blog post.</p>
+<p><a href="https://hasspodcast.io/x001/" rel="external nofollow">Click here to listen to the Podcast<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+
+
+
+</article>
+
+<div id="post-comments"></div>
+
+
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  DiscourseEmbed = { discourseUrl: 'https://community.home-assistant.io/',
+                     discourseEmbedUrl: 'https://www.home-assistant.io/blog/2020/04/14/the-future-of-yaml/' };
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  
+    
+      <section class="sharing aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:ios-share' title='Ios share'></iconify-icon> Share this post</h1>
+  <ul class="divided">
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2020%2F04%2F14%2Fthe-future-of-yaml%2F&text=The+future+of+YAML+via+%40home_assistant"
+      >Tweet</a>
+    </li>
+  
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2020%2F04%2F14%2Fthe-future-of-yaml%2F"
+      >Share on Facebook</a>
+    </li>
+  
+  </ul>
+</section>
+
+      
+
+<section class="recent-posts aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:newspaper-variant-multiple' title='Newspaper variant multiple'></iconify-icon> Recent Posts</h1>
+  <ul class="divided">
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/17/home-assistant-turns-12/">Happy 12th Birthday, Home Assistant!</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/11/ai-in-home-assistant/">Building the AI-powered local smart home</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/03/release-20259/">2025.9: Features for tiles and automations for miles</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/02/frient-joins-works-with-home-assistant/">Frient joins Works with Home Assistant</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/08/21/airgradient-joins-works-with-home-assistant/">AirGradient joins Works with Home Assistant</a>
+        </li>
+      
+    
+  </ul>
+</section>
+
+    
+  
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#enabling-configuration-via-the-ui">Enabling configuration via the UI</a></li>
+<li class="toc-entry toc-h2"><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li class="toc-entry toc-h2"><a href="#shareability--security">Shareability &amp; Security</a></li>
+<li class="toc-entry toc-h2"><a href="#both-yaml--ui">Both YAML &amp; UI</a></li>
+<li class="toc-entry toc-h2"><a href="#we-are-still-an-open-source-project">We are still an open-source project</a></li>
+<li class="toc-entry toc-h2"><a href="#the-future-of-yaml">The future of YAML</a></li>
+<li class="toc-entry toc-h2"><a href="#myth-busting">Myth-busting</a></li>
+<li class="toc-entry toc-h2"><a href="#is-yaml-going-away">Is YAML going away?</a></li>
+<li class="toc-entry toc-h2"><a href="#special-home-assistant-podcast-episode">Special Home Assistant Podcast episode</a></li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,901 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Xbox - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to set up Xbox devices in Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/xbox/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Xbox">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/xbox/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to set up Xbox devices in Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Xbox">
+    <meta name="twitter:description" content="Instructions on how to set up Xbox devices in Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#media-player">Media player</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-play_media">Action play_media</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#remote">Remote</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-send_command">Action send_command</a></li>
+<li class="toc-entry toc-h3"><a href="#picture-elements-card">Picture elements card</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#binary-sensor">Binary sensor</a></li>
+<li class="toc-entry toc-h2"><a href="#sensor">Sensor</a></li>
+<li class="toc-entry toc-h2"><a href="#media-source">Media source</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-configuration">Manual configuration</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Xbox
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <strong>Xbox</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> allows you to control Xbox One (or newer) consoles from Home Assistant.</p>
+<p>Home Assistant authenticates with Xbox Live through OAuth2 using the Home Assistant Cloud account linking service.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Xbox</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=xbox" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=xbox" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Xbox</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<p>Note that for the media player and remote entities to be added your Xbox will need to have remote features enabled via <strong>Settings -&gt; Devices &amp; connections -&gt; Remote features</strong> (you may need to upgrade your controller firmware).</p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>Because it uses the Home Assistant Cloud account linking service you <strong>must</strong> have either <code>cloud:</code> or <code>default_config:</code> in your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span>.</p>
+  </div>
+</div>
+<h2>Media player <a class="title-link" name="media-player" href="#media-player"></a>
+</h2>
+<p>The Xbox media player platform will create media player entities for each console linked to your Microsoft account. These entities will display the active app and playback controls as well as a media browser implementation, allowing you to launch any installed application.</p>
+<h3>Action play_media <a class="title-link" name="action-play_media" href="#action-play_media"></a>
+</h3>
+<p>Launches an application on the Xbox console using the application’s product ID. Also supports “Home” and “TV” to navigate to the dashboard or Live TV respectively.</p>
+<p>You can find Product IDs using the <strong><a href="https://my.home-assistant.io/redirect/developer_events" class="my" target="_blank">Developer Tools -&gt; Events</a></strong> tab and listening to the <code>call_service</code> event. In a new browser tab, navigate to the media browser for your console and click on an App/Game to see the product ID in the event.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>
+<code>entity_id</code> of the Xbox media player</td>
+</tr>
+<tr>
+<td><code>media_content_id</code></td>
+<td>“Home”/“TV”/{product_id}</td>
+</tr>
+<tr>
+<td><code>media_content_type</code></td>
+<td>Any Value</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.xboxone</span>
+<span class="na">media_content_type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+<span class="na">media_content_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Home"</span>
+</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.xboxone</span>
+<span class="na">media_content_type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+<span class="na">media_content_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">9WZDNCRFJ3TJ"</span> <span class="c1"># Netflix</span>
+</code></pre></div></div>
+<h2>Remote <a class="title-link" name="remote" href="#remote"></a>
+</h2>
+<p>The Xbox remote platform will create Remote entities for each console linked to your Microsoft Account. These entities will allow you to turn on/off and send controller or text input to your console.</p>
+<h3>Action send_command <a class="title-link" name="action-send_command" href="#action-send_command"></a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity_id</code></td>
+<td>no</td>
+<td>
+<code>entity_id</code> of the Xbox remote.</td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>no</td>
+<td>List of the controller commands or text input to be sent.<br>Commands: A, B, X, Y, Up, Down, Left, Right, Menu, View</td>
+</tr>
+<tr>
+<td><code>num_repeats</code></td>
+<td>yes</td>
+<td>Number of times to repeat the commands.</td>
+</tr>
+<tr>
+<td><code>delay_secs</code></td>
+<td>yes</td>
+<td>Interval in seconds between one send and another.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+<span class="na">command</span><span class="pi">:</span> <span class="s2">"</span><span class="s">A"</span>
+</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+<span class="na">command</span><span class="pi">:</span> <span class="s2">"</span><span class="s">A"</span>
+<span class="na">num_repeats</span><span class="pi">:</span> <span class="m">20</span>
+</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+<span class="na">command</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">Right</span>
+  <span class="pi">-</span> <span class="s">Right</span>
+  <span class="pi">-</span> <span class="s">A</span>
+<span class="na">delay_sec</span><span class="pi">:</span> <span class="m">0.1</span>
+</code></pre></div></div>
+<h3>Picture elements card <a class="title-link" name="picture-elements-card" href="#picture-elements-card"></a>
+</h3>
+<p>Below is a picture elements card that can be added to a dashboard to provide an Xbox controller interface in your frontend. It utilizes the services detailed above. Replace <code>remote.xboxone_remote</code> and <code>media_player.xboxone</code> with the names of your entities and enjoy! Courtesy of <a href="https://github.com/SeanPM5" rel="external nofollow">@SeanPM5<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://github.com/hunterjm" rel="external nofollow">@hunterjm<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<p class="img">
+  <img src="/images/integrations/xbox/xbox_picture_entity.png" alt="Screenshot showing Xbox Controller in a dashboard.">
+  Screenshot showing Xbox Controller in a dashboard.
+</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">type</span><span class="pi">:</span> <span class="s">picture-elements</span>
+<span class="na">image</span><span class="pi">:</span> <span class="pi">&gt;-</span>
+  <span class="s">data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjEwIiBoZWlnaHQ9IjkwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogPG1ldGFkYXRhPgogIDxyZGY6UkRGPgogICA8Y2M6V29yayByZGY6YWJvdXQ9IiI+CiAgICA8ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD4KICAgIDxkYzp0eXBlIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiLz4KICAgIDxkYzp0aXRsZS8+CiAgIDwvY2M6V29yaz4KICA8L3JkZjpSREY+CiA8L21ldGFkYXRhPgogPGc+CiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPgogIDxyZWN0IGlkPSJjYW52YXNfYmFja2dyb3VuZCIgeD0iLTEiIHk9Ii0xIiB3aWR0aD0iODAyIiBoZWlnaHQ9IjYwMiIgZmlsbD0ibm9uZSIvPgogPC9nPgogPGNpcmNsZSBjeD0iOTkuMTgiIGN5PSIyMCIgcj0iMTQiIGZpbGw9IiNmZmYiLz4KIDxjaXJjbGUgY3g9IjE0OC4xOCIgY3k9IjU0IiByPSIxMC41IiBmaWxsPSIjMzMzIiBzdHJva2U9IiNmZmYiLz4KIDxwYXRoIGQ9Im0xNTMuMTYgNTkuMzVjLTAuMTEgMC4yMDYtMC4zNCAwLjMyNS0wLjYyNyAwLjMyNWgtMS4zNjhjLTAuNDU1IDAtMC45ODQtMC4yODktMS4yMy0wLjY3MmwtMS43MDEtMi42NTdjLTAuMDMtMC4wNDUtMC4wNTUtMC4wNjItMC4wNjItMC4wNjQgNGUtMyAyZS0zIC0wLjAyMSAwLjAxOC0wLjA1MSAwLjA2NWwtMS43MDkgMi42NTdjLTAuMjQ3IDAuMzgzLTAuNzc2IDAuNjcxLTEuMjMgMC42NzFoLTEuMzUzYy0wLjI4OCAwLTAuNTE2LTAuMTE4LTAuNjI4LTAuMzI0LTAuMTExLTAuMjA2LTAuMDg1LTAuNDYzIDAuMDczLTAuNzAzbDIuOTc2LTQuNTQ1YTAuNzA0IDAuNzA0IDAgMCAwIDJlLTMgLTAuNjc2bC0yLjY0LTQuMDc0Yy0wLjE1NS0wLjI0MS0wLjE4LTAuNDk4LTAuMDY5LTAuNzA0IDAuMTEzLTAuMjA2IDAuMzQyLTAuMzI0IDAuNjMtMC4zMjRoMS4yODZjMC40NTcgMCAwLjk4NCAwLjI5MiAxLjIyNSAwLjY4bDEuNDkgMi4zODVhMC4yMyAwLjIzIDAgMCAwIDAuMDQ4IDAuMDU3YzNlLTMgLThlLTMgMC4wMi0wLjAyNCAwLjA0LTAuMDU3bDEuNDU1LTIuMzhjMC4yMzktMC4zOSAwLjc2NC0wLjY4NSAxLjIyMi0wLjY4NWgxLjI2N2MwLjI4NyAwIDAuNTE2IDAuMTE4IDAuNjI4IDAuMzI0IDAuMTEzIDAuMjA2IDAuMDg5IDAuNDYyLTAuMDY3IDAuNzA0bC0yLjY1OCA0LjE1YTAuNjk5IDAuNjk5IDAgMCAwIDVlLTMgMC42NzVsMi45NyA0LjQ3YzAuMTU5IDAuMjQgMC4xODcgMC40OTYgMC4wNzYgMC43MDJ6IiBmaWxsPSIjMmQ4OWVmIi8+CiA8Y2lyY2xlIGN4PSIxNjguMTgiIGN5PSI3NCIgcj0iMTAuNSIgZmlsbD0iIzMzMyIgc3Ryb2tlPSIjZmZmIi8+CiA8cGF0aCBkPSJtMTczLjU3IDc5LjM2MmMtMC4xMzQgMC4yLTAuMzY4IDAuMzE0LTAuNjQyIDAuMzE0aC0xLjExM2MtMC40OCAwLTAuOTc1LTAuMzQtMS4xNDctMC43ODlsLTAuNDktMS4yNzVhMC42NDIgMC42NDIgMCAwIDAtMC41MzItMC4zNjVoLTMuMDM2YTAuNjIgMC42MiAwIDAgMC0wLjUyIDAuMzY0bC0wLjQ2IDEuMjY3Yy0wLjE2MyAwLjQ0Ny0wLjY2MyAwLjc5OC0xLjE0IDAuNzk4aC0xLjA1M2MtMC4yNzMgMC0wLjUwOC0wLjExNS0wLjY0NC0wLjMxMy0wLjEzNi0wLjE5OS0wLjE1Ny0wLjQ1OS0wLjA1OC0wLjcxM2wzLjcxNi05LjU0YTEuMjkzIDEuMjkzIDAgMCAxIDEuMTUtMC43ODZoMS4wNDdjMC40OCAwIDAuOTc2IDAuMzM2IDEuMTU0IDAuNzgxbDMuODIgOS41NDVjMC4xMDQgMC4yNTMgMC4wODUgMC41MTMtMC4wNSAwLjcxMnptLTUuNDY3LTcuMjU3LTAuOTI2IDIuNTQyYy0wLjAyIDAuMDU1LTAuMDE4IDAuMDk1LThlLTMgMC4xMDkgMC4wMSAwLjAxMyAwLjA0NiAwLjAzIDAuMTA0IDAuMDNoMS42ODFjMC4wNjcgMCAwLjA5Ny0wLjAxOCAwLjEwMy0wLjAyOCA3ZS0zIC0wLjAxMSAwLjAxNC0wLjA0NS0wLjAxLTAuMTA3eiIgZmlsbD0iIzVkYzIxZSIvPgogPGNpcmNsZSBjeD0iMTg4LjE4IiBjeT0iNTQiIHI9IjEwLjUiIGZpbGw9IiMzMzMiIHN0cm9rZT0iI2ZmZiIvPgogPHBhdGggZD0ibTE5My41NCA1OC4xMThhMy40MiAzLjQyIDAgMCAxLTEuMTEgMS4zMThjLTAuNDY3IDAuMzI3LTEuMDQ2IDAuNTMzLTEuNzIyIDAuNjA3LTAuNDE1IDAuMDQzLTEuMzc1IDAuMDctMi44NTUgMC4wOGgtMy4yNzZjLTAuNTUxIDAtMS0wLjQ0OC0xLTF2LTEwLjI0NWMwLTAuNTUyIDAuNDQ5LTEgMS0xaDMuOTYyYzAuOTQ1IDAgMS42MzQgMC4wMzkgMi4xMDYgMC4xMTkgMC40OTYgMC4wODQgMC45NDcgMC4yNjMgMS4zNCAwLjUzIDAuMzk4IDAuMjc1IDAuNzMgMC42MzYgMC45ODYgMS4wNzQgMC4yNjcgMC40NTQgMC40MDIgMC45NjcgMC40MDIgMS41MjMgMCAwLjYwNi0wLjE2NSAxLjE2OS0wLjQ5MSAxLjY3M2EzLjA2IDMuMDYgMCAwIDEtMC42OTIgMC43NThsLTAuMDIzIDAuMDE3IDAuMDE4IDAuMDFjMC40NTQgMC4yMjQgMC44MyAwLjUyOSAxLjEyIDAuOTA1IDAuNDIyIDAuNTUzIDAuNjM3IDEuMjA3IDAuNjM3IDEuOTQ4YTMuNzkgMy43OSAwIDAgMS0wLjQwMSAxLjY4NHptLTMuNDM3LTIuODk2Yy0wLjE5NS0wLjA2OS0wLjY5NC0wLjE1LTEuOTY4LTAuMTVoLTEuMjJhMC4zNCAwLjM0IDAgMCAwLTAuMzQgMC4zNHYxLjc1OWMwIDAuMTg4IDAuMTUzIDAuMzQgMC4zNCAwLjM0aDEuNDk3YzEuMDE4IDAgMS4zOTgtMC4wMzQgMS41MzctMC4wNjMgMC4yODQtMC4wNTMgMC41MDItMC4xNyAwLjY3Mi0wLjM2IDAuMTYzLTAuMTg0IDAuMjQzLTAuNDM1IDAuMjQzLTAuNzYzIDAtMC4yODMtMC4wNjMtMC41MS0wLjE5My0wLjY5OWExLjEwNyAxLjEwNyAwIDAgMC0wLjU2OC0wLjQwNHptLTMuMTg4LTIuNzM4aDAuODY1YzAuODk1IDAgMS40NTQtMC4wMTMgMS42NjEtMC4wMzcgMC4zMjItMC4wMzggMC41NzQtMC4xNDcgMC43NDktMC4zMiAwLjE2Ni0wLjE2NyAwLjI0Ny0wLjM4NyAwLjI0Ny0wLjY3MiAwLTAuMTM2LTAuMDE3LTAuMjYtMC4wNTItMC4zNjctMC4wNTEtMC4xNi0wLjI5LTAuNDIyLTAuNDQ3LTAuNDg4LTAuMTEtMC4wNDctMC4yNC0wLjA4LTAuMzktMC4wOTgtMC4yMTMtMC4wMjUtMC44NzMtMC4wMzctMS45NTgtMC4wMzdoLTAuNjc0YTAuMzQgMC4zNCAwIDAgMC0wLjM0IDAuMzR2MS4zMzljMCAwLjE4OCAwLjE1MiAwLjM0IDAuMzQgMC4zNHoiIGZpbGw9IiNlMTEiLz4KIDxjaXJjbGUgY3g9IjE2OC4xOCIgY3k9IjM0IiByPSIxMC41IiBmaWxsPSIjMzMzIiBzdHJva2U9IiNmZmYiLz4KIDxwYXRoIGQ9Im0xNzMuMTMgMjkuMzUzLTMuMjY5IDUuMTZjLTAuMTQ5IDAuMjM2LTAuMjggMC42ODctMC4yOCAwLjk2NXYzLjI0OWEwLjk1IDAuOTUgMCAwIDEtMC45NDggMC45NDhoLTAuOTE2YTAuOTUgMC45NSAwIDAgMS0wLjk0OS0wLjk0OHYtMy4yNjRjMC0wLjI3OS0wLjEzLTAuNzI5LTAuMjgtMC45NjRsLTMuMjU0LTUuMTQ2Yy0wLjE1Mi0wLjI0My0wLjE3Ni0wLjUtMC4wNjItMC43MDUgMC4xMTMtMC4yMDUgMC4zNDMtMC4zMjMgMC42MjktMC4zMjNoMS4yOTNjMC40NiAwIDAuOTgzIDAuMjk3IDEuMjE5IDAuNjkybDEuODgzIDMuMTY3YzAuMDEzIDAuMDIgMC4wMjMgMC4wMzUgMC4wMzMgMC4wNDUgNGUtMyAtMC4wMSAwLjAxMy0wLjAyNCAwLjAyNS0wLjA0NGwxLjg0NC0zLjE2M2MwLjIzMi0wLjM5OCAwLjc1NC0wLjY5NyAxLjIxNS0wLjY5N2gxLjI1MmMwLjI4NyAwIDAuNTE2IDAuMTE4IDAuNjI5IDAuMzI0IDAuMTE0IDAuMjA1IDAuMDkgMC40NjItMC4wNjQgMC43MDR6IiBmaWxsPSIjZmZjNDBkIi8+CiA8ZyBmaWxsPSIjMzMzIj4KICA8cGF0aCBkPSJtMzYuMzk3IDQ2LjY5YzAgMC42MDQgMC40OSAxLjA5NCAxLjA5MyAxLjA5NGgxMi4xOXYxMi40MzJoLTEyLjE5Yy0wLjYwMyAwLTEuMDkzIDAuNDktMS4wOTMgMS4wOTN2MTIuMTkxaC0xMi40MzR2LTEyLjE5YzAtMC42MDQtMC40OS0xLjA5NC0xLjA5My0xLjA5NGgtMTIuMTl2LTEyLjQzMmgxMi4xOWMwLjYwMyAwIDEuMDkzLTAuNDkgMS4wOTMtMS4wOTN2LTEyLjE5MWgxMi40MzR6IiBzdHJva2U9IiNmZmYiLz4KICA8cGF0aCBkPSJtMTA0LjY0IDguMjQ1Yy0zLjA3NSAwLjE4NC01LjA5OCAxLjQ5OC01LjU4OCAxLjg0OC0wLjQ3My0wLjM0My0yLjQyNS0xLjU5Ny01LjM4My0xLjgyNSAxLjY3OC0wLjc5MiAzLjUzMi0xLjI2OCA1LjUwOC0xLjI2OCAxLjk2IDAgMy43OTcgMC40NjYgNS40NjQgMS4yNDV6bS01LjU4NyA4LjdjNi43ODggNS4yNDIgOC44ODggOS42MjIgOS41MzUgMTEuOTczLTIuMzcxIDIuNTAzLTUuNzAyIDQuMDgyLTkuNDEyIDQuMDgyLTMuODEzIDAtNy4yMTQtMS42OC05LjU5NS00LjMwMyAwLjcxOC0yLjQwMiAyLjg5MS02LjY3MSA5LjQ3Mi0xMS43NTN6bTguMzYxLTYuOTJjMi44ODQgMi4zODggNC43NjIgNS45NDcgNC43NjMgOS45NzUgMCAyLjc5Ny0wLjkwOSA1LjM3Ni0yLjQxOCA3LjQ5OSAwLjMyNS02LjYzNy03LjA2Ny0xMy44MzgtNy4wNjctMTMuODM4IDAuMjY4LTEuNDc2IDIuOTc4LTIuODA3IDQuNzIyLTMuNjM2em0tMTYuNTY1IDAuMDc3YzEuNzQ0IDAuODMyIDQuMzA3IDIuMTM0IDQuNTY4IDMuNTY1IDAgMC03LjEzMyA2Ljk1Ni03LjA3MyAxMy40OTdhMTIuOTI2IDEyLjkyNiAwIDAgMS0yLjE2Ny03LjE2MWMwLTMuOTg3IDEuODM4LTcuNTE2IDQuNjcyLTkuOXoiLz4KICA8cGF0aCBkPSJtOTkuNzYxIDY1LjIzMmgtMS41MzY0djcuNjgyMmgxLjUzNjR2LTcuNjgyMm0zLjcxMDUgMS42NjctMS4wOTA5IDEuMDkwOWMxLjI1OTkgMS4wMTQgMS45ODk3IDIuNTQyOCAxLjk4OTcgNC4xNTYxYTUuMzc3NSA1LjM3NzUgMCAwIDEtNS4zNzc1IDUuMzc3NWMtMi45NjUzIDAtNS4zNzc1LTIuMzk2OC01LjM3NzUtNS4zNzc1IDAtMS42MDU2IDAuNzI5ODEtMy4xNDIgMS45ODItNC4xNjM3bC0xLjA4MzItMS4wODMyYy0yLjkxMTUgMi40NzM3LTMuMjY0OSA2LjgzNzEtMC43OTEyNiA5Ljc0ODcgMi40NzM3IDIuOTAzOSA2LjgzNzEgMy4yNTcyIDkuNzQ4NyAwLjc4MzU4IDEuNTUxOC0xLjMxMzYgMi40MzUyLTMuMjQ5NiAyLjQzNTItNS4yODUzIDAtMi4wMjA0LTAuODkxMTMtMy45NDEtMi40MzUyLTUuMjQ2OXoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9Ii43NjgyMiIgc3R5bGU9InBhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiLz4KIDwvZz4KPC9zdmc+Cg==</span>
+<span class="na">elements</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">service-button</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+    <span class="na">service_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s">Up</span>
+    <span class="na">style</span><span class="pi">:</span>
+      <span class="na">top</span><span class="pi">:</span> <span class="s">45.35%</span>
+      <span class="na">left</span><span class="pi">:</span> <span class="s">14.3%</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="s">6.2%</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="s">15%</span>
+      <span class="na">overflow</span><span class="pi">:</span> <span class="s">hidden</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">service-button</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+    <span class="na">service_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s">Down</span>
+    <span class="na">style</span><span class="pi">:</span>
+      <span class="na">top</span><span class="pi">:</span> <span class="s">74.7%</span>
+      <span class="na">left</span><span class="pi">:</span> <span class="s">14.3%</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="s">6.2%</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="s">15%</span>
+      <span class="na">overflow</span><span class="pi">:</span> <span class="s">hidden</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">service-button</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+    <span class="na">service_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s">Left</span>
+    <span class="na">style</span><span class="pi">:</span>
+      <span class="na">top</span><span class="pi">:</span> <span class="s">60%</span>
+      <span class="na">left</span><span class="pi">:</span> <span class="s">8.05%</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="s">14.4%</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="s">6.4%</span>
+      <span class="na">overflow</span><span class="pi">:</span> <span class="s">hidden</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">service-button</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+    <span class="na">service_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s">Right</span>
+    <span class="na">style</span><span class="pi">:</span>
+      <span class="na">top</span><span class="pi">:</span> <span class="s">60%</span>
+      <span class="na">left</span><span class="pi">:</span> <span class="s">20.65%</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="s">14.4%</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="s">6.4%</span>
+      <span class="na">overflow</span><span class="pi">:</span> <span class="s">hidden</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">service-button</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+    <span class="na">service_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s2">"</span><span class="s">A"</span>
+    <span class="na">style</span><span class="pi">:</span>
+      <span class="na">top</span><span class="pi">:</span> <span class="s">82.5%</span>
+      <span class="na">left</span><span class="pi">:</span> <span class="s">80.05%</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="s">10.5%</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="s">24.4%</span>
+      <span class="na">border-radius</span><span class="pi">:</span> <span class="s">100%</span>
+      <span class="na">overflow</span><span class="pi">:</span> <span class="s">hidden</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">service-button</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+    <span class="na">service_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s2">"</span><span class="s">X"</span>
+    <span class="na">style</span><span class="pi">:</span>
+      <span class="na">top</span><span class="pi">:</span> <span class="s">60.0%</span>
+      <span class="na">left</span><span class="pi">:</span> <span class="s">70.6%</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="s">10.5%</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="s">24.4%</span>
+      <span class="na">border-radius</span><span class="pi">:</span> <span class="s">100%</span>
+      <span class="na">overflow</span><span class="pi">:</span> <span class="s">hidden</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">service-button</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+    <span class="na">service_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s2">"</span><span class="s">B"</span>
+    <span class="na">style</span><span class="pi">:</span>
+      <span class="na">top</span><span class="pi">:</span> <span class="s">60.0%</span>
+      <span class="na">left</span><span class="pi">:</span> <span class="s">89.5%</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="s">10.5%</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="s">24.4%</span>
+      <span class="na">border-radius</span><span class="pi">:</span> <span class="s">100%</span>
+      <span class="na">overflow</span><span class="pi">:</span> <span class="s">hidden</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">service-button</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">action</span><span class="pi">:</span> <span class="s">remote.send_command</span>
+    <span class="na">service_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Y"</span>
+    <span class="na">style</span><span class="pi">:</span>
+      <span class="na">top</span><span class="pi">:</span> <span class="s">37.9%</span>
+      <span class="na">left</span><span class="pi">:</span> <span class="s">80.05%</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="s">10.5%</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="s">24.4%</span>
+      <span class="na">border-radius</span><span class="pi">:</span> <span class="s">100%</span>
+      <span class="na">overflow</span><span class="pi">:</span> <span class="s">hidden</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">service-button</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">action</span><span class="pi">:</span> <span class="s">remote.toggle</span>
+    <span class="na">service_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">remote.xboxone_remote</span>
+    <span class="na">style</span><span class="pi">:</span>
+      <span class="na">top</span><span class="pi">:</span> <span class="s">80.2%</span>
+      <span class="na">left</span><span class="pi">:</span> <span class="s">47.2%</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="s">7%</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="s">16%</span>
+      <span class="na">border-radius</span><span class="pi">:</span> <span class="s">100%</span>
+      <span class="na">overflow</span><span class="pi">:</span> <span class="s">hidden</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">service-button</span>
+    <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+    <span class="na">action</span><span class="pi">:</span> <span class="s">media_player.play_media</span>
+    <span class="na">service_data</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.xboxone</span>
+      <span class="na">media_content_type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+      <span class="na">media_content_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Home"</span>
+    <span class="na">style</span><span class="pi">:</span>
+      <span class="na">top</span><span class="pi">:</span> <span class="s">22.2%</span>
+      <span class="na">left</span><span class="pi">:</span> <span class="s">47.2%</span>
+      <span class="na">width</span><span class="pi">:</span> <span class="s">13.4%</span>
+      <span class="na">height</span><span class="pi">:</span> <span class="s">31.2%</span>
+      <span class="na">border-radius</span><span class="pi">:</span> <span class="s">100%</span>
+      <span class="na">overflow</span><span class="pi">:</span> <span class="s">hidden</span>
+</code></pre></div></div>
+<h2>Binary sensor <a class="title-link" name="binary-sensor" href="#binary-sensor"></a>
+</h2>
+<p>The Xbox binary sensor platform automatically keeps track of your “<strong>Favorite</strong> friends”. In your friends list, select <strong>Change friendship -&gt; Favorite</strong> to have that person automatically pulled into Home Assistant.</p>
+<p>4 binary sensors are added, 3 of which are disabled by default. They can be enabled in the “Xbox Live” service on the devices page.</p>
+<table>
+<thead>
+<tr>
+<th>Entity ID</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>binary_sensor.{gamertag}</code></td>
+<td>Enabled</td>
+<td>Shows the online status of your friend.</td>
+</tr>
+<tr>
+<td><code>binary_sensor.{gamertag}_in_game</code></td>
+<td>Disabled</td>
+<td>Shows if your friend is currently playing a game.</td>
+</tr>
+<tr>
+<td><code>binary_sensor.{gamertag}_in_party</code></td>
+<td>Disabled</td>
+<td>Shows if your friend is currently in a party.</td>
+</tr>
+<tr>
+<td><code>binary_sensor.{gamertag}_in_multiplayer</code></td>
+<td>Disabled</td>
+<td>Shows if your friend is currently in a multiplayer session.</td>
+</tr>
+</tbody>
+</table>
+<h2>Sensor <a class="title-link" name="sensor" href="#sensor"></a>
+</h2>
+<p>Just like the binary sensors, the Xbox sensor platform automatically keeps track of your “<strong>Favorite</strong> friends”.</p>
+<p>4 sensors are added, <strong>all</strong> of which are disabled by default. They can be enabled in the “Xbox Live” service on the devices page.</p>
+<table>
+<thead>
+<tr>
+<th>Entity ID</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sensor.{gamertag}_status</code></td>
+<td>Disabled</td>
+<td>Shows the text status of your friend as it appears in your friends list.</td>
+</tr>
+<tr>
+<td><code>sensor.{gamertag}_gamer_score</code></td>
+<td>Disabled</td>
+<td>Shows your friend’s gamer score.</td>
+</tr>
+<tr>
+<td><code>sensor.{gamertag}_account_tier</code></td>
+<td>Disabled</td>
+<td>Shows your friend’s Xbox Live account tier (Gold or Silver).</td>
+</tr>
+<tr>
+<td><code>sensor.{gamertag}_gold_tenure</code></td>
+<td>Disabled</td>
+<td>Shows how long your friend has had Xbox Live Gold.</td>
+</tr>
+</tbody>
+</table>
+<h2>Media source <a class="title-link" name="media-source" href="#media-source"></a>
+</h2>
+<p>The Xbox media source platform allows you to use the Media Browser panel to view both your own, and community, gameclips or screenshots for games that you have installed on any of your consoles. As with any other media source <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span>, you are also able to send these clips to supported media players like Chromecast.</p>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>It can take up to a couple of days for newly installed applications to appear in the media browser.</p>
+  </div>
+</div>
+<h2>Manual configuration <a class="title-link" name="manual-configuration" href="#manual-configuration"></a>
+</h2>
+<div class="alert alert-warning">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-outline"></iconify-icon> Warning</p>
+  <div class="alert-content">
+<p>These steps are not required, nor will they be supported if issues are encountered.</p>
+  </div>
+</div>
+<p>If you prefer not to use the Home Assistant account linking service, you may manually configure a local implementation if your instance is exposed externally over HTTPS using the following steps:</p>
+<ul>
+<li>Register a new application in <a href="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade" rel="external nofollow">Azure AD<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+<ul>
+<li>Name your app</li>
+<li>Select “Personal Microsoft accounts only” under supported account types</li>
+<li>For Redirect URI, add: <code>https://my.home-assistant.io/redirect/oauth</code>
+</li>
+</ul>
+</li>
+<li>Copy your Application (client) ID for later use</li>
+<li>On the App Page, navigate to “Certificates &amp; secrets”
+<ul>
+<li>Generate a new client secret and save for later use</li>
+</ul>
+</li>
+</ul>
+<p>You may then add the credentials to <a href="/integrations/application_credentials/">Application Credentials</a> and then setup the <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span>.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>I have manually disabled My Home Assistant</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If you don’t have <a href="/integrations/my">My Home Assistant</a> on your installation,
+you can use <code>&lt;HOME_ASSISTANT_URL&gt;/auth/external/callback</code> as the redirect URI
+instead.</p>
+<p>The <code>&lt;HOME_ASSISTANT_URL&gt;</code> must be the same as used during the configuration/
+authentication process.</p>
+<p>Internal examples: <code>http://192.168.0.2:8123/auth/external/callback</code>, <code>http://homeassistant.local:8123/auth/external/callback</code>.”</p>
+</div>
+  </details>
+</div>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/xbox.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fxbox%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20xbox" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+xbox%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/xbox//logo.png' srcset='https://brands.home-assistant.io/_/xbox/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=xbox' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Xbox  integration  was introduced in Home Assistant 0.117, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          2%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:cloud-upload'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Cloud Polling.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/xbox" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+xbox%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/hunterjm" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/hunterjm?size=96" alt="@hunterjm"/> @hunterjm</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#media-player">Media player</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-play_media">Action play_media</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#remote">Remote</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-send_command">Action send_command</a></li>
+<li class="toc-entry toc-h3"><a href="#picture-elements-card">Picture elements card</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#binary-sensor">Binary sensor</a></li>
+<li class="toc-entry toc-h2"><a href="#sensor">Sensor</a></li>
+<li class="toc-entry toc-h2"><a href="#media-source">Media source</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-configuration">Manual configuration</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#media-player'>Media player</a>
+          </li><li>
+            <a href='/integrations/#media-source'>Media source</a>
+          </li><li>
+            <a href='/integrations/#remote'>Remote</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

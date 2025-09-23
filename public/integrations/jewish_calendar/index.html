@@ -1,0 +1,979 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Jewish Calendar - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on integrating the Jewish Calendar integration within Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/jewish_calendar/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Jewish Calendar">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/jewish_calendar/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on integrating the Jewish Calendar integration within Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Jewish Calendar">
+    <meta name="twitter:description" content="Instructions on integrating the Jewish Calendar integration within Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#advanced-options">Advanced Options</a></li>
+<li class="toc-entry toc-h2"><a href="#sensor-list">Sensor list</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#data-sensors">Data sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#time-sensors">Time sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#binary-sensors">Binary sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#holiday-sensor">Holiday sensor</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-count-the-omer">Action Count the Omer</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Jewish Calendar
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The Jewish Calendar <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> exposes Jewish calendar information through multiple sensors.</p>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Jewish Calendar</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=jewish_calendar" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=jewish_calendar" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Jewish Calendar</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Language</span><a name="language" class="title-link" href="#language"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The language to be used for textual sensors in Hebrew (א’ תשרי תשע”ט) or English characters (1 Tishrei 5779). Valid options are <code>english</code> and <code>hebrew</code>. Default value is <code>english</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Diaspora</span><a name="diaspora" class="title-link" href="#diaspora"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Consider the location as diaspora (חוץ לארץ) for calculation of the weekly portion and holidays. By default it will consider the location as Israel (One day Yom Tov), setting it to true will show a second day Yom Tov.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Latitude, Longitude, Time Zone and Elevation</span><a name="latitude-longitude-time-zone-and-elevation" class="title-link" href="#latitude-longitude-time-zone-and-elevation"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Allows you to override the default location information provided by Home Assistant for the calculations.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Advanced Options <a class="title-link" name="advanced-options" href="#advanced-options"></a>
+</h2>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Minutes before sunset for candle lighting</span><a name="minutes-before-sunset-for-candle-lighting" class="title-link" href="#minutes-before-sunset-for-candle-lighting"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>How many minutes before sunset is considered candle-lighting time. In Israel, this is usually 20, 30, or 40 minutes depending on your location. Outside of Israel, it’s customary to use either 18 or 24. <em>The default is set to 18 minutes.</em></p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Minutes after sunset for Havdalah</span><a name="minutes-after-sunset-for-havdalah" class="title-link" href="#minutes-after-sunset-for-havdalah"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>By default havdalah time is considered the moment the sun is 8.5 degrees below the horizon. By specifying this offset, havdalah time will be calculated as a static time offset relative to sunset.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Sensor list <a class="title-link" name="sensor-list" href="#sensor-list"></a>
+</h2>
+<h3>Data sensors <a class="title-link" name="data-sensors" href="#data-sensors"></a>
+</h3>
+<ul>
+<li>
+<code>date</code>: Shows the hebrew date for today.</li>
+<li>
+<code>parshat_hashavua</code>: Shows the weekly portion (parshat hashavu’a - פרשת השבוע)</li>
+<li>
+<code>holiday</code>: If it is a holiday, shows the name of the holiday <em>(see below for more info)</em>.</li>
+<li>
+<code>day_of_the_omer</code>: An integer sensor indicating the day of the Omer (1-49) or 0 if it is not currently the Omer.</li>
+<li>
+<code>daf_yomi</code>: Shows the date’s daf yomi page.</li>
+</ul>
+<h3>Time sensors <a class="title-link" name="time-sensors" href="#time-sensors"></a>
+</h3>
+<p><em>Note: Due to the variety of rabbinic opinions on calculating the different times, we do not take any responsibility for your religious reliance upon these calculations.</em></p>
+<p>Time sensor states are represented as ISO8601 formatted <em>UTC time</em>.</p>
+<ul>
+<li>
+<code>alot_hashachar</code>: First light of dawn (Alot Hashachar - עלות השחר)</li>
+<li>
+<code>talit_and_tefillin</code>: Earliest time for tallit and tefillin (Misheyakir - משיכיר)</li>
+<li>
+<code>hanetz_hachama</code>: Earliest time for Shacharit (Hanetz Hachama - הנץ החמה)</li>
+<li>
+<code>latest_time_for_shma_gr_a</code>: Last time for the reading of the Shma according to the Gr”a.</li>
+<li>
+<code>latest_time_for_shma_mg_a</code>: Last time for the reading of the Shma according to the MG”A.</li>
+<li>
+<code>latest_time_for_tefilla_gr_a</code>: Last time for full shacharit according to the Gr”a.</li>
+<li>
+<code>latest_time_for_tefilla_mg_a</code>: Last time for full shacharit according to the MG”A.</li>
+<li>
+<code>chatzot_hayom</code>: Half way through the day (Chatzot Hayom - חצות היום)</li>
+<li>
+<code>mincha_gedola</code>: Earliest time for Mincha (Mincha Gedola - מנחה גדולה)</li>
+<li>
+<code>mincha_ketana</code>: Preferable earliest time for Mincha (Mincha Ketana - מנחה קטנה)</li>
+<li>
+<code>plag_hamincha</code>: Time of the Plag Hamincha (פלג המנחה)</li>
+<li>
+<code>shkia</code>: Sunset (Shkiya - שקיעה)</li>
+<li>
+<code>t_set_hakochavim</code>: Time at which the first stars are visible (Tseit Hakochavim - צאת הכוכבים)</li>
+<li>
+<code>t_set_hakochavim_3_stars</code>: Time at which 3 stars are visible, mostly used for Havdalah</li>
+<li>
+<code>upcoming_shabbat_candle_lighting</code>: The time of candle lighting for either the current Shabbat (if it is currently Shabbat) or the immediately upcoming Shabbat.</li>
+<li>
+<code>upcoming_shabbat_havdalah</code>: The time of havdalah for either the current Shabbat (if it is currently Shabbat) or the immediately upcoming Shabbat. If it is currently a three-day holiday, this value <em>could</em> be None (i.e., if a holiday is Sat./Sun./Mon. and it’s Saturday, there will be no <code>shabbat_havdalah</code> value. See comments in hdate library for details.)</li>
+<li>
+<code>upcoming_candle_lighting</code>: The time of candle lighting for either the current Shabbat OR Yom Tov, or the immediately upcoming Shabbat OR Yom Tov. If, for example, today is Sunday, and Rosh Hashana is Monday night through Wednesday night, this reports the candle lighting for Rosh Hashana on Monday night. This avoids a situation of triggering pre-candle-lighting automations while it is currently Yom Tov. To always get the Shabbat times, use the <code>upcoming_shabbat_candle_lighting</code> sensor.</li>
+<li>
+<code>upcoming_havdalah</code>: The time of havdalah for either the current Shabbat OR Yom Tov, or the immediately upcoming Shabbat OR Yom Tov. If, for example, today is Sunday, and Rosh Hashana is Monday night through Wednesday night, this reports the havdalah for Rosh Hashana on Wednesday night. To always get the Shabbat times, use the <code>upcoming_shabbat_havdalah</code> sensor.</li>
+</ul>
+<h3>Binary sensors <a class="title-link" name="binary-sensors" href="#binary-sensors"></a>
+</h3>
+<ul>
+<li>
+<code>issur_melacha_in_effect</code>: A boolean sensor indicating if melacha is currently not permitted. The value is <em>on</em> when it is currently Shabbat or Yom Tov and <em>off</em> otherwise.</li>
+<li>
+<code>erev_shabbat_hag</code>: A boolean sensor indicating that there is an upcoming Shabbat or Hag.</li>
+<li>
+<code>motzei_shabbat_hag</code>: A boolean sensor indicating that Shabbat or Hag has ended.</li>
+</ul>
+<h3>Holiday sensor <a class="title-link" name="holiday-sensor" href="#holiday-sensor"></a>
+</h3>
+<p>The holiday sensor includes 2 attributes: <em>type</em>, and <em>id</em>.</p>
+<p>The <em>id</em> is useful for automations so they’re not language-dependent.</p>
+<p>On Rosh Chodesh Tevet, which always falls on Chanukah, the sensor will report both values: “Rosh Chodesh, Chanukah”.</p>
+<p>In Israel, on the 30th of Shvat, the sensor will report: “Rosh Chodesh, Family day”. On the 22nd of Tishrei it will report: “Shmini Atzeret, Simchat Torah”.</p>
+<p>The following is the list of holidays the sensor knows about with their selected type:</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>English</th>
+<th>Hebrew</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>erev_rosh_hashana</td>
+<td>Erev Rosh Hashana</td>
+<td>ערב ראש השנה</td>
+<td>EREV_YOM_TOV</td>
+</tr>
+<tr>
+<td>rosh_hashana_i</td>
+<td>Rosh Hashana I</td>
+<td>א’ ראש השנה</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>rosh_hashana_ii</td>
+<td>Rosh Hashana II</td>
+<td>ב’ ראש השנה</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>tzom_gedaliah</td>
+<td>Tzom Gedaliah</td>
+<td>צום גדליה</td>
+<td>FAST_DAY</td>
+</tr>
+<tr>
+<td>erev_yom_kippur</td>
+<td>Erev Yom Kippur</td>
+<td>עיוה”כ</td>
+<td>EREV_YOM_TOV</td>
+</tr>
+<tr>
+<td>yom_kippur</td>
+<td>Yom Kippur</td>
+<td>יום הכפורים</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>erev_sukkot</td>
+<td>Erev Sukkot</td>
+<td>ערב סוכות</td>
+<td>EREV_YOM_TOV</td>
+</tr>
+<tr>
+<td>sukkot</td>
+<td>Sukkot</td>
+<td>סוכות</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>sukkot_ii</td>
+<td>Sukkot II</td>
+<td>שני של סוכות</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>hol_hamoed_sukkot</td>
+<td>Hol hamoed Sukkot</td>
+<td>חול המועד סוכות</td>
+<td>HOL_HAMOED</td>
+</tr>
+<tr>
+<td>hoshana_raba</td>
+<td>Hoshana Raba</td>
+<td>הושענא רבה</td>
+<td>EREV_YOM_TOV</td>
+</tr>
+<tr>
+<td>shmini_atzeret</td>
+<td>Shmini Atzeret</td>
+<td>שמיני עצרת</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>simchat_torah</td>
+<td>Simchat Torah</td>
+<td>שמחת תורה</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>chanukah</td>
+<td>Chanukah</td>
+<td>חנוכה</td>
+<td>MELACHA_PERMITTED_HOLIDAY</td>
+</tr>
+<tr>
+<td>rabin_memorial_day</td>
+<td>Yitzhak Rabin memorial day</td>
+<td>יום הזכרון ליצחק רבין</td>
+<td>MEMORIAL_DAY</td>
+</tr>
+<tr>
+<td>asara_btevet</td>
+<td>Asara B’Tevet</td>
+<td>צום עשרה בטבת</td>
+<td>FAST_DAY</td>
+</tr>
+<tr>
+<td>tu_bshvat</td>
+<td>Tu B’Shvat</td>
+<td>ט”ו בשבט</td>
+<td>MINOR_HOLIDAY</td>
+</tr>
+<tr>
+<td>family_day</td>
+<td>Family Day</td>
+<td>יום המשפחה</td>
+<td>ISRAEL_NATIONAL_HOLIDAY</td>
+</tr>
+<tr>
+<td>memorial_day_unknown</td>
+<td>Memorial day for fallen whose place of burial is unknown</td>
+<td>יום הזיכרון לחללי מערכות ישראל שמקום קבורתם לא נודע</td>
+<td>MEMORIAL_DAY</td>
+</tr>
+<tr>
+<td>taanit_esther</td>
+<td>Ta’anit Esther</td>
+<td>תענית אסתר</td>
+<td>FAST_DAY</td>
+</tr>
+<tr>
+<td>purim</td>
+<td>Purim</td>
+<td>פורים</td>
+<td>MELACHA_PERMITTED_HOLIDAY</td>
+</tr>
+<tr>
+<td>shushan_purim</td>
+<td>Shushan Purim</td>
+<td>שושן פורים</td>
+<td>MELACHA_PERMITTED_HOLIDAY</td>
+</tr>
+<tr>
+<td>erev_pesach</td>
+<td>Erev Pesach</td>
+<td>ערב פסח</td>
+<td>EREV_YOM_TOV</td>
+</tr>
+<tr>
+<td>pesach</td>
+<td>Pesach</td>
+<td>פסח</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>pesach_ii</td>
+<td>Pesach II</td>
+<td>שני של פסח</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>hol_hamoed_pesach</td>
+<td>Hol hamoed Pesach</td>
+<td>חול המועד פסח</td>
+<td>HOL_HAMOED</td>
+</tr>
+<tr>
+<td>pesach_vii</td>
+<td>Pesach VII</td>
+<td>שביעי פסח</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>pesach_viii</td>
+<td>Pesach VIII</td>
+<td>אחרון של פסח</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>yom_hashoah</td>
+<td>Yom HaShoah</td>
+<td>יום השואה</td>
+<td>MEMORIAL_DAY</td>
+</tr>
+<tr>
+<td>yom_hazikaron</td>
+<td>Yom HaZikaron</td>
+<td>יום הזכרון</td>
+<td>MEMORIAL_DAY</td>
+</tr>
+<tr>
+<td>yom_haatzmaut</td>
+<td>Yom HaAtzma’ut</td>
+<td>יום העצמאות</td>
+<td>MODERN_HOLIDAY</td>
+</tr>
+<tr>
+<td>lag_bomer</td>
+<td>Lag B’Omer</td>
+<td>ל”ג בעומר</td>
+<td>MINOR_HOLIDAY</td>
+</tr>
+<tr>
+<td>yom_yerushalayim</td>
+<td>Yom Yerushalayim</td>
+<td>יום ירושלים</td>
+<td>MODERN_HOLIDAY</td>
+</tr>
+<tr>
+<td>erev_shavuot</td>
+<td>Erev Shavuot</td>
+<td>ערב שבועות</td>
+<td>EREV_YOM_TOV</td>
+</tr>
+<tr>
+<td>shavuot</td>
+<td>Shavuot</td>
+<td>שבועות</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>shavuot_ii</td>
+<td>Shavuot II</td>
+<td>שני של שבועות</td>
+<td>YOM_TOV</td>
+</tr>
+<tr>
+<td>tzom_tammuz</td>
+<td>Tzom Tammuz</td>
+<td>צום שבעה עשר בתמוז</td>
+<td>FAST_DAY</td>
+</tr>
+<tr>
+<td>zeev_zhabotinsky_day</td>
+<td>Zeev Zhabotinsky day</td>
+<td>יום זאב ז’בוטינסקי</td>
+<td>MEMORIAL_DAY</td>
+</tr>
+<tr>
+<td>tisha_bav</td>
+<td>Tish’a B’Av</td>
+<td>תשעה באב</td>
+<td>FAST_DAY</td>
+</tr>
+<tr>
+<td>tu_bav</td>
+<td>Tu B’Av</td>
+<td>ט”ו באב</td>
+<td>MINOR_HOLIDAY</td>
+</tr>
+<tr>
+<td>rosh_chodesh</td>
+<td>Rosh Chodesh</td>
+<td>ראש חודש</td>
+<td>ROSH_CHODESH</td>
+</tr>
+</tbody>
+</table>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<p>Available <span class="terminology">actions<span class="terminology-tooltip">Actions are used in several places in Home Assistant. As part of a script or automation, actions define what is going to happen once a trigger is activated. In scripts, an action is called <em>sequence</em>.<a class="terminology-link" href="/docs/automation/action/"> [Learn more]</a></span></span>:</p>
+<ul>
+<li><code>jewish_calendar.count_omer</code></li>
+</ul>
+<h3>Action Count the Omer <a class="title-link" name="action-count-the-omer" href="#action-count-the-omer"></a>
+</h3>
+<p>The <code>jewish_calendar.count_omer</code> action returns the phrase for counting the Omer for a given date.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>date</code></td>
+<td>yes</td>
+<td>Date for which to get the Omer blessing. Defaults to today.</td>
+</tr>
+<tr>
+<td><code>after_sunset</code></td>
+<td>yes</td>
+<td>If true and a date is provided, calculates the Omer count based on the Hebrew date, which starts after sunset. Ignored if no date is specified. Defaults to true.</td>
+</tr>
+<tr>
+<td><code>nusach</code></td>
+<td>no</td>
+<td>Nusach (tradition) of the Omer blessing.</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>yes</td>
+<td>Language to return. Defaults to Hebrew.</td>
+</tr>
+</tbody>
+</table>
+<p>If there’s no Omer count on the given day, the message will be empty.
+Supported nusachim are: Ashkenaz, Sfarad, Adot Mizrah and Italian.</p>
+<h4>Example <a class="title-link" name="example" href="#example"></a>
+</h4>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">jewish_calendar.count_omer</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">nusach</span><span class="pi">:</span> <span class="s">sfarad</span>
+  <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2025-05-20"</span>       <span class="c1"># optional; defaults to today</span>
+  <span class="na">language</span><span class="pi">:</span> <span class="s">en</span>             <span class="c1"># optional; defaults to Hebrew</span>
+  <span class="na">after_sunset</span><span class="pi">:</span> <span class="kc">true</span>       <span class="c1"># optional; defaults to true</span>
+</code></pre></div></div>
+<p>Will return the following:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">message</span><span class="pi">:</span> <span class="s">Today is the thirty-seventh day, which are five weeks and two days of the Omer</span>
+<span class="na">weeks</span><span class="pi">:</span> <span class="m">5</span>
+<span class="na">days</span><span class="pi">:</span> <span class="m">2</span>
+<span class="na">total_days</span><span class="pi">:</span> <span class="m">37</span>
+</code></pre></div></div>
+<h4>Minimal call <a class="title-link" name="minimal-call" href="#minimal-call"></a>
+</h4>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">action</span><span class="pi">:</span> <span class="s">jewish_calendar.count_omer</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">nusach</span><span class="pi">:</span> <span class="s">sfarad</span>
+</code></pre></div></div>
+<p>Will return the current text in Hebrew based on the Hebrew date, considering the current time relative to sunset.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">message</span><span class="pi">:</span> <span class="s">היום ארבעה עשר יום שהם שני שבועות לעומר</span>
+<span class="na">weeks</span><span class="pi">:</span> <span class="m">2</span>
+<span class="na">days</span><span class="pi">:</span> <span class="m">0</span>
+<span class="na">total_days</span><span class="pi">:</span> <span class="m">14</span>
+</code></pre></div></div>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/jewish_calendar.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fjewish_calendar%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20jewish_calendar" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+jewish_calendar%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/jewish_calendar//logo.png' srcset='https://brands.home-assistant.io/_/jewish_calendar/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=jewish_calendar' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Jewish Calendar  integration  was introduced in Home Assistant 0.79, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          572</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      &nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Calculated.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/jewish_calendar" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+jewish_calendar%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/tsvi" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/tsvi?size=96" alt="@tsvi"/> @tsvi</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#advanced-options">Advanced Options</a></li>
+<li class="toc-entry toc-h2"><a href="#sensor-list">Sensor list</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#data-sensors">Data sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#time-sensors">Time sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#binary-sensors">Binary sensors</a></li>
+<li class="toc-entry toc-h3"><a href="#holiday-sensor">Holiday sensor</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-count-the-omer">Action Count the Omer</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#calendar'>Calendar</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

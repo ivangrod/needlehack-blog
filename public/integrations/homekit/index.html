@@ -1,0 +1,1546 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>HomeKit Bridge - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to set up the HomeKit Bridge integration in Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/homekit/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="HomeKit Bridge">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/homekit/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to set up the HomeKit Bridge integration in Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="HomeKit Bridge">
+    <meta name="twitter:description" content="Instructions on how to set up the HomeKit Bridge integration in Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-configuration">Manual configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#setup">Setup</a></li>
+<li class="toc-entry toc-h2"><a href="#move-home-assistant-install">Move Home Assistant install</a></li>
+<li class="toc-entry toc-h2"><a href="#considerations">Considerations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#accessory-id">Accessory ID</a></li>
+<li class="toc-entry toc-h3"><a href="#device-limit">Device Limit</a></li>
+<li class="toc-entry toc-h3"><a href="#multiple-homekit-instances">Multiple HomeKit instances</a></li>
+<li class="toc-entry toc-h3"><a href="#accessory-mode">Accessory mode</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configure-filter">Configure Filter</a></li>
+<li class="toc-entry toc-h2"><a href="#docker-network-isolation">Docker Network Isolation</a></li>
+<li class="toc-entry toc-h2"><a href="#firewall">Firewall</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-integrations">Supported integrations</a></li>
+<li class="toc-entry toc-h2"><a href="#ios-remote-widget">iOS Remote Widget</a></li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#all-or-some-devices-are-intermittently-unresponsive">All or some devices are intermittently unresponsive</a></li>
+<li class="toc-entry toc-h3"><a href="#resetting-when-created-via-yaml">Resetting when created via YAML</a></li>
+<li class="toc-entry toc-h3"><a href="#resetting-when-created-via-the-integrations-panel">Resetting when created via the Integrations panel</a></li>
+<li class="toc-entry toc-h3"><a href="#errors-during-pairing">Errors during pairing</a></li>
+<li class="toc-entry toc-h3"><a href="#minimal-configuration">Minimal Configuration</a></li>
+<li class="toc-entry toc-h3"><a href="#issues-during-normal-use">Issues during normal use</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        HomeKit Bridge
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The HomeKit Bridge integration allows you to make your Home Assistant entities available in Apple HomeKit,
+so they can be controlled from Apple’s Home app and Siri; even if those devices do not natively support HomeKit.</p>
+<p>Please make sure that you have read the <a href="#considerations">considerations</a> listed below to save you
+some trouble later. However, if you do encounter issues, check out the
+<a href="#troubleshooting">troubleshooting</a> section.</p>
+<div class="alert alert-tip">
+  <p class="alert-title"><iconify-icon inline icon="mdi:lightbulb-outline"></iconify-icon> Tip</p>
+  <div class="alert-content">
+<p>If you want to control HomeKit-only devices with Home Assistant,
+check out the <a href="/integrations/homekit_controller/">HomeKit Device</a> integration,
+which provides the possibility to pull HomeKit-enabled devices into Home Assistant.</p>
+  </div>
+</div>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>HomeKit Bridge</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=homekit" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>HomeKit Bridge can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=homekit" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>HomeKit Bridge</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h2>Manual configuration <a class="title-link" name="manual-configuration" href="#manual-configuration"></a>
+</h2>
+<p>If you want make specific changes to the way entities are published to HomeKit, override the
+IP address the HomeKit integration uses to communicate with your network or change the
+IP address the HomeKit uses to advertise itself to the network, then you will need to configure the
+HomeKit integration using an entry in your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file.</p>
+<p>This is an example entry of how that would look:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry configuring HomeKit</span>
+<span class="na">homekit</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">filter</span><span class="pi">:</span>
+      <span class="na">include_domains</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">alarm_control_panel</span>
+        <span class="pi">-</span> <span class="s">light</span>
+        <span class="pi">-</span> <span class="s">media_player</span>
+      <span class="na">include_entity_globs</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">binary_sensor.*_occupancy</span>
+      <span class="na">include_entities</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">binary_sensor.living_room_motion</span>
+    <span class="na">entity_config</span><span class="pi">:</span>
+      <span class="na">alarm_control_panel.home</span><span class="pi">:</span>
+        <span class="na">code</span><span class="pi">:</span> <span class="m">1234</span>
+      <span class="na">binary_sensor.living_room_motion</span><span class="pi">:</span>
+        <span class="na">linked_battery_sensor</span><span class="pi">:</span> <span class="s">sensor.living_room_motion_battery</span>
+        <span class="na">low_battery_threshold</span><span class="pi">:</span> <span class="m">31</span>
+      <span class="na">fan.air_purifier</span><span class="pi">:</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">air_purifier</span>
+        <span class="na">linked_filter_life_level_sensor</span><span class="pi">:</span> <span class="s">sensor.air_purifier_filter_life_level</span>
+      <span class="na">light.kitchen_table</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Kitchen Table Light</span>
+      <span class="na">lock.front_door</span><span class="pi">:</span>
+        <span class="na">code</span><span class="pi">:</span> <span class="m">1234</span>
+      <span class="na">media_player.living_room</span><span class="pi">:</span>
+        <span class="na">feature_list</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">feature</span><span class="pi">:</span> <span class="s">on_off</span>
+          <span class="pi">-</span> <span class="na">feature</span><span class="pi">:</span> <span class="s">play_pause</span>
+          <span class="pi">-</span> <span class="na">feature</span><span class="pi">:</span> <span class="s">play_stop</span>
+          <span class="pi">-</span> <span class="na">feature</span><span class="pi">:</span> <span class="s">toggle_mute</span>
+      <span class="na">switch.bedroom_outlet</span><span class="pi">:</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">outlet</span>
+      <span class="na">camera.back_porch</span><span class="pi">:</span>
+        <span class="na">support_audio</span><span class="pi">:</span> <span class="s">True</span>
+      <span class="na">sensor.some_co_sensor</span><span class="pi">:</span>
+        <span class="na">co_threshold</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">sensor.some_co2_sensor</span><span class="pi">:</span>
+        <span class="na">co2_threshold</span><span class="pi">:</span> <span class="m">1000</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">HASS Bridge </span><span class="m">2</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">21065</span>
+    <span class="na">filter</span><span class="pi">:</span>
+      <span class="na">include_domains</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">light</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="homekit-configuration-variables" href="#homekit-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="{{site.baseurl}}/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class=""><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> homekit </span><span class="config-vars-type">map</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="homekit" class="title-link" href="#homekit"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>HomeKit configuration.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> port </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 21063</span>)</span><a name="port" class="title-link" href="#port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Port for the HomeKit extension. If you are adding more than one instance they need to have different values for port.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children">
+<span class="config-vars-description"><p>Needs to be unique for each instance of Home Assistant using the integration on the same local network. Between <code>3</code> and <code>25</code> characters. Alphanumeric and spaces allowed.</p>
+</span><div class="config-vars-default">
+Default: <p><code>Home Assistant Bridge</code></p>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> ip_address </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="ip_address" class="title-link" href="#ip_address"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The local network IP address. Only necessary if the default from Home Assistant does not work.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> mode </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: <code>bridge</code></span>)</span><a name="mode" class="title-link" href="#mode"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>HomeKit can expose an entity via a bridge, or a single entity as an accessory which is needed for Television Media Players. (<a href="#accessory-mode">Accessory mode</a>)</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> advertise_ip </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="advertise_ip" class="title-link" href="#advertise_ip"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>If you need to override the IP address(es) used for mDNS advertisement. (For example, using network isolation in Docker and together with an mDNS forwarder like <code>avahi-daemon</code> in reflector mode)</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> filter </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="filter" class="title-link" href="#filter"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Filters for entities to be included/excluded from HomeKit. (<a href="#configure-filter">Configure Filter</a>)</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> include_domains </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="include_domains" class="title-link" href="#include_domains"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Domains to be included.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> include_entity_globs </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="include_entity_globs" class="title-link" href="#include_entity_globs"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Include all entities matching a listed pattern (e.g., <code>binary_sensor.*_motion</code>).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> include_entities </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="include_entities" class="title-link" href="#include_entities"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Entities to be included.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> exclude_domains </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="exclude_domains" class="title-link" href="#exclude_domains"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Domains to be excluded.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> exclude_entity_globs </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="exclude_entity_globs" class="title-link" href="#exclude_entity_globs"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Exclude all entities matching a listed pattern (e.g., <code>sensor.*_motion</code>).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> exclude_entities </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="exclude_entities" class="title-link" href="#exclude_entities"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Entities to be excluded.</p>
+</span></div>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> entity_config </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="entity_config" class="title-link" href="#entity_config"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Configuration for specific entities. All subordinate keys are the corresponding entity ids of the domains, e.g., <code>alarm_control_panel.alarm</code>.</p>
+</span></div>
+<div class="nested"><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> `ENTITY_ID` </span><span class="config-vars-type">map</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="entity_id" class="title-link" href="#entity_id"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Additional options for specific entities.</p>
+</span></div>
+<div class="nested">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the entity to show in HomeKit. HomeKit will cache the name on the first run so the accessory must be <a href="#resetting-accessories">reset</a> for any change to take effect.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_battery_sensor </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_battery_sensor" class="title-link" href="#linked_battery_sensor"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of a <code>sensor</code> entity to use as the battery of the accessory.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_doorbell_sensor </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_doorbell_sensor" class="title-link" href="#linked_doorbell_sensor"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of a <code>binary_sensor</code> or <code>event</code> entity to use as the doorbell sensor of a <code>lock</code> or <code>camera</code> accessory to enable doorbell notifications.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_filter_change_indication_binary_sensor </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_filter_change_indication_binary_sensor" class="title-link" href="#linked_filter_change_indication_binary_sensor"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of a <code>binary_sensor</code> entity to use as the indicator that the filter of the air purifier accessory needs to be changed.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_filter_life_level_sensor </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_filter_life_level_sensor" class="title-link" href="#linked_filter_life_level_sensor"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of a <code>sensor</code> entity to use as the filter life level of the air purifier accessory.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_humidity_sensor </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_humidity_sensor" class="title-link" href="#linked_humidity_sensor"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of a <code>sensor</code> entity to use as the humidity sensor of the humidifier/dehumidifier accessory.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_pm25_sensor </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_pm25_sensor" class="title-link" href="#linked_pm25_sensor"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of a <code>sensor</code> entity to use as the PM2.5 sensor of the air purifier accessory. When set, the <code>fan</code> accessory will default its <code>type</code> to <code>air_purifier</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_motion_sensor </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_motion_sensor" class="title-link" href="#linked_motion_sensor"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of a <code>binary_sensor</code> or <code>event</code> entity to use as the motion sensor of the camera accessory to enable motion notifications.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_obstruction_sensor </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_obstruction_sensor" class="title-link" href="#linked_obstruction_sensor"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of a <code>binary_sensor</code> entity to use as the obstruction sensor of the garage door (cover) accessory to enable obstruction state tracking.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_temperature_sensor </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_temperature_sensor" class="title-link" href="#linked_temperature_sensor"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of a <code>sensor</code> entity to use as the temperature sensor of the air purifier accessory.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_valve_duration </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_valve_duration" class="title-link" href="#linked_valve_duration"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of an <code>input_number</code> entity to use as the default run time of a valve switch (switch type <code>faucet</code>, <code>shower</code>, <code>sprinkler</code>, or <code>valve</code>), or valve accessory. Minimum value <code>300</code> seconds. Maximum value <code>3600</code> seconds. Step size <code>300</code> seconds. Changes in HomeKit will change the sensor state (and vice versa).</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> linked_valve_end_time </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="linked_valve_end_time" class="title-link" href="#linked_valve_end_time"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The <code>entity_id</code> of a <code>sensor</code> (timestamp) entity to use for calculating the remaining time of a valve switch (switch type <code>faucet</code>, <code>shower</code>, <code>sprinkler</code>, or <code>valve</code>), or valve accessory. The end time has to be maintained in Home Assistant. HomeKit will not update the state of this sensor.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> low_battery_threshold </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 20</span>)</span><a name="low_battery_threshold" class="title-link" href="#low_battery_threshold"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Minimum battery level before the accessory starts reporting a low battery.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> code </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="code" class="title-link" href="#code"></a>
+</div>
+<div class="config-vars-description-and-children">
+<span class="config-vars-description"><p>Code to <code>arm / disarm</code> an alarm or <code>lock / unlock</code> a lock. Only applicable for <code>alarm_control_panel</code> or <code>lock</code> entities.</p>
+</span><div class="config-vars-default">
+Default: <p><code>&lt;No code&gt;</code></p>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> feature_list </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="feature_list" class="title-link" href="#feature_list"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>media_player</code> entities. List of feature dictionaries to add for a given entity. Comparable to the platform schema.</p>
+</span></div>
+<div class="nested"><div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> feature </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="feature" class="title-link" href="#feature"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the feature to add to the entity representation. Valid features are <code>on_off</code>, <code>play_pause</code>, <code>play_stop</code> and <code>toggle_mute</code>. The media_player entity must support the feature to be valid.</p>
+</span></div>
+</div></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> type </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: <code>switch</code></span>)</span><a name="type" class="title-link" href="#type"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>switch</code> and <code>fan</code> entities. Type of accessory to be created within HomeKit. Valid types for <code>switch</code> entities are <code>faucet</code>, <code>outlet</code>, <code>shower</code>, <code>sprinkler</code>, <code>switch</code> and <code>valve</code>. Valid types for <code>fan</code> entities are <code>fan</code> and <code>air_purifier</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> stream_count </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 3</span>)</span><a name="stream_count" class="title-link" href="#stream_count"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. The number of simultaneous streams the camera can support.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> stream_address </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="stream_address" class="title-link" href="#stream_address"></a>
+</div>
+<div class="config-vars-description-and-children">
+<span class="config-vars-description"><p>Only for <code>camera</code> entities. The source IP address to use when streaming to RTP clients. If your Home Assistant host has multiple interfaces, selecting a specific IP may be necessary.</p>
+</span><div class="config-vars-default">
+Default: <p>local IP from Home Assistant</p>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> stream_source </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="stream_source" class="title-link" href="#stream_source"></a>
+</div>
+<div class="config-vars-description-and-children">
+<span class="config-vars-description"><p>Only for <code>camera</code> entities. A URL, file or other valid FFmpeg input string to use as the stream source, rather than the default camera source. Required for camera entities that do not natively support streaming (MJPEG). If <code>-i</code> is not found in the stream source, it is prepended to construct the FFmpeg input.</p>
+</span><div class="config-vars-default">
+Default: <p>stream source from camera entity</p>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> support_audio </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: <code>False</code></span>)</span><a name="support_audio" class="title-link" href="#support_audio"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. Whether the camera supports audio. Audio is disabled unless this flag is set to <code>True</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> max_width </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 1920</span>)</span><a name="max_width" class="title-link" href="#max_width"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. Maximum width supported by camera. Used when generating advertised video resolutions.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> max_height </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 1080</span>)</span><a name="max_height" class="title-link" href="#max_height"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. Maximum height supported by camera. Used when generating advertised video resolutions.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> max_fps </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 30</span>)</span><a name="max_fps" class="title-link" href="#max_fps"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. Maximum FPS (frames per second) supported by camera. Used when generating advertised video resolutions.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> audio_map </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: <code>0:a:0</code></span>)</span><a name="audio_map" class="title-link" href="#audio_map"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. FFmpeg <a href="https://ffmpeg.org/ffmpeg.html#Stream-selection" rel="external nofollow">stream selection mapping<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for the audio-only stream. Selects the first audio stream in the input stream by default. If your input stream has multiple audio streams, this may need to be adjusted.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> video_map </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: <code>0:v:0</code></span>)</span><a name="video_map" class="title-link" href="#video_map"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. FFmpeg <a href="https://ffmpeg.org/ffmpeg.html#Stream-selection" rel="external nofollow">stream selection mapping<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for the video-only stream. Selects the first video stream in the input stream by default. If your input stream has multiple video streams, this may need to be adjusted.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> audio_packet_size </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 188</span>)</span><a name="audio_packet_size" class="title-link" href="#audio_packet_size"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. RTP packet size used for streaming audio to HomeKit clients.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> video_packet_size </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 1316</span>)</span><a name="video_packet_size" class="title-link" href="#video_packet_size"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. RTP packet size used for streaming video to HomeKit clients.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> video_codec </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: libx264</span>)</span><a name="video_codec" class="title-link" href="#video_codec"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. FFmpeg video codec for transcoding. <code>copy</code> option reduces CPU load when video source is already encoded with <code>H264</code> (MPEG4). <code>h264_v4l2m2m</code> can be used with supported hardware, e.g., the Raspberry Pi, to offload encoding to hardware. The <code>h264_omx</code> option is only available with custom FFmpeg builds and enables GPU Hardware acceleration on Raspberry Pi.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> video_profile_names </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="video_profile_names" class="title-link" href="#video_profile_names"></a>
+</div>
+<div class="config-vars-description-and-children">
+<span class="config-vars-description"><p>Only for <code>camera</code> entities. FFmpeg video profile names for transcoding, only relevant if <code>video_codec</code> isn’t <code>copy</code>. Some encoders, e.g., the Raspberry Pi’s <code>h264_v4l2m2m</code>, don’t use the standard <code>["baseline", "main", "high"]</code> profile names but expects <code>["0", "2", "4"]</code> instead. Use this option to override the default names, if needed.</p>
+</span><div class="config-vars-default">
+Default: <p>[“baseline”, “main”, “high”]</p>
+</div>
+</div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> audio_codec </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: libopus</span>)</span><a name="audio_codec" class="title-link" href="#audio_codec"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>camera</code> entities. FFmpeg audio codec for transcoding. <code>copy</code> option reduces CPU load when audio source is already encoded with <code>libopus</code>.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> co_threshold </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 25</span>)</span><a name="co_threshold" class="title-link" href="#co_threshold"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>sensor</code> entities with <code>device_class</code> <code>carbon_monoxide</code>. Used as the threshold value once HomeKit will warn/notify the user.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> co2_threshold </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: 1000</span>)</span><a name="co2_threshold" class="title-link" href="#co2_threshold"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Only for <code>sensor</code> entities with <code>device_class</code> <code>carbon_dioxide</code> or <code>co2</code> in <code>entity_id</code>. Used as the threshold value once HomeKit will warn/notify the user.</p>
+</span></div>
+</div>
+</div>
+</div></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> devices </span><span class="config-vars-type">list</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="devices" class="title-link" href="#devices"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Include device triggers for all matching device ids. Configuration in the UI via Options is recommended instead.</p>
+</span></div>
+</div>
+</div>
+</div></div>
+</div>
+<h2>Setup <a class="title-link" name="setup" href="#setup"></a>
+</h2>
+<p>To enable the HomeKit Bridge integration in Home Assistant, add the following to your configuration file:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example for HomeKit setup</span>
+<span class="na">homekit</span><span class="pi">:</span>
+</code></pre></div></div>
+<p>After Home Assistant has started, the entities (depending on the filter) are exposed to HomeKit if they are <a href="#supported-integrations">supported</a>. To add them:</p>
+<ol>
+<li>Open the Home Assistant frontend. A new card will display the pairing QR code and the <code>pin code</code> as seen in the example below. Note: If pin code is not displayed, check “Notifications” (the bell icon) in the lower-left of the Home Assistant UI.</li>
+<li>Open the Apple <code>Home</code> app.</li>
+<li>Click <code>Add Accessory</code>, then scan the QR code or select <code>Don't Have a Code or Can't Scan?</code> and choose the <code>Home Assistant Bridge</code>.</li>
+<li>Confirm that you are adding an <code>Uncertified Accessory</code> by clicking on <code>Add Anyway</code>.</li>
+<li>Enter the <code>PIN</code> code (skip this step if you scanned the QR code).</li>
+<li>Follow the setup by clicking on <code>Next</code> and lastly <code>Done</code> in the top right-hand corner.</li>
+<li>The <code>Home Assistant Bridge</code> and the Accessories should now be listed in the <code>Home</code> app.</li>
+</ol>
+<p>After the setup is completed, you should be able to control your Home Assistant integrations through Apple’s Home and Siri.</p>
+<p class="img">
+  <img src="/images/screenshots/homekit_pairing_example.png">
+</p>
+<h2>Move Home Assistant install <a class="title-link" name="move-home-assistant-install" href="#move-home-assistant-install"></a>
+</h2>
+<p>If you would like to retain your HomeKit pairing when moving to a new Home Assistant device or installation, besides copying the configuration files you also need to copy the <code>.storage/homekit.*</code> file inside your configuration directory. Keep in mind that the folder is usually hidden by default, depending on your operating system.</p>
+<p>Before you copy it, make sure to stop the old and new Home Assistant instances first entirely, otherwise it won’t work.</p>
+<h2>Considerations <a class="title-link" name="considerations" href="#considerations"></a>
+</h2>
+<h3>Accessory ID <a class="title-link" name="accessory-id" href="#accessory-id"></a>
+</h3>
+<p>Currently, this integration uses the <code>entity_id</code> to generate a unique <code>accessory id (aid)</code> for <code>HomeKit</code>. The <code>aid</code> is used to identify a device and save all configurations made for it. This, however, means that if you decide to change an <code>entity_id</code> that does not have a <code>unique_id</code>, all configurations for this accessory made in the <code>Home</code> app will be lost.</p>
+<h3>Device Limit <a class="title-link" name="device-limit" href="#device-limit"></a>
+</h3>
+<p>The HomeKit Accessory Protocol Specification only allows a maximum of 150 unique accessories (<code>aid</code>) per bridge. Be mindful of this when configuring the filter(s). If you plan on exceeding the 150 devices limit, it is possible to create multiple bridges. If you need specific configuration for some entities via <code>entity_config</code> be sure to add them to a bridge configured via <code>YAML</code>.</p>
+<h3>Multiple HomeKit instances <a class="title-link" name="multiple-homekit-instances" href="#multiple-homekit-instances"></a>
+</h3>
+<p>If you create a HomeKit integration via the UI (i.e., <strong>Settings</strong> &gt; <strong>Devices &amp; services</strong>), it must be configured via the UI <strong>only</strong>. While the UI currently offers limited configuration options, any attempt to configure a HomeKit instance created in the UI via the <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file will result in another instance of HomeKit running on a different port.</p>
+<p>It is recommended to only edit a HomeKit instance in the UI that was created in the UI, and likewise, only edit a HomeKit instance in YAML that was created in YAML.</p>
+<h3>Accessory mode <a class="title-link" name="accessory-mode" href="#accessory-mode"></a>
+</h3>
+<p>When exposing a Camera, Activity based remote (a <code>remote</code> that supports activities), Lock, or Television media player (a <code>media_player</code> with device class <code>tv</code> or <code>receiver</code>) to HomeKit, <code>mode</code> must be set to <code>accessory</code>, and the relevant <code>include</code> filter should be setup to only include a single entity.</p>
+<p>To quickly add all accessory mode entities in the UI:</p>
+<ol>
+<li>Create a new bridge via the UI (i.e., <strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=homekit" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>).</li>
+<li>Select <code>media_player</code>, <code>remote</code>, <code>lock</code>, and <code>camera</code> domains.</li>
+<li>Complete the flow as normal.</li>
+<li>Additional HomeKit entries for each entity that must operate in accessory mode will be created for each entity that does not already have one.</li>
+<li>If you have already created another HomeKit bridge for the non-accessory mode entities, the new bridge can safely be removed.</li>
+<li>
+<a href="#setup">Pair each bridge or accessory</a>.</li>
+</ol>
+<p>To add a single entity in accessory mode:</p>
+<ol>
+<li>Create a new bridge via the UI (i.e., <strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=homekit" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>)</li>
+<li>Before pairing the bridge, access the options for the bridge.</li>
+<li>Change the mode to <code>accessory</code>
+</li>
+<li>Select the entity.</li>
+<li>Complete the options flow</li>
+<li>
+<a href="#setup">Pair the accessory</a>.</li>
+</ol>
+<h2>Configure Filter <a class="title-link" name="configure-filter" href="#configure-filter"></a>
+</h2>
+<p>By default, all entities except hidden entities and categorized entities (config, diagnostic, and system entities) are included. To limit which entities are being exposed to <code>HomeKit</code>, you can use the <code>filter</code> parameter. Keep in mind only <a href="#supported-integrations">supported integrations</a> can be added.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example filter to include specified domains and exclude specified entities</span>
+<span class="na">homekit</span><span class="pi">:</span>
+  <span class="na">filter</span><span class="pi">:</span>
+    <span class="na">include_domains</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">alarm_control_panel</span>
+      <span class="pi">-</span> <span class="s">light</span>
+    <span class="na">include_entity_globs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">binary_sensor.*_occupancy</span>
+    <span class="na">exclude_entities</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">light.kitchen_light</span>
+</code></pre></div></div>
+<p>Filters are applied as follows:</p>
+<ol>
+<li>No filter
+<ul>
+<li>All entities included</li>
+</ul>
+</li>
+<li>Only includes
+<ul>
+<li>Entity listed in entities include: include</li>
+<li>Otherwise, entity matches domain include: include</li>
+<li>Otherwise, entity matches glob include: include</li>
+<li>Otherwise: exclude</li>
+</ul>
+</li>
+<li>Only excludes
+<ul>
+<li>Entity listed in exclude: exclude</li>
+<li>Otherwise, entity matches domain exclude: exclude</li>
+<li>Otherwise, entity matches glob exclude: exclude</li>
+<li>Otherwise: include</li>
+</ul>
+</li>
+<li>Domain and/or glob includes (may also have excludes)
+<ul>
+<li>Entity listed in entities include: include</li>
+<li>Otherwise, entity listed in entities exclude: exclude</li>
+<li>Otherwise, entity matches glob include: include</li>
+<li>Otherwise, entity matches glob exclude: exclude</li>
+<li>Otherwise, entity matches domain include: include</li>
+<li>Otherwise: exclude</li>
+</ul>
+</li>
+<li>Domain and/or glob excludes (no domain and/or glob includes)
+<ul>
+<li>Entity listed in entities include: include</li>
+<li>Otherwise, entity listed in exclude: exclude</li>
+<li>Otherwise, entity matches glob exclude: exclude</li>
+<li>Otherwise, entity matches domain exclude: exclude</li>
+<li>Otherwise: include</li>
+</ul>
+</li>
+<li>No Domain and/or glob includes or excludes
+<ul>
+<li>Entity listed in entities include: include</li>
+<li>Otherwise: exclude</li>
+</ul>
+</li>
+</ol>
+<p>The following characters can be used in entity globs:</p>
+<p><code>*</code> - The asterisk represents zero, one, or multiple characters
+<code>?</code> - The question mark represents zero or one character</p>
+<p>Hidden entities and categorized entities (config, diagnostic, and system entities) are not included unless they are explicitly matched by <code>include_entity_globs</code> or <code>include_entities</code> or selected in the UI in include mode.</p>
+<h2>Docker Network Isolation <a class="title-link" name="docker-network-isolation" href="#docker-network-isolation"></a>
+</h2>
+<p>The <code>advertise_ip</code> option can be used to run this integration even inside an ephemeral Docker container with network isolation enabled, e.g., not using the host network.</p>
+<p>You may need to set the default network interfaces Home Assistant uses, in its <a href="/integrations/network">network configuration</a>.</p>
+<p>To use <code>advertise_ip</code>, add the option to your <code>homekit</code> configuration:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">homekit</span><span class="pi">:</span>
+  <span class="na">advertise_ip</span><span class="pi">:</span> <span class="s2">"</span><span class="s">STATIC_IP_OF_YOUR_DOCKER_HOST"</span>
+</code></pre></div></div>
+<p>Restart your Home Assistant instance. This feature requires running an mDNS forwarder on your Docker host, e.g., <code>avahi-daemon</code> in reflector mode.</p>
+<h2>Firewall <a class="title-link" name="firewall" href="#firewall"></a>
+</h2>
+<p>If you have a firewall configured on your Home Assistant system, make sure you open the following ports:</p>
+<ul>
+<li>UDP: 5353</li>
+<li>TCP: 21063 (or the configured/used <code>port</code> in the integration settings).</li>
+</ul>
+<h2>Supported integrations <a class="title-link" name="supported-integrations" href="#supported-integrations"></a>
+</h2>
+<p>The following integrations are currently supported:</p>
+<table>
+<thead>
+<tr>
+<th>Integration</th>
+<th>Type Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alarm_control_panel</td>
+<td>SecuritySystem</td>
+<td>All security systems.</td>
+</tr>
+<tr>
+<td>automation / button / input_boolean / input_button / lawn_mower / remote / scene / script / vacuum</td>
+<td>Switch</td>
+<td>All represented as switches.</td>
+</tr>
+<tr>
+<td>input_select / select</td>
+<td>Switch</td>
+<td>Represented as a power strip with buttons for each option.</td>
+</tr>
+<tr>
+<td>binary_sensor</td>
+<td>Sensor</td>
+<td>Support for <code>co2</code>, <code>door</code>, <code>garage_door</code>, <code>gas</code>, <code>moisture</code>, <code>motion</code>, <code>occupancy</code>, <code>opening</code>, <code>smoke</code> and <code>window</code> device classes. Defaults to the <code>occupancy</code> device class for everything else.</td>
+</tr>
+<tr>
+<td>camera</td>
+<td>Camera</td>
+<td>All camera devices. <strong>HomeKit Secure Video is not supported at this time.</strong>
+</td>
+</tr>
+<tr>
+<td>climate</td>
+<td>Thermostat</td>
+<td>All climate devices.</td>
+</tr>
+<tr>
+<td>cover</td>
+<td>GarageDoorOpener</td>
+<td>All covers that support <code>open</code> and <code>close</code> and have <code>garage</code> or <code>gate</code> as their <code>device_class</code>.</td>
+</tr>
+<tr>
+<td>cover</td>
+<td>WindowCovering</td>
+<td>All covers that support <code>set_cover_position</code>.</td>
+</tr>
+<tr>
+<td>cover</td>
+<td>Door</td>
+<td>All covers that support <code>set_cover_position</code> and have <code>door</code> as their <code>device_class</code>.</td>
+</tr>
+<tr>
+<td>cover</td>
+<td>WindowCovering</td>
+<td>All covers that support <code>open_cover</code> and <code>close_cover</code> through value mapping. (<code>open</code> -&gt; <code>&gt;=50</code>; <code>close</code> -&gt; <code>&lt;50</code>)</td>
+</tr>
+<tr>
+<td>cover</td>
+<td>WindowCovering</td>
+<td>All covers that support <code>open_cover</code>, <code>stop_cover</code> and <code>close_cover</code> through value mapping. (<code>open</code> -&gt; <code>&gt;70</code>; <code>close</code> -&gt; <code>&lt;30</code>; <code>stop</code> -&gt; every value in between)</td>
+</tr>
+<tr>
+<td>device_tracker / person</td>
+<td>Sensor</td>
+<td>Support for <code>occupancy</code> device class.</td>
+</tr>
+<tr>
+<td>fan</td>
+<td>Fan / AirPurifier</td>
+<td>Support for <code>on / off</code>, <code>direction</code> and <code>oscillating</code>. Represented as a fan by default but can be changed by using <code>type</code> within <code>entity_config</code>. Defaults to an air purifier when there’s a linked PM2.5 sensor.</td>
+</tr>
+<tr>
+<td>fan</td>
+<td>Fan / AirPurifier</td>
+<td>All fans that support <code>speed</code> and <code>speed_list</code> through value mapping: <code>speed_list</code> is assumed to contain values in ascending order. The numeric ranges of HomeKit map to a corresponding entry of <code>speed_list</code>. The first entry of <code>speed_list</code> should be equivalent to <code>off</code> to match HomeKit’s concept of fan speeds. (Example: <code>speed_list</code> = [<code>off</code>, <code>low</code>, <code>high</code>]; <code>off</code> -&gt; <code>&lt;= 33</code>; <code>low</code> -&gt; between <code>33</code> and <code>66</code>; <code>high</code> -&gt; <code>&gt; 66</code>). The same applies for fans represented as air purifiers (see above).</td>
+</tr>
+<tr>
+<td>humidifier</td>
+<td>HumidifierDehumidifier</td>
+<td>Humidifier and Dehumidifier devices.</td>
+</tr>
+<tr>
+<td>light</td>
+<td>Light</td>
+<td>Support for <code>on / off</code>, <code>brightness</code> and <code>rgb_color</code>.</td>
+</tr>
+<tr>
+<td>lock</td>
+<td>DoorLock</td>
+<td>Support for <code>lock / unlock</code>. A doorbell event / sensor can be linked with <code>linked_doorbell_sensor</code>.</td>
+</tr>
+<tr>
+<td>media_player</td>
+<td>MediaPlayer</td>
+<td>Represented as a series of switches which control <code>on / off</code>, <code>play / pause</code>, <code>play / stop</code>, or <code>mute</code> depending on <code>supported_features</code> of entity and the <code>mode</code> list specified in <code>entity_config</code>.</td>
+</tr>
+<tr>
+<td>media_player</td>
+<td>TelevisionMediaPlayer</td>
+<td>All media players that have <code>tv</code> as their <code>device_class</code>.  Represented as Television and Remote accessories in HomeKit to control <code>on / off</code>, <code>play / pause</code>, <code>select source</code>, or <code>volume increase / decrease</code>, depending on <code>supported_features</code> of entity. Requires iOS 12.2/macOS 10.14.4 or later.</td>
+</tr>
+<tr>
+<td>media_player</td>
+<td>ReceiverMediaPlayer</td>
+<td>All media players that have <code>receiver</code> as their <code>device_class</code>.  Represented as Receiver and Remote accessories in HomeKit to control <code>on / off</code>, <code>play / pause</code>, <code>select source</code>, or <code>volume increase / decrease</code>, depending on <code>supported_features</code> of entity. Requires iOS 12.2/macOS 10.14.4 or later.</td>
+</tr>
+<tr>
+<td>sensor</td>
+<td>TemperatureSensor</td>
+<td>All sensors that have <code>°C</code> or <code>°F</code> as their <code>unit_of_measurement</code> and <code>temperature</code> as their <code>device_class</code>.</td>
+</tr>
+<tr>
+<td>sensor</td>
+<td>HumiditySensor</td>
+<td>All sensors that have <code>%</code> as their <code>unit_of_measurement</code> and <code>humidity</code> as their <code>device_class</code>.</td>
+</tr>
+<tr>
+<td>sensor</td>
+<td>AirQualitySensor</td>
+<td>All sensors that have <code>gas</code>/<code>pm10</code>/<code>pm25</code> as part of their <code>entity_id</code> or <code>gas</code>/<code>pm10</code>/<code>pm25</code>/<code>nitrogen_dioxide</code>/<code>volatile_organic_compounds</code> as their <code>device_class</code>. The VOC mappings use the IAQ guidelines for Europe released by the WHO (World Health Organization).</td>
+</tr>
+<tr>
+<td>sensor</td>
+<td>CarbonMonoxideSensor</td>
+<td>All sensors that have <code>carbon_monoxide</code> as their <code>device_class</code>
+</td>
+</tr>
+<tr>
+<td>sensor</td>
+<td>CarbonDioxideSensor</td>
+<td>All sensors that have <code>co2</code> as part of their <code>entity_id</code> or <code>carbon_dioxide</code> as their <code>device_class</code>
+</td>
+</tr>
+<tr>
+<td>sensor</td>
+<td>LightSensor</td>
+<td>All sensors that have <code>lm</code> or <code>lx</code> as their <code>unit_of_measurement</code> or <code>illuminance</code> as their <code>device_class</code>
+</td>
+</tr>
+<tr>
+<td>switch</td>
+<td>Switch</td>
+<td>Represented as a switch by default but can be changed by using <code>type</code> within <code>entity_config</code>. Valve switches (type <code>faucet</code>, <code>shower</code>, <code>sprinkler</code>, or <code>valve</code>) can be linked with <code>linked_valve_duration</code> and <code>linked_valve_end_time</code>.</td>
+</tr>
+<tr>
+<td>water_heater</td>
+<td>WaterHeater</td>
+<td>All <code>water_heater</code> devices.</td>
+</tr>
+<tr>
+<td>device_automation</td>
+<td>DeviceTriggerAccessory</td>
+<td>All devices that support triggers.</td>
+</tr>
+<tr>
+<td>valve</td>
+<td>Valve</td>
+<td>All <code>valve</code> devices can be linked with <code>linked_valve_duration</code> and <code>linked_valve_end_time</code>.</td>
+</tr>
+</tbody>
+</table>
+<h1>Device triggers</h1>
+<p>Devices that support triggers can be added to the bridge by accessing options for the bridge in <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>. To use this feature, Advanced Mode must be enabled in your user profile.</p>
+<p>Bridged device triggers are represented as a single press button on stateless programmable switches. This allows a HomeKit automation to run when a device trigger fires. Because the Apple Home app currently only shows the number of the button and not the name, users may find it easier to identify the name of the button in the <code>Eve for HomeKit</code> app.</p>
+<h2>iOS Remote Widget <a class="title-link" name="ios-remote-widget" href="#ios-remote-widget"></a>
+</h2>
+<p>Entities exposed as <code>TelevisionMediaPlayer</code> and <code>ReceiverMediaPlayer</code> are controllable within the Apple Remote widget in
+Control Center. Play, pause, volume up and volume down should work out of the box depending on the <code>supported_features</code>
+of the entity. However, if your television can be controlled in other ways outside of the <code>media_player</code> entity, (e.g.,
+performing actions to an IR blaster), it is possible to build an automation to take advantage of these events.</p>
+<p>When a key is pressed within the Control Center Remote widget, the event <code>homekit_tv_remote_key_pressed</code> will be fired.
+The key name will be available in the event data in the <code>key_name</code> field. Example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">homekit_tv_remote_key_pressed</span>
+      <span class="na">event_data</span><span class="pi">:</span>
+        <span class="na">key_name</span><span class="pi">:</span> <span class="s">arrow_right</span>
+
+  <span class="c1"># Send the arrow right key via a broadlink IR blaster</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">broadlink.send</span>
+      <span class="na">host</span><span class="pi">:</span> <span class="s">192.168.1.55</span>
+      <span class="na">packet</span><span class="pi">:</span> <span class="s">XXXXXXXX</span>
+</code></pre></div></div>
+<h2>Events <a class="title-link" name="events" href="#events"></a>
+</h2>
+<p>The HomeKit integration emits <code>homekit_state_change</code> events. These events can be used in automations to know when an entity’s state was changed from HomeKit.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example for handling a HomeKit event</span>
+<span class="na">automation</span><span class="pi">:</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+      <span class="na">event_type</span><span class="pi">:</span> <span class="s">homekit_state_change</span>
+      <span class="na">event_data</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">cover.garage_door</span>
+        <span class="na">action</span><span class="pi">:</span> <span class="s">open_cover</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">persistent_notification.create</span>
+      <span class="na">data</span><span class="pi">:</span>
+        <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">garage</span><span class="nv"> </span><span class="s">door</span><span class="nv"> </span><span class="s">got</span><span class="nv"> </span><span class="s">opened</span><span class="nv"> </span><span class="s">via</span><span class="nv"> </span><span class="s">HomeKit"</span>
+</code></pre></div></div>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<h3>All or some devices are intermittently unresponsive <a class="title-link" name="all-or-some-devices-are-intermittently-unresponsive" href="#all-or-some-devices-are-intermittently-unresponsive"></a>
+</h3>
+<p>HomeKit relies heavily on your home hub to keep track of Bluetooth devices. Additionally, each home hub has to keep track of every HomeKit accessory that you bridge. If you have many accessories, notably cameras or Bluetooth devices, <strong>consider disabling HomeKit on older home hubs</strong>.</p>
+<h4>The below testing was conducted with Home Assistant 2021.6 (HAP-python 3.5.0) and iOS/tvOS 14.6 <a class="title-link" name="the-below-testing-was-conducted-with-home-assistant-20216-hap-python-350-and-iostvos-146" href="#the-below-testing-was-conducted-with-home-assistant-20216-hap-python-350-and-iostvos-146"></a>
+</h4>
+<p>The following home hubs showed strong results when testing with 400 accessories:</p>
+<ul>
+<li>HomePod</li>
+<li>HomePod Mini</li>
+<li>Apple TV 4k Gen 2 (best results when using Ethernet instead of Wi-Fi)</li>
+</ul>
+<p>The following home hubs showed strong results when testing with 300 accessories:</p>
+<ul>
+<li>Apple TV 4k Gen 1 (best results when using ethernet instead of Wi-Fi)</li>
+</ul>
+<p>The following home hubs have been reported to have trouble with a large number of accessories:</p>
+<ul>
+<li>Apple TV HD</li>
+<li>Various iPad models</li>
+</ul>
+<h3>Resetting when created via YAML <a class="title-link" name="resetting-when-created-via-yaml" href="#resetting-when-created-via-yaml"></a>
+</h3>
+<ol>
+<li>Delete the <code>HomeKit</code> integration in the <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Devices &amp; services</a></strong> panel.</li>
+<li>
+<strong>Restart</strong> Home Assistant.</li>
+<li>The configuration will be automatically reimported from YAML.</li>
+<li>
+<a href="#setup">Pair the bridge or accessory</a>.</li>
+</ol>
+<h3>Resetting when created via the Integrations panel <a class="title-link" name="resetting-when-created-via-the-integrations-panel" href="#resetting-when-created-via-the-integrations-panel"></a>
+</h3>
+<ol>
+<li>Delete the <code>HomeKit</code> integration in the <strong>Integrations</strong> panel.</li>
+<li>Recreate the <code>HomeKit</code> integration in the <strong>Integrations</strong> panel.</li>
+<li>
+<a href="#setup">Pair the bridge or accessory</a>.</li>
+</ol>
+<h3>Errors during pairing <a class="title-link" name="errors-during-pairing" href="#errors-during-pairing"></a>
+</h3>
+<p>If you encounter any issues during pairing, make sure to add the following to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> to try and identify the issue(s).</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">logger</span><span class="pi">:</span>
+  <span class="na">default</span><span class="pi">:</span> <span class="s">warning</span>
+  <span class="na">logs</span><span class="pi">:</span>
+    <span class="na">homeassistant.components.homekit</span><span class="pi">:</span> <span class="s">debug</span>
+    <span class="na">pyhap</span><span class="pi">:</span> <span class="s">debug</span>
+</code></pre></div></div>
+<p>Follow the above instructions for resetting.</p>
+<h3>Minimal Configuration <a class="title-link" name="minimal-configuration" href="#minimal-configuration"></a>
+</h3>
+<p>If pairing still fails after trying the steps in (<a href="#errors-during-pairing">Errors during pairing</a>), it may be caused by a specific entity. Try resetting with a minimal configuration like:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">homekit</span><span class="pi">:</span>
+  <span class="na">filter</span><span class="pi">:</span>
+    <span class="na">include_entities</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">demo.demo</span>
+</code></pre></div></div>
+<h4>PIN doesn’t appear as persistent status <a class="title-link" name="pin-doesnt-appear-as-persistent-status" href="#pin-doesnt-appear-as-persistent-status"></a>
+</h4>
+<p>You might have paired the <code>Home Assistant Bridge</code> already. If not, follow the above instructions for resetting.</p>
+<h4>Home Assistant Bridge doesn’t appear in the Home App (for pairing) <a class="title-link" name="home-assistant-bridge-doesnt-appear-in-the-home-app-for-pairing" href="#home-assistant-bridge-doesnt-appear-in-the-home-app-for-pairing"></a>
+</h4>
+<p>This is often setup and network related. Make sure to check the other issues below as well, but things that might work include:</p>
+<ul>
+<li>Check your router configuration</li>
+<li>Try with Wi-Fi <strong>and</strong> LAN</li>
+<li>Change the default <a href="#port">port</a>
+</li>
+</ul>
+<p>Remember that the iOS device needs to be in the same local network as the Home Assistant device for pairing.</p>
+<h4>Home Assistant Bridge doesn’t appear in the Home App (for pairing) - Docker <a class="title-link" name="home-assistant-bridge-doesnt-appear-in-the-home-app-for-pairing---docker" href="#home-assistant-bridge-doesnt-appear-in-the-home-app-for-pairing---docker"></a>
+</h4>
+<p>Set <code>network_mode: host</code> in your <code>docker-compose.yaml</code>. If you have further problems this <a href="https://github.com/home-assistant/core/issues/15692" rel="external nofollow">issue<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> might help.</p>
+<p>You can also try to use <code>avahi-daemon</code> in reflector mode together with the option <code>advertise_ip</code>, see above.</p>
+<h4>Home Assistant Bridge doesn’t appear in the Home App (for pairing) - VirtualBox <a class="title-link" name="home-assistant-bridge-doesnt-appear-in-the-home-app-for-pairing---virtualbox" href="#home-assistant-bridge-doesnt-appear-in-the-home-app-for-pairing---virtualbox"></a>
+</h4>
+<p>Configure the network mode as <code>networkbridge</code>. Otherwise the Home Assistant Bridge won’t be exposed to the network.</p>
+<h4>Accessory does not appear in the Home App (for pairing) - Libvirt QEMU/KVM virtual machine with macvtap adapter <a class="title-link" name="accessory-does-not-appear-in-the-home-app-for-pairing---libvirt-qemukvm-virtual-machine-with-macvtap-adapter" href="#accessory-does-not-appear-in-the-home-app-for-pairing---libvirt-qemukvm-virtual-machine-with-macvtap-adapter"></a>
+</h4>
+<p>Please see the <a href="/integrations/zeroconf/#troubleshooting">Zero-configuration networking</a> integration for more details.</p>
+<h4>Pairing hangs - zeroconf error <a class="title-link" name="pairing-hangs---zeroconf-error" href="#pairing-hangs---zeroconf-error"></a>
+</h4>
+<p>Pairing eventually fails, you might see the error message, <code>NonUniqueNameException</code>, you likely need to enable <code>default_interface: true</code> in the <code>zeroconf</code> integration configuration and set a unique name such as <code>name: MyHASS42</code>.</p>
+<p>If you had previously paired (even unsuccessfully), you may need to delete your <code>.homekit.state</code> file in order to able to successfully pair again. See <a href="#errors-during-pairing">Errors during pairing</a>.</p>
+<h4>Pairing hangs - only works with debug configuration <a class="title-link" name="pairing-hangs---only-works-with-debug-configuration" href="#pairing-hangs---only-works-with-debug-configuration"></a>
+</h4>
+<p>Pairing works fine when the filter is set to only include <code>demo.demo</code>, but fails with normal configuration. See <a href="#specific-entity-doesnt-work">specific entity doesn’t work</a></p>
+<h4>Pairing hangs - no error <a class="title-link" name="pairing-hangs---no-error" href="#pairing-hangs---no-error"></a>
+</h4>
+<ol>
+<li>Make sure that you don’t try to add more than 150 accessories, see <a href="#device-limit">device limit</a>. In rare cases, one of your entities doesn’t work with the HomeKit integration. Use the <a href="#configure-filter">filter</a> to find out which one. Feel free to open a new issue in the <code>home-assistant</code> repository, so we can resolve it.</li>
+<li>Check logs, and search for <code>Starting accessory Home Assistant Bridge on address</code>. Make sure Home Assistant Bridge connected to a correct interface. If it did not, explicitly set <code>homekit.ip_address</code> configuration variable.</li>
+</ol>
+<h3>Issues during normal use <a class="title-link" name="issues-during-normal-use" href="#issues-during-normal-use"></a>
+</h3>
+<h4>Bridge spontaneously unpairs <a class="title-link" name="bridge-spontaneously-unpairs" href="#bridge-spontaneously-unpairs"></a>
+</h4>
+<p>Multiple users have reported that iOS 12 and earlier devices will spontaneously remove pairings. Ensure all iOS devices that have administrator access to the Home are running iOS 13 or later. If you cannot update the device to iOS 13, disable <code>Home</code> in the device iCloud settings.</p>
+<h4>My entity doesn’t show up <a class="title-link" name="my-entity-doesnt-show-up" href="#my-entity-doesnt-show-up"></a>
+</h4>
+<p>Check if the domain of your entity is <a href="#supported-integrations">supported</a>. If it is, check your <a href="#configure-filter">filter</a> settings. Make sure the spelling is correct, especially if you use <code>include_entities</code>.</p>
+<h4>HomeKit doesn’t work on second Home Assistant instance <a class="title-link" name="homekit-doesnt-work-on-second-home-assistant-instance" href="#homekit-doesnt-work-on-second-home-assistant-instance"></a>
+</h4>
+<p>To use the HomeKit integration with multiple different Home Assistant instances on the same local network, you need to set a custom name for at least one of them. <a href="#name">config/name</a></p>
+<h4>Specific entity doesn’t work <a class="title-link" name="specific-entity-doesnt-work" href="#specific-entity-doesnt-work"></a>
+</h4>
+<p>Although we try our best, some entities don’t work with the HomeKit integration yet. The result will be that either pairing fails completely or all Home Assistant accessories will stop working. Use the filter to identify which entity is causing the issue. It’s best to try pairing and step by step including more entities. If it works, unpair and repeat until you find the one that is causing the issues. To help others and the developers, please open a new issue here: <a href="https://github.com/home-assistant/core/issues/new" rel="external nofollow">core/issues/new<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></p>
+<p>If you have any iOS 12.x devices signed into your iCloud account, media player entities with <code>device_class: tv</code> or <code>device_class: receiver</code> may trigger this condition. Filtering the entity or signing the iOS 12.x device out of iCloud should resolve the issue after restarting other devices.</p>
+<h4>Accessories are all listed as not responding <a class="title-link" name="accessories-are-all-listed-as-not-responding" href="#accessories-are-all-listed-as-not-responding"></a>
+</h4>
+<p>There were reports where the IGMP settings in a router were causing issues with HomeKit. This resulted in a situation where all of the Home Assistant HomeKit accessories stopped responding a few minutes after Home Assistant (re)started. Double check your router’s IGMP settings if you experience this issue. The default IGMP settings typically work best.</p>
+<p>See <a href="#specific-entity-doesnt-work">specific entity doesn’t work</a></p>
+<h4>Accessory not responding - after restart or update <a class="title-link" name="accessory-not-responding---after-restart-or-update" href="#accessory-not-responding---after-restart-or-update"></a>
+</h4>
+<p>See <a href="#resetting-accessories">resetting accessories</a> and <a href="#unpairing-and-re-pairing">Unpairing and Re-pairing</a>.</p>
+<h4>The linked battery sensor isn’t recognized <a class="title-link" name="the-linked-battery-sensor-isnt-recognized" href="#the-linked-battery-sensor-isnt-recognized"></a>
+</h4>
+<p>Try removing the entity from HomeKit and then adding it again. If you are adding this configuration option to an existing entity in HomeKit, any changes you make to this entity’s configuration options won’t appear until the accessory is removed from HomeKit and then re-added. See <a href="#resetting-accessories">resetting accessories</a>.</p>
+<h4>My media player is not showing up as a television or receiver accessory <a class="title-link" name="my-media-player-is-not-showing-up-as-a-television-or-receiver-accessory" href="#my-media-player-is-not-showing-up-as-a-television-or-receiver-accessory"></a>
+</h4>
+<p>Media Player entities with <code>device_class: tv</code> or <code>device_class: receiver</code> will show up as Television or Receiver accessories on devices running iOS 12.2/macOS 10.14.4 or later. If needed, try removing the entity from HomeKit and then adding it again, especially if the <code>media_player</code> was previously exposed as a series of switches. Any changes, including changed supported features, made to an existing accessory won’t appear until the accessory is removed from HomeKit and then re-added. See <a href="#resetting-accessories">resetting accessories</a>.</p>
+<p>The <a href="/integrations/universal/#harmony-remote-example">Universal Media Player</a> has an example of how it can be used to wrap existing entities to enable them to be used as a Television accessory in HomeKit.</p>
+<h4>Can’t control volume of your TV media player? <a class="title-link" name="cant-control-volume-of-your-tv-media-player" href="#cant-control-volume-of-your-tv-media-player"></a>
+</h4>
+<p>The volume and play/pause controls will show up on the Remote app or Control Center. If your TV supports volume control through Home Assistant, you will be able to control the volume using the side volume buttons on the device while having the remote selected on screen.</p>
+<h4>Camera video is not streaming <a class="title-link" name="camera-video-is-not-streaming" href="#camera-video-is-not-streaming"></a>
+</h4>
+<p>Ensure that the <a href="/integrations/ffmpeg"><code>ffmpeg</code></a> integration is configured correctly. Verify that your stream is directly playable with <code>ffplay &lt;stream_source&gt;</code> or <a href="https://www.videolan.org/" rel="external nofollow">VLC Media Player<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. If you have changed your camera’s entity configuration, you may need to <a href="#resetting-accessories">reset the accessory</a>.</p>
+<h4>Camera streaming is unstable or slow <a class="title-link" name="camera-streaming-is-unstable-or-slow" href="#camera-streaming-is-unstable-or-slow"></a>
+</h4>
+<p>If your camera supports native H.264 streams, Home Assistant can avoid converting the video stream, which is an expensive operation. To enable native H.264 streaming when configured via YAML, change the <code>video_codec</code> to <code>copy</code>. To allow native H.264 streaming when setting up HomeKit via the UI, go to <strong>Settings</strong> &gt; <strong>Devices &amp; services</strong> in the UI, click <strong>Options</strong> for your HomeKit Bridge, and check the box for your camera on the <code>Cameras that support native H.264 streams</code> screen.</p>
+<h4>Multiple camera streams <a class="title-link" name="multiple-camera-streams" href="#multiple-camera-streams"></a>
+</h4>
+<p>Multiple streams can be configured with the <code>stream_count</code> configuration option.</p>
+<h4>Camera audio is not streaming <a class="title-link" name="camera-audio-is-not-streaming" href="#camera-audio-is-not-streaming"></a>
+</h4>
+<p>Make sure <code>support_audio</code> is <code>True</code> in the camera’s entity configuration.</p>
+<h4>Camera motion notifications <a class="title-link" name="camera-motion-notifications" href="#camera-motion-notifications"></a>
+</h4>
+<p>A motion sensor can be linked via the <code>linked_motion_sensor</code> configuration setting to enable motion notifications.</p>
+<h4>Doorbell button notifications <a class="title-link" name="doorbell-button-notifications" href="#doorbell-button-notifications"></a>
+</h4>
+<p>A doorbell sensor can be linked via the <code>linked_doorbell_sensor</code> configuration setting to enable motion notifications.</p>
+<h4>HomeKit stalls or devices respond slowly with many cameras <a class="title-link" name="homekit-stalls-or-devices-respond-slowly-with-many-cameras" href="#homekit-stalls-or-devices-respond-slowly-with-many-cameras"></a>
+</h4>
+<p>HomeKit camera snapshots tie up the HomeKit connection during snapshots. To avoid this problem, create a separate <code>HomeKit</code> instance in <a href="#mode">Accessory Mode</a> for each camera.</p>
+<h4>Resetting accessories <a class="title-link" name="resetting-accessories" href="#resetting-accessories"></a>
+</h4>
+<p>You may use the <code>homekit.reset_accessory</code> action with one or more entity IDs to reset accessories whose configuration may have changed. This can be useful when changing a media player’s device class to <code>tv</code>, linking a battery, or whenever Home Assistant adds support for new HomeKit features to existing entities.</p>
+<p>On earlier versions of Home Assistant, you can reset accessories by removing the entity from HomeKit (via <a href="#configure-filter">filter</a>) and then re-adding the accessory.</p>
+<p>With either strategy, the accessory will behave as if it’s the first time the accessory has been set up, so you will need to restore the name, group, room, scene, and/or automation settings.</p>
+<h4>Unpairing and Re-pairing <a class="title-link" name="unpairing-and-re-pairing" href="#unpairing-and-re-pairing"></a>
+</h4>
+<p>The HomeKit integration remembers a public key for each paired device. Occasionally, the public key for a device pairing will be missing because of pairing failures. Suppose one or more devices show the accessory as unavailable. In that case, it may be necessary to unpair and re-pair the device to ensure the integration has the public key for each paired client. The <code>homekit.unpair</code> action will forcefully remove all pairings and allow re-pairing with the accessory. When setting up HomeKit from the UI, this avoids the sometimes time-consuming process of deleting and create a new instance.</p>
+<p>The accessory will behave as if it’s the first time the accessory has been set up, so you will need to restore the name, group, room, scene, and/or automation settings.</p>
+<h4>Air Quality Sensor Entities <a class="title-link" name="air-quality-sensor-entities" href="#air-quality-sensor-entities"></a>
+</h4>
+<p>HomeKit provides five values to represent air quality: Excellent, Good, Fair, Inferior, and Poor. For PM2.5 sensor entities in Home Assistant, the raw density value (µg/m3) is used to determine the corresponding value based on the <a href="https://www.epa.gov/system/files/documents/2024-02/pm-naaqs-air-quality-index-fact-sheet.pdf" rel="external nofollow">2024 US AQI<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> standard. The mapping is as follows:</p>
+<table>
+<thead>
+<tr>
+<th>HomeKit</th>
+<th>US AQI</th>
+<th>PM2.5 µg/m³</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Excellent</td>
+<td>Good (0-50)</td>
+<td>0.0 to 9.0</td>
+</tr>
+<tr>
+<td>Good</td>
+<td>Moderate (51-100)</td>
+<td>9.1 to 35.4</td>
+</tr>
+<tr>
+<td>Fair</td>
+<td>Unhealthy for Sensitive Groups (101-150)</td>
+<td>35.5 to 55.4</td>
+</tr>
+<tr>
+<td>Inferior</td>
+<td>Unhealthy (151-200)</td>
+<td>55.5 to 125.4</td>
+</tr>
+<tr>
+<td>Poor</td>
+<td>Very Unhealthy (201+)</td>
+<td>125.5+</td>
+</tr>
+</tbody>
+</table>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/homekit.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fhomekit%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20homekit" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+homekit%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/homekit//logo.png' srcset='https://brands.home-assistant.io/_/homekit/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=homekit' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The HomeKit Bridge  integration  was introduced in Home Assistant 0.64, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          18.2%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/homekit" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+homekit%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/bdraco" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/bdraco?size=96" alt="@bdraco"/> @bdraco</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-configuration">Manual configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#setup">Setup</a></li>
+<li class="toc-entry toc-h2"><a href="#move-home-assistant-install">Move Home Assistant install</a></li>
+<li class="toc-entry toc-h2"><a href="#considerations">Considerations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#accessory-id">Accessory ID</a></li>
+<li class="toc-entry toc-h3"><a href="#device-limit">Device Limit</a></li>
+<li class="toc-entry toc-h3"><a href="#multiple-homekit-instances">Multiple HomeKit instances</a></li>
+<li class="toc-entry toc-h3"><a href="#accessory-mode">Accessory mode</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configure-filter">Configure Filter</a></li>
+<li class="toc-entry toc-h2"><a href="#docker-network-isolation">Docker Network Isolation</a></li>
+<li class="toc-entry toc-h2"><a href="#firewall">Firewall</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-integrations">Supported integrations</a></li>
+<li class="toc-entry toc-h2"><a href="#ios-remote-widget">iOS Remote Widget</a></li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#all-or-some-devices-are-intermittently-unresponsive">All or some devices are intermittently unresponsive</a></li>
+<li class="toc-entry toc-h3"><a href="#resetting-when-created-via-yaml">Resetting when created via YAML</a></li>
+<li class="toc-entry toc-h3"><a href="#resetting-when-created-via-the-integrations-panel">Resetting when created via the Integrations panel</a></li>
+<li class="toc-entry toc-h3"><a href="#errors-during-pairing">Errors during pairing</a></li>
+<li class="toc-entry toc-h3"><a href="#minimal-configuration">Minimal Configuration</a></li>
+<li class="toc-entry toc-h3"><a href="#issues-during-normal-use">Issues during normal use</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#voice'>Voice</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

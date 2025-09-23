@@ -1,0 +1,876 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>HomeKit Device - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions for how to integrate your HomeKit devices within Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/homekit_controller/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="HomeKit Device">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/homekit_controller/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions for how to integrate your HomeKit devices within Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="HomeKit Device">
+    <meta name="twitter:description" content="Instructions for how to integrate your HomeKit devices within Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#adding-a-homekit-device-via-ethernet-or-wi-fi">Adding a HomeKit device via Ethernet or Wi-Fi</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-add-a-homekit-device-via-ethernet-or-wi-fi">To add a HomeKit device via Ethernet or Wi-Fi</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#adding-a-homekit-device-through-bluetooth">Adding a HomeKit device through Bluetooth</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-1">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-add-a-homekit-device-through-bluetooth">To add a HomeKit device through Bluetooth</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#adding-a-homekit-device-through-thread">Adding a HomeKit device through Thread</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#adding-a-homekit-device-to-a-thread-network-via-home-assistant">Adding a HomeKit device to a Thread network via Home Assistant</a></li>
+<li class="toc-entry toc-h3"><a href="#adding-a-homekit-device-via-apple-thread-border-router">Adding a HomeKit device via Apple Thread border router</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#supported-devices">Supported devices</a></li>
+<li class="toc-entry toc-h2"><a href="#stateless-switches-and-sensors">‘Stateless’ switches and sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#pairing-with-an-insecure-setup-code">Pairing with an insecure setup code</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#i-dont-have-a-homekit-pin">I don’t have a HomeKit PIN</a></li>
+<li class="toc-entry toc-h3"><a href="#home-assistant-cannot-discover-my-device">Home Assistant cannot discover my device</a></li>
+<li class="toc-entry toc-h3"><a href="#the-integration-is-finding-devices-on-my-network-even-though-i-dont-have-any-apple-devices">The integration is finding devices on my network even though I don’t have any Apple devices</a></li>
+<li class="toc-entry toc-h3"><a href="#i-have-a-warning-in-my-logs-about-the-integration-skipping-updates">I have a warning in my logs about the integration skipping updates</a></li>
+<li class="toc-entry toc-h3"><a href="#i-cant-see-any-events-generated-for-stateless-accessories">I can’t see any events generated for “stateless” accessories</a></li>
+<li class="toc-entry toc-h3"><a href="#home-assistant-cant-see-my-homebridge-devices">Home Assistant can’t see my Homebridge device(s)</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        HomeKit Device
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <a href="https://developer.apple.com/apple-home/" rel="external nofollow">HomeKit<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> Device integration allows you to connect accessories with the “Works with HomeKit” logo to Home Assistant. This integration should not be confused with the <a href="/integrations/homekit/">HomeKit Bridge</a> integration, which allows you to control Home Assistant devices via HomeKit.</p>
+<h1>Adding a HomeKit device</h1>
+<p>There are different methods to add a HomeKit device to Home Assistant:</p>
+<ul>
+<li><a href="#adding-a-homekit-device-via-ethernet-or-wi-fi">via Ethernet or Wi-Fi</a></li>
+<li><a href="#adding-a-homekit-device-through-bluetooth">via Bluetooth</a></li>
+<li>
+<a href="#adding-a-homekit-device-through-thread">via Thread</a>
+<ul>
+<li><a href="#adding-a-homekit-device-to-a-thread-network-via-home-assistant">by using Home Assistant’s preferred Thread network</a></li>
+<li><a href="#adding-a-homekit-device-via-apple-thread-border-router">by using Apple Thread border router</a></li>
+</ul>
+</li>
+</ul>
+<h2>Adding a HomeKit device via Ethernet or Wi-Fi <a class="title-link" name="adding-a-homekit-device-via-ethernet-or-wi-fi" href="#adding-a-homekit-device-via-ethernet-or-wi-fi"></a>
+</h2>
+<p>The HomeKit Device integration automatically detects HomeKit <a href="#supported-devices">compatible devices</a> on your network when they are ready to pair.</p>
+<h3>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h3>
+<ul>
+<li>If you do not have the <a href="/integrations/default_config/"><code>default_config</code></a> integration, add <a href="/integrations/zeroconf/"><code>zeroconf</code></a> to your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file.</li>
+<li>Find your HomeKit pairing code. The code is on the device itself, or on the packaging. If your device has a screen, it may be shown on screen.
+<ul>
+<li>There is no way to recover this if you do not have it. In this case, you will need to contact the manufacturer to see what options you have.</li>
+</ul>
+</li>
+<li>Make sure your device is powered up.</li>
+<li>Make sure the device is on your network, but not paired with another HomeKit controller. Depending on the device, you need to follow a different set of steps:
+<ul>
+<li>If your device is not already in your network: Join the device to your network:
+<ul>
+<li>Follow the instructions of the manufacturer on how to join the device to the network</li>
+<li>If the device is HomeKit only (for example the Koogeek LS1 light strip), pair it with the Apple Home app, then follow the next step.</li>
+</ul>
+</li>
+<li>If your device is in your network but is paired with an Apple device via HomeKit: <strong>Remove</strong> the device from the Apple Home app.
+<ul>
+<li>Otherwise you won’t be able to pair it with Home Assistant.</li>
+</ul>
+</li>
+<li>
+<strong>Explanation:</strong> Adding the device to the Home app and then removing it again has two effects:
+<ul>
+<li>It adds the device to your network. It stays in the network even after you removed it from the app.</li>
+<li>Removing the device from the app opens it up for pairing with Home Assistant’s HomeKit Device integration directly. HomeKit devices can only be paired to a single controller at once.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>To add a HomeKit device via Ethernet or Wi-Fi <a class="title-link" name="to-add-a-homekit-device-via-ethernet-or-wi-fi" href="#to-add-a-homekit-device-via-ethernet-or-wi-fi"></a>
+</h3>
+<ol>
+<li>
+<p>The device should have been discovered under <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>.</p>
+</li>
+<li>
+<p>On the HomeKit Device integration, select <strong>Configure</strong>.</p>
+<p><img src="/images/integrations/homekit_controller/homekit_controller_add_01.png" alt="HomeKit integration"></p>
+</li>
+<li>
+<p>Enter your HomeKit pairing code.</p>
+<ul>
+<li>Add the device to a room and select <strong>Finish</strong>.</li>
+<li>The device should now be added to your Home Assistant instance.</li>
+</ul>
+</li>
+<li>
+<p>Once Home Assistant is configured to work with the device, you can export it back to Siri and Apple Home with the <a href="/integrations/homekit/"><code>HomeKit Bridge</code></a> integration.</p>
+</li>
+</ol>
+<h2>Adding a HomeKit device through Bluetooth <a class="title-link" name="adding-a-homekit-device-through-bluetooth" href="#adding-a-homekit-device-through-bluetooth"></a>
+</h2>
+<p>You can add a HomeKit <a href="#supported-devices">compatible device</a> to Home Assistant via <a href="/integrations/bluetooth">Bluetooth</a>.</p>
+<h3>Prerequisites <a class="title-link" name="prerequisites-1" href="#prerequisites-1"></a>
+</h3>
+<ul>
+<li>Find your HomeKit pairing code. The code is on the device itself, or on the packaging. If your device has a screen, it may be shown on screen.
+<ul>
+<li>There is no way to recover this if you do not have it. In this case, you will need to contact the manufacturer to see what options you have.</li>
+</ul>
+</li>
+<li>If your Home Assistant instance does not natively support Bluetooth, use an ESPHome Bluetooth proxy.
+<ul>
+<li>A proxy can also be helpful if your Home Assistant device is too far away from the device you are trying to pair.</li>
+</ul>
+</li>
+<li>If your HomeKit device has been used with <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> before, or is still paired with iOS, reset the device.
+<ul>
+<li>HomeKit devices can only be paired to a single controller at once.</li>
+<li>If it has been in a <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> network before, the device might remember the <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> credentials of a different network. A reset makes sure the device is not connected to any <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> network.</li>
+</ul>
+</li>
+</ul>
+<h3>To add a HomeKit device through Bluetooth <a class="title-link" name="to-add-a-homekit-device-through-bluetooth" href="#to-add-a-homekit-device-through-bluetooth"></a>
+</h3>
+<ol>
+<li>
+<p>Power up your HomeKit device.</p>
+<ul>
+<li>If you have Bluetooth enabled, the device should be discovered under <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>.</li>
+</ul>
+</li>
+<li>
+<p>On the HomeKit Bridge integration, select <strong>Configure</strong>.</p>
+<p><img src="/images/integrations/homekit_controller/homekit_controller_add_01.png" alt="HomeKit integration"></p>
+</li>
+<li>
+<p>To pair the device, enter the HomeKit pairing code.</p>
+<ul>
+<li>To pair a battery-powered device, you may need to press a button on the device to wake it.</li>
+<li>Bluetooth devices may take significantly longer to pair than IP devices.</li>
+<li>Add the device to a room and <strong>Finish</strong>.</li>
+</ul>
+</li>
+</ol>
+<h2>Adding a HomeKit device through Thread <a class="title-link" name="adding-a-homekit-device-through-thread" href="#adding-a-homekit-device-through-thread"></a>
+</h2>
+<p>This section shows the ways you can join a HomeKit device to a <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> network:</p>
+<ol>
+<li>via Home Assistant</li>
+<li>via Apple Thread border router</li>
+</ol>
+<h3>Adding a HomeKit device to a Thread network via Home Assistant <a class="title-link" name="adding-a-homekit-device-to-a-thread-network-via-home-assistant" href="#adding-a-homekit-device-to-a-thread-network-via-home-assistant"></a>
+</h3>
+<p>There are two methods to add a HomeKit <a href="#supported-devices">compatible device</a> to a <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> network:</p>
+<ul>
+<li>via Home Assistant’s preferred <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> network</li>
+<li>via <a href="#adding-a-homekit-device-via-apple-thread-border-router">Apple Thread border router</a>
+</li>
+</ul>
+<p>This section describes how to add it via Home Assistant’s preferred <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> network.</p>
+<h4>Prerequisites <a class="title-link" name="prerequisites-2" href="#prerequisites-2"></a>
+</h4>
+<ul>
+<li>A HomeKit device which supports <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span>. This is indicated by the Thread label on the packaging.</li>
+<li>Make sure the HomeKit device has been <a href="#adding-a-homekit-device-through-bluetooth">joined using Bluetooth</a>.</li>
+<li>
+<strong>Thread network</strong>: In order to use HomeKit over Thread, you need a working border router.
+<ul>
+<li>Make sure your Home Assistant device is on the same network (LAN) as the border router.</li>
+<li>Make sure the <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> network you’d like to use is known by Home Assistant and marked as <strong>Preferred network</strong> in the <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> configuration.</li>
+<li>If you have a Home Assistant Yellow or Connect ZBT-1, you can enable Thread to set up an Open Thread border router and with that a <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> network.
+<ul>
+<li>Documentation on <a href="https://support.nabucasa.com/hc/en-us/articles/25742476767517">enabling Thread on Yellow<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+<li>Documentation on <a href="https://support.nabucasa.com/hc/en-us/articles/26124710072861">enabling Thread on Connect ZBT-1<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>To add a HomeKit device to a Thread network via Home Assistant <a class="title-link" name="to-add-a-homekit-device-to-a-thread-network-via-home-assistant" href="#to-add-a-homekit-device-to-a-thread-network-via-home-assistant"></a>
+</h4>
+<ol>
+<li>To open the device configuration page, on the <strong>HomeKit</strong> integration, select the <strong>device</strong>.</li>
+<li>Under <strong>Diagnostic</strong>, you can see the <strong>Thread Status</strong> as <strong>Disabled</strong>.
+<img src="/images/integrations/homekit_controller/homekit_controller_add_02.png" alt="Device configuration page">
+</li>
+<li>To enable <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span>, under <strong>Configuration</strong>, select <strong>Press</strong>. This will provision the preferred Thread credentials.
+<ul>
+<li>The status has now changed:
+<ul>
+<li>Depending on the device type, the mesh size and health, the Thread status can be <strong>Child</strong>, <strong>Router</strong>, or <strong>Leader</strong>.
+<img src="/images/integrations/homekit_controller/homekit_controller_add_02.png" alt="Thread status">
+</li>
+</ul>
+</li>
+<li>That’s it. Your HomeKit device now communicates via <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span>.</li>
+</ul>
+</li>
+</ol>
+<h3>Adding a HomeKit device via Apple Thread border router <a class="title-link" name="adding-a-homekit-device-via-apple-thread-border-router" href="#adding-a-homekit-device-via-apple-thread-border-router"></a>
+</h3>
+<p>There are two methods to add a HomeKit <a href="#supported-devices">compatible device</a> to a <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> network:</p>
+<ul>
+<li>via <a href="#adding-a-homekit-device-to-a-thread-network-via-home-assistant">Home Assistant’s preferred Thread network</a>
+</li>
+<li>via Apple Thread border router</li>
+</ul>
+<p>This section describes how to add a HomeKit <a href="#supported-devices">compatible device</a> using an Apple Thread border router device such as a HomePod mini.</p>
+<h4>Prerequisites <a class="title-link" name="prerequisites-3" href="#prerequisites-3"></a>
+</h4>
+<ul>
+<li>An Apple device that can act as a Thread border router, such as a HomePod mini.</li>
+<li>A HomeKit device which supports <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span>. This is indicated by the Thread label on the packaging.</li>
+<li>Make sure your Home Assistant instance is on the same network (LAN) as the border router.</li>
+<li>Make sure the HomeKit device has been paired in the Apple Home app (using the iOS Home app).</li>
+</ul>
+<h4>To add a HomeKit device via Apple Thread border router <a class="title-link" name="to-add-a-homekit-device-via-apple-thread-border-router" href="#to-add-a-homekit-device-via-apple-thread-border-router"></a>
+</h4>
+<ol>
+<li>
+<p>Remove the HomeKit device from the Apple Home app. Don’t reset the device.</p>
+<ul>
+<li>This leaves the <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span> network details on the HomeKit device.</li>
+<li>The device will be automatically discovered by the HomeKit controller integration in Home Assistant.</li>
+<li>It will appear as a discovered device over <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span>.</li>
+</ul>
+</li>
+<li>
+<p>Under <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; services</a></strong>, on the HomeKit integration, select <strong>Configure</strong>.</p>
+<p><img src="/images/integrations/homekit_controller/homekit_controller_add_01.png" alt="HomeKit integration"></p>
+</li>
+<li>
+<p>To pair the device, enter the HomeKit pairing code. The code is on the device itself or the packaging.</p>
+<ul>
+<li>To pair a battery-powered device, you may need to press a button on the device to wake it.</li>
+<li>Bluetooth devices may take significantly longer to pair than IP devices.</li>
+<li>Add the device to a room and <strong>Finish</strong>.</li>
+</ul>
+</li>
+<li>
+<p>To open the device configuration page, on the <strong>HomeKit</strong> integration, select the <strong>device</strong>.</p>
+</li>
+<li>
+<p>Under <strong>Diagnostic</strong>, check the status:</p>
+<ul>
+<li>Depending on the device type, the mesh size and health, the Thread status can be <strong>Child</strong>, <strong>Router</strong>, or <strong>Leader</strong>.
+<img src="/images/integrations/homekit_controller/homekit_controller_add_02.png" alt="Thread status">
+</li>
+<li>That’s it. Your HomeKit device now communicates via <span class="terminology">Thread<span class="terminology-tooltip">Thread is a low-power mesh networking standard that is specifically designed for smart home applications. It is a protocol that defines how devices communicate.<a class="terminology-link" href="/integrations/thread/"> [Learn more]</a></span></span>.</li>
+</ul>
+</li>
+</ol>
+<h2>Supported devices <a class="title-link" name="supported-devices" href="#supported-devices"></a>
+</h2>
+<p>There is currently support for the following device types (also called <em>domains</em>) within Home Assistant. They are listed with their default types.</p>
+<ul>
+<li>Alarm control panel (HomeKit security system)</li>
+<li>Climate (HomeKit thermostats and air conditioners)</li>
+<li>Cover (HomeKit garage door openers, windows, or window coverings)</li>
+<li>Light (HomeKit lights)</li>
+<li>Lock (HomeKit lock)</li>
+<li>Switch (HomeKit switches, outlets and valves)</li>
+<li>Binary sensor (HomeKit motion, contact, occupancy, carbon monoxide and smoke sensors)</li>
+<li>Sensor (HomeKit humidity, temperature, co2 and light level sensors)</li>
+<li>Fan</li>
+<li>Air quality</li>
+<li>Humidifier (HomeKit humidifiers and dehumidifiers)</li>
+<li>Automation triggers (HomeKit ‘stateless’ accessories like buttons, remotes and doorbells)</li>
+</ul>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>If your device is not on this list then you may still be able to pair it, and it will be visible in the Device Registry. But Home Assistant may not create entities for it.</p>
+  </div>
+</div>
+<p>The integration will enable push updates. Devices that connect through Wi-Fi or Ethernet may fall back to only polling if the connection is unstable.</p>
+<h2>‘Stateless’ switches and sensors <a class="title-link" name="stateless-switches-and-sensors" href="#stateless-switches-and-sensors"></a>
+</h2>
+<p>Some HomeKit devices (like buttons, remotes and doorbells) don’t have sensors that can be read like a normal HomeKit device - they only inform Home Assistant when something happens. This means Home Assistant can’t show an entity for them, as they have no state. But they are available for use as <a href="/integrations/device_automation/">device automations</a>.</p>
+<p>For example, to add a new automation that is triggered by one of these devices go to the device registry UI and find the device you want to use as a trigger. Click on it to reveal the device registry entry for it. You will be able to see the devices model, manufacturer and firmware version. You might see related entities - like a battery sensor.</p>
+<p class="img">
+<img src="/images/integrations/homekit_controller/device_automation_start.png">
+</p>
+<p>Click on the button to add an automation. A popup will show you a list of triggers that are available.</p>
+<p class="img">
+<img src="/images/integrations/homekit_controller/device_automation_triggers.png">
+</p>
+<p>Clicking on one will drop you in to the automation editor with a trigger pre-filled in. If your device supports it you will be able to choose between types of event - like a short press or a long press.</p>
+<p class="img">
+<img src="/images/integrations/homekit_controller/device_automation_new.png">
+</p>
+<p>When you have filled in the rest of the form to create your automation it will show up against that device in the device registry.</p>
+<p class="img">
+<img src="/images/integrations/homekit_controller/device_automation_finish.png">
+</p>
+<h2>Pairing with an insecure setup code <a class="title-link" name="pairing-with-an-insecure-setup-code" href="#pairing-with-an-insecure-setup-code"></a>
+</h2>
+<p>Some device manufacturers do not follow the HomeKit spec and will use a fixed code or trivially guessable code such as <code>123-45-678</code> for pairing. The integration will warn when pairing about the insecure nature of this configuration and require additional consent before pairing with the accessory. Consider finding a replacement device that implements code randomization.</p>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<h3>I don’t have a HomeKit PIN <a class="title-link" name="i-dont-have-a-homekit-pin" href="#i-dont-have-a-homekit-pin"></a>
+</h3>
+<p>When you buy a certified HomeKit-enabled device, the PIN might be in the instructions or on a sticker on the accessory itself.</p>
+<p>Devices with screens like thermostats may not have PIN codes in the packaging at all. Every time you click on “Configure” in the Home Assistant frontend, your accessory will generate a new pairing code and show it on the display.</p>
+<p>If your device doesn’t have a display and received HomeKit support after it was released, you may not have a pairing code. Dealing with this is manufacturer specific. Some manufacturers allow you to see the pairing code in their iOS app. Others force you to use their app to configure HomeKit and don’t let you have the pairing pin - right now you won’t be able to use the integration with those devices.</p>
+<p>If you have lost your PIN code, then you may not be able to pair your accessory. You should contact the manufacturer to see if there is anything you can do.</p>
+<h3>Home Assistant cannot discover my device <a class="title-link" name="home-assistant-cannot-discover-my-device" href="#home-assistant-cannot-discover-my-device"></a>
+</h3>
+<p>For IP accessories, Home Assistant can only find devices that are already on the same network as your device. If an accessory is Wi-Fi based and has no user interface for joining it to your Wi-Fi network, you will need an Apple HomeKit controller device (an iPhone or iPad). You should pair it with the controller and then remove the pairing in the UI (but do not reset the accessory itself). This will leave the accessory on your Wi-Fi network but in an unpaired state, and then Home Assistant can find it.</p>
+<p>Home Assistant can only find accessories that aren’t already paired. Even if you reset your Home Assistant configuration, the accessory will still think it is paired and you won’t be able to use it with Home Assistant. You should reset the accessory according to the manufacturer’s instructions. Some devices have a “Reset HomeKit” option, and some may require a full reset.</p>
+<p>If your devices are on a different VLAN to Home Assistant you must have an mDNS reflector for discovery and pairing to work.</p>
+<p>Check that your device is visible with an mDNS tool. If you are comfortable with the command line you can run <code>netdisco</code> from your Home Assistant installation:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="bash">python3 <span class="nt">-m</span> netdisco
+Discovered devices:
+homekit:
+<span class="o">[</span> <span class="o">{</span><span class="s1">'host'</span>: <span class="s1">'192.168.17.5'</span>,
+  <span class="s1">'hostname'</span>: <span class="s1">'Philips-hue.local.'</span>,
+  <span class="s1">'name'</span>: <span class="s1">'Philips hue - xxxx'</span>,
+  <span class="s1">'port'</span>: 8080,
+  <span class="s1">'properties'</span>: <span class="o">{</span><span class="s1">'c#'</span>: <span class="s1">'21'</span>,
+                 <span class="s1">'ci'</span>: <span class="s1">'2'</span>,
+                 <span class="s1">'ff'</span>: <span class="s1">'1'</span>,
+                 <span class="s1">'id'</span>: <span class="s1">'AA:BB:CC:DD:EE:FF'</span>,
+                 <span class="s1">'md'</span>: <span class="s1">'BSB002'</span>,
+                 <span class="s1">'pv'</span>: <span class="s1">'1.1'</span>,
+                 <span class="s1">'s#'</span>: <span class="s1">'1'</span>,
+                 <span class="s1">'sf'</span>: <span class="s1">'0'</span><span class="o">}}</span>,
+</code></pre></div></div>
+<p><code>netdisco</code> is not used by Home Assistant to discover HomeKit devices, so if it can’t see your device the problem is more likely to be environmental than with Home Assistant itself.</p>
+<p>Alternatively if you are less comfortable with the command line you could use Discovery for <a href="https://apps.apple.com/app/discovery-dns-sd-browser/id1381004916" rel="external nofollow">Mac<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or <a href="https://apps.apple.com/app/discovery-dns-sd-browser/id305441017" rel="external nofollow">iOS<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, Android <a href="https://play.google.com/store/apps/details?id=com.druk.servicebrowser" rel="external nofollow">Service Browser<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> or <a href="https://apps.microsoft.com/store/detail/all-my-lan/9WZDNCRDN19V" rel="external nofollow">All My Lan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. These are a less useful diagnostic as they aren’t running from the same point on your network as Home Assistant. Even if it is visible in this tool it might still be a networking issue. They can give sometimes give clues.</p>
+<p>Where a discovery tool does give an IP, check it is what you expect (compare to DHCP leases in your router for example). Can you ping it? If not, you have a network problem.</p>
+<p>Some users have reported that their network configuration has interfered with using HomeKit devices with Home Assistant. The symptoms vary but include discovery not working at all or being unstable (sometimes working, sometimes not). This is very specific not only to the hardware in use but how it is configured and unfortunately we can’t suggest appropriate settings. For example, we have seen IGMP Snooping be blamed as the cause of the problem and also suggested as the fix.</p>
+<h3>The integration is finding devices on my network even though I don’t have any Apple devices <a class="title-link" name="the-integration-is-finding-devices-on-my-network-even-though-i-dont-have-any-apple-devices" href="#the-integration-is-finding-devices-on-my-network-even-though-i-dont-have-any-apple-devices"></a>
+</h3>
+<p>This is completely normal. Unlike many other commercial IoT offerings, the HomeKit protocol is a local and offline protocol that does not rely on the Apple ecosystem to function. You do not need an Apple online account to use a “Works with HomeKit” device. Some Wi-Fi devices may need an iOS device briefly to get them onto your WiFi, but other than that you do not need any Apple hardware on your network.</p>
+<p>Many IoT devices are getting a post-launch HomeKit upgrade. This might mean your device starts showing in Home Assistant as a <code>homekit_controller</code> device even though when you bought it without HomeKit support. This might be a better choice for you than a native integration. For example, many climate devices have an online-only API and a HomeKit API. The HomeKit one might not expose all of the settings and controls you are used to, but it also won’t break if your Internet connection goes down or the cloud service goes away.</p>
+<h3>I have a warning in my logs about the integration skipping updates <a class="title-link" name="i-have-a-warning-in-my-logs-about-the-integration-skipping-updates" href="#i-have-a-warning-in-my-logs-about-the-integration-skipping-updates"></a>
+</h3>
+<p>You may say a log entry that looks like this:</p>
+<div class="language-log highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="log">HomeKit device update skipped as previous poll still in flight
+</code></pre></div></div>
+<p>In these cases it’s unlikely that the integration itself is directly responsible. This is a safety feature to avoid overloading your Home Assistant instance. It means that Home Assistant tried to poll your accessory but the previous poll was still happening. This means it is taking over 1 minute to poll your accessory. This could be caused by a number of things:</p>
+<ul>
+<li>You have too many blocking synchronous integrations for your Home Assistant instance. All synchronous integrations share a thread pool, and if there are lots of tasks to run on it they will queued, which will cause delays. In the worst cases this queue can build up faster than it can be emptied. Faster hardware may help, but you may need to disable some integrations.</li>
+<li>Your network connection to an accessory is poor and the integration is unable to reach the accessory reliably. This will likely require a change to your network setup to improve Wi-Fi coverage or replace damaged cabling.</li>
+<li>There is a problem with the accessory itself which is causing intermittent network issues.</li>
+</ul>
+<p>In these cases, the integration will skip polling to avoid a buildup of back pressure in your instance.</p>
+<h3>I can’t see any events generated for “stateless” accessories <a class="title-link" name="i-cant-see-any-events-generated-for-stateless-accessories" href="#i-cant-see-any-events-generated-for-stateless-accessories"></a>
+</h3>
+<p>This is expected. The only way to use stateless accessories like some doorbells, buttons or remotes with Home Assistant is through device automations. Home Assistant doesn’t create duplicate events for device automation triggers, so for example you won’t be able to watch them with the events developer tools.</p>
+<h3>Home Assistant can’t see my Homebridge device(s) <a class="title-link" name="home-assistant-cant-see-my-homebridge-devices" href="#home-assistant-cant-see-my-homebridge-devices"></a>
+</h3>
+<p>In your Homebridge settings/config, make sure you are using <code>ciao</code> and not <code>Bonjour-HAP</code>. <code>Bonjour-HAP</code> is no longer recommended by <code>homebridge</code> and is considered broken/unsupported.</p>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/homekit_controller.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fhomekit_controller%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20homekit_controller" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+homekit_controller%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/homekit_controller//logo.png' srcset='https://brands.home-assistant.io/_/homekit_controller/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=homekit_controller' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The HomeKit Device  integration  was introduced in Home Assistant 0.68, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          14.7%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/homekit_controller" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+homekit_controller%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/Jc2k" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/Jc2k?size=96" alt="@Jc2k"/> @Jc2k</a><br /><a href="https://github.com/bdraco" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/bdraco?size=96" alt="@bdraco"/> @bdraco</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#adding-a-homekit-device-via-ethernet-or-wi-fi">Adding a HomeKit device via Ethernet or Wi-Fi</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-add-a-homekit-device-via-ethernet-or-wi-fi">To add a HomeKit device via Ethernet or Wi-Fi</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#adding-a-homekit-device-through-bluetooth">Adding a HomeKit device through Bluetooth</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prerequisites-1">Prerequisites</a></li>
+<li class="toc-entry toc-h3"><a href="#to-add-a-homekit-device-through-bluetooth">To add a HomeKit device through Bluetooth</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#adding-a-homekit-device-through-thread">Adding a HomeKit device through Thread</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#adding-a-homekit-device-to-a-thread-network-via-home-assistant">Adding a HomeKit device to a Thread network via Home Assistant</a></li>
+<li class="toc-entry toc-h3"><a href="#adding-a-homekit-device-via-apple-thread-border-router">Adding a HomeKit device via Apple Thread border router</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#supported-devices">Supported devices</a></li>
+<li class="toc-entry toc-h2"><a href="#stateless-switches-and-sensors">‘Stateless’ switches and sensors</a></li>
+<li class="toc-entry toc-h2"><a href="#pairing-with-an-insecure-setup-code">Pairing with an insecure setup code</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#i-dont-have-a-homekit-pin">I don’t have a HomeKit PIN</a></li>
+<li class="toc-entry toc-h3"><a href="#home-assistant-cannot-discover-my-device">Home Assistant cannot discover my device</a></li>
+<li class="toc-entry toc-h3"><a href="#the-integration-is-finding-devices-on-my-network-even-though-i-dont-have-any-apple-devices">The integration is finding devices on my network even though I don’t have any Apple devices</a></li>
+<li class="toc-entry toc-h3"><a href="#i-have-a-warning-in-my-logs-about-the-integration-skipping-updates">I have a warning in my logs about the integration skipping updates</a></li>
+<li class="toc-entry toc-h3"><a href="#i-cant-see-any-events-generated-for-stateless-accessories">I can’t see any events generated for “stateless” accessories</a></li>
+<li class="toc-entry toc-h3"><a href="#home-assistant-cant-see-my-homebridge-devices">Home Assistant can’t see my Homebridge device(s)</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#alarm'>Alarm</a>
+          </li><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#climate'>Climate</a>
+          </li><li>
+            <a href='/integrations/#cover'>Cover</a>
+          </li><li>
+            <a href='/integrations/#fan'>Fan</a>
+          </li><li>
+            <a href='/integrations/#health'>Health</a>
+          </li><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#humidifier'>Humidifier</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#lock'>Lock</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

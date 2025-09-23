@@ -1,0 +1,836 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>AVM FRITZ!Box Tools - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to integrate AVM FRITZ!Box routers into Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/fritz/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="AVM FRITZ!Box Tools">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/fritz/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to integrate AVM FRITZ!Box routers into Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="AVM FRITZ!Box Tools">
+    <meta name="twitter:description" content="Instructions on how to integrate AVM FRITZ!Box routers into Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#username">Username</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a></li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a></li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-set_guest_wifi_password">Action set_guest_wifi_password</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#additional-information">Additional information</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#parental-control-switches">Parental control switches</a></li>
+<li class="toc-entry toc-h3"><a href="#device-tracker">Device tracker</a></li>
+<li class="toc-entry toc-h3"><a href="#port-forward-switches">Port forward switches</a></li>
+<li class="toc-entry toc-h3"><a href="#wifi-switches">WiFi switches</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#example-automations-and-scripts">Example Automations and Scripts</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#script-reconnect--get-new-ip">Script: Reconnect / get new IP</a></li>
+<li class="toc-entry toc-h3"><a href="#automation-reconnect--get-new-ip-every-night">Automation: Reconnect / get new IP every night</a></li>
+<li class="toc-entry toc-h3"><a href="#automation-phone-notification-with-wi-fi-credentials-when-guest-wi-fi-is-created">Automation: Phone notification with Wi-Fi credentials when guest Wi-Fi is created</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#device-presence-detection-is-not-working-as-expected">Device presence detection is not working as expected</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#remove-the-integration">Remove the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        AVM FRITZ!Box Tools
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The AVM FRITZ!Box Tools integration allows you to control your <a href="https://en.avm.de/products/fritzbox/" rel="external nofollow">AVM FRITZ!Box<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> router and have presence detection for connected network devices.</p>
+<p>There is support for the following platform types within Home Assistant:</p>
+<ul>
+<li>
+<strong><span class="terminology">Device tracker<span class="terminology-tooltip">Device trackers are used to track the presence, or location, of a device.<a class="terminology-link" href="/integrations/device_tracker"> [Learn more]</a></span></span></strong> - presence detection by looking at connected devices.</li>
+<li>
+<strong><span class="terminology">Binary sensor<span class="terminology-tooltip">A binary sensor returns information about things that only have two states - such as on or off.<a class="terminology-link" href="/integrations/binary_sensor"> [Learn more]</a></span></span></strong> - connectivity status.</li>
+<li>
+<strong><span class="terminology">Image<span class="terminology-tooltip">The Image integration allows other integrations to display a static image.<a class="terminology-link" href="/integrations/image"> [Learn more]</a></span></span></strong> - QR code for Guest Wi-Fi.</li>
+<li>
+<strong><span class="terminology">Button<span class="terminology-tooltip">A button entity can fire an event, or trigger an action towards a device or service. It can be compared to a physical push button. The button entity does not have a state like <code>on</code> or <code>off</code>, but keeps the timestamp of when it was last pressed in the Home Assistant UI or via an action.<a class="terminology-link" href="/integrations/button"> [Learn more]</a></span></span></strong> - reboot, reconnect, firmware update.</li>
+<li>
+<strong><span class="terminology">Sensor<span class="terminology-tooltip">Sensors return information about a thing, for instance the level of water in a tank.<a class="terminology-link" href="/integrations/sensor/"> [Learn more]</a></span></span></strong> - external IP address, uptime and network monitors.</li>
+<li>
+<strong><span class="terminology">Switch<span class="terminology-tooltip">Switches are things that have two states you can select between, such as turning on or off a socket.<a class="terminology-link" href="/integrations/switch/"> [Learn more]</a></span></span></strong> - call deflection, port forward, parental control and Wi-Fi networks.</li>
+<li>
+<strong><span class="terminology">Update<span class="terminology-tooltip">An update entity is an entity that indicates if an update is available for a device or service.<a class="terminology-link" href="/integrations/update"> [Learn more]</a></span></span></strong> - firmware status of the device.</li>
+</ul>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>Both the TR-064 (<em>Permit access for apps</em>) and UPnP (<em>Transmit status information over UPnP</em>) protocol needs to be enabled in the FRITZ!Box under <strong>Home Network</strong> &gt; <strong>Network</strong> &gt; <strong>Network settings</strong> &gt; <strong>Access Settings in the Home Network</strong> for Home Assistant to login and read device info.</p>
+  </div>
+</div>
+<h3>Username <a class="title-link" name="username" href="#username"></a>
+</h3>
+<p>It is recommended to create a separate user to connect Home Assistant to your FRITZ!Box. To create a user, in the FRITZ!Box go to <strong>System</strong> &gt; <strong>FRITZ!Box Users</strong> &gt; <strong>Users</strong> &gt; <strong>Add User</strong>. Make sure the user has the <strong>FRITZ!Box Settings</strong> permission.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>If you still want to use the predefined user, please note that as of FRITZ!OS 7.24, the FRITZ!Box creates a random username for the admin user if you didn’t set one yourself. This can be found after logging into the FRITZ!Box and visiting <strong>System</strong> &gt; <strong>FRITZ!Box Users</strong> &gt; <strong>Users</strong>. The username starts with <code>fritz</code> followed by four random numbers. Under properties on the right it says <code>created automatically</code>. Before FRITZ!OS 7.24, the default username was <code>admin</code>.</p>
+  </div>
+</div>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>AVM FRITZ!Box Tools</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=fritz" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>AVM FRITZ!Box Tools can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=fritz" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>AVM FRITZ!Box Tools</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Host</span><a name="host" class="title-link" href="#host"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The hostname or IP address of your FRITZ!Box router.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Port</span><a name="port" class="title-link" href="#port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The port used to connect to your FRITZ!Box router. Leave it empty to use the default port.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Username</span><a name="username" class="title-link" href="#username"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the user to connect Home Assistant to your FRITZ!Box (<em>see <a href="#username">username</a></em>)</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Password</span><a name="password" class="title-link" href="#password"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Password for the user to connect Home Assistant to your FRITZ!Box (<em>see <a href="#username">username</a></em>)</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Uses an SSL certificate</span><a name="uses-an-ssl-certificate" class="title-link" href="#uses-an-ssl-certificate"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Whether to use SSL encryption for connecting to your FRITZ!Box router.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Enable network device tracking</span><a name="enable-network-device-tracking" class="title-link" href="#enable-network-device-tracking"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Whether to enable or disable the network device tracking feature. When disabled, all network device related entities (<em>Parental control switches, Device tracker and WoL buttons</em>) will also be removed or not created.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Options <a class="title-link" name="options" href="#options"></a>
+</h2>
+<p>Options for AVM FRITZ!Box Tools can be set via the user interface, by taking the following steps:</p>
+<ul>
+<li>Browse to your Home Assistant instance.</li>
+<li>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank">Settings &gt; Devices &amp; Services</a></strong>.</li>
+<li>If multiple instances of AVM FRITZ!Box Tools are configured, choose the instance you want to configure.</li>
+<li>Select the integration, then select <strong>Configure</strong>.</li>
+</ul>
+<div class="config-vars basic">
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Consider home</span><a name="consider-home" class="title-link" href="#consider-home"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Number of seconds that must elapse before considering a disconnected device “not at home”.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Enable old discovery method</span><a name="enable-old-discovery-method" class="title-link" href="#enable-old-discovery-method"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Required in scenarios such as networks without mesh support (<em>FritzOS &lt;= 6.x</em>) or mixed brands network devices or LAN switches.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name">Enable network device tracking</span><a name="enable-network-device-tracking" class="title-link" href="#enable-network-device-tracking"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Whether to enable or disable the network device tracking feature. When disabled, all network device related entities (<em>Parental control switches, Device tracker and WoL buttons</em>) will also be removed or not created.</p>
+</span></div>
+</div>
+</div>
+</div>
+<h2>Data updates <a class="title-link" name="data-updates" href="#data-updates"></a>
+</h2>
+<p>This integration fetches the data every 30 seconds from the FRITZ!Box router.</p>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<p>Available <span class="terminology">actions<span class="terminology-tooltip">Actions are used in several places in Home Assistant. As part of a script or automation, actions define what is going to happen once a trigger is activated. In scripts, an action is called <em>sequence</em>.<a class="terminology-link" href="/docs/automation/action/"> [Learn more]</a></span></span>: <code>set_guest_wifi_password</code></p>
+<h3>Action set_guest_wifi_password <a class="title-link" name="action-set_guest_wifi_password" href="#action-set_guest_wifi_password"></a>
+</h3>
+<p>Set a new password for the guest wifi. The password Length must be between 8 and 63 characters long.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>yes</td>
+<td>Only act on a specific router</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>no</td>
+<td>New password for the guest wifi (<em>will be auto-generated if not defined</em>)</td>
+</tr>
+<tr>
+<td><code>length</code></td>
+<td>no</td>
+<td>Length of the auto-generated password. (<em>default 12</em>)</td>
+</tr>
+</tbody>
+</table>
+<h2>Additional information <a class="title-link" name="additional-information" href="#additional-information"></a>
+</h2>
+<h3>Parental control switches <a class="title-link" name="parental-control-switches" href="#parental-control-switches"></a>
+</h3>
+<p>Parental control <span class="terminology">switches<span class="terminology-tooltip">Switches are things that have two states you can select between, such as turning on or off a socket.<a class="terminology-link" href="/integrations/switch/"> [Learn more]</a></span></span> can be used to enable and disable internet access of individual devices. You can also find the current blocking state of the individual devices in the UI of the FRITZ!Box under <strong>Internet</strong> &gt; <strong>Filters</strong> &gt; <strong>Parental Controls</strong> &gt; <strong>Device Block</strong>.</p>
+<h3>Device tracker <a class="title-link" name="device-tracker" href="#device-tracker"></a>
+</h3>
+<p><strong>Note</strong>: If you don’t want to automatically track newly detected devices, disable the <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> system option <code>Enable new added entities</code>.</p>
+<h3>Port forward switches <a class="title-link" name="port-forward-switches" href="#port-forward-switches"></a>
+</h3>
+<p>Due to security reasons, AVM implemented the ability to enable/disable a port forward rule only from the host involved in the rule. As a result, this integration will create entities only for rules that have your Home Assistant host as a destination.</p>
+<p><strong>Note 1</strong>: On your FRITZ!Box under <strong>Internet</strong> &gt; <strong>Permit Access</strong>, enable the setting <code>Permit independent port sharing for this device</code> for the device which runs HA.</p>
+<p><strong>Note 2</strong>: Only works if you have a dedicated IPv4 address (<em>it won’t work with DS-Lite</em>)</p>
+<h3>WiFi switches <a class="title-link" name="wifi-switches" href="#wifi-switches"></a>
+</h3>
+<p>WiFi <span class="terminology">switches<span class="terminology-tooltip">Switches are things that have two states you can select between, such as turning on or off a socket.<a class="terminology-link" href="/integrations/switch/"> [Learn more]</a></span></span> are created for each SSID the FRITZ!Box is serving. With these switches, one can activate and deactivate each single SSID.</p>
+<p><strong>Note 1</strong>: In a mesh setup, the WiFi settings are adopted by each mesh repeater (<em><strong>Home Network &gt; Mesh &gt; Mesh Settings &gt; Automatically Adopting Settings from the Mesh</strong></em>)</p>
+<p><strong>Note 2</strong>: For mesh repeaters, these switches are disabled by default, but can be enabled. When your mesh is based on a WiFi connection between the mesh master and the mesh repeater, the WiFi switches won’t be created for the mesh repeater either.</p>
+<h2>Example Automations and Scripts <a class="title-link" name="example-automations-and-scripts" href="#example-automations-and-scripts"></a>
+</h2>
+<h3>Script: Reconnect / get new IP <a class="title-link" name="script-reconnect--get-new-ip" href="#script-reconnect--get-new-ip"></a>
+</h3>
+<p>The following <span class="terminology">script<span class="terminology-tooltip">Scripts are components that allow users to specify a sequence of actions to be executed by Home Assistant when turned on.<a class="terminology-link" href="/docs/scripts/"> [Learn more]</a></span></span> can be used to easily add a reconnect button to your UI. If you want to reboot your FRITZ!Box, you can use <code>fritz.reboot</code> instead.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">fritz_box_reconnect</span><span class="pi">:</span>
+  <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Reconnect</span><span class="nv"> </span><span class="s">FRITZ!Box"</span>
+  <span class="na">sequence</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">button.press</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">button.fritzbox_7530_reconnect</span>
+
+</code></pre></div></div>
+<h3>Automation: Reconnect / get new IP every night <a class="title-link" name="automation-reconnect--get-new-ip-every-night" href="#automation-reconnect--get-new-ip-every-night"></a>
+</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Reconnect</span><span class="nv"> </span><span class="s">FRITZ!Box"</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">time</span>
+      <span class="na">at</span><span class="pi">:</span> <span class="s2">"</span><span class="s">05:00:00"</span>
+  <span class="na">actions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">button.press</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">button.fritzbox_7530_reconnect</span>
+
+</code></pre></div></div>
+<h3>Automation: Phone notification with Wi-Fi credentials when guest Wi-Fi is created <a class="title-link" name="automation-phone-notification-with-wi-fi-credentials-when-guest-wi-fi-is-created" href="#automation-phone-notification-with-wi-fi-credentials-when-guest-wi-fi-is-created"></a>
+</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">automation</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Guests</span><span class="nv"> </span><span class="s">Wi-Fi</span><span class="nv"> </span><span class="s">Turned</span><span class="nv"> </span><span class="s">On</span><span class="nv"> </span><span class="s">-&gt;</span><span class="nv"> </span><span class="s">Send</span><span class="nv"> </span><span class="s">Password</span><span class="nv"> </span><span class="s">To</span><span class="nv"> </span><span class="s">Phone"</span>
+    <span class="na">triggers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+        <span class="na">entity_id</span><span class="pi">:</span> <span class="s">switch.fritzbox_7530_wifi_myssid</span>
+        <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">on"</span>
+    <span class="na">actions</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">notify.notify</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Guest</span><span class="nv"> </span><span class="s">Wi-Fi</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">enabled"</span>
+          <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Password:</span><span class="nv"> </span><span class="s">..."</span>
+
+</code></pre></div></div>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<p>In any case, when reporting an issue, please enable <a href="/docs/configuration/troubleshooting/#debug-logs-and-diagnostics">debug logging</a>, restart the integration, and as soon as the issue re-occurs stop the debug logging again (<em>download of debug log file will start automatically</em>). Further <em>if still possible</em>, please also download the <span class="terminology">diagnostics<span class="terminology-tooltip">The diagnostics integration provides a way to download diagnostic data from a device or integration for sharing in issue reports. Sharing diagnostics data when reporting an issue allows developers to diagnose and fix your reported problem quicker.<a class="terminology-link" href="/integrations/diagnostics"> [Learn more]</a></span></span> data. If you have collected the debug log and the diagnostics data, provide them with the issue report.</p>
+<h3>Device presence detection is not working as expected <a class="title-link" name="device-presence-detection-is-not-working-as-expected" href="#device-presence-detection-is-not-working-as-expected"></a>
+</h3>
+<p>Check if one of the following cases applies:</p>
+<ul>
+<li>You see a device as still present, even if it is offline or disconnected for more than the configured <a href="#consider-home">consider home</a> seconds.</li>
+<li>You’re using additional network equipment like a network switch or Wi-Fi access point other than an AVM Fritz!Repeater or other AVM components, but not configured as a <a href="https://en.avm.de/service/knowledge-base/dok/FRITZ-Box-7590/3329_Mesh-with-FRITZ/" rel="external nofollow">mesh<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> in your home network.</li>
+</ul>
+<p>If one of the above cases applies to your setup, try <a href="#enable-old-discovery-method">enabling the old discovery method</a> in the <a href="#integration-options">integration options</a>. This might resolve the issue.</p>
+<h2>Remove the integration <a class="title-link" name="remove-the-integration" href="#remove-the-integration"></a>
+</h2>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+<p>If you don’t use the separately created FRITZ!Box user anymore, then remove it from the FRITZ!Box under <strong>System</strong> &gt; <strong>FRITZ!Box Users</strong> &gt; <strong>Users</strong>.</p>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    <li>
+      <a href="/needlehack-blog/common-tasks/general/#enabling-or-disabling-entities" class="topic">
+        Enabling or disabling entities
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/fritz.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Ffritz%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20fritz" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+fritz%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/fritz//logo.png' srcset='https://brands.home-assistant.io/_/fritz/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=fritz' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The AVM FRITZ!Box Tools  integration  was introduced in Home Assistant 0.10, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          8.7%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:download-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Polling.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/fritz" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+fritz%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/AaronDavidSchneider" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/AaronDavidSchneider?size=96" alt="@AaronDavidSchneider"/> @AaronDavidSchneider</a><br /><a href="https://github.com/chemelli74" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/chemelli74?size=96" alt="@chemelli74"/> @chemelli74</a><br /><a href="https://github.com/mib1185" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/mib1185?size=96" alt="@mib1185"/> @mib1185</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#username">Username</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a></li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a></li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-set_guest_wifi_password">Action set_guest_wifi_password</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#additional-information">Additional information</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#parental-control-switches">Parental control switches</a></li>
+<li class="toc-entry toc-h3"><a href="#device-tracker">Device tracker</a></li>
+<li class="toc-entry toc-h3"><a href="#port-forward-switches">Port forward switches</a></li>
+<li class="toc-entry toc-h3"><a href="#wifi-switches">WiFi switches</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#example-automations-and-scripts">Example Automations and Scripts</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#script-reconnect--get-new-ip">Script: Reconnect / get new IP</a></li>
+<li class="toc-entry toc-h3"><a href="#automation-reconnect--get-new-ip-every-night">Automation: Reconnect / get new IP every night</a></li>
+<li class="toc-entry toc-h3"><a href="#automation-phone-notification-with-wi-fi-credentials-when-guest-wi-fi-is-created">Automation: Phone notification with Wi-Fi credentials when guest Wi-Fi is created</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#device-presence-detection-is-not-working-as-expected">Device presence detection is not working as expected</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#remove-the-integration">Remove the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#image'>Image</a>
+          </li><li>
+            <a href='/integrations/#presence-detection'>Presence detection</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#update'>Update</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

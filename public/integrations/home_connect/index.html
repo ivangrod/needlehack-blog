@@ -1,0 +1,3640 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Home Connect - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to set up the Home Connect integration within Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/home_connect/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Home Connect">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/home_connect/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to set up the Home Connect integration within Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Home Connect">
+    <meta name="twitter:description" content="Instructions on how to set up the Home Connect integration within Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#use-cases">Use cases</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-devices">Supported devices</a></li>
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-functionality">Supported functionality</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#binary-sensor">Binary sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#button">Button</a></li>
+<li class="toc-entry toc-h3"><a href="#light">Light</a></li>
+<li class="toc-entry toc-h3"><a href="#number">Number</a></li>
+<li class="toc-entry toc-h3"><a href="#select">Select</a></li>
+<li class="toc-entry toc-h3"><a href="#sensor">Sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#switch">Switch</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-home_connectset_program_and_options">Action home_connect.set_program_and_options</a></li>
+<li class="toc-entry toc-h3"><a href="#action-home_connectchange_setting">Action home_connect.change_setting</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#automation-examples">Automation examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#send-a-notification-when-the-appliance-ends-the-program">Send a notification when the appliance ends the program</a></li>
+<li class="toc-entry toc-h3"><a href="#start-a-program-when-electricity-is-cheap">Start a program when electricity is cheap</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a></li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#i-could-not-configure-the-home-connect-integration">I could not configure the Home Connect integration</a></li>
+<li class="toc-entry toc-h3"><a href="#missing-options-at-the-active-program-and-selected-program-entities">Missing options at the “active program” and “selected program” entities</a></li>
+<li class="toc-entry toc-h3"><a href="#unavailable-entities-for-a-device">Unavailable entities for a device</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Home Connect
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The Home Connect integration allows users to integrate their home appliances supporting the Home Connect standard for Bosch and Siemens using the <a href="https://developer.home-connect.com" rel="external nofollow">official cloud API<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<h2>Use cases <a class="title-link" name="use-cases" href="#use-cases"></a>
+</h2>
+<ul>
+<li>Monitor the multiple sensors of the appliance and trigger automations based on these sensors.</li>
+<li>Start programs on your appliances from your dashboard.</li>
+<li>Monitor the program status of the appliances.</li>
+<li>Control the light of your appliances.</li>
+<li>Adjust the appliance settings.</li>
+</ul>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Note that it depends on the appliance and on API permissions which of the features are supported.</p>
+  </div>
+</div>
+<h2>Supported devices <a class="title-link" name="supported-devices" href="#supported-devices"></a>
+</h2>
+<p>You can find information about supported devices on the <a href="https://www.home-connect.com/global/smart-home-appliances" rel="external nofollow">Home Connect website<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</p>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<ol>
+<li>Visit <a href="https://developer.home-connect.com" rel="external nofollow">https://developer.home-connect.com<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and sign up for a developer account.</li>
+<li>Enter the email of your login for the original Home Connect App from Bosch/Siemens under “Default Home Connect User Account for Testing” in the sign up process.</li>
+<li>Go to the <a href="https://developer.home-connect.com/applications" rel="external nofollow">Applications<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> page and select <a href="https://developer.home-connect.com/application/add" rel="external nofollow">Register Application<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>:</li>
+</ol>
+<ul>
+<li>Application ID: Home Assistant (or whatever name makes sense to you)</li>
+<li>OAuth Flow: Authorization Code Grant Flow</li>
+<li>Redirect URI: <code>https://my.home-assistant.io/redirect/oauth</code>
+</li>
+<li>Go to <code>https://my.home-assistant.io/</code> and make sure that your Home Assistant URL is set there. For example: <code>http://homeassistant:8123/</code> or <code>http://homeassistant.local:8123</code>
+</li>
+</ul>
+<ol start="4">
+<li>On success, you will be redirected to the <strong>Applications</strong> page. Select <strong>Details</strong> for your app. Make note of the client ID and secret - you will need it for the next step. Log out of the Home Connect developer portal.</li>
+<li>In Home Assistant, find the Home Connect integration and launch it. You will be prompted to create an <a href="https://www.home-assistant.io/integrations/application_credentials">Application Credential</a>. You will need to provide a name (it’s arbitrary) in addition to the Client ID and Secret from the previous step. Then, follow the steps in the UI to complete setup.</li>
+</ol>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<ul>
+<li>
+<p>To update the appliance programs list, you can reload the Home Connect integration when an appliance is turned on. If the re-initialization process is not triggered by reload, restart the Home Assistant when an appliance is turned on.</p>
+</li>
+<li>
+<p>After performing the steps above, <a href="https://developer.home-connect.com/user/logout" rel="external nofollow">log out<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> of your Home Connect Developer account. If you don’t do this, the configuration steps below will fail during OAuth authentication with the message <code>“error”: “unauthorized_client”</code>.</p>
+</li>
+<li>
+<p>The provided Home Connect User Account email address <strong>must</strong> be all lowercase; otherwise, it will result in authentication failures.</p>
+</li>
+<li>
+<p>All changes in the developer portal take 15 minutes before the change is implemented.</p>
+</li>
+</ul>
+</div>
+
+
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>I have manually disabled My Home Assistant</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If you don’t have <a href="/integrations/my">My Home Assistant</a> on your installation,
+you can use <code>&lt;HOME_ASSISTANT_URL&gt;/auth/external/callback</code> as the redirect URI
+instead.</p>
+<p>The <code>&lt;HOME_ASSISTANT_URL&gt;</code> must be the same as used during the configuration/
+authentication process.</p>
+<p>Internal examples: <code>http://192.168.0.2:8123/auth/external/callback</code>, <code>http://homeassistant.local:8123/auth/external/callback</code>.”</p>
+</div>
+  </details>
+</div>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Home Connect</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=home_connect" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<p>Home Connect can be auto-discovered by Home Assistant. If an instance was found,
+it will be shown as <strong>Discovered</strong>. You can then set it up right away.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<p>If it wasn’t discovered automatically, don’t worry! You can set up a
+manual integration entry:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=home_connect" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Home Connect</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<p>The integration configuration will ask for the <em>Client ID</em> and <em>Client Secret</em> created above. See <a href="/integrations/application_credentials">Application Credentials</a> for more details.</p>
+<h2>Supported functionality <a class="title-link" name="supported-functionality" href="#supported-functionality"></a>
+</h2>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<ul>
+<li>
+<p>The entities availability depends on the appliance type, but the appliance might not support all the entities for its type.</p>
+</li>
+<li>
+<p>The program option entities will not be provided by the integration until they are available in the selected or active program.</p>
+</li>
+<li>
+<p>Some appliances don’t report data while they are turned off, so corresponding entities will not appear in the Home Connect integration after loading until the appliances are turned on.</p>
+</li>
+</ul>
+</div>
+
+
+</div>
+<h3>Binary sensor <a class="title-link" name="binary-sensor" href="#binary-sensor"></a>
+</h3>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>List of binary sensors</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_1">
+<ul>
+<li>
+<strong>Connectivity</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Shows the connectivity status of the appliance.</li>
+<li>
+<strong>Availability</strong>: All appliances</li>
+</ul>
+</li>
+<li>
+<strong>Remote control</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the remote control is enabled.</li>
+<li>
+<strong>Availability</strong>: Cooktop, Hood, Oven, Warming Drawer, Dishwasher, Washer, Dryer, Washer Dryer</li>
+</ul>
+</li>
+<li>
+<strong>Remote start</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if a program can be started remotely.</li>
+<li>
+<strong>Availability</strong>: Coffee maker, Hood, Oven, Warming Drawer, Dishwasher, Washer, Dryer, Washer Dryer</li>
+</ul>
+</li>
+<li>
+<strong>Local control</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates whether the home appliance is currently physically controlled by the user.</li>
+<li>
+<strong>Availability</strong>: Coffee maker, Cooktop, Hood, Oven, Warming Drawer, Washer, Dryer, Washer Dryer</li>
+</ul>
+</li>
+<li>
+<strong>Bottle cooler door</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the bottle cooler door is open.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Common chiller door</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the common chiller door is open.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Chiller door</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the chiller door is open.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Left chiller door</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the left chiller door is open.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Right chiller door</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the right chiller door is open.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Flex compartment door</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the flex compartment door is open.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer</li>
+</ul>
+</li>
+<li>
+<strong>Freezer door</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the freezer door is open.</li>
+<li>
+<strong>Availability</strong>: Freezer, Fridge freezer</li>
+</ul>
+</li>
+<li>
+<strong>Refrigerator door</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the refrigerator door is open.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Wine compartment door</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the wine compartment door is open.</li>
+<li>
+<strong>Availability</strong>: Wine cooler</li>
+</ul>
+</li>
+<li>
+<strong>Battery charging state</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Describes if the appliance is charging or discharging.</li>
+<li>
+<strong>Availability</strong>: Cleaning robot</li>
+</ul>
+</li>
+<li>
+<strong>Charging connection</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Indicates if the appliance is connected or disconnected.</li>
+<li>
+<strong>Availability</strong>: Cleaning robot</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h3>Button <a class="title-link" name="button" href="#button"></a>
+</h3>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>List of buttons</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_2">
+<ul>
+<li>
+<strong>Stop program</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Stops the active program.</li>
+<li>
+<strong>Availability</strong>: All the appliances with programs</li>
+</ul>
+</li>
+<li>
+<strong>Pause program</strong>
+<ul>
+<li>
+<strong>Description</strong>: Pauses the active program.</li>
+<li>
+<strong>Availability</strong>: Oven, Cleaning robot, Washer, Dryer, Washer dryer</li>
+</ul>
+</li>
+<li>
+<strong>Resume program</strong>
+<ul>
+<li>
+<strong>Description</strong>: Resumes the paused program.</li>
+<li>
+<strong>Availability</strong>: Oven, Cleaning robot, Dishwasher, Washer, Dryer, Washer dryer</li>
+</ul>
+</li>
+<li>
+<strong>Open door</strong>
+<ul>
+<li>
+<strong>Description</strong>: Opens the door of the appliance.</li>
+<li>
+<strong>Availability</strong>: Oven, Freezer, Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Partial open door</strong>
+<ul>
+<li>
+<strong>Description</strong>: Opens the door of the appliance partially.</li>
+<li>
+<strong>Availability</strong>: Oven</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h3>Light <a class="title-link" name="light" href="#light"></a>
+</h3>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>List of light entities</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_3">
+<ul>
+<li>
+<strong>Internal light</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Controls the internal light of cooling appliances.</li>
+<li>
+<strong>Availability</strong>: Freezer, Fridge freezer, Refrigerator, Wine cooler</li>
+<li>
+<strong>Controls</strong>: On/off, brightness</li>
+</ul>
+</li>
+<li>
+<strong>External light</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Controls the external light of cooling appliances.</li>
+<li>
+<strong>Availability</strong>: Freezer, Fridge freezer, Refrigerator, Wine cooler</li>
+<li>
+<strong>Controls</strong>: On/off, brightness</li>
+</ul>
+</li>
+<li>
+<strong>Functional light</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Controls the functional light of a hood.</li>
+<li>
+<strong>Availability</strong>: Hood</li>
+<li>
+<strong>Controls</strong>: On/off, brightness</li>
+</ul>
+</li>
+<li>
+<strong>Ambient light</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Controls the ambient light of an appliance.</li>
+<li>
+<strong>Availability</strong>: Hood, Dishwasher</li>
+<li>
+<strong>Controls</strong>: On/off, brightness, HSV, RGB</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h3>Number <a class="title-link" name="number" href="#number"></a>
+</h3>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>List of number entities</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_4">
+<h4>Settings <a class="title-link" name="settings" href="#settings"></a>
+</h4>
+<ul>
+<li>
+<strong>Alarm clock</strong>
+<ul>
+<li>
+<strong>Description</strong>: Sets the alarm clock.</li>
+<li>
+<strong>Availability</strong>: Cooktop, Oven</li>
+</ul>
+</li>
+<li>
+<strong>Refrigerator setpoint temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the refrigerator temperature.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Freezer setpoint temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the freezer temperature.</li>
+<li>
+<strong>Availability</strong>: Freezer, Fridge freezer</li>
+</ul>
+</li>
+<li>
+<strong>Bottle cooler setpoint temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the bottle cooler temperature.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Chiller setpoint temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the chiller temperature.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Left Chiller setpoint temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the left chiller temperature.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Right Chiller setpoint temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the right chiller temperature.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Wine compartment setpoint temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the wine compartment temperature.</li>
+<li>
+<strong>Availability</strong>: Wine cooler</li>
+</ul>
+</li>
+<li>
+<strong>Wine compartment 2 setpoint temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the second wine compartment temperature.</li>
+<li>
+<strong>Availability</strong>: Wine cooler</li>
+</ul>
+</li>
+<li>
+<strong>Wine compartment 3 setpoint temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the third wine compartment temperature.</li>
+<li>
+<strong>Availability</strong>: Wine cooler</li>
+</ul>
+</li>
+<li>
+<strong>Color temperature percent</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the color temperature of the functional light in percent (warm light: 0 %, cold light: 100 %). To use it, Color temperature select entity must be set to <code>custom</code>.</li>
+<li>
+<strong>Availability</strong>: Hood</li>
+</ul>
+</li>
+<li>
+<strong>i-Dos 1 Base Level</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the basis dosing volume for i-Dos content 1.</li>
+<li>
+<strong>Availability</strong>: Washer, Washer dryer</li>
+</ul>
+</li>
+<li>
+<strong>i-Dos 2 Base Level</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Sets the basis dosing volume for i-Dos content 2.</li>
+<li>
+<strong>Availability</strong>: Washer, Washer dryer</li>
+</ul>
+</li>
+</ul>
+<h4>Program options <a class="title-link" name="program-options" href="#program-options"></a>
+</h4>
+<ul>
+<li>
+<strong>Duration</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Defines the run-time of the program. Afterwards, the appliance is stopped.</li>
+<li>
+<strong>Availability</strong>: Oven</li>
+</ul>
+</li>
+<li>
+<strong>Start in relative</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Defines when the program should start, in seconds from now.</li>
+<li>
+<strong>Availability</strong>: Oven, Dishwasher</li>
+</ul>
+</li>
+<li>
+<strong>Finish in relative</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Defines when the program should end, in seconds from now.</li>
+<li>
+<strong>Availability</strong>: Dryer, Washer, Washer dryer</li>
+</ul>
+</li>
+<li>
+<strong>Fill quantity</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Describes the amount of water (in ml) used in a coffee machine program.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Setpoint temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Defines the target cavity temperature, which will be held by the oven.</li>
+<li>
+<strong>Availability</strong>: Oven</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h3>Select <a class="title-link" name="select" href="#select"></a>
+</h3>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>List of select entities</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_6">
+<h4>Programs <a class="title-link" name="programs" href="#programs"></a>
+</h4>
+<ul>
+<li>
+<strong>Active program</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the active program of the appliance, and selecting an option will start the program.</li>
+<li>
+<strong>Availability</strong>: All the appliances with programs</li>
+</ul>
+</li>
+<li>
+<strong>Selected program</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the selected program of the appliance, and selecting an option will select the program.</li>
+<li>
+<strong>Availability</strong>: All the appliances with programs</li>
+</ul>
+</li>
+</ul>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Program options</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_5">
+Both entities can use these options, but the availability of these will depend on the appliance.
+<ul>
+<li>
+<strong>Clean all</strong>: <code>consumer_products_cleaning_robot_program_cleaning_clean_all</code>
+</li>
+<li>
+<strong>Clean map</strong>: <code>consumer_products_cleaning_robot_program_cleaning_clean_map</code>
+</li>
+<li>
+<strong>Go home</strong>: <code>consumer_products_cleaning_robot_program_basic_go_home</code>
+</li>
+<li>
+<strong>Ristretto</strong>: <code>consumer_products_coffee_maker_program_beverage_ristretto</code>
+</li>
+<li>
+<strong>Espresso</strong>: <code>consumer_products_coffee_maker_program_beverage_espresso</code>
+</li>
+<li>
+<strong>Espresso doppio</strong>: <code>consumer_products_coffee_maker_program_beverage_espresso_doppio</code>
+</li>
+<li>
+<strong>Coffee</strong>: <code>consumer_products_coffee_maker_program_beverage_coffee</code>
+</li>
+<li>
+<strong>XL coffee</strong>: <code>consumer_products_coffee_maker_program_beverage_x_l_coffee</code>
+</li>
+<li>
+<strong>Caffe grande</strong>: <code>consumer_products_coffee_maker_program_beverage_caffe_grande</code>
+</li>
+<li>
+<strong>Espresso macchiato</strong>: <code>consumer_products_coffee_maker_program_beverage_espresso_macchiato</code>
+</li>
+<li>
+<strong>Cappuccino</strong>: <code>consumer_products_coffee_maker_program_beverage_cappuccino</code>
+</li>
+<li>
+<strong>Latte macchiato</strong>: <code>consumer_products_coffee_maker_program_beverage_latte_macchiato</code>
+</li>
+<li>
+<strong>Caffe latte</strong>: <code>consumer_products_coffee_maker_program_beverage_caffe_latte</code>
+</li>
+<li>
+<strong>Milk froth</strong>: <code>consumer_products_coffee_maker_program_beverage_milk_froth</code>
+</li>
+<li>
+<strong>Warm milk</strong>: <code>consumer_products_coffee_maker_program_beverage_warm_milk</code>
+</li>
+<li>
+<strong>Kleiner brauner</strong>: <code>consumer_products_coffee_maker_program_coffee_world_kleiner_brauner</code>
+</li>
+<li>
+<strong>Grosser brauner</strong>: <code>consumer_products_coffee_maker_program_coffee_world_grosser_brauner</code>
+</li>
+<li>
+<strong>Verlaengerter</strong>: <code>consumer_products_coffee_maker_program_coffee_world_verlaengerter</code>
+</li>
+<li>
+<strong>Verlaengerter braun</strong>: <code>consumer_products_coffee_maker_program_coffee_world_verlaengerter_braun</code>
+</li>
+<li>
+<strong>Wiener melange</strong>: <code>consumer_products_coffee_maker_program_coffee_world_wiener_melange</code>
+</li>
+<li>
+<strong>Flat white</strong>: <code>consumer_products_coffee_maker_program_coffee_world_flat_white</code>
+</li>
+<li>
+<strong>Cortado</strong>: <code>consumer_products_coffee_maker_program_coffee_world_cortado</code>
+</li>
+<li>
+<strong>Cafe cortado</strong>: <code>consumer_products_coffee_maker_program_coffee_world_cafe_cortado</code>
+</li>
+<li>
+<strong>Cafe con leche</strong>: <code>consumer_products_coffee_maker_program_coffee_world_cafe_con_leche</code>
+</li>
+<li>
+<strong>Cafe au lait</strong>: <code>consumer_products_coffee_maker_program_coffee_world_cafe_au_lait</code>
+</li>
+<li>
+<strong>Doppio</strong>: <code>consumer_products_coffee_maker_program_coffee_world_doppio</code>
+</li>
+<li>
+<strong>Kaapi</strong>: <code>consumer_products_coffee_maker_program_coffee_world_kaapi</code>
+</li>
+<li>
+<strong>Koffie verkeerd</strong>: <code>consumer_products_coffee_maker_program_coffee_world_koffie_verkeerd</code>
+</li>
+<li>
+<strong>Galao</strong>: <code>consumer_products_coffee_maker_program_coffee_world_galao</code>
+</li>
+<li>
+<strong>Garoto</strong>: <code>consumer_products_coffee_maker_program_coffee_world_garoto</code>
+</li>
+<li>
+<strong>Americano</strong>: <code>consumer_products_coffee_maker_program_coffee_world_americano</code>
+</li>
+<li>
+<strong>Red eye</strong>: <code>consumer_products_coffee_maker_program_coffee_world_red_eye</code>
+</li>
+<li>
+<strong>Black eye</strong>: <code>consumer_products_coffee_maker_program_coffee_world_black_eye</code>
+</li>
+<li>
+<strong>Dead eye</strong>: <code>consumer_products_coffee_maker_program_coffee_world_dead_eye</code>
+</li>
+<li>
+<strong>Hot water</strong>: <code>consumer_products_coffee_maker_program_beverage_hot_water</code>
+</li>
+<li>
+<strong>Pre_rinse</strong>: <code>dishcare_dishwasher_program_pre_rinse</code>
+</li>
+<li>
+<strong>Auto 1</strong>: <code>dishcare_dishwasher_program_auto_1</code>
+</li>
+<li>
+<strong>Auto 2</strong>: <code>dishcare_dishwasher_program_auto_2</code>
+</li>
+<li>
+<strong>Auto 3</strong>: <code>dishcare_dishwasher_program_auto_3</code>
+</li>
+<li>
+<strong>Eco 50ºC</strong>: <code>dishcare_dishwasher_program_eco_50</code>
+</li>
+<li>
+<strong>Quick 45ºC</strong>: <code>dishcare_dishwasher_program_quick_45</code>
+</li>
+<li>
+<strong>Intensive 70ºC</strong>: <code>dishcare_dishwasher_program_intensiv_70</code>
+</li>
+<li>
+<strong>Normal 65ºC</strong>: <code>dishcare_dishwasher_program_normal_65</code>
+</li>
+<li>
+<strong>Glass 40ºC</strong>: <code>dishcare_dishwasher_program_glas_40</code>
+</li>
+<li>
+<strong>Glass care</strong>: <code>dishcare_dishwasher_program_glass_care</code>
+</li>
+<li>
+<strong>Night wash</strong>: <code>dishcare_dishwasher_program_night_wash</code>
+</li>
+<li>
+<strong>Quick 65ºC</strong>: <code>dishcare_dishwasher_program_quick_65</code>
+</li>
+<li>
+<strong>Normal 45ºC</strong>: <code>dishcare_dishwasher_program_normal_45</code>
+</li>
+<li>
+<strong>Intensive 45ºC</strong>: <code>dishcare_dishwasher_program_intensiv_45</code>
+</li>
+<li>
+<strong>Auto half load</strong>: <code>dishcare_dishwasher_program_auto_half_load</code>
+</li>
+<li>
+<strong>Intensive power</strong>: <code>dishcare_dishwasher_program_intensiv_power</code>
+</li>
+<li>
+<strong>Magic daily</strong>: <code>dishcare_dishwasher_program_magic_daily</code>
+</li>
+<li>
+<strong>Super 60ºC</strong>: <code>dishcare_dishwasher_program_super_60</code>
+</li>
+<li>
+<strong>Kurz 60ºC</strong>: <code>dishcare_dishwasher_program_kurz_60</code>
+</li>
+<li>
+<strong>Express sparkle 65ºC</strong>: <code>dishcare_dishwasher_program_express_sparkle_65</code>
+</li>
+<li>
+<strong>Machine care</strong>: <code>dishcare_dishwasher_program_machine_care</code>
+</li>
+<li>
+<strong>Steam fresh</strong>: <code>dishcare_dishwasher_program_steam_fresh</code>
+</li>
+<li>
+<strong>Maximum cleaning</strong>: <code>dishcare_dishwasher_program_maximum_cleaning</code>
+</li>
+<li>
+<strong>Mixed load</strong>: <code>dishcare_dishwasher_program_mixed_load</code>
+</li>
+<li>
+<strong>Cotton</strong>: <code>laundry_care_dryer_program_cotton</code>
+</li>
+<li>
+<strong>Synthetic</strong>: <code>laundry_care_dryer_program_synthetic</code>
+</li>
+<li>
+<strong>Mix</strong>: <code>laundry_care_dryer_program_mix</code>
+</li>
+<li>
+<strong>Blankets</strong>: <code>laundry_care_dryer_program_blankets</code>
+</li>
+<li>
+<strong>Business shirts</strong>: <code>laundry_care_dryer_program_business_shirts</code>
+</li>
+<li>
+<strong>Down feathers</strong>: <code>laundry_care_dryer_program_down_feathers</code>
+</li>
+<li>
+<strong>Hygiene</strong>: <code>laundry_care_dryer_program_hygiene</code>
+</li>
+<li>
+<strong>Jeans</strong>: <code>laundry_care_dryer_program_jeans</code>
+</li>
+<li>
+<strong>Outdoor</strong>: <code>laundry_care_dryer_program_outdoor</code>
+</li>
+<li>
+<strong>Synthetic refresh</strong>: <code>laundry_care_dryer_program_synthetic_refresh</code>
+</li>
+<li>
+<strong>Towels</strong>: <code>laundry_care_dryer_program_towels</code>
+</li>
+<li>
+<strong>Delicates</strong>: <code>laundry_care_dryer_program_delicates</code>
+</li>
+<li>
+<strong>Super 40ºC</strong>: <code>laundry_care_dryer_program_super_40</code>
+</li>
+<li>
+<strong>Shirts 15ºC</strong>: <code>laundry_care_dryer_program_shirts_15</code>
+</li>
+<li>
+<strong>Pillow</strong>: <code>laundry_care_dryer_program_pillow</code>
+</li>
+<li>
+<strong>Anti shrink</strong>: <code>laundry_care_dryer_program_anti_shrink</code>
+</li>
+<li>
+<strong>My drying time</strong>: <code>laundry_care_dryer_program_my_time_my_drying_time</code>
+</li>
+<li>
+<strong>Cold (variable time)</strong>: <code>laundry_care_dryer_program_time_cold</code>
+</li>
+<li>
+<strong>Warm (variable time)</strong>: <code>laundry_care_dryer_program_time_warm</code>
+</li>
+<li>
+<strong>In basket</strong>: <code>laundry_care_dryer_program_in_basket</code>
+</li>
+<li>
+<strong>Cold (20 min)</strong>: <code>laundry_care_dryer_program_time_cold_fix_time_cold_20</code>
+</li>
+<li>
+<strong>Cold (30 min)</strong>: <code>laundry_care_dryer_program_time_cold_fix_time_cold_30</code>
+</li>
+<li>
+<strong>Cold (60 min)</strong>: <code>laundry_care_dryer_program_time_cold_fix_time_cold_60</code>
+</li>
+<li>
+<strong>Warm (30 min)</strong>: <code>laundry_care_dryer_program_time_warm_fix_time_warm_30</code>
+</li>
+<li>
+<strong>Warm (40 min)</strong>: <code>laundry_care_dryer_program_time_warm_fix_time_warm_40</code>
+</li>
+<li>
+<strong>Warm (60 min)</strong>: <code>laundry_care_dryer_program_time_warm_fix_time_warm_60</code>
+</li>
+<li>
+<strong>Dessous</strong>: <code>laundry_care_dryer_program_dessous</code>
+</li>
+<li>
+<strong>Automatic</strong>: <code>cooking_common_program_hood_automatic</code>
+</li>
+<li>
+<strong>Venting</strong>: <code>cooking_common_program_hood_venting</code>
+</li>
+<li>
+<strong>Delayed shut off</strong>: <code>cooking_common_program_hood_delayed_shut_off</code>
+</li>
+<li>
+<strong>Pre-heating</strong>: <code>cooking_oven_program_heating_mode_pre_heating</code>
+</li>
+<li>
+<strong>Hot air</strong>: <code>cooking_oven_program_heating_mode_hot_air</code>
+</li>
+<li>
+<strong>Hot air eco</strong>: <code>cooking_oven_program_heating_mode_hot_air_eco</code>
+</li>
+<li>
+<strong>Hot air grilling</strong>: <code>cooking_oven_program_heating_mode_hot_air_grilling</code>
+</li>
+<li>
+<strong>Top bottom heating</strong>: <code>cooking_oven_program_heating_mode_top_bottom_heating</code>
+</li>
+<li>
+<strong>Top bottom heating eco</strong>: <code>cooking_oven_program_heating_mode_top_bottom_heating_eco</code>
+</li>
+<li>
+<strong>Bottom heating</strong>: <code>cooking_oven_program_heating_mode_bottom_heating</code>
+</li>
+<li>
+<strong>Pizza setting</strong>: <code>cooking_oven_program_heating_mode_pizza_setting</code>
+</li>
+<li>
+<strong>Slow cook</strong>: <code>cooking_oven_program_heating_mode_slow_cook</code>
+</li>
+<li>
+<strong>Intensive heat</strong>: <code>cooking_oven_program_heating_mode_intensive_heat</code>
+</li>
+<li>
+<strong>Keep warm</strong>: <code>cooking_oven_program_heating_mode_keep_warm</code>
+</li>
+<li>
+<strong>Preheat ovenware</strong>: <code>cooking_oven_program_heating_mode_preheat_ovenware</code>
+</li>
+<li>
+<strong>Special Heat-Up for frozen products</strong>: <code>cooking_oven_program_heating_mode_frozen_heatup_special</code>
+</li>
+<li>
+<strong>Desiccation</strong>: <code>cooking_oven_program_heating_mode_desiccation</code>
+</li>
+<li>
+<strong>Defrost</strong>: <code>cooking_oven_program_heating_mode_defrost</code>
+</li>
+<li>
+<strong>Proof</strong>: <code>cooking_oven_program_heating_mode_proof</code>
+</li>
+<li>
+<strong>Hot air + 30 RH</strong>: <code>cooking_oven_program_heating_mode_hot_air_30_steam</code>
+</li>
+<li>
+<strong>Hot air + 60 RH</strong>: <code>cooking_oven_program_heating_mode_hot_air_60_steam</code>
+</li>
+<li>
+<strong>Hot air + 80 RH</strong>: <code>cooking_oven_program_heating_mode_hot_air_80_steam</code>
+</li>
+<li>
+<strong>Hot air + 100 RH</strong>: <code>cooking_oven_program_heating_mode_hot_air_100_steam</code>
+</li>
+<li>
+<strong>Sabbath programme</strong>: <code>cooking_oven_program_heating_mode_sabbath_programme</code>
+</li>
+<li>
+<strong>90 Watt</strong>: <code>cooking_oven_program_microwave_90_watt</code>
+</li>
+<li>
+<strong>180 Watt</strong>: <code>cooking_oven_program_microwave_180_watt</code>
+</li>
+<li>
+<strong>360 Watt</strong>: <code>cooking_oven_program_microwave_360_watt</code>
+</li>
+<li>
+<strong>600 Watt</strong>: <code>cooking_oven_program_microwave_600_watt</code>
+</li>
+<li>
+<strong>900 Watt</strong>: <code>cooking_oven_program_microwave_900_watt</code>
+</li>
+<li>
+<strong>1000 Watt</strong>: <code>cooking_oven_program_microwave_1000_watt</code>
+</li>
+<li>
+<strong>Max</strong>: <code>cooking_oven_program_microwave_max</code>
+</li>
+<li>
+<strong>Warming drawer</strong>: <code>cooking_oven_program_heating_mode_warming_drawer</code>
+</li>
+<li>
+<strong>Cotton</strong>: <code>laundry_care_washer_program_cotton</code>
+</li>
+<li>
+<strong>Cotton eco</strong>: <code>laundry_care_washer_program_cotton_cotton_eco</code>
+</li>
+<li>
+<strong>Cotton eco 40/60ºC</strong>: <code>laundry_care_washer_program_cotton_eco_4060</code>
+</li>
+<li>
+<strong>Cotton color</strong>: <code>laundry_care_washer_program_cotton_colour</code>
+</li>
+<li>
+<strong>Easy care</strong>: <code>laundry_care_washer_program_easy_care</code>
+</li>
+<li>
+<strong>Mix</strong>: <code>laundry_care_washer_program_mix</code>
+</li>
+<li>
+<strong>Mix night wash</strong>: <code>laundry_care_washer_program_mix_night_wash</code>
+</li>
+<li>
+<strong>Delicates silk</strong>: <code>laundry_care_washer_program_delicates_silk</code>
+</li>
+<li>
+<strong>Wool</strong>: <code>laundry_care_washer_program_wool</code>
+</li>
+<li>
+<strong>Sensitive</strong>: <code>laundry_care_washer_program_sensitive</code>
+</li>
+<li>
+<strong>Auto 30ºC</strong>: <code>laundry_care_washer_program_auto_30</code>
+</li>
+<li>
+<strong>Auto 40ºC</strong>: <code>laundry_care_washer_program_auto_40</code>
+</li>
+<li>
+<strong>Auto 60ºC</strong>: <code>laundry_care_washer_program_auto_60</code>
+</li>
+<li>
+<strong>Chiffon</strong>: <code>laundry_care_washer_program_chiffon</code>
+</li>
+<li>
+<strong>Curtains</strong>: <code>laundry_care_washer_program_curtains</code>
+</li>
+<li>
+<strong>Dark wash</strong>: <code>laundry_care_washer_program_dark_wash</code>
+</li>
+<li>
+<strong>Dessous</strong>: <code>laundry_care_washer_program_dessous</code>
+</li>
+<li>
+<strong>Monsoon</strong>: <code>laundry_care_washer_program_monsoon</code>
+</li>
+<li>
+<strong>Outdoor</strong>: <code>laundry_care_washer_program_outdoor</code>
+</li>
+<li>
+<strong>Plush toy</strong>: <code>laundry_care_washer_program_plush_toy</code>
+</li>
+<li>
+<strong>Shirts blouses</strong>: <code>laundry_care_washer_program_shirts_blouses</code>
+</li>
+<li>
+<strong>Sport fitness</strong>: <code>laundry_care_washer_program_sport_fitness</code>
+</li>
+<li>
+<strong>Towels</strong>: <code>laundry_care_washer_program_towels</code>
+</li>
+<li>
+<strong>Water proof</strong>: <code>laundry_care_washer_program_water_proof</code>
+</li>
+<li>
+<strong>Power speed &lt;59 min</strong>: <code>laundry_care_washer_program_power_speed_59</code>
+</li>
+<li>
+<strong>Super 15 min</strong>: <code>laundry_care_washer_program_super_153045_super_15</code>
+</li>
+<li>
+<strong>Super 15/30 min</strong>: <code>laundry_care_washer_program_super_153045_super_1530</code>
+</li>
+<li>
+<strong>Down duvet</strong>: <code>laundry_care_washer_program_down_duvet_duvet</code>
+</li>
+<li>
+<strong>Rinse spin drain</strong>: <code>laundry_care_washer_program_rinse_rinse_spin_drain</code>
+</li>
+<li>
+<strong>Drum clean</strong>: <code>laundry_care_washer_program_drum_clean</code>
+</li>
+<li>
+<strong>Cotton</strong>: <code>laundry_care_washer_dryer_program_cotton</code>
+</li>
+<li>
+<strong>Cotton eco 40/60ºC</strong>: <code>laundry_care_washer_dryer_program_cotton_eco_4060</code>
+</li>
+<li>
+<strong>Mix</strong>: <code>laundry_care_washer_dryer_program_mix</code>
+</li>
+<li>
+<strong>Easy care</strong>: <code>laundry_care_washer_dryer_program_easy_care</code>
+</li>
+<li>
+<strong>Wash and dry (60 min)</strong>: <code>laundry_care_washer_dryer_program_wash_and_dry_60</code>
+</li>
+<li>
+<strong>Wash and dry (90 min)</strong>: <code>laundry_care_washer_dryer_program_wash_and_dry_90</code>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h4>Settings <a class="title-link" name="settings-1" href="#settings-1"></a>
+</h4>
+<ul>
+<li>
+<strong>Current map</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Represents the currently selected map of the cleaning robot.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Cleaning robot</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Temporary map</strong>: <code>consumer_products_cleaning_robot_option_reference_map_id_temp_map</code>
+</li>
+<li>
+<strong>Map 1</strong>:<code>consumer_products_cleaning_robot_option_reference_map_id_map_1</code>
+</li>
+<li>
+<strong>Map 2</strong>:<code>consumer_products_cleaning_robot_option_reference_map_id_map_2</code>
+</li>
+<li>
+<strong>Map 3</strong>:<code>consumer_products_cleaning_robot_option_reference_map_id_map_3</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Functional light color temperature</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Represents the color temperature of the functional light.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Hood</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Custom</strong>: <code>cooking_hood_enum_type_color_temperature_custom</code>
+</li>
+<li>
+<strong>Warm</strong>: <code>cooking_hood_enum_type_color_temperature_warm</code>
+</li>
+<li>
+<strong>Warm to Neutral</strong>: <code>cooking_hood_enum_type_color_temperature_warm_to_neutral</code>
+</li>
+<li>
+<strong>Neutral</strong>: <code>cooking_hood_enum_type_color_temperature_neutral</code>
+</li>
+<li>
+<strong>Neutral to Cold</strong>: <code>cooking_hood_enum_type_color_temperature_neutral_to_cold</code>
+</li>
+<li>
+<strong>Cold</strong>: <code>cooking_hood_enum_type_color_temperature_cold</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Ambient light color</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Represents the color of the ambient light.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Hood, Dishwasher</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Custom</strong>: <code>b_s_h_common_enum_type_ambient_light_color_custom_color</code>
+</li>
+<li>
+<strong>1</strong>: <code>b_s_h_common_enum_type_ambient_light_color_color_1</code>
+</li>
+<li>…</li>
+<li>
+<strong>99</strong>: <code>b_s_h_common_enum_type_ambient_light_color_color_99</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Program options <a class="title-link" name="program-options-1" href="#program-options-1"></a>
+</h4>
+<ul>
+<li>
+<strong>Reference map ID</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines which reference map is to be used.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Cleaning robot</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Temporary map</strong>: <code>consumer_products_cleaning_robot_option_reference_map_id_temp_map</code>
+</li>
+<li>
+<strong>Map 1</strong>:<code>consumer_products_cleaning_robot_option_reference_map_id_map_1</code>
+</li>
+<li>
+<strong>Map 2</strong>:<code>consumer_products_cleaning_robot_option_reference_map_id_map_2</code>
+</li>
+<li>
+<strong>Map 3</strong>:<code>consumer_products_cleaning_robot_option_reference_map_id_map_3</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Cleaning mode</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines the favoured cleaning mode.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Cleaning robot</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Silent</strong>: <code>consumer_products_cleaning_robot_enum_type_cleaning_modes_silent</code>
+</li>
+<li>
+<strong>Standard</strong>: <code>consumer_products_cleaning_robot_enum_type_cleaning_modes_standard</code>
+</li>
+<li>
+<strong>Power</strong>: <code>consumer_products_cleaning_robot_enum_type_cleaning_modes_power</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Bean amount</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Represents the amount of coffee beans used in a coffee machine program.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Coffee maker</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Very mild</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_very_mild</code>
+</li>
+<li>
+<strong>Mild</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_mild</code>
+</li>
+<li>
+<strong>Mild +</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_mild_plus</code>
+</li>
+<li>
+<strong>Normal</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_normal</code>
+</li>
+<li>
+<strong>Normal +</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_normal_plus</code>
+</li>
+<li>
+<strong>Strong</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_strong</code>
+</li>
+<li>
+<strong>Strong +</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_strong_plus</code>
+</li>
+<li>
+<strong>Very strong</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_very_strong</code>
+</li>
+<li>
+<strong>Very strong +</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_very_strong_plus</code>
+</li>
+<li>
+<strong>Extra strong</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_extra_strong</code>
+</li>
+<li>
+<strong>Double shot</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_double_shot</code>
+</li>
+<li>
+<strong>Double shot +</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_double_shot_plus</code>
+</li>
+<li>
+<strong>Double shot ++</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_double_shot_plus_plus</code>
+</li>
+<li>
+<strong>Triple shot</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_triple_shot</code>
+</li>
+<li>
+<strong>Triple shot +</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_triple_shot_plus</code>
+</li>
+<li>
+<strong>Coffee ground</strong>: <code>consumer_products_coffee_maker_enum_type_bean_amount_coffee_ground</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Coffee temperature</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Represents the coffee temperature used in a coffee machine program.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Coffee maker</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>88ºC</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_temperature_88_c</code>
+</li>
+<li>
+<strong>90ºC</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_temperature_90_c</code>
+</li>
+<li>
+<strong>92ºC</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_temperature_92_c</code>
+</li>
+<li>
+<strong>94ºC</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_temperature_94_c</code>
+</li>
+<li>
+<strong>95ºC</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_temperature_95_c</code>
+</li>
+<li>
+<strong>96ºC</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_temperature_96_c</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Bean container</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines the preferred bean container.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Coffee maker</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Left</strong>: <code>consumer_products_coffee_maker_enum_type_bean_container_selection_right</code>
+</li>
+<li>
+<strong>Right</strong>: <code>consumer_products_coffee_maker_enum_type_bean_container_selection_left</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Flow rate</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines the water-coffee contact time. The duration extends to coffee intensity.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Coffee maker</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Normal</strong>: <code>consumer_products_coffee_maker_enum_type_flow_rate_normal</code>
+</li>
+<li>
+<strong>Intense</strong>: <code>consumer_products_coffee_maker_enum_type_flow_rate_intense</code>
+</li>
+<li>
+<strong>Intense plus</strong>: <code>consumer_products_coffee_maker_enum_type_flow_rate_intense_plus</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Coffee milk ratio</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines the amount of milk.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Coffee maker</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>10%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_10_percent</code>
+</li>
+<li>
+<strong>20%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_20_percent</code>
+</li>
+<li>
+<strong>25%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_25_percent</code>
+</li>
+<li>
+<strong>30%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_30_percent</code>
+</li>
+<li>
+<strong>40%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_40_percent</code>
+</li>
+<li>
+<strong>50%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_50_percent</code>
+</li>
+<li>
+<strong>55%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_55_percent</code>
+</li>
+<li>
+<strong>60%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_60_percent</code>
+</li>
+<li>
+<strong>65%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_65_percent</code>
+</li>
+<li>
+<strong>67%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_67_percent</code>
+</li>
+<li>
+<strong>70%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_70_percent</code>
+</li>
+<li>
+<strong>75%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_75_percent</code>
+</li>
+<li>
+<strong>80%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_80_percent</code>
+</li>
+<li>
+<strong>85%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_85_percent</code>
+</li>
+<li>
+<strong>90%</strong>: <code>consumer_products_coffee_maker_enum_type_coffee_milk_ratio_90_percent</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Hot water temperature</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines the temperature suitable for the type of tea.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Coffee maker</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>White tea</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_white_tea</code>
+</li>
+<li>
+<strong>Green tea</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_green_tea</code>
+</li>
+<li>
+<strong>Black tea</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_black_tea</code>
+</li>
+<li>
+<strong>50ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_50_c</code>
+</li>
+<li>
+<strong>55ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_55_c</code>
+</li>
+<li>
+<strong>60ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_60_c</code>
+</li>
+<li>
+<strong>65ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_65_c</code>
+</li>
+<li>
+<strong>70ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_70_c</code>
+</li>
+<li>
+<strong>75ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_75_c</code>
+</li>
+<li>
+<strong>80ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_80_c</code>
+</li>
+<li>
+<strong>85ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_85_c</code>
+</li>
+<li>
+<strong>90ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_90_c</code>
+</li>
+<li>
+<strong>95ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_95_c</code>
+</li>
+<li>
+<strong>97ºC</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_97_c</code>
+</li>
+<li>
+<strong>122ºF</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_122_f</code>
+</li>
+<li>
+<strong>131ºF</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_131_f</code>
+</li>
+<li>
+<strong>140ºF</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_140_f</code>
+</li>
+<li>
+<strong>149ºF</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_149_f</code>
+</li>
+<li>
+<strong>158ºF</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_158_f</code>
+</li>
+<li>
+<strong>167ºF</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_167_f</code>
+</li>
+<li>
+<strong>176ºF</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_176_f</code>
+</li>
+<li>
+<strong>185ºF</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_185_f</code>
+</li>
+<li>
+<strong>194ºF</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_194_f</code>
+</li>
+<li>
+<strong>203ºF</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_203_f</code>
+</li>
+<li>
+<strong>Max</strong>: <code>consumer_products_coffee_maker_enum_type_hot_water_temperature_max</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Drying target</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Describes the drying target for a dryer program.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Dryer</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Iron dry</strong>: <code>laundry_care_dryer_enum_type_drying_target_iron_dry</code>
+</li>
+<li>
+<strong>Gentle dry</strong>: <code>laundry_care_dryer_enum_type_drying_target_gentle_dry</code>
+</li>
+<li>
+<strong>Cupboard dry</strong>: <code>laundry_care_dryer_enum_type_drying_target_cupboard_dry</code>
+</li>
+<li>
+<strong>Cupboard dry plus</strong>: <code>laundry_care_dryer_enum_type_drying_target_cupboard_dry_plus</code>
+</li>
+<li>
+<strong>Extra dry</strong>: <code>laundry_care_dryer_enum_type_drying_target_extra_dry</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Venting level</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines the required fan setting.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Hood</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Fan off</strong> <code>cooking_hood_enum_type_stage_fan_off</code>
+</li>
+<li>
+<strong>Fan stage 1</strong> <code>cooking_hood_enum_type_stage_fan_stage_01</code>
+</li>
+<li>
+<strong>Fan stage 2</strong> <code>cooking_hood_enum_type_stage_fan_stage_02</code>
+</li>
+<li>
+<strong>Fan stage 3</strong> <code>cooking_hood_enum_type_stage_fan_stage_03</code>
+</li>
+<li>
+<strong>Fan stage 4</strong> <code>cooking_hood_enum_type_stage_fan_stage_04</code>
+</li>
+<li>
+<strong>Fan stage 5</strong> <code>cooking_hood_enum_type_stage_fan_stage_05</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Intensive level</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines the intensive setting.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Hood</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Intensive stage off</strong>: <code>cooking_hood_enum_type_intensive_stage_intensive_stage_off</code>
+</li>
+<li>
+<strong>Intensive stage 1</strong>: <code>cooking_hood_enum_type_intensive_stage_intensive_stage1</code>
+</li>
+<li>
+<strong>Intensive stage 2</strong>: <code>cooking_hood_enum_type_intensive_stage_intensive_stage2</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Warming level</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines the level of the warming drawer.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Oven</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Low</strong>: <code>cooking_oven_enum_type_warming_level_low</code>
+</li>
+<li>
+<strong>Medium</strong>: <code>cooking_oven_enum_type_warming_level_medium</code>
+</li>
+<li>
+<strong>High</strong>: <code>cooking_oven_enum_type_warming_level_high</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Temperature</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines the temperature of the washing program.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Washer, Washer dryer</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Cold</strong>: <code>laundry_care_washer_enum_type_temperature_cold</code>
+</li>
+<li>
+<strong>20ºC clothes</strong>: <code>laundry_care_washer_enum_type_temperature_g_c_20</code>
+</li>
+<li>
+<strong>30ºC clothes</strong>: <code>laundry_care_washer_enum_type_temperature_g_c_30</code>
+</li>
+<li>
+<strong>40ºC clothes</strong>: <code>laundry_care_washer_enum_type_temperature_g_c_40</code>
+</li>
+<li>
+<strong>50ºC clothes</strong>: <code>laundry_care_washer_enum_type_temperature_g_c_50</code>
+</li>
+<li>
+<strong>60ºC clothes</strong>: <code>laundry_care_washer_enum_type_temperature_g_c_60</code>
+</li>
+<li>
+<strong>70ºC clothes</strong>: <code>laundry_care_washer_enum_type_temperature_g_c_70</code>
+</li>
+<li>
+<strong>80ºC clothes</strong>: <code>laundry_care_washer_enum_type_temperature_g_c_80</code>
+</li>
+<li>
+<strong>90ºC clothes</strong>: <code>laundry_care_washer_enum_type_temperature_g_c_90</code>
+</li>
+<li>
+<strong>Cold</strong>: <code>laundry_care_washer_enum_type_temperature_ul_cold</code>
+</li>
+<li>
+<strong>Warm</strong>: <code>laundry_care_washer_enum_type_temperature_ul_warm</code>
+</li>
+<li>
+<strong>Hot</strong>: <code>laundry_care_washer_enum_type_temperature_ul_hot</code>
+</li>
+<li>
+<strong>Extra hot</strong>: <code>laundry_care_washer_enum_type_temperature_ul_extra_hot</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Spin speed</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines the spin speed of a washer program.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Washer, Washer dryer</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Off</strong>: <code>laundry_care_washer_enum_type_spin_speed_off</code>
+</li>
+<li>
+<strong>400 rpm</strong>: <code>laundry_care_washer_enum_type_spin_speed_r_p_m_400</code>
+</li>
+<li>
+<strong>600 rpm</strong>: <code>laundry_care_washer_enum_type_spin_speed_r_p_m_600</code>
+</li>
+<li>
+<strong>700 rpm</strong>: <code>laundry_care_washer_enum_type_spin_speed_r_p_m_700</code>
+</li>
+<li>
+<strong>800 rpm</strong>: <code>laundry_care_washer_enum_type_spin_speed_r_p_m_800</code>
+</li>
+<li>
+<strong>900 rpm</strong>: <code>laundry_care_washer_enum_type_spin_speed_r_p_m_900</code>
+</li>
+<li>
+<strong>1000 rpm</strong>: <code>laundry_care_washer_enum_type_spin_speed_r_p_m_1000</code>
+</li>
+<li>
+<strong>1200 rpm</strong>: <code>laundry_care_washer_enum_type_spin_speed_r_p_m_1200</code>
+</li>
+<li>
+<strong>1400 rpm</strong>: <code>laundry_care_washer_enum_type_spin_speed_r_p_m_1400</code>
+</li>
+<li>
+<strong>1600 rpm</strong>: <code>laundry_care_washer_enum_type_spin_speed_r_p_m_1600</code>
+</li>
+<li>
+<strong>Off</strong>: <code>laundry_care_washer_enum_type_spin_speed_ul_off</code>
+</li>
+<li>
+<strong>Low</strong>: <code>laundry_care_washer_enum_type_spin_speed_ul_low</code>
+</li>
+<li>
+<strong>Medium</strong>: <code>laundry_care_washer_enum_type_spin_speed_ul_medium</code>
+</li>
+<li>
+<strong>High</strong>: <code>laundry_care_washer_enum_type_spin_speed_ul_high</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Vario perfect</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Defines if a cycle saves energy (Eco Perfect) or time (Speed Perfect).</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Washer</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Off</strong>: <code>laundry_care_common_enum_type_vario_perfect_off</code>
+</li>
+<li>
+<strong>Eco perfect</strong>: <code>laundry_care_common_enum_type_vario_perfect_eco_perfect</code>
+</li>
+<li>
+<strong>Speed perfect</strong>: <code>laundry_care_common_enum_type_vario_perfect_speed_perfect</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h3>Sensor <a class="title-link" name="sensor" href="#sensor"></a>
+</h3>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>List of sensors</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_8">
+<ul>
+<li>
+<strong>Finish time</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the time when the program will end.</li>
+<li>
+<strong>Availability</strong>: Coffee maker, Hood, Oven, Dishwasher, Dryer, Washer, Washer dryer</li>
+</ul>
+</li>
+</ul>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>This sensor will be available only if the program is running</p>
+  </div>
+</div>
+<ul>
+<li>
+<strong>Program progress</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the progress of the program.</li>
+<li>
+<strong>Availability</strong>: Coffee maker, Hood, Oven, Warming drawer, Dishwasher, Dryer, Washer, Washer dryer</li>
+</ul>
+</li>
+</ul>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>This sensor will be available only if the program is running</p>
+  </div>
+</div>
+<ul>
+<li>
+<strong>Operation state</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Represents the current operation state of the device.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: All the appliances with programs</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Inactive</strong>: <code>inactive</code>
+</li>
+<li>
+<strong>Ready</strong>: <code>ready</code>
+</li>
+<li>
+<strong>Delayed start</strong>: <code>delayedstart</code>
+</li>
+<li>
+<strong>Run</strong>: <code>run</code>
+</li>
+<li>
+<strong>Pause</strong>: <code>pause</code>
+</li>
+<li>
+<strong>Action required</strong>: <code>actionrequired</code>
+</li>
+<li>
+<strong>Finished</strong>: <code>finished</code>
+</li>
+<li>
+<strong>Error</strong>: <code>error</code>
+</li>
+<li>
+<strong>Aborting</strong>: <code>aborting</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Door state</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Represents the current state of the door.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Oven, Dishwasher, Dryer, Washer, Washer dryer, Freezer, Fridge freezer, Refrigerator, Wine cooler</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Closed</strong>: <code>closed</code>
+</li>
+<li>
+<strong>Locked</strong>: <code>locked</code>
+</li>
+<li>
+<strong>Open</strong>: <code>open</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Coffee counter</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the number of coffees made.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Powder coffee counter</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the number of powder coffees made.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Hot water counter</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the milliliters of hot water dispensed.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Hot water cups</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the number of hot water cups dispensed.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Hot milk counter</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the number of hot milk cups dispensed.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Frothy milk counter</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the number of frothy milk cups dispensed.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Milk counter</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the number of milk cups dispensed.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Coffee and milk counter</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the number of coffee and milk cups dispensed.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Ristretto Espresso counter</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the number of Ristretto Espresso cups dispensed.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Battery level</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the level of the battery.</li>
+<li>
+<strong>Availability</strong>: Cleaning robot</li>
+</ul>
+</li>
+<li>
+<strong>Camera state</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Represents the state of the camera.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Cleaning robot</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Disabled</strong>: <code>disabled</code>
+</li>
+<li>
+<strong>Sleeping</strong>: <code>sleeping</code>
+</li>
+<li>
+<strong>Ready</strong>: <code>ready</code>
+</li>
+<li>
+<strong>Streaming local</strong>: <code>streaminglocal</code>
+</li>
+<li>
+<strong>Streaming cloud</strong>: <code>streamingcloud</code>
+</li>
+<li>
+<strong>Streaming local and cloud</strong>: <code>streaminglocalancloud</code>
+</li>
+<li>
+<strong>Error</strong>: <code>error</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Last selected map</strong>:
+<ul>
+<li>
+<p><strong>Description</strong>: Represents the last selected map of the cleaning robot.</p>
+</li>
+<li>
+<p><strong>Availability</strong>: Cleaning robot</p>
+</li>
+<li>
+<details>
+<summary><b>Options:</b> (click to view)</summary>
+<ul>
+<li>
+<strong>Temporary map</strong>: <code>tempmap</code>
+</li>
+<li>
+<strong>Map 1</strong>: <code>map1</code>
+</li>
+<li>
+<strong>Map 2</strong>: <code>map2</code>
+</li>
+<li>
+<strong>Map 3</strong>: <code>map3</code>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<strong>Current cavity temperature</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the current cavity temperature.</li>
+<li>
+<strong>Availability</strong>: Oven</li>
+</ul>
+</li>
+</ul>
+<div class="alert alert-important">
+  <p class="alert-title"><iconify-icon inline icon="mdi:message-alert-outline"></iconify-icon> Important</p>
+  <div class="alert-content">
+<p>It is not recommended to use the <strong>Current cavity temperature</strong> sensor because the temperature might not provide the necessary accuracy.</p>
+  </div>
+</div>
+<h4>Event sensors <a class="title-link" name="event-sensors" href="#event-sensors"></a>
+</h4>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>The event sensors will not be provided by the integration until the appliance reports the event.</p>
+  </div>
+</div>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Event sensor options</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_7">
+All the event sensors will have the following possible values:
+<ul>
+<li>
+<strong>Confirmed</strong>: <code>confirmed</code>
+</li>
+<li>
+<strong>Present</strong>: <code>present</code>
+</li>
+<li>
+<strong>Off</strong>: <code>off</code>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<ul>
+<li>
+<strong>Program aborted</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered each time a program is successfully canceled.</li>
+<li>
+<strong>Availability</strong>: Cook processor, Cleaning robot, Dishwasher</li>
+</ul>
+</li>
+<li>
+<strong>Program finished</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered each time a program run is successfully finished.</li>
+<li>
+<strong>Availability</strong>: Cook processor, Cooktop, Hood, Oven, Cleaning robot, Dishwasher, Washer, Washer dryer</li>
+</ul>
+</li>
+<li>
+<strong>Alarm clock elapsed</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the alarm clock has elapsed.</li>
+<li>
+<strong>Availability</strong>: Cooktop, Oven</li>
+</ul>
+</li>
+<li>
+<strong>Pre-heat finished</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when <strong>Fast pre-heat</strong> program option is active and the preheating phase is finished.</li>
+<li>
+<strong>Availability</strong>: Cooktop, Oven</li>
+</ul>
+</li>
+<li>
+<strong>Regular pre-heat finished</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the preheating phase is finished (and the <strong>Fast pre-heat</strong> option is not active nor supported).</li>
+<li>
+<strong>Availability</strong>: Oven</li>
+</ul>
+</li>
+<li>
+<strong>Drying process finished</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the drying process is finished.</li>
+<li>
+<strong>Availability</strong>: Dryer</li>
+</ul>
+</li>
+<li>
+<strong>Salt nearly empty</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the salt supply is running low.</li>
+<li>
+<strong>Availability</strong>: Dishwasher</li>
+</ul>
+</li>
+<li>
+<strong>Rinse aid nearly empty</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the rinse aid supply is running low.</li>
+<li>
+<strong>Availability</strong>: Dishwasher</li>
+</ul>
+</li>
+<li>
+<strong>Bean container empty</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the bean container is empty.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Water tank empty</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the water tank is empty.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Drip tray full</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the drip tray is full.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Keep milk tank cool</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the user should remove the milk container and put it in a cool place so that the milk stays fresh.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Descaling in 20 cups</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when there are 20 cups left before the descaling process is required.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Descaling in 15 cups</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when there are 15 cups left before the descaling process is required.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Descaling in 10 cups</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when there are 10 cups left before the descaling process is required.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Descaling in 5 cups</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when there are 5 cups left before the descaling process is required.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Device should be descaled</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the device should be descaled.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Device descaling overdue</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the device descaling is overdue.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Device descaling blockage</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the device descaling is blocked.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Device should be cleaned</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the device should be cleaned.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Device cleaning overdue</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the device cleaning is overdue.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Calc’N’Clean in 20 cups</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when there are 20 cups left before the Calc’N’Clean process is required.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Calc’N’Clean in 15 cups</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when there are 15 cups left before the Calc’N’Clean process is required.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Calc’N’Clean in 10 cups</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when there are 10 cups left before the Calc’N’Clean process is required.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Calc’N’Clean in 5 cups</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when there are 5 cups left before the Calc’N’Clean process is required.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Device should be Calc’N’Cleaned</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the device should be Calc’N’Cleaned.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Device Calc’N’Clean overdue</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the device Calc’N’Clean is overdue.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Device Calc’N’Clean blockage</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the device Calc’N’Clean is blocked.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Freezer door alarm</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the freezer door was left open too long.</li>
+<li>
+<strong>Availability</strong>: Freezer, Fridge freezer</li>
+</ul>
+</li>
+<li>
+<strong>Refrigerator door alarm</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the refrigerator door was left open too long.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Freezer temperature alarm</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the freezer temperature is too high.</li>
+<li>
+<strong>Availability</strong>: Freezer, Fridge freezer</li>
+</ul>
+</li>
+<li>
+<strong>Empty dust box and clean filter</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the user has to empty the dust box and clean the filter.</li>
+<li>
+<strong>Availability</strong>: Cleaning robot</li>
+</ul>
+</li>
+<li>
+<strong>Cleaning robot is stuck</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the cleaning robot is stuck and isn’t able to continue its run.</li>
+<li>
+<strong>Availability</strong>: Cleaning robot</li>
+</ul>
+</li>
+<li>
+<strong>Docking station not found</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the cleaning robot wasn’t able to find the charging station.</li>
+<li>
+<strong>Availability</strong>: Cleaning robot</li>
+</ul>
+</li>
+<li>
+<strong>Poor i-Dos 1 fill level</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when i-Dos content 1 is poor.</li>
+<li>
+<strong>Availability</strong>: Washer</li>
+</ul>
+</li>
+<li>
+<strong>Poor i-Dos 2 fill level</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when i-Dos content 2 is poor.</li>
+<li>
+<strong>Availability</strong>: Washer</li>
+</ul>
+</li>
+<li>
+<strong>Grease filter max saturation nearly reached</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when the grease filters need to be cleaned soon</li>
+<li>
+<strong>Availability</strong>: Hood</li>
+</ul>
+</li>
+<li>
+<strong>Grease filter max saturation reached</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Event triggered when  the grease filters are saturated</li>
+<li>
+<strong>Availability</strong>: Hood</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h3>Switch <a class="title-link" name="switch" href="#switch"></a>
+</h3>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>List of switch entities</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_9">
+<ul>
+<li>
+<strong>Power</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Turns on and turns off or sets the standby mode of the device.</li>
+<li>
+<strong>Availability</strong>: All the appliances</li>
+</ul>
+</li>
+</ul>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Some devices only have the state <code>on</code> and turn off is not supported by the appliance, check <a href="https://api-docs.home-connect.com/settings/#power-state" rel="external nofollow">power state availability at Home Connect API documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> for more information.</p>
+  </div>
+</div>
+<ul>
+<li>
+<strong>Child lock</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Represents the state of the child lock.</li>
+<li>
+<strong>Availability</strong>: Coffee maker, Cooktop, Oven, Warming drawer, Dishwasher, Dryer, Washer, Washer dryer, Freezer, Fridge freezer, Refrigerator, Wine cooler</li>
+</ul>
+</li>
+<li>
+<strong>Cup warmer</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Enables/Disables the cup warmer.</li>
+<li>
+<strong>Availability</strong>: Coffee maker</li>
+</ul>
+</li>
+<li>
+<strong>Freezer super mode</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Cool the freezer compartment to the lowest temperature until disabled or a timeout.</li>
+<li>
+<strong>Availability</strong>: Freezer, Fridge freezer</li>
+</ul>
+</li>
+<li>
+<strong>Refrigerator super mode</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Cool the refrigerator compartment to the lowest temperature until disabled or a timeout.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Eco mode</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Enables/Disables the eco-friendly mode.</li>
+<li>
+<strong>Availability</strong>: Freezer, Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Sabbath mode</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Enables/Disables the Sabbath mode, which disables various functions (e.g. lighting, acoustic signals) to ensure that practising Jews can use the appliance on the Sabbath.</li>
+<li>
+<strong>Availability</strong>: Oven, Freezer, Fridge freezer, Refrigerator, Wine cooler</li>
+</ul>
+</li>
+<li>
+<strong>Vacation mode</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Enables/Disables the vacation mode, which reduces the energy consumption of the appliance by switching the refrigerator temperature to +14ºC. The temperature in the freezer is maintained according to the setting.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Fresh mode</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Enables/Disables the fresh mode, which reduces the temperature automatically in the refrigerator compartment to 2ºC. The freezer remains unchanged.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Dispenser enabled</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Enables/Disables the ice water dispenser.</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+<li>
+<strong>Freezer door assistant</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Enables/Disables the automatic door opening for the freezer compartment</li>
+<li>
+<strong>Availability</strong>: Freezer, Fridge freezer</li>
+</ul>
+</li>
+<li>
+<strong>Fridge door assistant</strong>:
+<ul>
+<li>
+<strong>Description</strong>: Enables/Disables the automatic door opening for the refrigerator/freezer compartment</li>
+<li>
+<strong>Availability</strong>: Fridge freezer, Refrigerator</li>
+</ul>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h2>Actions <a class="title-link" name="actions" href="#actions"></a>
+</h2>
+<p>The Home Connect integration makes various actions available.
+Available actions: <code>set_program_and_options</code>, and <code>change_setting</code></p>
+<h3>Action home_connect.set_program_and_options <a class="title-link" name="action-home_connectset_program_and_options" href="#action-home_connectset_program_and_options"></a>
+</h3>
+<p>Starts or selects a program. If the <code>program</code> attribute is not set, this action sets the options for the active or the selected program.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>no</td>
+<td>ID of the device.</td>
+</tr>
+<tr>
+<td><code>affects_to</code></td>
+<td>no</td>
+<td>Selects if the program affected by the action should be the active or the selected program.</td>
+</tr>
+<tr>
+<td><code>program</code></td>
+<td>yes</td>
+<td>Program to select. If set, it will start or select a program depending on <code>affects_to</code>.</td>
+</tr>
+<tr>
+<td><code>consumer_products_cleaning_robot_option_reference_map_id</code></td>
+<td>yes</td>
+<td>Defines which reference map is to be used.</td>
+</tr>
+<tr>
+<td><code>consumer_products_cleaning_robot_option_cleaning_mode</code></td>
+<td>yes</td>
+<td>Defines the favoured cleaning mode.</td>
+</tr>
+<tr>
+<td><code>consumer_products_coffee_maker_option_bean_amount</code></td>
+<td>yes</td>
+<td>Describes the amount of coffee beans used in a coffee machine program.</td>
+</tr>
+<tr>
+<td><code>consumer_products_coffee_maker_option_fill_quantity</code></td>
+<td>yes</td>
+<td>Describes the amount of water (in ml) used in a coffee machine program.</td>
+</tr>
+<tr>
+<td><code>consumer_products_coffee_maker_option_coffee_temperature</code></td>
+<td>yes</td>
+<td>Describes the coffee temperature used in a coffee machine program.</td>
+</tr>
+<tr>
+<td><code>consumer_products_coffee_maker_option_bean_container</code></td>
+<td>yes</td>
+<td>Defines the preferred bean container.</td>
+</tr>
+<tr>
+<td><code>consumer_products_coffee_maker_option_flow_rate</code></td>
+<td>yes</td>
+<td>Defines the water-coffee contact time. The duration extends to coffee intensity.</td>
+</tr>
+<tr>
+<td><code>consumer_products_coffee_maker_option_multiple_beverages</code></td>
+<td>yes</td>
+<td>Defines if double dispensing is enabled.</td>
+</tr>
+<tr>
+<td><code>consumer_products_coffee_maker_option_coffee_milk_ratio</code></td>
+<td>yes</td>
+<td>Defines the amount of milk.</td>
+</tr>
+<tr>
+<td><code>consumer_products_coffee_maker_option_hot_water_temperature</code></td>
+<td>yes</td>
+<td>Defines the temperature suitable for the type of tea.</td>
+</tr>
+<tr>
+<td><code>b_s_h_common_option_start_in_relative</code></td>
+<td>yes</td>
+<td>Defines when the program should start, in seconds from now. For example: a value of 9000 means in 2 h 30 min.</td>
+</tr>
+<tr>
+<td><code>dishcare_dishwasher_option_intensiv_zone</code></td>
+<td>yes</td>
+<td>Defines if the cleaning is done with higher spray pressure on the lower basket for very dirty pots and pans.</td>
+</tr>
+<tr>
+<td><code>dishcare_dishwasher_option_brilliance_dry</code></td>
+<td>yes</td>
+<td>Defines if the program sequence is optimized with a special drying cycle to ensure more shine on glasses and plastic items.</td>
+</tr>
+<tr>
+<td><code>dishcare_dishwasher_option_vario_speed_plus</code></td>
+<td>yes</td>
+<td>Defines if the program duration is shortened dynamically (up to 66% less run time) with the usual optimum cleaning and drying.</td>
+</tr>
+<tr>
+<td><code>dishcare_dishwasher_option_silence_on_demand</code></td>
+<td>yes</td>
+<td>Defines if the extra silent mode is activated for a selected period of time.</td>
+</tr>
+<tr>
+<td><code>dishcare_dishwasher_option_half_load</code></td>
+<td>yes</td>
+<td>Defines if economical cleaning is enabled for smaller loads. This reduces energy and water consumption and also saves time. The utensils can be placed in the upper and lower baskets.</td>
+</tr>
+<tr>
+<td><code>dishcare_dishwasher_option_extra_dry</code></td>
+<td>yes</td>
+<td>Defines if improved drying for glasses and plasticware is enabled.</td>
+</tr>
+<tr>
+<td><code>dishcare_dishwasher_option_hygiene_plus</code></td>
+<td>yes</td>
+<td>Defines if the cleaning is done with increased temperatures. This ensures maximum hygienic cleanliness for regular use.</td>
+</tr>
+<tr>
+<td><code>dishcare_dishwasher_option_eco_dry</code></td>
+<td>yes</td>
+<td>Defines if the door is opened automatically for extra energy efficient and effective drying.</td>
+</tr>
+<tr>
+<td><code>dishcare_dishwasher_option_zeolite_dry</code></td>
+<td>yes</td>
+<td>Defines if the program sequence is optimized with special drying cycle ensures improved drying for glasses, plates and plasticware.</td>
+</tr>
+<tr>
+<td><code>laundry_care_dryer_option_drying_target</code></td>
+<td>yes</td>
+<td>Describes the drying target for a dryer program. For example: Iron Dry, Cupboard Dry, Extra Dry.</td>
+</tr>
+<tr>
+<td><code>cooking_hood_option_venting_level</code></td>
+<td>yes</td>
+<td>Defines the required fan setting.</td>
+</tr>
+<tr>
+<td><code>cooking_hood_option_intensive_level</code></td>
+<td>yes</td>
+<td>Defines the intensive setting.</td>
+</tr>
+<tr>
+<td><code>cooking_oven_option_setpoint_temperature</code></td>
+<td>yes</td>
+<td>Defines the target cavity temperature, which will be held by the oven.</td>
+</tr>
+<tr>
+<td><code>b_s_h_common_option_duration</code></td>
+<td>yes</td>
+<td>Defines the run-time of the program. Afterwards, the appliance is stopped.</td>
+</tr>
+<tr>
+<td><code>cooking_oven_option_fast_pre_heat</code></td>
+<td>yes</td>
+<td>Defines if the cooking compartment is heated up quickly. Please note that the setpoint temperature has to be equal to or higher than 100 °C or 212 °F. Otherwise, the fast pre-heat option is not activated.</td>
+</tr>
+<tr>
+<td><code>cooking_oven_option_warming_level</code></td>
+<td>yes</td>
+<td>Defines the level of the warming drawer.</td>
+</tr>
+<tr>
+<td><code>laundry_care_washer_option_temperature</code></td>
+<td>yes</td>
+<td>Defines the temperature of the washing program.</td>
+</tr>
+<tr>
+<td><code>laundry_care_washer_option_spin_speed</code></td>
+<td>yes</td>
+<td>Defines the spin speed of a washer program.</td>
+</tr>
+<tr>
+<td><code>b_s_h_common_option_finish_in_relative</code></td>
+<td>yes</td>
+<td>Defines when the program should end, in seconds from now. For example: a value of 9000 means in 2 h 30 min.</td>
+</tr>
+<tr>
+<td><code>laundry_care_washer_option_i_dos1_active</code></td>
+<td>yes</td>
+<td>Defines if the detergent feed is activated / deactivated. (i-Dos content 1)</td>
+</tr>
+<tr>
+<td><code>laundry_care_washer_option_i_dos2_active</code></td>
+<td>yes</td>
+<td>Defines if the detergent feed is activated / deactivated. (i-Dos content 2)</td>
+</tr>
+<tr>
+<td><code>laundry_care_washer_option_vario_perfect</code></td>
+<td>yes</td>
+<td>Defines if a cycle saves energy (Eco Perfect) or time (Speed Perfect).</td>
+</tr>
+</tbody>
+</table>
+<h3>Action home_connect.change_setting <a class="title-link" name="action-home_connectchange_setting" href="#action-home_connectchange_setting"></a>
+</h3>
+<p>Changes a setting.</p>
+<table>
+<thead>
+<tr>
+<th>Data attribute</th>
+<th>Optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_id</code></td>
+<td>no</td>
+<td>Id of a device associated with the home appliance.</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td>no</td>
+<td>Key of the setting.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>no</td>
+<td>Value of the setting.</td>
+</tr>
+</tbody>
+</table>
+<h2>Automation examples <a class="title-link" name="automation-examples" href="#automation-examples"></a>
+</h2>
+<p>Get started with these automation examples</p>
+<h3>Send a notification when the appliance ends the program <a class="title-link" name="send-a-notification-when-the-appliance-ends-the-program" href="#send-a-notification-when-the-appliance-ends-the-program"></a>
+</h3>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Example YAML configuration</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_10">
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Notify</span><span class="nv"> </span><span class="s">when</span><span class="nv"> </span><span class="s">program</span><span class="nv"> </span><span class="s">ends"</span>
+<span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">sensor.appliance_operation_state</span>
+    <span class="na">to</span><span class="pi">:</span> <span class="s">finished</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">service</span><span class="pi">:</span> <span class="s">notify.notify</span>
+    <span class="na">data</span><span class="pi">:</span>
+      <span class="na">message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">appliance</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">finished</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">program."</span>
+</code></pre></div></div>
+</div>
+  </details>
+</div>
+<h3>Start a program when electricity is cheap <a class="title-link" name="start-a-program-when-electricity-is-cheap" href="#start-a-program-when-electricity-is-cheap"></a>
+</h3>
+<p>Because electricity is typically cheaper at night, this automation will activate the silent mode when starting the program at night.</p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span>Example YAML configuration</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_11">
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Start</span><span class="nv"> </span><span class="s">program</span><span class="nv"> </span><span class="s">when</span><span class="nv"> </span><span class="s">electricity</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">cheap"</span>
+<span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.electricity_price</span>
+    <span class="na">to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">0.10"</span>
+<span class="na">conditions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">state</span>
+    <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.diswasher_door</span>
+    <span class="na">state</span><span class="pi">:</span> <span class="s">closed</span>
+<span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">if</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s">time</span>
+        <span class="na">after</span><span class="pi">:</span> <span class="s1">'</span><span class="s">22:00:00'</span>
+        <span class="na">before</span><span class="pi">:</span> <span class="s1">'</span><span class="s">06:00:00'</span>
+    <span class="na">then</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">service</span><span class="pi">:</span> <span class="s">home_connect.set_program_and_options</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">your_device_id"</span>
+          <span class="na">affects_to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">active_program"</span>
+          <span class="na">program</span><span class="pi">:</span> <span class="s2">"</span><span class="s">dishcare_dishwasher_program_eco_50"</span>
+          <span class="na">dishcare_dishwasher_option_silence_on_demand</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">else</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">service</span><span class="pi">:</span> <span class="s">home_connect.set_program_and_options</span>
+        <span class="na">data</span><span class="pi">:</span>
+          <span class="na">device_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">your_device_id"</span>
+          <span class="na">affects_to</span><span class="pi">:</span> <span class="s2">"</span><span class="s">active_program"</span>
+          <span class="na">program</span><span class="pi">:</span> <span class="s2">"</span><span class="s">dishcare_dishwasher_program_eco_50"</span>
+</code></pre></div></div>
+</div>
+  </details>
+</div>
+<h2>Data updates <a class="title-link" name="data-updates" href="#data-updates"></a>
+</h2>
+<p>This integration uses server-sent events from the Home Connect API to receive live updates from the appliances.
+When the configuration entry is loaded or after a streaming error (for example after disconnection), the integration will request all data (such as appliance info, available commands, programs, settings, and status) for all appliances.
+If a new appliance is added to the account, the integration will request data for the new appliance and expose the related entities automatically.</p>
+<h2>Known limitations <a class="title-link" name="known-limitations" href="#known-limitations"></a>
+</h2>
+<ul>
+<li>The Home Connect API does not fully match the Home Connect app. Some programs, options, or settings available in the app may not be accessible or usable via the API.</li>
+<li>This integration supports only one integration entry, as the Home Connect API does not allow for the unique identification of an account.</li>
+</ul>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<h3>I could not configure the Home Connect integration <a class="title-link" name="i-could-not-configure-the-home-connect-integration" href="#i-could-not-configure-the-home-connect-integration"></a>
+</h3>
+<h4>Symptom: I tried to configure the Home Connect integration, but it failed with the message Error while obtaining access token. <a class="title-link" name="symptom-i-tried-to-configure-the-home-connect-integration-but-it-failed-with-the-message-error-while-obtaining-access-token" href="#symptom-i-tried-to-configure-the-home-connect-integration-but-it-failed-with-the-message-error-while-obtaining-access-token"></a>
+</h4>
+<h5>Description <a class="title-link" name="description" href="#description"></a>
+</h5>
+<p>This problem might occur when the application credentials are not correctly configured.</p>
+<h5>Solution <a class="title-link" name="solution" href="#solution"></a>
+</h5>
+<p>To solve the above issue, follow these steps:</p>
+<ol>
+<li>
+<p>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a>.</p>
+</li>
+<li>
+<p>In the top right corner, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu and select <strong>Application credentials</strong>.</p>
+<p><img src="/images/integrations/application_credentials/devices-and-services-menu.png" alt="Devices and services overflow menu"></p>
+<p><img src="/images/integrations/application_credentials/application-credentials.png" alt="Application credential list"></p>
+</li>
+<li>
+<p>Select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu from the application credentials you created for the Home Connect integration and select <strong>Delete</strong>.</p>
+</li>
+<li>
+<p>Add the Home Connect integration again under <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a></p>
+</li>
+</ol>
+<h3>Missing options at the “active program” and “selected program” entities <a class="title-link" name="missing-options-at-the-active-program-and-selected-program-entities" href="#missing-options-at-the-active-program-and-selected-program-entities"></a>
+</h3>
+<h4>Symptom: “Although I have options, some programs that are available on the app are not in the list of options at the “active program” and “selected program” entities or the entities don’t show up” <a class="title-link" name="symptom-although-i-have-options-some-programs-that-are-available-on-the-app-are-not-in-the-list-of-options-at-the-active-program-and-selected-program-entities-or-the-entities-dont-show-up" href="#symptom-although-i-have-options-some-programs-that-are-available-on-the-app-are-not-in-the-list-of-options-at-the-active-program-and-selected-program-entities-or-the-entities-dont-show-up"></a>
+</h4>
+<p>Some programs that are available to select on the app, on the physical device or in the diagnostics file from the device are missing at the “active program” and “selected program” entities.</p>
+<h5>Description <a class="title-link" name="description-1" href="#description-1"></a>
+</h5>
+<p>If you see programs in the app or the physical device that are missing in the integration, first check if they are available in the <a href="https://www.home-assistant.io/docs/configuration/troubleshooting/#download-diagnostics">diagnostics file</a>. If they are in the diagnostics file, it means the API can send them to the integration, but the integration can’t recognize them.</p>
+<h5>Solution <a class="title-link" name="solution-1" href="#solution-1"></a>
+</h5>
+<p>The program key needs to be added to the integration. To help with that, you can open an issue at <a href="https://github.com/MartinHjelmare/aiohomeconnect" rel="external nofollow">aiohomeconnect<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> about the missing program key.</p>
+<h4>Symptom: “the “active program” and “selected program” entities are not provided by the integration” <a class="title-link" name="symptom-the-active-program-and-selected-program-entities-are-not-provided-by-the-integration" href="#symptom-the-active-program-and-selected-program-entities-are-not-provided-by-the-integration"></a>
+</h4>
+<p>The “active program” and “selected program” entities are not provided by the integration, and the downloaded device diagnostics file does not list any programs.</p>
+<h5>Description <a class="title-link" name="description-2" href="#description-2"></a>
+</h5>
+<p>The Home Connect API is not sending any programs to the integration.</p>
+<h5>Solution <a class="title-link" name="solution-2" href="#solution-2"></a>
+</h5>
+<p>There’s no solution for this issue. The only thing that can be done is reporting the issue to Home Connect through these channels:</p>
+<ul>
+<li><a href="https://www.home-connect.com/us/en/support/contact-and-service" rel="external nofollow">Home Connect service and contact<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://developer.home-connect.com/support/contact" rel="external nofollow">Home Connect developer Help &amp; Support<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+<h3>Unavailable entities for a device <a class="title-link" name="unavailable-entities-for-a-device" href="#unavailable-entities-for-a-device"></a>
+</h3>
+<h4>Symptom: “The entities related to an appliance were available but no longer are” <a class="title-link" name="symptom-the-entities-related-to-an-appliance-were-available-but-no-longer-are" href="#symptom-the-entities-related-to-an-appliance-were-available-but-no-longer-are"></a>
+</h4>
+<p>After reloading the Home Connect integration, the entities related to an appliance that used to be available are no longer available.
+Also, when downloading the diagnostics data from the device entry, the following data is obtained:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"connected"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+    </span><span class="nl">"programs"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<h5>Description <a class="title-link" name="description-3" href="#description-3"></a>
+</h5>
+<p>Unavailable entities can have multiple causes:</p>
+<ul>
+<li>The appliance is turned off. When it is turned off, the appliance is disconnected and the API does not retrieve information about the appliance.</li>
+<li>The appliance is experiencing a network issue.</li>
+<li>The Home Connect API is experiencing issues.</li>
+</ul>
+<h5>Solution <a class="title-link" name="solution-3" href="#solution-3"></a>
+</h5>
+<p>To try to solve the above issues, follow these steps:</p>
+<ol>
+<li>Turn on the appliance and reload the Home Connect integration.</li>
+<li>If the appliance is turned on and the issue persists, check the network connection of the appliance and perform a soft reset on the appliance.</li>
+<li>If the issue persists, check the connection of the appliance with the Home Connect API by checking it in the Home Connect app.
+<ol>
+<li>Open the Home Connect app.</li>
+<li>Go to the appliance that is experiencing the issue.</li>
+<li>At the bottom of the screen, open the settings menu.</li>
+<li>Go to the <strong>Network</strong> section.</li>
+<li>Verify if the appliance is connected to the cloud:
+<ul>
+<li>If the line between the appliance and the cloud is red and with a red warning icon <iconify-icon inline icon="mdi:alert-outline" title="Alert outline"></iconify-icon>, the appliance is not connected to the Home Connect API.</li>
+<li>If the line between the appliance and the cloud is green, the appliance is connected to the cloud.</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>If everything is correct and the issue persists, contact Home Connect support.
+<ul>
+<li><a href="https://www.home-connect.com/us/en/support/contact-and-service" rel="external nofollow">Home Connect service and contact<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+<li><a href="https://developer.home-connect.com/support/contact" rel="external nofollow">Home Connect developer Help &amp; Support<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+</li>
+</ol>
+<h2>Removing the integration <a class="title-link" name="removing-the-integration" href="#removing-the-integration"></a>
+</h2>
+<p>This integration follows standard integration removal. No extra steps are required.</p>
+<h3>To remove an integration instance from Home Assistant <a class="title-link" name="to-remove-an-integration-instance-from-home-assistant" href="#to-remove-an-integration-instance-from-home-assistant"></a>
+</h3>
+<ol>
+<li>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; services</strong></a> and select the integration card.</li>
+<li>From the list of devices, select the integration instance you want to remove.</li>
+<li>Next to the entry, select the three dots <iconify-icon inline icon="mdi:dots-vertical" title="Dots vertical"></iconify-icon> menu. Then, select <strong>Delete</strong>.</li>
+</ol>
+<p>After deleting the integration, go to <a href="https://developer.home-connect.com/applications" rel="external nofollow">your applications at the Home Connect Developer portal<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, find the application that you were using for Home Assistant, click on details and click on “Delete Application”.</p>
+
+
+  
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/home_connect.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Fhome_connect%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20home_connect" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+home_connect%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/home_connect//logo.png' srcset='https://brands.home-assistant.io/_/home_connect/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=home_connect' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Home Connect  integration  was introduced in Home Assistant 0.110, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          4%</a> of the active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:cloud-download'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Cloud Push.</a>
+    </div>
+  <div class='section'>
+    <a href='/docs/quality_scale/#-platinum'>🏆 Platinum quality</a><br /></div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/home_connect" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+home_connect%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+        
+        
+
+          
+          <div class="section">
+            We are incredibly grateful to the following contributors who currently maintain this integration:<br />
+          </div>
+          <div class="section"><a href="https://github.com/DavidMStraub" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/DavidMStraub?size=96" alt="@DavidMStraub"/> @DavidMStraub</a><br /><a href="https://github.com/Diegorro98" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/Diegorro98?size=96" alt="@Diegorro98"/> @Diegorro98</a><br /><a href="https://github.com/MartinHjelmare" target="_blank"><img class="codeowner-avatar" src="https://avatars.githubusercontent.com/MartinHjelmare?size=96" alt="@MartinHjelmare"/> @MartinHjelmare</a><br /></div>
+        
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#use-cases">Use cases</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-devices">Supported devices</a></li>
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-functionality">Supported functionality</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#binary-sensor">Binary sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#button">Button</a></li>
+<li class="toc-entry toc-h3"><a href="#light">Light</a></li>
+<li class="toc-entry toc-h3"><a href="#number">Number</a></li>
+<li class="toc-entry toc-h3"><a href="#select">Select</a></li>
+<li class="toc-entry toc-h3"><a href="#sensor">Sensor</a></li>
+<li class="toc-entry toc-h3"><a href="#switch">Switch</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#actions">Actions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#action-home_connectset_program_and_options">Action home_connect.set_program_and_options</a></li>
+<li class="toc-entry toc-h3"><a href="#action-home_connectchange_setting">Action home_connect.change_setting</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#automation-examples">Automation examples</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#send-a-notification-when-the-appliance-ends-the-program">Send a notification when the appliance ends the program</a></li>
+<li class="toc-entry toc-h3"><a href="#start-a-program-when-electricity-is-cheap">Start a program when electricity is cheap</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#data-updates">Data updates</a></li>
+<li class="toc-entry toc-h2"><a href="#known-limitations">Known limitations</a></li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#i-could-not-configure-the-home-connect-integration">I could not configure the Home Connect integration</a></li>
+<li class="toc-entry toc-h3"><a href="#missing-options-at-the-active-program-and-selected-program-entities">Missing options at the “active program” and “selected program” entities</a></li>
+<li class="toc-entry toc-h3"><a href="#unavailable-entities-for-a-device">Unavailable entities for a device</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#removing-the-integration">Removing the integration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#to-remove-an-integration-instance-from-home-assistant">To remove an integration instance from Home Assistant</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#binary-sensor'>Binary sensor</a>
+          </li><li>
+            <a href='/integrations/#button'>Button</a>
+          </li><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li><li>
+            <a href='/integrations/#light'>Light</a>
+          </li><li>
+            <a href='/integrations/#number'>Number</a>
+          </li><li>
+            <a href='/integrations/#select'>Select</a>
+          </li><li>
+            <a href='/integrations/#sensor'>Sensor</a>
+          </li><li>
+            <a href='/integrations/#switch'>Switch</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

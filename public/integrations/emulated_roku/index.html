@@ -1,0 +1,752 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Emulated Roku - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Instructions on how to set up Emulated Roku within Home Assistant.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/integrations/emulated_roku/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="Emulated Roku">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/integrations/emulated_roku/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Instructions on how to set up Emulated Roku within Home Assistant.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="Emulated Roku">
+    <meta name="twitter:description" content="Instructions on how to set up Emulated Roku within Home Assistant.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class=" integration-page  ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a class="active" href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-configuration">Manual configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#event-roku_command">Event roku_command</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#automations">Automations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#video-tutorial">Video tutorial</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/integrations/">Integrations</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        Emulated Roku
+      
+    </h1>
+  </header>
+  
+    
+    
+    
+  
+  
+  <p>The <strong>Emulated Roku</strong> <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> integrates an emulated Roku API into Home Assistant,
+so remotes such as Harmony and Android apps can connect to it through Wi-Fi as if it were a Roku player.
+Home Assistant will see key presses and app launches as Events, which you can use as triggers for automations.
+Multiple Roku servers may be started if you run out of buttons by specifying multiple server entries.</p>
+<div class="alert alert-note">
+  <p class="alert-title"><iconify-icon inline icon="mdi:information-outline"></iconify-icon> Note</p>
+  <div class="alert-content">
+<p>Windows is not supported because Home Assistant uses <code>ProactorEventLoop</code> which does not support UDP sockets.</p>
+  </div>
+</div>
+<div class="alert alert-caution">
+  <p class="alert-title"><iconify-icon inline icon="mdi:alert-circle-outline"></iconify-icon> Caution</p>
+  <div class="alert-content">
+<p>This <span class="terminology">integration<span class="terminology-tooltip">Integrations connect and integrate Home Assistant with your devices, services, and more.<a class="terminology-link" href="/getting-started/concepts-terminology/#integrations"> [Learn more]</a></span></span> opens an unauthenticated API on the host, allowing anything on the local network to access
+your Home Assistant instance through the automations you create with emulated Roku as the trigger.
+Using a proxy with whitelisted IP addresses is recommended. (set <code>advertise_ip</code> to the proxy’s IP or DNS name)</p>
+  </div>
+</div>
+<h2>Configuration <a class="title-link" name="configuration" href="#configuration"></a>
+</h2>
+<p>To add the <strong>Emulated Roku</strong> integration to your Home Assistant instance, use this My button:</p>
+<p><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=emulated_roku" class="my badge" target="_blank"><img src="https://my.home-assistant.io/badges/config_flow_start.svg"></a></p>
+<div class="details-block">
+  <details class="details-block-item">
+    <summary class="details-block-title">
+      <span><iconify-icon inline icon="mdi:cursor-hand"></iconify-icon> Manual configuration steps</span>
+      <div class="details-block-arrow">
+      <svg class="down" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"></path></svg>
+      <svg class="up" width="24" height="24" viewbox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg>
+      </div>
+    </summary>
+    <div class="details-block-content" id="content_0">
+<p>If the above My button doesn’t work, you can also perform the following steps
+manually:</p>
+<ul>
+<li>
+<p>Browse to your Home Assistant instance.</p>
+</li>
+<li>
+<p>Go to <strong><a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><iconify-icon inline icon="mdi:devices"></iconify-icon> Settings &gt; Devices &amp; Services</a></strong>.</p>
+</li>
+<li>
+<p>In the bottom right corner, select the
+<strong><a href="https://my.home-assistant.io/redirect/config_flow_start?domain=emulated_roku" class="my" target="_blank"><iconify-icon inline icon="mdi:plus"></iconify-icon> Add Integration</a></strong> button.</p>
+</li>
+<li>
+<p>From the list, select <strong>Emulated Roku</strong>.</p>
+</li>
+<li>
+<p>Follow the instructions on screen to complete the setup.</p>
+</li>
+</ul>
+</div>
+  </details>
+</div>
+<h2>Manual configuration <a class="title-link" name="manual-configuration" href="#manual-configuration"></a>
+</h2>
+<p>If you wish to configure advanced options, you can add the following entry in your <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file.
+After changing the <span class="terminology"><code>configuration.yaml</code><span class="terminology-tooltip">The configuration.yaml file is the main configuration file for Home Assistant. It lists the integrations to be loaded and their specific configurations. In some cases, the configuration needs to be edited manually directly in the configuration.yaml file. Most integrations can be configured in the UI.<a class="terminology-link" href="/docs/configuration/"> [Learn more]</a></span></span> file, <a href="/docs/configuration/#reloading-the-configuration-to-apply-changes">restart Home Assistant</a> to apply the changes.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example configuration.yaml entry</span>
+<span class="na">emulated_roku</span><span class="pi">:</span>
+  <span class="na">servers</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Home Assistant</span>
+      <span class="na">listen_port</span><span class="pi">:</span> <span class="m">8060</span>
+</code></pre></div></div>
+<div class="config-vars">
+  <h4>
+    Configuration Variables <a class="title-link" name="emulated_roku-configuration-variables" href="#emulated_roku-configuration-variables"></a>
+  </h4>
+  <div class="configuration-link">
+    <a href="{{site.baseurl}}/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+  </div>
+  <div class="">
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> name </span><span class="config-vars-type">string</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="name" class="title-link" href="#name"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Name of the Roku that will be displayed as the serial number in Harmony.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> listen_port </span><span class="config-vars-type">integer</span><span class="config-vars-required"> <span class="true">Required</span><span class="default"></span></span><a name="listen_port" class="title-link" href="#listen_port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The port the Roku API will run on. This can be any free port on your system.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> host_ip </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="host_ip" class="title-link" href="#host_ip"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>The IP address that your Home Assistant installation is running on. If you do not specify this option, the integration will attempt to determine the IP address on its own.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> advertise_ip </span><span class="config-vars-type">string</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="advertise_ip" class="title-link" href="#advertise_ip"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>If you need to override the IP address or DNS name used for UPnP discovery. (For example, using network isolation in Docker or using a proxy)</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> advertise_port </span><span class="config-vars-type">integer</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default"></span>)</span><a name="advertise_port" class="title-link" href="#advertise_port"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>If you need to override the advertised UPnP port.</p>
+</span></div>
+</div>
+<div class="config-vars-item">
+<div class="config-vars-label">
+<span class="config-vars-label-name"> upnp_bind_multicast </span><span class="config-vars-type">boolean</span><span class="config-vars-required"> (<span class="false">Optional</span><span class="default">, default: true</span>)</span><a name="upnp_bind_multicast" class="title-link" href="#upnp_bind_multicast"></a>
+</div>
+<div class="config-vars-description-and-children"><span class="config-vars-description"><p>Whether or not to bind the UPnP (SSDP) listener to the multicast address (239.255.255.250) or instead to the (unicast) host_ip address specified above (or automatically determined). The default is true, which will work in most situations. In special circumstances, like running in a FreeBSD or FreeNAS jail, you may need to disable this.</p>
+</span></div>
+</div>
+</div>
+</div>
+<p>After starting up, you can check if the emulated Roku is reachable at the specified ports on your Home Assistant instance (eg.: <code>http://192.168.1.101:8060/</code>).</p>
+<h2>Events <a class="title-link" name="events" href="#events"></a>
+</h2>
+<h3>Event roku_command <a class="title-link" name="event-roku_command" href="#event-roku_command"></a>
+</h3>
+<p>All Roku commands are sent as <code>roku_command</code> events.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>source_name</code></td>
+<td>Name of the emulated Roku instance that sent the event. Only required when using multiple instances to filter event sources.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>The type of the event that was called on the API.</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td>the code of the pressed key when the command <code>type</code> is <code>keypress</code>, <code>keyup</code> or <code>keydown</code>.</td>
+</tr>
+<tr>
+<td><code>app_id</code></td>
+<td>the id of the app that was launched when command <code>type</code> is <code>launch</code>.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Available key codes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Home</code></td>
+</tr>
+<tr>
+<td><code>Rev</code></td>
+</tr>
+<tr>
+<td><code>Fwd</code></td>
+</tr>
+<tr>
+<td><code>Play</code></td>
+</tr>
+<tr>
+<td><code>Select</code></td>
+</tr>
+<tr>
+<td><code>Left</code></td>
+</tr>
+<tr>
+<td><code>Right</code></td>
+</tr>
+<tr>
+<td><code>Down</code></td>
+</tr>
+<tr>
+<td><code>Up</code></td>
+</tr>
+<tr>
+<td><code>Back</code></td>
+</tr>
+<tr>
+<td><code>InstantReplay</code></td>
+</tr>
+<tr>
+<td><code>Info</code></td>
+</tr>
+<tr>
+<td><code>BackSpace</code></td>
+</tr>
+<tr>
+<td><code>Search</code></td>
+</tr>
+<tr>
+<td><code>Enter</code></td>
+</tr>
+<tr>
+<td><code>PowerOff</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Automations <a class="title-link" name="automations" href="#automations"></a>
+</h2>
+<p>The following is an example implementation of an automation:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="c1"># Example automation</span>
+<span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">amp_volume_up</span>
+  <span class="na">alias</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Increase</span><span class="nv"> </span><span class="s">amplifier</span><span class="nv"> </span><span class="s">volume"</span>
+  <span class="na">triggers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span> <span class="s">event</span>
+    <span class="na">event_type</span><span class="pi">:</span> <span class="s">roku_command</span>
+    <span class="na">event_data</span><span class="pi">:</span>
+      <span class="na">source_name</span><span class="pi">:</span> <span class="s">Home Assistant</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">keypress</span>
+      <span class="na">key</span><span class="pi">:</span> <span class="s">Fwd</span>
+  <span class="na">actions</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">media_player.volume_up</span>
+    <span class="na">target</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">media_player.amplifier</span>
+</code></pre></div></div>
+<h3>Video tutorial <a class="title-link" name="video-tutorial" href="#video-tutorial"></a>
+</h3>
+<p>This comprehensive video tutorial explains how events work in Home Assistant and how you can set up Emulated Roku to control a media player using a physical remote control.</p>
+<p><lite-youtube videoid="nDHh1OjyuMA" videotitle="Event Triggers Unveiled: Control the Home Assistant Media Player with Your Remote Control!" posterquality="maxresdefault"></lite-youtube></p>
+<h2>Troubleshooting <a class="title-link" name="troubleshooting" href="#troubleshooting"></a>
+</h2>
+<p>If you change your advertised IP or ports, you will have to re-add the emulated Roku in your app.
+When using Harmony, the app should auto-discover any changes via UPnP discovery (if <code>name</code> is unchanged) once it detects that the device is unreachable.
+Alternatively, you can trigger the ‘Fix’ page by pressing a button on the unreachable device’s remote in the app and wait ~10 seconds, then click ‘Fix it’.</p>
+<p>Known limitations:</p>
+<ul>
+<li>Some Android remotes send key up/down events instead of key presses.</li>
+<li>Functionality other than key presses and app launches are not implemented yet.</li>
+<li>App ids are limited between 1-10. (The emulated API reports 10 dummy apps)</li>
+<li>Harmony uses UPnP discovery (UPnP is not needed after pairing), which might not work in Docker. You can:
+<ul>
+<li>Change Docker to host networking temporarily, then revert after pairing.</li>
+<li>Run the <code>advertise.py</code> helper script from the emulated_roku library directly somewhere else and point it to the emulated Roku API.</li>
+</ul>
+</li>
+<li>Harmony cannot launch apps as it uses IR instead of the Wi-Fi API and will not display the custom dummy app list.</li>
+<li>Home control buttons cannot be assigned to emulated Roku on the Harmony Hub Companion remote as they are limited to Hue (and possibly other APIs) within Harmony.</li>
+<li>Harmony will not set the name of the added emulated Roku device to the specified <code>name</code>.</li>
+</ul>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    <li>
+      <a href="/needlehack-blog/docs/configuration/" class="topic">
+        Configuration file
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/_integrations/emulated_roku.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fintegrations%2Femulated_roku%2F&amp;version=2025.9.4&amp;labels=current,integration%3A%20emulated_roku" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22integration%3A+emulated_roku%22" target="_blank" title="View pending feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View pending feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="integration-sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+              
+            <div class="grid">
+  
+
+
+
+
+  
+
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='brand-logo-container section'>
+      <img src='https://brands.home-assistant.io/_/emulated_roku//logo.png' srcset='https://brands.home-assistant.io/_/emulated_roku/logo@2x.png 2x' /><a href='https://my.home-assistant.io/redirect/config_flow_start?domain=emulated_roku' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/config_flow_start.svg' /></a></div>
+
+  <div class='section'>The Emulated Roku  integration  was introduced in Home Assistant 0.86, and it's used by <a title="Open analytics.home-assistant.io" href="https://analytics.home-assistant.io/integrations" target="_blank" rel="noopener">
+        
+          1716</a> active installations.
+        
+      
+    
+  </div>
+    <div class='section'>
+      <iconify-icon icon='mdi:upload-network-outline'></iconify-icon>&nbsp;Its IoT class is <a href='/blog/2016/02/12/classifying-the-internet-of-things/#classifiers'>Local Push.</a>
+    </div>
+  <div class='section'>
+    <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/emulated_roku" target="_blank"><iconify-icon inline icon='simple-icons:github' title='Github'></iconify-icon> View source on GitHub</a><br />
+    <a href="https://github.com/home-assistant/core/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration%3A+emulated_roku%22" target="_blank"><iconify-icon inline icon='mdi:bug' title='Bug'></iconify-icon> View known issues</a>
+  </div></section>
+
+<section class="aside-module grid__item one-whole lap-one-half">
+  <div class='section'>
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:person-heart' title='Person heart'></iconify-icon> Integration owners</h1>
+    
+      <div class="section">
+        This integration is community maintained.<br />
+        If you are a developer and would like to help, feel free to contribute!
+      </div>
+    
+  </div>
+</section>
+
+
+
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-configuration">Manual configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#events">Events</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#event-roku_command">Event roku_command</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#automations">Automations</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#video-tutorial">Video tutorial</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#troubleshooting">Troubleshooting</a></li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+</ul>
+        </div>
+      </section><section id="category-module" class="aside-module grid__item one-whole lap-one-half">
+      <div class='section'>
+        <h1 class="title epsilon"><iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> Categories</h1>
+        <ul class='divided'><li>
+            <a href='/integrations/#hub'>Hub</a>
+          </li></ul>
+      </div>
+    </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Assist | Home Assistant]]></title>
+  <link href="https://ivangrod.github.io/blog/categories/assist/atom.xml" rel="self"/>
+  <link href="https://ivangrod.github.io/"/>
+  <updated>2025-09-23T17:02:13+00:00</updated>
+  <id>https://ivangrod.github.io/</id>
+  <author>
+    <name><![CDATA[Home Assistant]]></name>
+    
+  </author>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Building the AI-powered local smart home]]></title>
+    <link href="https://ivangrod.github.io/blog/2025/09/11/ai-in-home-assistant/"/>
+    <updated>2025-09-11T00:00:01+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2025/09/11/ai-in-home-assistant</id>
+    <content type="html"><![CDATA[<img src='/images/blog/2025-09-ai/art.webp' style='border: 0;box-shadow: none;' alt="Building the AI-powered local smart home">
+<p>Last year, we laid out <a href="/blog/2024/06/07/ai-agents-for-the-smart-home/">our vision for AI in the smart home</a>, which opened up experimentation with AI in Home Assistant. In that update, we made it easier to integrate all sorts of local and cloud AI tools, and provided ways to use them to control and automate your home. A year has passed, a lot has happened in the AI space, and our community has made sure that Home Assistant has stayed at the frontier.</p>
+<p>We beat big tech to the punch; we were the first to make AI useful in the home. We did it by giving our community complete control over how and when they use AI, making AI a powerful <em>tool</em> to use in the home. As opposed to something that takes over your home. Our community is taking advantage of AI’s unique abilities (for instance, its image recognition or summarizing skills), while having the ability to exclude it from mission-critical things they’d prefer it not to handle. Best of all, this can all be run locally, without any data leaving your home!</p>
+<p>Moreover, if users don’t want AI in their homes, that’s their choice, and they can choose not to enable any of these features. I hope to see big tech take an approach this measured, but judging by their last couple of keynotes, I’m not holding my breath.</p>
+<p>Over the past year, we’ve added many new AI features and made them easy to use directly through Home Assistant’s user interface. We have kept up with all the developments in AI land and are using the latest standard to integrate more models and tools than ever before. We’re also continuing to benchmark local and cloud models to give users an idea of what works best. Keep reading to check out everything new, and maybe you can teach your smart home some cool new tricks.</p>
+<p class="img">
+    <lite-youtube videoid="iZ-JdpxEx3o" videotitle="Multiple commands with Ollama"></lite-youtube>
+    Local AI is making the home very natural to control
+</p>
+<p>Big thanks to our AI community contributor team:<br>
+<a href="https://github.com/allenporter">@AllenPorter</a>, <a href="https://github.com/shulyaka">@shulyaka</a>, <a href="https://github.com/tronikos">@tronikos</a>, <a href="https://github.com/IvanLH">@IvanLH</a>, <a href="https://github.com/Joostlek">@Joostlek</a>!</p>
+<!--more-->
+<h2>Supercharging voice control with AI</h2>
+<p>We were doing voice assistants before AI was cool. In 2023, we kicked off our <a href="/blog/2022/12/20/year-of-voice/">Year of the Voice</a>. Since then, we’ve worked towards our goal of building all the parts needed for a local, open, and private voice assistant. When AI became the rage, we were quick to integrate it.</p>
+<p>Today, users can chat with any large language model (LLM) that is integrated into Home Assistant, whether that’s in the cloud or run locally via a service like <a href="/integrations/ollama/">Ollama</a>. Where <a href="/voice_control/">Assist</a>, our home-grown (non-AI) voice assistant agent, is focused on a predetermined list of mostly home control commands, AI allows you to ask more open-ended questions. Summarize what’s happening across the smart home sensors you’ve <a href="/voice_control/voice_remote_expose_devices/">exposed to Assist</a>, or get answers to trivia questions. You can even <a href="/voice_control/assist_create_open_ai_personality/">give your LLM a personality</a>!</p>
+<p>Users can also leverage the power of AI to speak the way <em>they speak</em>, as LLMs are much better at understanding the intent behind the words. By default, Assist will handle commands first. Only questions or commands it can’t understand will be sent to the AI you’ve set up. For instance, <em>“Turn on the kitchen light”</em> can be handled by Assist, while <em>“It’s dark in the kitchen, can you help?”</em> could be processed by an AI. This speeds up response times for simple commands and makes for a more sustainable voice assistant.</p>
+<p>Another powerful addition from the past year is context sharing between agents. So your Assist agent can share the most recent commands with your chosen AI agent. This shared context lets you say something like <em>“Add milk to my shopping list,”</em> which Assist will act on, and to add more items, just say <em>“Add rice.”</em> The AI agent understands that these commands are connected and can act accordingly.</p>
+<p class="img">
+    <lite-youtube videoid="mLtFUG4YG1A" videotitle="Current state of conversational AI - September 2025"></lite-youtube>
+    Here is an excellent walkthrough video of JLo's AI-powered home, showing many of these new features in action
+</p>
+<p>Another helpful addition keeps the conversation going; if the LLM asks you a question, your Assist hardware will listen for your reply. If you say something like “It’s dark”, it might ask whether you’d like to turn on some lights, and you could tell it to proceed. We have taken this even further than other voice assistants, as you can now have Home Assistant initiate conversations. For example, you could set up an automation that detects when the garage door is open and asks if you’d like to close it (though this can also be done without AI with a very clever <a href="https://my.home-assistant.io/redirect/blueprint_import?blueprint_url=https%3A%2F%2Fwww.home-assistant.io%2Fblueprints%2Fblog%2F2025-07%2Fask_yes_no_question.yaml">Blueprint</a>).</p>
+<p>AI pushed us to completely revamp our Text-to-Speech (TTS) system to take advantage of streaming responses from LLMs. While local AI models can be slow, we use a simple trick to make the delay almost unnoticeable. Now, both <a href="https://github.com/OHF-Voice/piper1-gpl">Piper</a> (our local TTS) and <a href="/cloud/">Home Assistant Cloud</a> TTS can begin generating audio as soon as the LLM produces the first few words, improving the speed of the spoken response by a factor of ten.</p>
+<p><strong>Prompt: “Tell me a long story about a frog”</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Setup</strong></th>
+<th><strong>Time to start speaking</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cloud, non-streaming</td>
+<td>6.62 sec</td>
+</tr>
+<tr>
+<td>Cloud, streaming</td>
+<td>0.51 sec (13x faster)</td>
+</tr>
+<tr>
+<td>Piper, non-streaming</td>
+<td>5.31 sec</td>
+</tr>
+<tr>
+<td>Piper, streaming</td>
+<td>0.56 sec (9.5x faster)</td>
+</tr>
+</tbody>
+</table>
+<p><em>Ollama gemma3:4b on an RTX 3090, and Piper on an i5</em></p>
+<h2>Great hardware to work with AI</h2>
+<p>People built some really cool voice hardware, from landline telephones to little talking robots, but the fact that it was so DIY was always a barrier to entry. To make our voice assistant available to everyone, we released the <a href="/blog/2024/12/19/voice-preview-edition-the-era-of-open-voice/">Home Assistant Voice Preview Edition</a>. This is an easy and affordable way to try Home Assistant Voice. It has some seriously powerful audio processing hardware inside its sleek package. If you were on the fence about trying out voice, it really is <a href="/voice-pe/">the best way to get started</a>.</p>
+<p class="img">
+    <img src="/needlehack-blog/images/blog/2025-09-ai/voice-pe.webp" style='border: 0;box-shadow: none;' alt="Home Assistant Voice Preview Edition">
+    Voice Preview Edition is not only open and powerful, but it looks and feels great too!
+</p>
+<p>It’s now easier than ever to set up your Assist hardware to work with LLMs with our <a href="https://my.home-assistant.io/redirect/voice_assistants/">Voice Assistants</a> settings page, and you can even assign a different LLM to each device. The LLM can recognize the room it’s in and the devices within it, making its responses more relevant. Assist was built to be a great way to control devices in your home, but with AI, it becomes so much more.</p>
+<h2>AI-powered suggestions</h2>
+<p><a href="/blog/2025/08/06/release-20258/">Last month</a>, Home Assistant launched a new opt-in feature to leverage the power of AI when automating with Home Assistant. The goal is to shorten the journey from a blank slate to your finished idea.</p>
+<p>When saving an automation or script, users can now leverage the new Suggest button: <img src="/needlehack-blog/images/blog/2025-09-ai/suggest.webp" style='border: 0;box-shadow: none;'> When clicked, it will send your automation configuration along with the titles of your existing automations and labels to AI to suggest a name, description, category, and labels for your new automation. Over the coming months, we’re going to explore what other features can benefit from AI suggestions.</p>
+<div class="contain nb">
+    <img src="/needlehack-blog/images/blog/2025-09-ai/suggest-button.webp" alt="A rename modal open with the new Suggest button top right">
+</div>
+<p>To opt-in to this feature, you need to take two steps. First, you need to configure an integration that provides an <a href="/integrations/?cat=ai"><em>AI Tasks</em> entity</a>. For local AI, you can configure Ollama, or you can also leverage cloud-based AI like Google, OpenAI, or Anthropic. Once configured, you need to go to the new <a href="https://my.home-assistant.io/redirect/config_ai_task/">AI Task preferences pane</a> under <strong><em>System -&gt; General</em></strong> and pick the AI Task entity to power suggestions in the UI. If you don’t configure an AI Tasks entity, the Suggest button will not be visible.</p>
+<div class="contain nb">
+    <img src="/needlehack-blog/images/blog/2025-09-ai/ai-suggestions.webp" alt="The AI Suggestions setting within Home Assistant">
+</div>
+<h2>AI Tasks gets the job done</h2>
+<p>Enabling <a href="/integrations/ai_task/">AI Tasks</a> does more than quickly label and summarize your automations; its true superpower is making AI easy to use in templates, scripts, and automations. AI Tasks allow other code to leverage AI to generate data, including options to attach files and define how you want that data output (for instance, a JSON schema).</p>
+<p>We have all seen those incredible community creations, where a user leverages AI image recognition and analysis to <a href="https://www.reddit.com/r/homeassistant/comments/1lytyv9/parking_spot_detection/">detect available parking spots</a> or <a href="https://houndhillhomestead.com/google-gemini-powered-goose-coop-door/">count the number of chickens in the chicken coop</a>. It’s likely that AI Tasks can now help you easily do this in Home Assistant, without the need for complex scripts, extra add-ons, or HACS integrations.</p>
+<p>Below is a template entity that counts chickens in a video feed, all via a short and simple set of instructions.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">template</span><span class="pi">:</span>
+<span class="na"> - triggers</span><span class="pi">:</span>
+<span class="na">     - trigger</span><span class="pi">:</span> <span class="s">homeassistant</span>
+<span class="na">       event</span><span class="pi">:</span> <span class="s">start</span>
+<span class="na">     - trigger</span><span class="pi">:</span> <span class="s">time_pattern</span>
+<span class="na">       minutes</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/5"</span>
+<span class="na">   actions</span><span class="pi">:</span>
+<span class="na">     - action</span><span class="pi">:</span> <span class="s">ai_task.generate_data</span>
+<span class="na">       data</span><span class="pi">:</span>
+<span class="na">         task_name</span><span class="pi">:</span> <span class="s">Count chickens</span>
+<span class="na">         instructions</span><span class="pi">:</span> <span class="pi">&gt;-</span>
+<span class="err"> </span><span class="s">          This is the inside of my coop. How many birds (chickens, geese, and</span>
+<span class="err"> </span><span class="s">          ducks) are inside the coop?</span>
+<span class="err"> </span><span class="s">        structure:</span>
+<span class="err"> </span><span class="s">          birds:</span>
+<span class="err"> </span><span class="s">            selector:</span>
+<span class="err"> </span><span class="s">              number:</span>
+<span class="err"> </span><span class="s">        attachments:</span>
+<span class="err"> </span><span class="s">          media_content_id: media-source://camera/camera.chicken_coop</span>
+<span class="err"> </span><span class="s">          media_content_type: image/jpeg</span>
+<span class="err"> </span><span class="s">      response_variable: result</span>
+<span class="err"> </span><span class="s">  sensor:</span>
+<span class="err"> </span><span class="s">    - name: "Chickens"</span>
+<span class="err"> </span><span class="s">      state: "{{ result.data.birds }}"</span>
+<span class="err"> </span><span class="s">      state_class: total</span>
+</code></pre></div></div>
+<p>This template sends a snapshot of the camera to the AI, asking it to analyze what is going on. It defines that the output should always be a number, since we want to use that information in Home Assistant. All of this is embedded in a template entity that automatically updates every 5 minutes. An AI Task could also be embedded in an automation, a script, or any other place that can execute actions.</p>
+<div class="contain">
+    <img src="/needlehack-blog/images/blog/2025-09-ai/activity.webp" alt="Activity view in Home Assistant of the doorbell image analyzed by AI Tasks">
+    An automation triggers an AI Task to identify what caused motion on a camera.
+</div>
+<p>Lastly, users can set a default AI Task entity. This allows users to skip picking an entity ID when creating AI automations. It also lets you migrate everything that uses AI Tasks to the latest model with a single click. This also makes it easy to share blueprints that leverage AI Tasks, like this blueprint that analyzes a camera snapshot when motion is detected:</p>
+<p><a href='https://my.home-assistant.io/redirect/blueprint_import?blueprint_url=https%3A%2F%2Fcommunity.home-assistant.io%2Ft%2Fai-camera-analysis%2F911634' class='my badge' target='_blank'><img src='https://my.home-assistant.io/badges/blueprint_import.svg' /></a></p>
+<h2>MCP opens a whole new world</h2>
+<p><a href="/integrations/mcp/">Model Context Protocol</a> (MCP) is a thin layer allowing LLMs to integrate <em>anything</em>. When the specification was announced, we quickly jumped on it and integrated it into Home Assistant. Effectively, these servers give Home Assistant’s Assist conversation agent access to all sorts of new tools. You could connect MCP servers that give Assist access to the latest news stories, your to-do lists, or a server that catalogues your vinyl collection, allowing you to have richer conversations (<em>“Okay Nabu, which Replacements albums do I have, and which aren’t on my Vinyl-to-Purchase list?”</em>).</p>
+<p>On the flip side, you can also <a href="/integrations/mcp_server/">turn Home Assistant into an MCP server</a>, allowing an AI system to access information about your home. For instance, you could create a local AI that’s great at making Home Assistant automations, and it could include all your entity names or available actions. MCP keeps gaining more support, and there are some great cloud and self-hosted solutions available.</p>
+<h2>How to pick a model</h2>
+<p>There are a lot of models available, it’s hard to know where to start. Luckily, Home Assistant’s resident AI guru <a href="https://github.com/allenporter">@AllenPorter</a> is here to help. He has put together an incredibly useful <a href="https://github.com/allenporter/home-assistant-datasets/tree/main/reports">Home LLM Leaderboard</a>. This dataset includes his extensive tests of cloud and local LLM options, and even has tests that give small local LLMs a fighting chance (see <a href="https://github.com/allenporter/home-assistant-datasets/tree/main/reports#assist-mini">assist-mini</a>).</p>
+<p>Currently, the charts show the big cloud players’ most recent models ranking pretty close to each other, while recent local models that use 8GB or more of VRAM are nearly keeping up. In the past, there was a big disparity between most models, but now it’s hard to go wrong.</p>
+<p>This is especially helpful as the options for LLMs in Home Assistant have just grown exponentially with the addition of <a href="/integrations/open_router">OpenRouter</a>, a unified interface for LLMs. With OpenRouter, users can access over 400 new models in Home Assistant, and it supports AI Tasks right from day one. We really are spoiled for choice.</p>
+<h2>The future is Open, and Open Source</h2>
+<p>Home Assistant is open. We believe that you should be in control of your data, and your smart home. All of it. Local LLMs and the way we have architected Home Assistant extends this choice to the AI space, all while maintaining your privacy.</p>
+<p>Most crucially, we’ve made all of this open source. We are community-driven and work on this together with our community. The Open Home Foundation has no investors and is not beholden to anyone but our users. Our work is funded through hardware purchases and <a href="/cloud/">Home Assistant Cloud</a> subscriptions, allowing us to make all the technology we build free and open.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Next iteration of our Voice Assistant is here - Voice chapter 10]]></title>
+    <link href="https://ivangrod.github.io/blog/2025/06/25/voice-chapter-10/"/>
+    <updated>2025-06-25T00:00:01+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2025/06/25/voice-chapter-10</id>
+    <content type="html"><![CDATA[<img src='/images/blog/2025-06-voice-chapter-10/art.png' style='border: 0;box-shadow: none;' alt="Chapter 10 of our ongoing voice series">
+<p>Welcome to Voice chapter 10 🎉, <a href="/blog/categories/assist/">a series</a> where we share all the key developments in Open Voice. This chapter includes improvements across every element of Open Voice. Improvements that allow it to support more languages, be used on more hardware, make it easier to contribute to, all while making it faster and more reliable.</p>
+<h2>Help steer Open Voice</h2>
+<p>Before we get going, we just want to say that Voice Chapter 10 isn’t just a broadcast; <strong>it’s an invitation</strong> ✉️. Our <strong>public Voice project board</strong> lives on GitHub, and it shows what we’re fixing, currently building, and what we’ll work on next. Every card is open for comments, so please feel free to have a look and participate in the discussion.</p>
+<p>👉 <strong>Project board</strong>: <a href="https://github.com/orgs/OHF-Voice/projects/2">https://github.com/orgs/OHF-Voice/projects/2</a><!--more--></p>
+<h2>ESPHome gains a voice</h2>
+<p>When we began designing and building the firmware for our open voice assistant hardware, the <a href="/voice-pe/">Home Assistant Voice Preview Edition</a>, we had several specific features in mind:</p>
+<ol>
+<li>Run wake words on the device.</li>
+<li>Use a fully open-sourced media player platform that can decode music from high-quality sources.</li>
+<li>Wake words can be enabled and disabled on the fly; for example, “stop” is only activated when a long-running announcement is playing or when a timer is ringing.</li>
+<li>Mix voice assistant announcements on top of reduced volume (a.k.a. “ducked”) music.</li>
+</ol>
+<p>These features needed to run within ESPHome, the software that powers the device. In the beginning, ESPHome could only do 1 and 2, but not even at the same time!</p>
+<p>To include all these features, we initially built them as external components, allowing us to iterate fast (and of course break many things along the way). We always intended to bring these components into ESPHome, and the process of bringing them in is called <em>upstreaming</em>. This would allow anyone to easily build a voice assistant that includes all the features of Voice Preview Edition, and that’s what we’ve been working on since its launch last December.</p>
+<p class="img"><img src='/images/blog/2025-06-voice-chapter-10/devices.jpg' alt="S3 Box 3 next to Voice Preview Edition"/>No device left behind!</p>
+<p>ESPHome version 2025.5.0 has all these components included!  We didn’t just spend this time copying the code over, but we also worked hard to improve it by making it more generalizable, easier to configure, and much faster.</p>
+<p>As an example of these speed improvements, the highest CPU load on the Voice Preview Edition happens when music is being mixed with a long announcement. In this situation, it is decoding two different FLAC audio streams while also running three microWakeWord models (a Voice Activity Detector, “Okay Nabu”, and “Stop”). With the original December firmware, this used 72% of the CPU 😅. With the new optimizations, which are all now available in ESPHome, the current Voice Preview Edition firmware only uses 35%❗ These improvements even allow the extremely resource-constrained ATOM Echo to support many of these features, including media playback and continuing conversations.</p>
+<h2>Make your own Voice Preview Edition</h2>
+<p class="img"><img src='/images/blog/2025-06-voice-chapter-10/circuits.png' alt="Circuit schematics to help display how components work together"/>I'll just pretend I understand all this</p>
+<p>Speaking of voice hardware becoming more like Voice Preview Edition, why not use that class-leading hardware as the basis for your own creations? We’ve now got the KiCad project files, which include the electrical schematic and circuit board layout, along with other helpful documents <a href="https://github.com/NabuCasa/home-assistant-voice-pe">available for download on GitHub</a>. Combined with our open source firmware files, this will allow anyone to build on the work we’ve done and make the open voice assistant of their dreams. Bigger speaker, built-in presence sensor, a display featuring a smiling Nabu mascot — the options are nearly endless. Building Voice Preview Edition was always meant to bootstrap an entire ecosystem of voice hardware, and we’re already seeing some amazing creations with this open technology.</p>
+<h2>Now you’re speaking my language</h2>
+<h3>Speech-to-Phrase gets more fluent</h3>
+<p><a href="/blog/2025/02/13/voice-chapter-9-speech-to-phrase/#voice-for-the-masses">In case you missed it</a>, we built our own locally run speech-to-text (STT) tool that can run fast even on hardware-constrained devices. <a href="https://github.com/OHF-Voice/speech-to-phrase">Speech-to-Phrase</a> works slightly differently from other STT tools, as it only accepts specific predetermined phrases, hence the name. We have been making large strides in making this the best option for local and private voice control in the home.</p>
+<p>The sentence format for Speech-to-Phrase is getting an upgrade! Besides making it simpler for community members to contribute, it now allows for more thorough testing to ensure compatibility with existing Home Assistant commands.</p>
+<p>We have also begun experimenting with more precise sentence generation, restricting sentences like “set the {light} to red” only to lights that support setting color. Another improvement is making Speech-to-Phrase more careful about combining names and articles in certain languages. For instance, in French, a device or entity that starts with a vowel or an “h” will have an “l” apostrophe at its beginning, such as l’humidificateur or l’entrée. Allowing Speech-to-Phrase to understand this avoids it guessing pronunciations for nonsensical combinations.</p>
+<p>Speech-to-Phrase currently supports <strong>six languages</strong>, namely English, French, German, Dutch, Spanish, and Italian. We are now engaging with language leaders to add support for Russian, Czech, Catalan, Greek, Romanian, Portuguese, Polish, Hindi, Basque, Finnish, Mongolian, Slovenian, Swahili, Thai, and Turkish — this takes our language support to <strong>21 languages</strong> 🥳!</p>
+<p>These new models were originally trained by community members from the <a href="https://github.com/coqui-ai/STT-models">Coqui STT</a> project (which is now defunct, but luckily their work was open source — <em>another example of FOSS saving the day</em>), and we are very grateful for the chance to use them! Performance and accuracy vary heavily by language, and we may need to train our own models based on feedback from our community.</p>
+<h3>Piper is growing in volume</h3>
+<p><a href="https://github.com/OHF-Voice/piper1-gpl">Piper</a> is another tool we built for local and private voice in the home, and it quickly turns text into natural-sounding speech. Piper is becoming one of the most comprehensive open source text-to-speech options available and has really been building momentum. Recently, we have added support for new languages and provided additional voices for existing ones, including,</p>
+<ul>
+<li><strong>Dutch</strong> - Pim and Ronnie - <em>new voices</em></li>
+<li><strong>Portuguese (Brazilian)</strong> - Cadu and Jeff - <em>new voices</em></li>
+<li><strong>Persian/Farsi</strong> - Reza_ibrahim and Ganji - <em>new language</em></li>
+<li><strong>Welsh</strong> - Bu_tts - <em>new voices</em></li>
+<li><strong>Swedish</strong> - Lisa - <em>new voices</em></li>
+<li><strong>Malayalam</strong> - Arjun and Meera - <em>new language</em></li>
+<li><strong>Nepali</strong> - Chitwan - <em>new voices</em></li>
+<li><strong>Latvian</strong> - aivar- <em>new voices</em></li>
+<li><strong>Slovenian</strong> - artur - <em>new voices</em></li>
+<li><strong>Slovak</strong> - lili - <em>new voices</em></li>
+<li><strong>English</strong> - Sam (non-binary) and Reza_ibrahim - <em>new voices</em></li>
+</ul>
+<p>This brings Piper’s supported languages and dialects from 34 to now 39 🙌! This allows a nice majority of the world’s population (give or take 3 billion people) the ability to generate speech in their native tongue 😎!</p>
+<h3>Scoring language support</h3>
+<p class="img"><img src='/images/blog/2025-06-voice-chapter-10/intents.png' alt="Scoring table of our supported intents by language"/>This is the score sheet for just intents... it can get complicated</p>
+<p>Home Assistant users, when starting their voice journey, typically ask one question first: “Is my language supported?” Due to how flexible voice assistants in Home Assistant are, this seemingly simple question is quite complicated to answer! At a high level, a voice assistant needs to convert your spoken audio into text (speech-to-text), figure out what you want it to do (intent recognition), and then respond back to you (text-to-speech). Each part of this pipeline can be mixed and matched, and intent recognition can even be augmented with a fallback to a large language model (LLM), which is great at untangling misunderstood words or complex queries.</p>
+<p>Considering the whole pipeline, the question “Is my language supported?” becomes “How well does each part support my language?” For Home Assistant Cloud, which uses Microsoft Azure for voice services, we can be confident that all supported languages work well.</p>
+<p>Local options like <a href="https://github.com/openai/whisper">Whisper</a> (speech-to-text) and, to a lesser extent, Piper (text-to-speech), may technically support a language but perform poorly in practice or within the limits of a user’s hardware. Whisper, for example, has models with different sizes that require more powerful hardware to run as they get larger. A language like French may work well enough with the largest Whisper model (which requires a GPU), but is unusable on a Raspberry Pi or even an N100-class PC.</p>
+<p>Our own Speech-to-Phrase system supports French well and runs well on a Raspberry Pi 4 or <a href="/green/">Home Assistant Green</a>. The trade-off is that only a limited set of pre-defined voice commands are supported, so you can’t use an LLM as a fallback (because unexpected commands can’t be converted into text for the LLM to process).</p>
+<p>Finally, of course, not everyone wants to (or can) be reliant on the cloud, and they need a fully local voice assistant. This means that language support depends as much on the user’s preferences as their hardware and the available voice services. For these reasons, we have split out language support into three categories based on specific combinations of services:</p>
+<ul>
+<li><em><strong>Cloud</strong></em> - Home Assistant Cloud</li>
+<li><em><strong>Focused Local</strong></em> - Speech-to-Phrase and Piper</li>
+<li><em><strong>Full Local</strong></em> - Whisper and Piper</li>
+</ul>
+<p>Each category is given a score from 0 to 3, with 0 meaning it is unsupported and 3 meaning it is fully supported. Users who choose Home Assistant Cloud can look at the Cloud score to determine the level of language support. For users wanting a local voice assistant, they will need to decide between Focused Local (limited commands for low-powered hardware) and Fully Local (open-ended commands for high-powered hardware). Importantly, these scores take into account the availability of voice commands translated by our language leaders. A language’s score in every category will be lowered if it has minimal coverage of useful voice commands.</p>
+<p>With these language scores, we hope users will be able to make informed decisions when starting on their voice journeys in Home Assistant. They’re currently featured in our voice setup wizard in Home Assistant, and on our <a href="/voice_control/#supported-languages-and-sentences">language support page</a>.</p>
+<h2>What’s in a name</h2>
+<p>Voice commands in Home Assistant trigger <em>intents</em>, which are flexible actions that use names instead of IDs. Intents handle things like turning devices on or off, or adjusting the color of lights. Until now, sentence translations focused on whether a language supported an intent (like turning devices on/off) but didn’t clearly show whether the command supported device names, areas names, or both. This can change from language to language, which made gaps hard to spot. We’re switching to a new format that highlights these combinations, making it easier for contributors to see what names are supported, which should make for simpler translations.</p>
+<h2>Continued conversation updates</h2>
+<p>Since the last voice chapter, the voice team has worked on making Assist more conversational for LLM-based agents. We started with LLM-based agents because it was simpler to iterate on. If the LLM returns with a question, we will detect that and keep the conversation going, without the need for you to say “Ok Nabu” again.</p>
+<p>On top of that, you can now initiate a conversation with a new action called <code>start_conversation</code> directly from an automation, or a dashboard. This provides the full spectrum of conversation to LLM-based agents.</p>
+<p>Here is a quick demonstration of two features working hand-in-hand:</p>
+<p><lite-youtube videoid="dq7--T_pVNA" videotitle="Continued conversations demo"></lite-youtube></p>
+<h2>Media Search and Play intent</h2>
+<p>What’s great about Home Assistant and open source is that sometimes the best ideas come from other projects in the community. Early on, many people were interested in driving Music Assistant with voice, but central pieces were missing on Home Assistant, such as the ability to search a media library.</p>
+<p>We worked hard on bringing this functionality to the core experience of Home Assistant and created a new intent, the <strong>Search and Play</strong> intent. You can now speak to your voice assistant and ask it to play music in any room in your home.</p>
+<p><lite-youtube videoid="bPMXz2nI-6w" videotitle="Media search and play demo"></lite-youtube></p>
+<p>The intent can be used by an LLM-based conversation agent, but we also have sentences that work without any LLM magic. You can find the <a href="https://github.com/OHF-Voice/intents/tree/main/sentences/en/HassMediaSearchAndPlay">English sentences here</a>. As it’s a new feature, support may vary based on your language, and please be patient while our amazing language leaders make these translations.</p>
+<h2>Future work - Assist will have something to say</h2>
+<p>Talking to your home should feel as natural as chatting with a friend across the kitchen counter. Large-language models (LLMs) already prove how smooth that back-and-forth can be, now we want every Home Assistant installation to enjoy the same experience. We’re therefore zeroing in on three key use-cases for the default conversation agent, which include critical confirmations, follow-ups, and custom conversations. Just note these are still at the early stages of development and it may be some time before you see some of these features.</p>
+<h3>Critical confirmations</h3>
+<p>Some actions are too important to execute without a quick double-check. Unlocking the front door, closing shutters, or running a “leaving home” script. We want you to be able to mark those entities as <strong>protected</strong>. Whenever you speak a command that touches one of those entities, Assist will ask for verbal confirmation before acting:</p>
+  <blockquote style="font-style: normal;">
+    Ok Nabu, unlock the front door<br>
+    <i>Are you sure?</i><br>
+    Yes<br>
+    <i>Unlocked</i>
+  </blockquote>
+<p>Because every household is different, we are thinking about managing these confirmations <strong>per entity</strong> and making them fully user-configurable.</p>
+<h3>Follow-up on missing parameters</h3>
+<p>Sometimes Assist grasps what you want, but needs more detail to carry it out. Instead of failing, we want Assist to ask for the missing piece proactively. Here is an example to illustrate.</p>
+  <blockquote style="font-style: normal;">
+    Ok Nabu, set a timer<br>
+    <i>For how long?</i><br>
+    15 minutes<br>
+    <i>Timer started</i>
+  </blockquote>
+<p>For now, we are still assessing the relevant sentences for that use case. We’re implementing follow-ups with timers, though finding more is not currently our top priority. We are, however, open to suggestions.</p>
+<h3>Custom conversations</h3>
+<p>As with any other part of Home Assistant, we want the conversation aspect of Assist to be personalized. Simple voice transactions can already be created with our automation engine using the <code>conversation</code> trigger and the <code>set_conversation_response</code> action.</p>
+<p>We want to bring the same level of customization to conversations, allowing you to create fully local, predefined conversations to be triggered whenever you need them, such as when you enter a room, start your bedtime routine, etc.</p>
+<p>We are focusing first on making custom conversations possible, so that you can show us what you are building with this new powerful tool. We will then tackle the critical confirmations use case, and finally, the follow-ups when parameters are missing.</p>
+<h2>Let’s keep moving Open Voice forward</h2>
+<p>Only a couple of years ago, voice control was the domain of data-hungry corporations, and basically none of this open technology existed. Now, as a community, we’ve built all the parts needed to have a highly functional voice assistant, which is completely open and free for anyone to use (or even build on top of).<br />
+Every chapter, we make steady progress, which is only possible with your support. Whether from those who fund its development by supporting the Open Home Foundation (by subscribing to <a href="/cloud/">Home Assistant Cloud</a>, and buying <a href="/voice-pe/">official Home Assistant hardware</a>) or those who contribute their time to improving it. As always, we want to support every language possible, and if you don’t see your native tongue on our supported list, please consider <a href="/voice_control/contribute-voice">contributing to this project</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Speech-to-Phrase brings voice home - Voice chapter 9]]></title>
+    <link href="https://ivangrod.github.io/blog/2025/02/13/voice-chapter-9-speech-to-phrase/"/>
+    <updated>2025-02-13T00:00:01+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2025/02/13/voice-chapter-9-speech-to-phrase</id>
+    <content type="html"><![CDATA[<p><lite-youtube videoid="k6VvzDSI8RU" videotitle="Voice Chapter 9 - Speech-to-Phrase"></lite-youtube></p>
+<p><strong>Welcome to Voice chapter 9 🎉 part of our <a href="https://www.home-assistant.io/blog/categories/assist/">long-running series</a> following the development of open voice.</strong></p>
+<p>We’re still pumped from the launch of the <a href="/voice-pe/">Home Assistant Voice Preview Edition</a> at the end of December. It sold out 23 minutes into our announcement - wow! We’ve been working hard to keep it in stock at <a href="/voice-pe#buy">all our distributors</a>.</p>
+<p>Today, we have a lot of cool stuff to improve your experience with Voice PE or any other Assist satellite you’re using. This includes fully local and offline voice control that can be powered by nearly any Home Assistant system.</p>
+<ul>
+<li><a href="#voice-for-the-masses">Voice for the masses</a></li>
+<li><a href="#building-an-open-voice-ecosystem">Building an Open Voice Ecosystem</a></li>
+<li><a href="#large-language-model-improvements">Large language model improvements</a></li>
+<li><a href="#expanding-voice-capabilities">Expanding Voice Capabilities</a></li>
+<li><a href="#home-assistant-phones-home-analog-phones-are-back">Home Assistant phones home: analog phones are back!</a></li>
+<li><a href="#wyoming-improvements">Wyoming improvements</a></li>
+<li><a href="#-help-us-bring-choice-to-voice">🫵 Help us bring choice to voice!</a></li>
+</ul>
+<!--more-->
+<p>Dragon NaturallySpeaking was a popular speech recognition program introduced in 1997. To run this software you needed at least a 133 MHz Pentium processor, 32 MB of RAM, and Windows 95 or later. Nearly thirty years later, Speech-to-Text is much better, but needs orders of magnitude more resources.</p>
+<p>Incredible technologies are being developed in speech processing, but it’s currently unrealistic for a device that costs less than $100 to take real advantage of them. It’s possible, of course, but running the previously recommended Speech-to-Text tool, <a href="https://github.com/openai/whisper">Whisper</a>, on a Raspberry Pi 4 takes at least 5 seconds to turn your speech into text, with varying levels of success. This is why we ended up recommending at least an Intel N100 to run your voice assistant fully locally. That stung. Our opt-in analytics shows over <a href="https://analytics.home-assistant.io/">50% of the Home Assistant OS users</a> are running their homes on affordable, low-powered machines like the <a href="/green">Home Assistant Green</a> or a Raspberry Pi.</p>
+<p>What’s more, advancing the development of Whisper is largely in the hands of OpenAI, as we don’t have the resources required to add languages to that tool. We could add every possible language to Home Assistant, but if any single part of our voice pipeline lacks language support, it renders voice unusable for that language. As a result, many widely spoken languages were unsupported for local voice control.</p>
+<p>This left many users unable to use voice to control their smart home without purchasing extra hardware or services. We’re changing this today with the launch of a key new piece of our voice pipeline.</p>
+<h2>Voice for the masses</h2>
+<img src='/images/blog/2025-02-voice-chapter-9/stp-logo.jpg' style='border: 0;box-shadow: none;' alt="Speech-to-Phrase logo">
+<p><a href="https://github.com/OHF-voice/speech-to-phrase">Speech-to-Phrase</a> is based on old, almost ancient, voice technology by today’s standards. Instead of the ability to transcribe virtually any speech into text, it is limited to a set of pre-trained phrases. Speech-to-Phrase will automatically generate the phrases and fine-tune a model based on the devices, areas, and sentence triggers in your Home Assistant server - 100% locally and offline.</p>
+<p><strong>The result:</strong> speech transcribed in under a second on a Home Assistant Green or Raspberry Pi 4. The Raspberry Pi 5 processes commands seven times faster, clocking in at 150 milliseconds per command!</p>
+<p>With great speed comes <em>some</em> limitations. Speech-to-Phrase only supports a subset of Assist’s voice commands, and more open-ended things like shopping lists, naming a timer, and broadcasts are not usable out of the box. Really any commands that can accept random words (wildcards) will not work. For the same reasons, Speech-to-Phrase is intended for home control only and not LLMs.</p>
+<p>The most important home control commands are supported, including turning lights on and off, changing brightness and color, getting the weather, setting timers, and controlling media players. <a href="/docs/automation/trigger/#sentence-trigger">Custom sentences</a> can also be added to trigger things not covered by the current commands, and we expect the community will come up with some clever new ways to use this tech.</p>
+<img src='/images/blog/2025-02-voice-chapter-9/green-pe.png' style='border: 0;box-shadow: none;' alt="Green and Voice PE join forces">
+<p align="center"><em>All you need to get started with voice</em></p>
+<p>Speech-to-Phrase is launching with support for English, French, German, Dutch, Spanish, and Italian - covering nearly 70% of Home Assistant users. Nice. Unlike the local Speech-to-Text tools currently available, adding languages to Speech-to-Phrase is much easier. This means many more languages will be available in future releases, and <a href="/voice_control/contribute-voice">we would love your help</a> adding them!</p>
+<p>We’re working on updating the Voice wizard to include Speech-to-Phrase. Until then, you need to install the add-on manually:</p>
+<p><a href="https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_speech-to-phrase"><img src='https://my.home-assistant.io/badges/supervisor_addon.svg' style='border: 0;box-shadow: none;' alt="!Open your Home Assistant instance and show the dashboard of an add-on."></a></p>
+<h2>Building an Open Voice Ecosystem</h2>
+<p>When we launched Home Assistant Voice Preview Edition, we didn’t just launch a product; we kickstarted an ecosystem. We did this by open-sourcing all parts and ensuring that the voice experience built into Home Assistant is not tied to a single product. Any voice assistant built for the Open Home ecosystem can take advantage of all this work. Even your DIY ones!</p>
+<p>With ESPHome 2025.2, which we’re releasing next week, any ESPHome-based voice assistant will support making <a href="/blog/2025/02/05/release-20252/#new-broadcast-intent">broadcasts</a> (more on that below), and they will also be able to use our new voice wizard to ensure new users have everything they need to get started.</p>
+<p>This will include updates for the <a href="/voice_control/thirteen-usd-voice-remote/">$13 Atom Echo</a> and ESP32-S3-Box-3 devices that we used for development during the Year of the Voice!</p>
+<p class='img'><lite-youtube videoid="HMqXHN0KBQM" videotitle="New broadcast feature in action with Atom and Box 3"></lite-youtube>New broadcast feature in action with Atom and Box 3</p>
+<h2>Large language model improvements</h2>
+<p>We aim for Home Assistant to be <a href="/blog/2024/06/07/ai-agents-for-the-smart-home/">the place for experimentation with AI in the smart home</a>. We support a wide range of models, both local and cloud-based, and are constantly improving the different ways people can interact with them. We’re always running <a href="https://github.com/allenporter/home-assistant-datasets/tree/main/reports">benchmarks</a> to track the best models, and make sure our changes lead to an improved experience.</p>
+<p>If you set up <a href="/voice_control/">Assist</a>, Home Assistant’s built-in voice assistant, and configure it to use an LLM, you might have noticed some new features landing recently. One major change was the new “<a href="/blog/2024/12/04/release-202412/#let-your-voice-assistant-fall-back-to-an-llm-based-agent">prefer handling commands locally</a>” setting, which always attempts to run commands with the built-in conversation agent before it sends it off to an LLM. We noticed many easy-to-run commands were being sent to an LLM, which can slow down things and waste tokens. If Home Assistant understands the command (e.g., turn on the lights), it will perform the necessary action, and only passes it on to your chosen LLM if it doesn’t understand the command (e.g., what’s the air quality like now).</p>
+<p>Adding the above features made us realize that LLMs need to understand the commands handled locally. Now, the <a href="/blog/2025/02/05/release-20252/#shared-history-between-the-default-conversation-agent-and-its-llm-based-fallback">conversation history is shared</a> with the LLM. The context allows you to ask the LLM for follow-up questions that refer to recent commands, regardless of whether they helped process the request.</p>
+<img src='/images/blog/2025-02-voice-chapter-9/shared-history.png' style='border: 0;box-shadow: none;' alt="Speech-to-Phrase logo">
+<p align="center"><em>Left: without shared conversations. Right: Shared conversations enable GPT to understand context.</em></p>
+<h3>Reducing the time to first word with streaming<!-- omit in toc --></h3>
+<p>When experimenting with larger models, or on slower hardware, LLM’s can feel sluggish. They only respond once the entire reply is generated, which can take frustratingly long for lengthy responses (you’ll be waiting a while if you ask it to tell you an epic fairy tale).</p>
+<p>In Home Assistant 2025.3 we’re introducing support for LLMs to stream their response to the chat, allowing users to start reading while the response is being generated. A bonus side effect is that commands are now also faster: they will be executed as soon as they come in, without waiting for the rest of the message to be complete.</p>
+<p>Streaming is coming initially for Ollama and OpenAI.</p>
+<h3>Model Context Protocol brings Home Assistant to every AI<!-- omit in toc --></h3>
+<p>In November 2024, Anthropic announced the <a href="https://modelcontextprotocol.io/introduction">Model Context Protocol</a> (MCP). It is a new protocol to allow LLMs to control external services. In this release, contributed by <a href="https://github.com/allenporter">Allen Porter</a>, Home Assistant can speak MCP.</p>
+<p>Using the new Model Context Protocol <a href="/integrations/mcp">integration</a>, Home Assistant can integrate external MCP servers and make their tools available to LLMs that Home Assistant talks to (for your voice assistant or in automations). There is <a href="https://github.com/punkpeye/awesome-mcp-servers">quite a collection of MCP servers</a>, including wild ones like scraping websites (<a href="https://gist.github.com/allenporter/b0e9946feb2ab60901c4f467ac1ba6f9">tutorial</a>), file server access, or even BlueSky.</p>
+<p>With the new Model Context Protocol <a href="/integrations/mcp_server">server integration</a>, Home Assistant’s LLM tools can be included in other AI apps, like the Claude desktop app (<a href="https://modelcontextprotocol.io/quickstart/user">tutorial</a>). If agentic AI takes off, your smart home will be ready to be integrated.</p>
+<p>Thanks Allen!</p>
+<h2>Expanding Voice Capabilities</h2>
+<p>We keep enhancing the capabilities of the built-in conversation agent of Home Assistant. With the latest release, we’re unlocking two new features:</p>
+<h4>“Broadcast that it’s time for dinner”<!-- omit in toc --></h4>
+<p>The new <a href="/blog/2025/02/05/release-20252/#new-broadcast-intent">broadcast</a> feature lets you quickly send messages to the other Assist satellites in your home. This makes it possible to announce it’s time for dinner, or announce battles between your children 😅.</p>
+<h4>“Set the temperature to 19 degrees”<!-- omit in toc --></h4>
+<p>Previously Assist could only tell you the temperature, but now it can help you change the temperature of your HVAC system. Perfect for changing the temperature while staying cozy under a warm blanket.</p>
+<h2>Home Assistant phones home: analog phones are back!</h2>
+<p>Two years ago, we introduced the <a href="/voice_control/worlds-most-private-voice-assistant/">world’s most private voice assistant</a>: an analog phone! Users can pick it up to talk to their smart home, and only the user can hear the response. A fun feature we’re adding today is that Home Assistant can now <strong>call your analog phone!</strong></p>
+<p>Analog phones are great when you want to notify a room, instead of an entire home. For instance, when the laundry is done, you can notify someone in the living room, but not the office. Also since the user needs to pick up the horn to receive the call, you will know if your notification was received.</p>
+<p class='img'><lite-youtube videoid="TaoNY1gINWc" videotitle="Have your Home Assistant give you a call"></lite-youtube>Have your Home Assistant give you a call</p>
+<p>If you’re using an LLM as your voice assistant, you can also start a conversation from a phone call. You can provide the opening sentence and via a new “extra system prompt” option, provide extra context to the LLM to interpret the response from the user. For example,</p>
+<ul>
+<li>Extra system context: garage door cover.garage_door was left open for 30 minutes. We asked the user if it should be closed</li>
+<li>Assistant: should the garage door be closed?</li>
+<li>User: sure</li>
+</ul>
+<p>Thanks <a href="https://github.com/jaminh">JaminH</a> for the contribution.</p>
+<h2>Wyoming improvements</h2>
+<p>Wyoming is our standard for linking together all the different parts needed to build a voice assistant. Home Assistant 2025.3 will add support for announcements to Wyoming satellites, making them eligible for the new broadcast feature too.  </p>
+<p>We’re also adding a new microWakeWord add-on (the same wake word engine running on Voice PE!) that can be used as an alternative to openWakeWord. As we collect more real-world samples from our <a href="https://ohf-voice.github.io/wake-word-collective/">Wake Word Collective</a>, the models included in microWakeWord will be retrained and improved.</p>
+<h2>🫵 Help us bring choice to voice!</h2>
+<p>We’ve said it before, and we’ll say it again—the era of open voice has begun, and the more people who join us, the better it gets. Home Assistant offers many ways to start with voice control, whether by <a href="/voice_control/#expand-and-experiment">building your own</a> Assist hardware or getting a <a href="/voice-pe/">Home Assistant Voice Preview Edition</a>. With every update, you’ll see new features, and you’ll get to preview the future of voice today.</p>
+<p>A huge thanks to all the language leaders and contributors helping to shape open voice in the home! There are many ways to get involved, from translating or sharing voice samples to building new features—learn more about how <a href="/voice_control/contribute-voice">you can contribute here</a>. Another great way to support development is by subscribing to <a href="/cloud/">Home Assistant Cloud</a>, which helps fund the Open Home projects that power voice.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The era of open voice assistants has arrived]]></title>
+    <link href="https://ivangrod.github.io/blog/2024/12/19/voice-preview-edition-the-era-of-open-voice/"/>
+    <updated>2024-12-19T00:00:02+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2024/12/19/voice-preview-edition-the-era-of-open-voice</id>
+    <content type="html"><![CDATA[<p><lite-youtube videoid="ZgoaoTpIhm8" videotitle="Voice Chapter 8 - Voice Preview Edition launch"></lite-youtube></p>
+<p><strong>TL;DR: <a href="/voice-pe/">Check out the product page</a></strong></p>
+<p>We all deserve a voice assistant that doesn’t harvest our data and arbitrarily limit features. In the same way Home Assistant made private and local home automation a viable option, we believe the same can, and must be done for voice assistants.</p>
+<p>Since we began developing our open-source voice assistant for Home Assistant, one key element has been missing - great hardware that’s simple to set up and use. Hardware that hears you, gives you clear feedback, and seamlessly fits into the home. Affordable and high-quality voice hardware will let more people join in on its development and allow anyone to <em>preview</em> the future of voice assistants today. Setting a standard for the next several years to base our development around.</p>
+<p class='img'><img src='/images/blog/2024-12-vpe/vpe-packaging.png' style='border: 0;box-shadow: none;' alt="Voice Preview Edition with packaging"></p>
+<p>We’re launching <a href="/voice-pe/">Home Assistant Voice Preview Edition</a> to help accelerate our goal of not only matching the capabilities of existing voice assistants but surpassing them. This is inevitable: They’ll focus their efforts on monetizing voice, while our community will be focused on improving open and private voice. We’ll support the languages big tech ignores and provide a real choice in how you run voice in your home.</p>
+<p><strong>The era of open, private voice assistants begins now, and we’d love for you to be part of it.</strong></p>
+<h3>Table of contents</h3>
+<ul>
+<li><a href="#introducing-home-assistant-voice-preview-edition">Introducing Home Assistant Voice Preview Edition</a>
+<ul>
+<li><a href="#why-preview-edition">Why Preview Edition</a></li>
+<li><a href="#built-for-home-assistant">Built for Home Assistant</a></li>
+<li><a href="#advanced-audio-processing">Advanced audio processing</a></li>
+<li><a href="#bringing-choice-to-voice">Bringing choice to voice</a></li>
+<li><a href="#fully-open-and-customizable">Fully open and customizable</a></li>
+<li><a href="#community-driven">Community-driven</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a>
+<ul>
+<li><a href="#see-what-voice-can-do-today">See what voice can do today</a></li>
+</ul>
+</li>
+</ul>
+<!--more-->
+<h2>Introducing Home Assistant Voice Preview Edition</h2>
+<img src='/images/blog/2024-12-vpe/voice-preview-edition.png' style='border: 0;box-shadow: none;' alt="Voice Preview Edition with packaging">
+<p>Our main goal with Voice Preview Edition was to make the best hardware to get started with <a href="/voice_control/">Assist</a>, Home Assistant’s built-in voice assistant. If you’re already using other third-party hardware to run Assist, this will be a big upgrade. We prioritized its ability to hear commands, giving it an industry-leading dedicated audio processor and dual microphones - I’m always blown away by how well it picks up my voice around the room.</p>
+<p>Next, we ensured it would blend into the home, giving it a sleek but unobtrusive design. That’s not to say it doesn’t have flair. When you get your hands on Voice Preview Edition the first thing you’ll notice is its premium-feeling injection-molded shell, which is semi-transparent, just like your favorite ‘90s tech. The LED ring is also really eye-catching, and you can customize it to your heart’s content from full gamer RGB to subtle glow.</p>
+<div style="text-align: center; margin-top: 20px;">
+<img src='/images/blog/2024-12-vpe/vpe-finish.png' style='border: 0;box-shadow: none;' alt="3 different views of Voice Preview Edition">
+</div>
+<p>It’s hard to convey how nice the rotary dial is to use; its subtle clicks paired with LED animations are hard not to play with. Most importantly, the dial lets anyone in your home intuitively adjust the volume. The same can be said for the multipurpose button and mute switch (which physically cuts power to the microphone for ultimate privacy). We knew for it to work best, it needed to be out in the open, and let’s just say that <a href="https://newsletter.openhomefoundation.org/open-home-approval-factor/#:~:text=2023.1%20release%20notes.-,Home%20Approval%20Factor,-We%20have%20a">Home Approval Factor</a> was very front of mind when designing it.</p>
+<p>We also worked hard to keep the price affordable and comparable to other voice assistant hardware at just $59 (that’s the recommended MSRP, and pricing will vary by retailer). This isn’t a preorder, it’s available now!</p>
+<div style="text-align: center; margin-bottom: 20px;">
+<img src='/images/blog/2024-12-vpe/vpe-price.png' style='border: 0;box-shadow: none;' alt="Voice Preview Edition price">
+</div>
+<div style="text-align: center; margin-bottom: 20px;">
+  <a href="/needlehack-blog/voice-pe/">
+    <img src="/needlehack-blog/images/blog/2024-12-voice-chapter-8/buy-now.png"
+         style="border: 0; box-shadow: none;"
+         alt="buy now">
+  </a>
+</div>
+<h3>Why Preview Edition</h3>
+<p>For some, our voice assistant is all they need; they just want to say a couple of commands, set timers, manage their shopping list, and control their most used devices. For others, we understand they want to ask their voice assistant to make whale sounds or to tell them how tall Taylor Swift is - this voice assistant doesn’t entirely do those things (<a href="/voice_control/assist_create_open_ai_personality/">yet</a>). We think there is still more we can do before this is ready for every home, and until then, we’ll be selling this <em>Preview</em> of the future of voice assistants. We’ve built the best hardware on the market, and set a new standard for the coming years, allowing us to focus our development as we prepare our voice assistant for every home. Taking back our privacy isn’t for everyone - it’s a journey - and we want as many people as possible to join us early and make it better.</p>
+<h3>Built for Home Assistant</h3>
+<p>Many other voice assistants work with Home Assistant, but this one was <em>built</em> for Home Assistant. Unlike other voice hardware that can work with Assist, this doesn’t require flashing firmware or any assembly. You plug it into power, and it is seamlessly discovered by Home Assistant. A wizard instantly starts helping you set up your voice assistant, but critically, if you haven’t used voice before, it will quickly guide you through what you need to get the best experience.</p>
+<p class='img'><img src='/images/blog/2024-12-vpe/wizard.webp' alt="Video of Assist wizard">Get up and running with Voice Preview Edition in minutes with our new wizard</a>
+<p>This is not a DIY product. We’ve worked to make the experience as smooth as possible, with easy and fast updates and settings you can manage from the Home Assistant UI.</p>
+<h3>Advanced audio processing</h3>
+<p>If you have been following our work on voice, you know we’ve tried a lot of different voice assistant hardware. Most available Assist-capable hardware is bad at its most important job - hearing your voice and then providing audiovisual feedback. That was really what drove us to build Voice Preview Edition.</p>
+<p class='img'><lite-youtube videoid="DS_8cDZKBPc" videotitle="Music Assistant - VPE"></lite-youtube>Voice Preview Editions mics and audio processors effortlessly hear commands through loud music it is playing</p>
+<p>Our Assist software could only do so much with substandard audio, and its functionality is massively improved with clear audio. The dual microphones combined with the XMOS audio processing chip are what makes it so capable. Together, they allow Voice Preview Edition to have echo cancellation, stationary noise removal, and auto gain control, which all adds up to clearer audio. This combined with an ESP32-S3 with 8 MB of octal PSRAM - one of the fastest ESP and RAM combinations available - makes for an incredibly responsive device. This is the best Assist hardware you can buy today, and it will continue to give a great experience as Assist’s feature set expands in the years to come.</p>
+<h3>Bringing choice to voice</h3>
+<p>Assist can do something almost no other voice assistant can achieve - <em>it can run without the internet</em> 🤯. You can speak to your Voice Preview Edition, and those commands can be processed completely within the walls of your home. At the time of writing this, there are some pretty big caveats, specifically that you need to speak a <a href="/voice-pe/#language-support">supported language</a> and have pretty powerful hardware to run it (we recommend a Home Assistant system running on an Intel N100 or better).</p>
+<p class='img'><img src='/images/blog/2024-12-vpe/local-cloud.png' style='border: 0;box-shadow: none;' alt="graphic of local vs cloud">Diagram of cloud vs local speech processing</p>
+<p>If you use low-powered Home Assistant hardware, there is an easy and affordable internet-based solution; <a href="/cloud/">Home Assistant Cloud</a>. This privacy-focused service allows you to offload your speech-to-text and text-to-speech processing, all while being very responsive and keeping your energy bill low. Speech-to-text is the harder of the two to run locally, and our cloud processing is almost always more accurate for more languages (visit our <a href="/voice-pe/#language-support">language support checker here</a>).</p>
+<p>Our goal is for Assist to run easily, affordably, and fully locally for all languages. As someone who has seen the rapid development of this technology over the past several years, I’m optimistic that this will happen, but until then, many languages have a good range of choices that provide strong privacy.</p>
+<h3>Fully open and customizable</h3>
+<p class='img'><img src='/images/blog/2024-12-vpe/3d-prints.jpg' style='border: 0;box-shadow: none;' alt="Some interesting cartoon-inspired 3D prints for Voice Preview Edition">We are sharing the design files if you want to 3D print a new case... these ones were inevitable</p>
+<p>We’re not just launching a new product, <em><strong>we’re open sourcing all of it</strong></em>. We built this for the Home Assistant community. Our community doesn’t want a single voice assistant, they want the one that works for them – they want choice. Creating a voice assistant is hard, and until now, parts of the solution were locked behind expensive licenses and proprietary software. With Voice Preview Edition being open source, we hope to bootstrap an ecosystem of voice assistants.</p>
+<p>We tried to make every aspect of Voice Preview Edition customizable, which is actually pretty easy when you’re working hand-in-hand with ESPHome and Home Assistant. It works great with the stock settings, but if you’re so inclined, you can customize the Assist software, ESP32 firmware, and XMOS firmware.</p>
+<p class='img'><img src='/images/blog/2024-12-vpe/grove.jpg' style='border: 0;box-shadow: none;' alt="Voice Preview Edition with packaging">Connecting Grove sensors allows you to use your Voice Preview Edition as a more traditional ESPHome device - here is it acting as a voice assistant and air monitor.</p>
+<p>We also made the hardware easy to modify, inside and out. For instance, the included speaker is for alerts and voice prompts, but if you want to use it as a media player, connect a speaker to the included 3.5mm headphone jack and control it with software like <a href="https://music-assistant.io/">Music Assistant</a>. The included DAC is very clean and capable of streaming lossless audio. It can also be used as a very capable ESP32 device. On the bottom of the device is a <a href="https://wiki.seeedstudio.com/Grove_System/">Grove port</a> (concealed under a cover that can be permanently removed), which allows you to connect a large ecosystem of sensors and accessories.</p>
+<p>We’ve also made it quite painless to open, with easy-to-access screws and no clips. We even included exposed pads on the circuit board to make modifying it more straightforward. We’re providing all the <a href="https://voice-pe.home-assistant.io/resources/">3D files</a> so you can print your own components… even cartoon character-inspired ones. We’re not here to dictate what you can and can’t do with your device, and we tried our best to stay out of your way.</p>
+<h3>Community-driven</h3>
+<p>The beauty of Home Assistant and ESPHome is that you are never alone when fixing an issue or adding a feature. We made this device so the community could start working more closely together on voice; we even considered calling it the <em>Community</em> edition. Ultimately, it is the community driving forward voice - either by taking part in its development or supporting its development by buying official hardware or Home Assistant Cloud. So much has already been done for voice, and I can’t wait to see the advancements we make together.</p>
+<h2>Conclusion</h2>
+<p>Home Assistant <del>values</del> champions choice. Today, we’re providing one of the best choices for voice hardware. One that is truly private and totally open. I’m so proud of the team for building such a great working and feeling piece of hardware - this is a really big leap for voice hardware. I expect it to be the hardware benchmark for open-voice projects for years to come. I would also like to thank our language leaders who are expanding the reach of this project, our testers of this Preview Edition, and anyone who has joined in our voice work over the past years.</p>
+<p>The hardware really is only half the picture, and it’s the software that really brings this all together. Mike Hansen has just written the <a href="/blog/2024/12/19/voice-chapter-8-assist-in-the-home/">Voice Chapter 8 blog</a> to accompany this launch, and this explains all the things we’ve built over the past two years to make Assist work in the home today. He also highlights everything that Voice Preview Edition was built to help accelerate development.</p>
+<h3><a href="/blog/2024/12/19/voice-chapter-8-assist-in-the-home/">See what voice can do today</a></h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Voice Chapter 8 - Assist in the home today]]></title>
+    <link href="https://ivangrod.github.io/blog/2024/12/19/voice-chapter-8-assist-in-the-home/"/>
+    <updated>2024-12-19T00:00:01+00:00</updated>
+    <id>https://ivangrod.github.io/blog/2024/12/19/voice-chapter-8-assist-in-the-home</id>
+    <content type="html"><![CDATA[<img src='/images/blog/2024-12-voice-chapter-8/art.png' alt="Voice chapter 8 - Assist in the home today">
+<p>As you have probably already read, we launched our <a href="/voice-pe/">Home Assistant Voice Preview Edition</a> today. The culmination of the past several years of open-source software progress on Home Assistant’s home-grown voice assistant, <a href="/voice_control/">Assist</a>. A sizable group of dedicated developers has been working together on adding and honing its many features, and if it’s been a while since you tried Assist, you should use this launch as a chance to jump back in and see the progress we’ve made.</p>
+<p><a href="/voice-pe/">Home Assistant Voice Preview Edition</a> has been launched to build on this work, continuing the momentum we’ve already built and accelerating our goal of not only matching the capabilities of existing voice assistants but surpassing them. We had an early production run of Voice Preview Edition (a preview preview 😉), and we tried to get them in the hands of as many of our language leaders and voice developers as possible - and we’re already seeing the fruits of their efforts with language support improving over the past month alone!</p>
+<p>I’d like to highlight in this voice chapter all the things you can do with Assist today. I also want to give the state of our development, what the limitations are, and where your support can be best applied.</p>
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#assist-in-the-home-today">Assist in the home today</a>
+<ul>
+<li><a href="#origins-of-assist">Origins of Assist</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#timers">Timers</a></li>
+<li><a href="#exposing-devices-and-aliases">Exposing devices and Aliases</a></li>
+<li><a href="#room-context">Room context</a></li>
+<li><a href="#wake-words">Wake words</a></li>
+</ul>
+</li>
+<li><a href="#speech-processing">Speech Processing</a>
+<ul>
+<li><a href="#language-support">Language support</a></li>
+<li><a href="#text-to-speech">Text-to-speech</a></li>
+<li><a href="#speech-to-text">Speech-to-text</a></li>
+<li><a href="#ai-and-assist">AI and Assist</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+<!--more-->
+<h2>Assist in the home today</h2>
+<h3>Origins of Assist</h3>
+<p class='img'><img src='/images/blog/2024-12-voice-chapter-8/assist.png' style='border: 0;box-shadow: none;' alt="Early Assist being used in chat">Early versions of Assist via chat - things have come a long way</p>
+<p>Voice control for Home Assistant goes back further than most people assume, with some of the groundwork we use today being <a href="/blog/2017/07/29/release-50/">added as far back as 2017</a>. The major turning point came when we refocused our efforts and declared 2023 the <a href="/blog/2022/12/20/year-of-voice/">Year of the Voice</a>. This was an effort to focus development and find areas where our community could make the most impact. During the Year of the Voice <a href="/voice_control/">Assist</a> was added to voice, intents were improved, languages added, wake words were created, and we established great local and cloud options for running voice. Shortly after Year of the Voice many more features were added, including integrated AI, timers, and even better wake words. Year of the Voice got the ball rolling, and Voice Preview Edition will continue its momentum.</p>
+<h3>Commands</h3>
+<p><a href="/voice_control/">Assist</a> is the underlying technology that allows Home Assistant to turn commands (“turn on the light”) into Actions (<code>light.turn_on</code>). Commands, or as we call them <em>intents</em>, allow you to control pretty much every aspect of your smart home, including on, off, play, pause, next, open, close, and more. We also have intents that give you helpful information like what’s the time, weather, temperature, and so on. Lastly, there are a bunch of other useful miscellaneous things, like adding items to a shopping list and setting timers. If you’re interested, there is a <a href="https://developers.home-assistant.io/docs/intent_builtin/">full list here</a>.</p>
+<h3>Timers</h3>
+<div style="text-align: center;">
+  <video src="/needlehack-blog/images/blog/2024-12-voice-chapter-8/timer.webm"
+         autoplay muted loop playsinline>
+    Your browser does not support the video tag.
+  </video>
+</div>
+<p>When we <a href="https://community.home-assistant.io/t/poll-what-do-you-use-your-voice-assistant-for-what-do-you-expect-it-to-do-multiple-selections/693669">asked our community</a> timers were a top-requested ability. You can not only set a timer, pause, increase, decrease or cancel it, but you can also set commands to <a href="/blog/2024/06/26/voice-chapter-7/#timers-control-devices">trigger after a set amount of time</a>, for example, “turn off the TV in 15 minutes”. You can also just say “Stop” without a wake word, to silence the timer’s alarm. On our Voice Preview Edition, when you set a timer the LED ring counts down the last seconds and flashes when it’s done.</p>
+<h3>Exposing devices and Aliases</h3>
+<p>This sets us apart from other voice assistants: we allow you to expose and effectively hide devices from your voice assistant. For example, you could choose not to expose a door lock but instead just expose the sensor that knows if the door is closed. It puts you in the driver’s seat on what voice can do in your home. We also introduced aliases to allow you to give devices multiple names, allowing you to speak more naturally with Assist.</p>
+<h3>Room context</h3>
+<p>If you tell your Assist hardware what room it is in and ensure other devices are organized by room, you can give commands like “turn off the lights”, and without specifying anything, it will turn off the lights in the room you are in. This feature also works with media players (play/pause/next) and timers.</p>
+<h3>Wake words</h3>
+<p class='img'><img src='/images/blog/2024-12-voice-chapter-8/wake-word.webp' style="max-width: 100%; height: auto; display: inline-block;" alt="Timer animation video"><br>Our community is donating small amounts of time to improve wake words <a href="/needlehack-blog/blog/2024/10/24/wake-word-collective/" target="_blank">with our tool</a>.</br></a>
+<p>Wake Words are the unique phrases that initiate a voice assistant to listen and start processing a command. Wake words originally had to be processed on Home Assistant via an add-on like openWakeWord, meaning the Assist hardware needed to continuously stream audio to Home Assistant. Shortly after Year of the Voice <a href="/blog/2024/02/21/voice-chapter-6/#microwakeword">microWakeWord</a> was released, which brought wake word processing on-device for faster responses. It is improving fast thanks to our community using our <a href="/blog/2024/10/24/wake-word-collective/">fast and easy tool</a> to donate samples of their voice. There is a growing list of wake words, and  the on-device options include “Okay Nabu” (default and most reliable), “Hey Jarvis”, and “Hey Mycroft”. Both of these wake word engines were built by the Home Assistant community and are open source, giving the world two great free and open wake word engines!</p>
+<h2>Speech Processing</h2>
+<p class='img'><img src='/images/blog/2024-12-voice-chapter-8/voice-pipeline.png' alt="Timer animation video">The Assist pipeline in all its glory</a>
+<p>Assist can’t understand spoken words and needs something to take that audio and turn it into text - all this together is called an Assist pipeline. This speech processing is really CPU intensive, so it can’t happen on the Voice Assistant Hardware, and sometimes your Home Assistant system can’t even handle it. One important step we made was adding speech-to-text and text-to-speech capabilities to <a href="/cloud/">Home Assistant Cloud</a>, which allows low-powered Home Assistant hardware to offload speech processing to the cloud. Home Assistant Cloud doesn’t store or use this data to train on - clouds don’t get any more private than ours. It is also the most accurate and power-efficient way to process speech. We’ve put considerable effort into local speech processing, building the add-ons and a new protocol they use to speak to Home Assistant, but they are very reliant on language support from the community.</p>
+<h3>Language support</h3>
+<p class='img'><img src='/images/blog/2024-12-voice-chapter-8/language-support.png' style='border: 0;box-shadow: none;' alt="Our language checker">See if your language is supported with <a href="/needlehack-blog/voice-pe/#language-support" target="_blank">our checker</a>.</p>
+<p>Assist aims to support more languages than other voice assistants, and this has been a massive undertaking for our community - We need more help. The first step for language support is getting the commands (intents) right, and we have <a href="https://ohf-voice.github.io/intents/">over 25 major languages</a> that are ready to use today. Our wake words are also getting better at understanding different accents thanks to our <a href="https://ohf-voice.github.io/wake-word-collective/">Wake Word Collective tool</a>.</p>
+<h3>Text-to-speech</h3>
+<p>We built our own text-to-speech system, <a href="/integrations/piper/">Piper</a>, and it now supports over 30 languages. It’s a fast, local neural network-powered text-to-speech system that sounds great and can run on low-powered hardware (it’s optimized for Pi4!). It was built with the voices of our community, and if you don’t see your native tongue, <a href="https://github.com/rhasspy/piper/blob/master/TRAINING.md">add your voice</a>!</p>
+<h3>Speech-to-text</h3>
+<p>There is one area that holds back the rest of our language support more than others, and that’s local speech-to-text. Building a full speech-to-text model needs big compute resources and terabytes of samples, which is currently outside our reach. We use <a href="/integrations/whisper/">Whisper</a> for local speech-to-text processing, an open-source project from OpenAI, and we’re grateful it exists. For some languages, it works great and doesn’t require a lot of system resources to run well, but for others, you need a pretty beefy system to get acceptable results. In our opinion, only about 15 languages are ready to be run locally on reasonable hardware (an Intel N100 or better) - that’s why before you begin dreaming up your perfect all-local setup, we recommend checking <a href="/voice-pe/#language-support">language support</a>.</p>
+<p>We’re always looking for new solutions for low-powered hardware, and are now building another tool that uses much less complex sentence recognition. This could even run on a Raspberry Pi 4, but it would only be able to identify predefined sentences, so if you go off script you may need to call in an AI to help Assist understand your needs. Our language leaders are hard at work putting together the needed translations, but if you want to learn more visit <a href="https://github.com/rhasspy/rhasspy-speech">Rhasspy Speech</a>.</p>
+<p>In general, even when your language is supported, you’ll almost always get better results from Home Assistant Cloud. Use the free trial to see what works best for you. Also, you can use both, we know someone using an automation to switch the Assist pipeline to an all local setup when their internet is down.</p>
+<h3>AI and Assist</h3>
+<p class='img'><lite-youtube videoid="vThoxRIxHyI" videotitle="Assist working with AI"></lite-youtube>Our default local conversation agent mixed with AI is great for natural language and speed</p>
+<p>Another aspect where we beat the competition hands down is the integration of AI into our voice assistant. You can choose from some of the biggest cloud AI providers like ChatGPT, Google Gemini, and Claude (paid accounts required). You can also run it locally via <a href="https://ollama.com/">Ollama</a> if you have a modern graphics processor with enough VRAM, allowing you to build the most capable offline voice setup around.</p>
+<p>Our intents (Assist’s built-in sentences) are getting better at understanding most commands, but AI processes commands in natural language, meaning if you get the device’s name ever so slightly off, it can still figure things out. It also provides the ability to ask outside the built-in intents. For instance, if you tell it “It’s a bit cold in here”, it may raise the temperature on your thermostat, but it could forgo any home control and just tell you to put on a jacket - results are not yet consistent. More useful is its ability to take multiple sensors and provide context. For instance, you could ask it for an air quality report, and it could review the CO2 levels and tell you to open a window it observes is shut. All this is experimental, and having an AI control your home is not for everyone, but what’s important is that you have the choice.</p>
+<h2>Conclusion</h2>
+<p>So many new innovations and improvements for Assist have happened in the past couple of months, and this speaks to the power of having good hardware to build our software on. Voice Preview Edition is the best open voice hardware available today, and even with it only in the hands of a couple of hundred people today, it’s making a noticeable difference. Whether that’s writing code, improving language support, making blueprints, or even just reporting bugs. The momentum we will build having this in the hands of thousands will be game-changing - it’s why we’ve declared that the era of open voice assistants has arrived.</p>
+<p>In the comments sections, we always have a couple of people saying, “but I don’t use voice, what about improving (this or that)”. The good news is that improving Assist and Home Assistant’s other features are already happening in tandem (check out <a href="/blog/2024/11/15/roadmap-2024h2/">our roadmap</a> for the complete picture of our priorities). In the end, only a fraction of our development goes towards voice, and our budget is what Amazon’s voice team probably spends on pizza parties 😆. A great side effect is the problems we’re solving with voice are benefiting other parts of Home Assistant, for example, our integration of AI was driven by voice.</p>
+<p>We really think voice is an integral part of a well-rounded smart home ecosystem. It’s especially important for improving the accessibility of home control to all members of the household. There needs to be real options in the space, most importantly ones that give you full control and a real choice on privacy.</p>
+<h3>Home Assistant Voice Preview is available at retailers today,<!-- omit in toc --></h3>
+<div style="text-align: center; margin-bottom: 20px;">
+  <img src="/needlehack-blog/images/blog/2024-12-voice-chapter-8/vpe-packaging.png"
+       alt="Voice Preview Edition with packaging">
+</div>
+<div style="text-align: center; margin-bottom: 20px;">
+  <a href="/needlehack-blog/voice-pe/">
+    <img src="/needlehack-blog/images/blog/2024-12-voice-chapter-8/buy-now.png"
+         style="border: 0; box-shadow: none;"
+         alt="buy now">
+  </a>
+</div>
+]]></content>
+  </entry>
+  
+</feed>

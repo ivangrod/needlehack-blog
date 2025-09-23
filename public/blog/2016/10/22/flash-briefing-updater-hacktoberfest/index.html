@@ -1,0 +1,817 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>0.31: Reading you the news, some serious business, spooky hackery and a breaking Z-Wave change - Home Assistant</title>
+    <meta name="author" content="Robbie Trencheny">
+    <meta name="description" content="Alexa Flash Briefing API support, Markdown in persistent notifications, a new updater component, Hacktoberfest and breaking Z-Wave changes.">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/blog/2016/10/22/flash-briefing-updater-hacktoberfest/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="0.31: Reading you the news, some serious business, spooky hackery and a breaking Z-Wave change">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/blog/2016/10/22/flash-briefing-updater-hacktoberfest/">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Alexa Flash Briefing API support, Markdown in persistent notifications, a new updater component, Hacktoberfest and breaking Z-Wave changes.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    <meta name="twitter:creator" content="@robbie">
+    <meta name="twitter:title" content="0.31: Reading you the news, some serious business, spooky hackery and a breaking Z-Wave change">
+    <meta name="twitter:description" content="Alexa Flash Briefing API support, Markdown in persistent notifications, a new updater component, Hacktoberfest and breaking Z-Wave changes.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="   blog-post ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a  href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a class="active" href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#stats-update">Stats Update</a></li>
+<li class="toc-entry toc-h2"><a href="#hacktoberfest">Hacktoberfest</a></li>
+<li class="toc-entry toc-h2"><a href="#%EF%B8%8F-a-greatly-improved-updater-component-please-read-this-%EF%B8%8F">⚠️ A greatly improved updater component (Please read this!) ⚠️</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#what-you-need-to-know-the-important-bit">What you need to know (the important bit!)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#good-evening-im-ron-burgundy-and-heres-what-happening-in-your-world-tonight">Good evening. I’m Ron Burgundy and here’s what happening in your world tonight.</a></li>
+<li class="toc-entry toc-h2"><a href="#major-breaking-z-wave-changes-ahead">Major breaking Z-Wave changes ahead</a></li>
+<li class="toc-entry toc-h2"><a href="#all-changes">All changes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#release-0311---october-24">Release 0.31.1 - October 24</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li class="toc-entry toc-h2"><a href="#if-you-need-help">If you need help…</a></li>
+<li class="toc-entry toc-h2"><a href="#until-next-time">Until next time</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="post">
+  
+  <header>
+  
+  <h1>0.31: Reading you the news, some serious business, spooky hackery and a breaking Z-Wave change</h1>
+  
+
+  
+  <div class="meta clearfix">
+    
+
+  
+  
+    <span class="byline author vcard"><iconify-icon inline icon="mdi:person" title="Person"></iconify-icon> Robbie Trencheny</span>
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<time datetime="2016-10-22T20:00:00+00:00" pubdate data-updated="true"><iconify-icon inline icon="mdi:calendar" title="Calendar"></iconify-icon> October 22, 2016</time>
+    
+
+  <span>
+    <i class="icon-tags"></i>
+    <ul class="tags unstyled">
+    
+      
+        <li><a class="category" href="/blog/categories/core/">Core</a></li>
+      
+        <li><a class="category" href="/blog/categories/release-notes/">Release-Notes</a></li>
+      
+    
+    </ul>
+  </span>
+
+    
+      <a class="comments" href="#post-comments">Comments</a>
+    
+  </div>
+  
+</header>
+
+
+  <p>Hello again friend,</p>
+<p>How are you? Having a good day? We sure are. If you aren’t having a good day, this might cheer you up…</p>
+<p>Every other weekend around here gets a little hectic leading to a big sigh of relief as we release a new version of Home Assistant to the world. And this time is no different. Our developer community has once again built us a beautiful new release with lots of new features and improvements. We hope you like it.</p>
+<p>One last thing before we get going though, I should warn you… <a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> got a bit lazy this week and let me (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>) step up to the plate again to write the blog post and do the release. I guess I didn’t do such a bad job in <a href="/blog/2016/08/28/notifications-hue-fake-unification/">0.27</a>. You’ll never know what surprises I have in store. Now that i’ve got all that stuff out of the way, let’s get started…</p>
+<h2>Stats Update <a class="title-link" name="stats-update" href="#stats-update"></a>
+</h2>
+<p>Sadly, no big amazing stats to update you with this time, but we did recently pass 7,000 commits! This release featured submissions from 45 contributors. Hopefully with the new updater component we will be able to give you some really good stats in the 0.32 blog post.</p>
+<h2>Hacktoberfest <a class="title-link" name="hacktoberfest" href="#hacktoberfest"></a>
+</h2>
+<p><img src="/images/blog/2016-10-hacktoberfest/hacktoberfest.png" alt="Hacktoberfest logo"></p>
+<p>October means Hacktoberfest time and our community has really come through with some excellent improvements and additions. As of this writing, we have 194 merged and 41 open pull requests to the <a href="https://github.com/home-assistant/home-assistant/labels/Hacktoberfest" rel="external nofollow">home-assistant repository<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and 209 merged/28 open pull requests submitted to the <a href="https://github.com/home-assistant/home-assistant.io/labels/Hacktoberfest" rel="external nofollow">home-assistant.github.io repository<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. If you want to get in on the fun check out our <a href="/blog/2016/10/02/hacktoberfest/">Hacktoberfest</a> blog post or the <a href="https://hacktoberfest.digitalocean.com/" rel="external nofollow">Hacktoberfest website<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. You get an awesome t-shirt for free if you have 4 pull requests merged in the month of October! We even have tasks that a non-developer can easily accomplish with a tiny bit of work. Better hurry up though, only 9 days left and most of the easy tasks are gone!</p>
+<h2>⚠️ A greatly improved updater component (Please read this!) ⚠️ <a class="title-link" name="-a-greatly-improved-updater-component-please-read-this-" href="#-a-greatly-improved-updater-component-please-read-this-"></a>
+</h2>
+<p>This release includes an update to our <a href="/integrations/updater/">updater</a> component. The responsibility of the updater component is to check if a new version is available and notify the user if this is the case.</p>
+<p>It used to be that this component would check with <a href="https://pypi.python.org/pypi" rel="external nofollow">PyPi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (the Python package manager) to see if a new update was available. This had a couple of problems:</p>
+<ol>
+<li>We are unable to do a slow rollout</li>
+<li>We are unable to show the user extra information (like a link to a changelog or the release date)</li>
+<li>We are unable to warn users for critical security updates</li>
+</ol>
+<p>So to work around these problems, we decided to start hosting the version check service ourselves. Since we had to get some infrastructure spun up anyway, we figured we would take it a step further. Which leads me to this bit of the update (the most important part):</p>
+<h3>What you need to know (the important bit!) <a class="title-link" name="what-you-need-to-know-the-important-bit" href="#what-you-need-to-know-the-important-bit"></a>
+</h3>
+<p>Remember how I mentioned that up there in the title that there is some serious business in this release? Well, we also added some basic analytics to the updater component which get sent to the server and stored so that we get a better idea of our user base.</p>
+<p>Each Home Assistant instance running the updater component will generate a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier" rel="external nofollow">unique ID<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (based on UUIDv4) that will be used for the updater to be able to differentiate between instances. This UUID will be stored in your config directory in a file called <code>.uuid</code>.</p>
+<h4>Opting out <a class="title-link" name="opting-out" href="#opting-out"></a>
+</h4>
+<p>There are two ways to opt-out. The first way is by using the new <code>opt_out</code> option for the updater. This way the updater will continue to check for updates, but no information about your system will be shared with us.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code data-lang="yaml"><span class="na">updater</span><span class="pi">:</span>
+  <span class="na">reporting</span><span class="pi">:</span> <span class="kc">false</span>
+</code></pre></div></div>
+<p>You can also disable the updater component entirely by removing <code>updater:</code> from your <code>configuration.yaml</code> although <strong>we would not suggest you do this</strong> as you would miss any critical updates.</p>
+<p>Finally, you can also reset your unique identifier by deleting the <code>.uuid</code> file and restarting Home Assistant.</p>
+<h4>Data stored on the Home Assistant update server <a class="title-link" name="data-stored-on-the-home-assistant-update-server" href="#data-stored-on-the-home-assistant-update-server"></a>
+</h4>
+<p>Here is what my production Home Assistant instance looks like from the server side:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>arch</code></td>
+<td>CPU Architecture</td>
+<td><code>x86_64</code></td>
+</tr>
+<tr>
+<td><code>distribution</code></td>
+<td>Linux Distribution name (only Linux)</td>
+<td><code>Ubuntu</code></td>
+</tr>
+<tr>
+<td><code>docker</code></td>
+<td>True if running inside Docker</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>os_name</code></td>
+<td>Operating system name</td>
+<td><code>Darwin</code></td>
+</tr>
+<tr>
+<td><code>os_version</code></td>
+<td>Operating system version</td>
+<td><code>10.12</code></td>
+</tr>
+<tr>
+<td><code>python_version</code></td>
+<td>Python version</td>
+<td><code>3.5.2</code></td>
+</tr>
+<tr>
+<td><code>timezone</code></td>
+<td>Timezone</td>
+<td><code>America/Los_Angeles</code></td>
+</tr>
+<tr>
+<td><code>user_agent</code></td>
+<td>User agent used to submit analytics</td>
+<td><code>python-requests/2.11.1</code></td>
+</tr>
+<tr>
+<td><code>uuid</code></td>
+<td>Unique identifier</td>
+<td><code>10321ee6094d4a2ebb5ed55c675d5f5e</code></td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>Home Assistant version</td>
+<td><code>0.31.0</code></td>
+</tr>
+<tr>
+<td><code>virtualenv</code></td>
+<td>True if running inside virtualenv</td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p>In addition to the above collected data, the server will also use your IP address to do a geographic IP address lookup to determine the city that you are from. To be extremely, extremely clear about this bit: <strong>The Home Assistant updater does not: store your IP address in a database and also does not submit the location information from your <code>configuration.yaml</code>.</strong></p>
+<p class="img">
+  <img src="/images/blog/2016-10-flash-briefing-updater-hacktoberfest/map.png">
+  Geo-lookup on my IP resolves to Oakland with latitude/longitude pointing at the geographical center of the city.
+</p>
+<p>The server also adds two timestamps to the data: the original date your instance UUID was first seen and the timestamp of the last time we have seen your instance. This gives us the following extra data:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>first_seen_datetime</code></td>
+<td>First time instance ID was submitted</td>
+<td><code>2016-10-22T19:56:03.542Z</code></td>
+</tr>
+<tr>
+<td><code>geo_city</code></td>
+<td>GeoIP determined city</td>
+<td><code>Oakland</code></td>
+</tr>
+<tr>
+<td><code>geo_country_code</code></td>
+<td>GeoIP determined country code</td>
+<td><code>US</code></td>
+</tr>
+<tr>
+<td><code>geo_country_name</code></td>
+<td>GeoIP determined country name</td>
+<td><code>United States</code></td>
+</tr>
+<tr>
+<td><code>geo_latitude</code></td>
+<td>GeoIP determined latitude (of the city)</td>
+<td><code>37.8047</code></td>
+</tr>
+<tr>
+<td><code>geo_longitude</code></td>
+<td>GeoIP determined longitude (of the city)</td>
+<td><code>-122.2124</code></td>
+</tr>
+<tr>
+<td><code>geo_metro_code</code></td>
+<td>GeoIP determined metro code</td>
+<td><code>807</code></td>
+</tr>
+<tr>
+<td><code>geo_region_code</code></td>
+<td>GeoIP determined region code</td>
+<td><code>CA</code></td>
+</tr>
+<tr>
+<td><code>geo_region_name</code></td>
+<td>GeoIP determined region name</td>
+<td><code>California</code></td>
+</tr>
+<tr>
+<td><code>geo_time_zone</code></td>
+<td>GeoIP determined time zone</td>
+<td><code>America/Los_Angeles</code></td>
+</tr>
+<tr>
+<td><code>geo_zip_code</code></td>
+<td>GeoIP determined zip code</td>
+<td><code>94602</code></td>
+</tr>
+<tr>
+<td><code>last_seen_datetime</code></td>
+<td>Most recent time instance ID was submitted</td>
+<td><code>2016-10-22T19:56:03.542Z</code></td>
+</tr>
+</tbody>
+</table>
+<p>This data is held in the highest security. The update system runs in a secured Amazon Web Services account owned by me (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>). I personally have 5 years of experience with complex AWS deployments and have an extensive security background. I have audited the entire system and made sure to take every step to protect the data, including limiting who has access (just <a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and myself). While not directly personally identifiable we absolutely understand some users hesistance to giving this information out. Please understand that we are only collecting this information to better understand our user base to provide better long term support and feature development then is currently possible.</p>
+<p>We currently have no plans to publicly expose any of this information. If we did do such a thing in the future we would of course notify you in advance. It must also be stated that we will never sell or allow the use of this information for non-Home Assistant purposes.</p>
+<p>We thank you for understanding why we are collecting this data and hope that you leave the feature enabled but fully understand if you feel uncomfortable with this.</p>
+<p><em>This section was updated on October 24 to be more clear about geo-lookups being on the city level. <a href="https://github.com/home-assistant/home-assistant.io/blob/c937242d154e509d2d84d10c51f654e20556fa21/source/_posts/2016-10-22-flash-briefing-updater-hacktoberfest.markdown" rel="external nofollow">See original version.<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></em></p>
+<p>Now, back to the fun stuff…</p>
+<h2>Good evening. I’m Ron Burgundy and here’s what happening in your world tonight. <a class="title-link" name="good-evening-im-ron-burgundy-and-heres-what-happening-in-your-world-tonight" href="#good-evening-im-ron-burgundy-and-heres-what-happening-in-your-world-tonight"></a>
+</h2>
+<p>Home Assistant got a crazy idea recently that it couldn’t do enough already and wanted to challenge itself even more. I really don’t understand how it came up with this kooky idea, but it now thinks that its newest hobby should be a minor career in journalism.</p>
+<p>0.31 adds support for the brand spanking new <a href="https://developer.amazon.com/alexa-skills-kit/flash-briefing" rel="external nofollow">Alexa Flash Briefing API<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, allowing you to get updates from Home Assistant anytime you ask Alexa to read your flash briefing. What’s the use case you ask? Well, now when I wake up in the morning and get my flash briefing, Home Assistant adds this to the end of it for me:</p>
+<blockquote>
+<p>Drive time with traffic is 35 minutes. There is an UberPOOL that will cost $11.52, estimated to be 2 minutes away, for a total of 37 minutes. BART is currently estimated to take 29 minutes. You should take BART, as it is estimated to be faster by 8 minutes.</p>
+</blockquote>
+<p>Now I know how to best get to <a href="http://runway.is" rel="external nofollow">my real job<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> (no, Home Assistant is <em>not</em> my real job, it does seem like it sometimes though) every morning. Obviously not the best home automation example, but I think you get the idea. I could see this being used to tell you any major events that happened in your home overnight or reading you your hyperlocal weather report. Thanks to the audio support you could even replace all of the default Alexa Flash Briefing sources with your own news feeds. Home Assistant supports both text and audio content as well as displaying data in the Alexa app. I also want to point out that unlike the existing Skill integration, the Flash Briefing API does <em>not</em> require HTTPS (<em>but you should still be using HTTPS if possible</em>). For more information, check out the new <a href="/integrations/alexa/">docs</a>.</p>
+<p class="img">
+  <img src="/images/blog/2016-10-flash-briefing-updater-hacktoberfest/stay-classy.jpg">
+  You stay classy, San Diego. (It's funny, because balloob lives in San Diego))
+</p>
+<h2>Major breaking Z-Wave changes ahead <a class="title-link" name="major-breaking-z-wave-changes-ahead" href="#major-breaking-z-wave-changes-ahead"></a>
+</h2>
+<p>A rather nasty Z-Wave <a href="https://github.com/home-assistant/home-assistant/pull/3759" rel="external nofollow">issue<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> was discovered recently by <a href="https://github.com/lukas-hetzenecker" rel="external nofollow">@lukas-hetzenecker<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. There was a somewhat large chance that if you had multiple of the same model Z-Wave device they may both try to use the same entity IDs. To fix the issue the internal Z-Wave index is now appended to the end of all Z-Wave entity IDs.</p>
+<p>What this means for all you Z-Wave users is that you will need to update your configurations to reflect the change. I personally have quite a few (17) Z-Wave devices and went through the process this week. Here’s what I had to do:</p>
+<ul>
+<li>Update customizations</li>
+<li>Update groups</li>
+<li>Update my <code>zwave.customize</code> section</li>
+<li>Update my Alexa skills that used old entity IDs</li>
+<li>Because I use <code>emulated_hue</code> with Alexa and <code>emulated_hue</code> uses the entity ID as a unique identifier I also had to remove all Z-Wave devices from Alexa and re-add them.</li>
+</ul>
+<p>Your todo list may be a little different from mine, I just wanted to outline the steps I took to give you an idea of what you need to think about. It’s not a very hard process, especially when using global find and replace in Sublime Text but did take me about 20 minutes to complete.</p>
+<p>This is super annoying, I know, especially since we had said in <a href="/blog/2016/01/30/insteon-lifx-twitter-and-zigbee/#backwards-incompatible-changes">0.12</a> that Z-Wave IDs should hopefully never change again, but we are now forced to eat those words. I will state again that Z-Wave IDs shouldn’t change in the future but obviously we see how that went. To sum up on this section… sorry but it had to happen.</p>
+<h2>All changes <a class="title-link" name="all-changes" href="#all-changes"></a>
+</h2>
+<ul>
+<li>
+<a href="/integrations/updater/">Updater</a> component (<a href="https://github.com/infamy" rel="external nofollow">@infamy<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Continue to setup other platforms when 1 platform config is invalid (<a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Create <a href="/integrations/persistent_notification/">persistent notifications</a> when a platform contains invalid config (<a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Logbook: Allow <a href="/integrations/logbook/">filtering</a> domains and entities to be shown (<a href="https://github.com/wokar" rel="external nofollow">@wokar<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>HTTP: Change <code>approved_ips</code> from string to CIDR validation (<a href="https://github.com/mweinelt" rel="external nofollow">@mweinelt<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Persistent Notifications: Allow using <a href="/integrations/persistent_notification/">markdown</a> (<a href="https://github.com/justweb1" rel="external nofollow">@justweb1<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Netatmo: Add <a href="/integrations/netatmo/">discovery</a> support (<a href="https://github.com/jabesq" rel="external nofollow">@jabesq<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Netatmo Welcome camera: Add <a href="/integrations/netatmo#binary-sensor">binary sensor</a> (<a href="https://github.com/jabesq" rel="external nofollow">@jabesq<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Support added for <a href="/integrations/haveibeenpwned">HaveIBeenPwned</a> (<a href="https://github.com/joyrider3774" rel="external nofollow">@joyrider3774<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device tracker: <code>known_devices.yaml</code> reading and writing tweaks and fixes (<a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix climate platforms showing the wrong temperature unit (<a href="https://github.com/rcloran" rel="external nofollow">@rcloran<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Lots of voluptuous love (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Ensure proper attribution for weather platforms (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix Telegram in Docker (<a href="https://github.com/jeanregisser" rel="external nofollow">@jeanregisser<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Support recursive config inclusions in YAML (<a href="https://github.com/lwis" rel="external nofollow">@lwis<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Camera: <a href="/integrations/synology">Synology</a> SS cameras now supported (<a href="https://github.com/jgriff2" rel="external nofollow">@jgriff2<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>History: Allow filtering domains and entities to be shown (<a href="https://github.com/wokar" rel="external nofollow">@wokar<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Media Player - Squeezebox: Now able to show artist and album (<a href="https://github.com/ih8gates" rel="external nofollow">@ih8gates<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Alexa: Flash Briefing skill support added (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device Tracker: Add support for Bbox Modem Router (<a href="https://github.com/HydrelioxGithub" rel="external nofollow">@HydrelioxGithub<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: Add support for Bbox Modem Router (<a href="https://github.com/HydrelioxGithub" rel="external nofollow">@HydrelioxGithub<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Input select: Services added to pick next and prev option (<a href="https://github.com/persandstrom" rel="external nofollow">@persandstrom<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: <a href="/integrations/arwn">ARWN</a> now supported (<a href="https://github.com/sdague" rel="external nofollow">@sdague<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Pushbullet: Push an URL note if an url is provided inside data (<a href="https://github.com/jabesq" rel="external nofollow">@jabesq<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Z-Wave: Allow certain devices to be not added to Home Assistant (<a href="https://github.com/lukas-hetzenecker" rel="external nofollow">@lukas-hetzenecker<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>New support for <a href="/integrations/zoneminder/">Zoneminder</a> added (<a href="https://github.com/Khabi" rel="external nofollow">@Khabi<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Weather: Allow tracking severe weather alerts with <a href="/integrations/wunderground">WUnderground</a> (<a href="https://github.com/tchellomello" rel="external nofollow">@tchellomello<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: New support added to track <a href="/integrations/min_max">min/max/mean</a> (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Convert EntityComponent to be async (<a href="https://github.com/pvizeli" rel="external nofollow">@pvizeli<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Z-Wave: Add association service (<a href="https://github.com/turbokongen" rel="external nofollow">@turbokongen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Frontend - Services dev tool: persist state and tweak UI (<a href="https://github.com/justweb1" rel="external nofollow">@justweb1<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: Support added for <a href="/integrations/scrape">scraping</a> websites (<a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Clean up of tests (<a href="https://github.com/capellini" rel="external nofollow">@capellini<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>New <code>fail</code> filter added to templates to raise on UndefinedError (<a href="https://github.com/jaharkes" rel="external nofollow">@jaharkes<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Support added for <a href="/integrations/emoncms_history/">Emoncms history</a> (<a href="https://github.com/joyrider3774" rel="external nofollow">@joyrider3774<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Support for <a href="/integrations/apns">Apple Push Notifications Service</a> (<a href="https://github.com/sam-io" rel="external nofollow">@sam-io<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Thermostat: Netatmo now supported (<a href="https://github.com/gieljnssns" rel="external nofollow">@gieljnssns<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Alarm control panel: <a href="/integrations/concord232#alarm-control-panel">Concord232</a> now supported (<a href="https://github.com/JasonCarter80" rel="external nofollow">@JasonCarter80<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Notify: <a href="/integrations/matrix/#notifications">Matrix</a> support added (<a href="https://github.com/mweinelt" rel="external nofollow">@mweinelt<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device tracker - nmap: Allow specifying multiple inputs for <a href="/integrations/nmap_tracker">nmap</a> (<a href="https://github.com/hcooper" rel="external nofollow">@hcooper<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Device Tracker - snmp: SNMPv3 now supported (<a href="https://github.com/T3m3z" rel="external nofollow">@T3m3z<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Notify: Telstra SMS now supported (<a href="https://github.com/nvella" rel="external nofollow">@nvella<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Camera: <a href="/integrations/verisure">Verisure</a> now supported (<a href="https://github.com/turbokongen" rel="external nofollow">@turbokongen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Support added for <a href="/integrations/neato#switch">Neato</a> Connected Robot (<a href="https://github.com/jabesq" rel="external nofollow">@jabesq<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Media player: More options for <a href="/integrations/yamaha">Yamaha</a> AVR (<a href="https://github.com/ehagan" rel="external nofollow">@ehagan<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Sensor: Support for <a href="/integrations/pilight#sensor">Pilight</a> sensor (<a href="https://github.com/DavidLP" rel="external nofollow">@DavidLP<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>iOS support (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Minor features and bug fixes by <a href="https://github.com/mtl010957" rel="external nofollow">@mtl010957<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/molobrakos" rel="external nofollow">@molobrakos<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/flyte" rel="external nofollow">@flyte<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/fabaff" rel="external nofollow">@fabaff<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/phardy" rel="external nofollow">@phardy<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/sander76" rel="external nofollow">@sander76<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/T3m3z" rel="external nofollow">@T3m3z<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/c-w" rel="external nofollow">@c-w<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/balloob" rel="external nofollow">@balloob<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/StaticCube" rel="external nofollow">@StaticCube<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/vittoriom" rel="external nofollow">@vittoriom<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/hartmms" rel="external nofollow">@hartmms<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/kirichkov" rel="external nofollow">@kirichkov<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/mezz64" rel="external nofollow">@mezz64<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/ishults" rel="external nofollow">@ishults<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/Danielhiversen" rel="external nofollow">@Danielhiversen<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and <a href="https://github.com/tchellomello" rel="external nofollow">@tchellomello<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>.</li>
+</ul>
+<h3>Release 0.31.1 - October 24 <a class="title-link" name="release-0311---october-24" href="#release-0311---october-24"></a>
+</h3>
+<ul>
+<li>Identify special character encoding error in YAML files (<a href="https://github.com/kellerza" rel="external nofollow">@kellerza<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>, <a href="https://github.com/lwis" rel="external nofollow">@lwis<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>iOS app component bug fixes (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>Fix a spelling problem on user-facing error (<a href="https://github.com/robbiet480" rel="external nofollow">@robbiet480<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+<li>YAML includes will ignore dirs/files prefixed with . (<a href="https://github.com/lwis" rel="external nofollow">@lwis<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>)</li>
+</ul>
+<h2>Backward-incompatible changes <a class="title-link" name="backward-incompatible-changes" href="#backward-incompatible-changes"></a>
+</h2>
+<ul>
+<li>The <a href="/integrations/http/">HTTP</a> component now takes a different format for authenticating IPs</li>
+<li>Configuration format has changed for <a href="/integrations/proximity/">Proximity</a>
+</li>
+<li>The <a href="/integrations/arduino/">Arduino</a> platform are now covered by the configuration check. Please check the documentation to see how.</li>
+<li>The Z-Wave entity ID change mentioned above</li>
+</ul>
+<h2>If you need help… <a class="title-link" name="if-you-need-help" href="#if-you-need-help"></a>
+</h2>
+<p>…don’t hesitate to use our <a href="https://community.home-assistant.io/">Forum</a> or join us for a little <a href="https://discord.gg/c5DvZ4e" rel="external nofollow">chat<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a>. The release notes have comments enabled but it’s preferred if you the former communication channels. Thanks.</p>
+<h2>Until next time <a class="title-link" name="until-next-time" href="#until-next-time"></a>
+</h2>
+<p>Thanks for reading all of the above, especially since this week was a pretty long post. We should be back with a new post around November 5th announcing the arrival of 0.32.</p>
+<p>– Robbie</p>
+
+
+
+</article>
+
+<div id="post-comments"></div>
+
+
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  DiscourseEmbed = { discourseUrl: 'https://community.home-assistant.io/',
+                     discourseEmbedUrl: 'https://www.home-assistant.io/blog/2016/10/22/flash-briefing-updater-hacktoberfest/' };
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  
+    
+      <section class="sharing aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:ios-share' title='Ios share'></iconify-icon> Share this post</h1>
+  <ul class="divided">
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2016%2F10%2F22%2Fflash-briefing-updater-hacktoberfest%2F&text=0.31%3A+Reading+you+the+news%2C+some+serious+business%2C+spooky+hackery+and+a+breaking+Z-Wave+change+via+%40home_assistant"
+      >Tweet</a>
+    </li>
+  
+  
+    <li>
+      <a
+        target="_blank"
+        href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.home-assistant.io%2Fblog%2F2016%2F10%2F22%2Fflash-briefing-updater-hacktoberfest%2F"
+      >Share on Facebook</a>
+    </li>
+  
+  </ul>
+</section>
+
+      
+
+<section class="recent-posts aside-module grid__item one-whole lap-one-half">
+  <h1 class="title epsilon"><iconify-icon inline icon='mdi:newspaper-variant-multiple' title='Newspaper variant multiple'></iconify-icon> Recent Posts</h1>
+  <ul class="divided">
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/17/home-assistant-turns-12/">Happy 12th Birthday, Home Assistant!</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/11/ai-in-home-assistant/">Building the AI-powered local smart home</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/03/release-20259/">2025.9: Features for tiles and automations for miles</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/09/02/frient-joins-works-with-home-assistant/">Frient joins Works with Home Assistant</a>
+        </li>
+      
+    
+      
+        <li class="post">
+          <a href="/blog/2025/08/21/airgradient-joins-works-with-home-assistant/">AirGradient joins Works with Home Assistant</a>
+        </li>
+      
+    
+  </ul>
+</section>
+
+    
+  
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#stats-update">Stats Update</a></li>
+<li class="toc-entry toc-h2"><a href="#hacktoberfest">Hacktoberfest</a></li>
+<li class="toc-entry toc-h2"><a href="#%EF%B8%8F-a-greatly-improved-updater-component-please-read-this-%EF%B8%8F">⚠️ A greatly improved updater component (Please read this!) ⚠️</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#what-you-need-to-know-the-important-bit">What you need to know (the important bit!)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#good-evening-im-ron-burgundy-and-heres-what-happening-in-your-world-tonight">Good evening. I’m Ron Burgundy and here’s what happening in your world tonight.</a></li>
+<li class="toc-entry toc-h2"><a href="#major-breaking-z-wave-changes-ahead">Major breaking Z-Wave changes ahead</a></li>
+<li class="toc-entry toc-h2"><a href="#all-changes">All changes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#release-0311---october-24">Release 0.31.1 - October 24</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#backward-incompatible-changes">Backward-incompatible changes</a></li>
+<li class="toc-entry toc-h2"><a href="#if-you-need-help">If you need help…</a></li>
+<li class="toc-entry toc-h2"><a href="#until-next-time">Until next time</a></li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>

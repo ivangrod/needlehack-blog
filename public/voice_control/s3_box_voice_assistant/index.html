@@ -1,0 +1,1020 @@
+
+
+
+
+<!doctype html>
+  <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ESP32-S3-BOX voice assistant - Home Assistant</title>
+    <meta name="author" content="Home Assistant">
+    <meta name="description" content="Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts. Perfect to run on a...">
+    
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://www.home-assistant.io/voice_control/s3_box_voice_assistant/">
+
+    <meta property="fb:app_id" content="338291289691179">
+    <meta property="og:title" content="ESP32-S3-BOX voice assistant">
+    <meta property="og:site_name" content="Home Assistant">
+    <meta property="og:url" content="https://www.home-assistant.io/voice_control/s3_box_voice_assistant/">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts. Perfect to run on a Raspberry Pi or a local server.">
+    <meta property="og:image" content="https://ivangrod.github.io/images/default-social.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@home_assistant">
+    
+    <meta name="twitter:title" content="ESP32-S3-BOX voice assistant">
+    <meta name="twitter:description" content="Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts. Perfect to run on a Raspberry Pi or a local server.">
+    <meta name="twitter:image" content="https://ivangrod.github.io/images/default-social.png">
+    <link rel="me" href="https://fosstodon.org/@homeassistant">
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.min.css" rel="stylesheet" />
+    <link href="/stylesheets/prism.css?8acb84bc0387c9548a63998fcfea0139" rel="stylesheet">
+    <link href="/stylesheets/screen.css?3d79f9acc1b3464b313d68cd5a171ca1" media="screen, projection, print" rel="stylesheet">
+    <link href="/atom.xml" rel="alternate" title="Home Assistant" type="application/atom+xml">
+    <link rel='shortcut icon' href='/images/favicon.ico' />
+    <link rel='icon' type='image/png' href='/images/favicon-192x192.png' sizes='192x192' />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Sans:ital,wdth,wght@0,99,400..700;1,99,400..700&amp;" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  </head>
+
+  <body  class="documentation-page   ">
+    <header class='site-header '>
+      
+
+
+
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item three-tenths lap-two-sixths palm-one-whole ha-title">
+      <a href="/needlehack-blog/" class="site-title">
+        <div class="logo"></div>
+      </a>
+      <a class="release-date" href="/blog/2025/09/03/release-20259/" title="Latest version 2025.9.4 released September 19, 2025">
+        2025.9.4
+      </a>
+    </div>
+
+    <div class="grid__item seven-tenths lap-four-sixths palm-one-whole">
+      <nav>
+        <input type="checkbox" id="toggle" />
+        <label
+          for="toggle"
+          class="toggle"
+          data-open="Main Menu"
+          data-close="⨉"
+        ></label>
+        <ul class="menu pull-right">
+          <li><a  href="/needlehack-blog/installation/">Getting started</a></li>
+          <li>
+            <a class="active" href="/needlehack-blog/docs/">Documentation <iconify-icon inline icon='mdi:chevron-down' title='Chevron down'></iconify-icon></a>
+            <ul>
+              <li><a href="/needlehack-blog/installation/"><iconify-icon inline icon='simple-icons:homeassistant' title='Homeassistant'></iconify-icon> Installation</a></li>
+              <li><a href="/needlehack-blog/docs/automation/"><iconify-icon inline icon='mdi:robot-happy' title='Robot happy'></iconify-icon> Automations</a></li>
+              <li><a href="/needlehack-blog/dashboards/"><iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> Dashboards</a></li>
+              <li><a href="/needlehack-blog/voice_control/"><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> Voice assistants</a></li>
+              <li><a href="/needlehack-blog/docs/organizing/"><iconify-icon inline icon='mdi:view-grid' title='View grid'></iconify-icon> Device organization</a></li>
+              <li><a href="/needlehack-blog/docs/energy/"><iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> Energy management</a></li>
+              <li><a href="/needlehack-blog/docs/configuration/"><iconify-icon inline icon='mdi:cog' title='Cog'></iconify-icon> Advanced configuration</a></li>
+            </ul>
+          </li>
+          <li><a  href="/needlehack-blog/integrations/">Integrations</a></li>
+          <li><a  href="/needlehack-blog/blog/">Blog</a></li>
+          <li><a  href="/needlehack-blog/help/">Need help?</a></li>
+          <li>
+            <div class="docsearch" id="docsearch"></div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    </header>
+
+    <div class="page-content">
+
+      
+
+      <div class="grid-wrapper">
+        <div class="grid grid-center">
+
+          <aside id="toc-bar" class="grid__item desk-wide-one-sixth">
+                <section class="aside-module grid__item one-whole">
+                  <div class='section'>
+                    <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+                    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#installing-the-software-onto-the-esp32-s3-box">Installing the software onto the ESP32-S3-BOX</a></li>
+<li class="toc-entry toc-h2"><a href="#checking-wake-word-settings">Checking wake word settings</a></li>
+<li class="toc-entry toc-h2"><a href="#controlling-home-assistant">Controlling Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#turning-off-microphone-or-screen">Turning off microphone or screen</a></li>
+<li class="toc-entry toc-h2"><a href="#updating-the-software-on-the-s3-box">Updating the software on the S3-BOX</a></li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+<li class="toc-entry toc-h2"><a href="#related-links">Related links</a></li>
+</ul>
+                  </div>
+                </section>
+              </aside> 
+
+          
+          <div class="grid__item two-thirds desk-wide-seven-twelfths lap-one-whole palm-one-whole">
+          
+
+            
+              <article class="page">
+  
+  <header>
+    
+    
+      <div class="breadcrumbs">
+        <a href="/needlehack-blog/">Home</a>
+        
+          
+            
+            ▸ <a href="/voice_control/">Voice control</a>
+          
+        
+          
+            ▸ 
+          
+        
+      </div>
+    
+    <h1 class="title indent">
+      
+        ESP32-S3-BOX voice assistant
+      
+    </h1>
+  </header>
+  
+  
+  <p>This tutorial will guide you to turn an ESP32-S3-BOX, ESP32-S3-BOX-3(B), or an ESP32-S3-BOX-Lite into a Home Assistant voice assistant. Note, the term ESP32-S3-BOX may be used to refer to any of the 3 product variants.</p>
+<p><lite-youtube videoid="erf7HqTwCGs" videotitle="Okay Nabu! Open-source voice assistant running on an Espressif ESP32-S3-Box
+"></lite-youtube></p>
+<h2>Prerequisites <a class="title-link" name="prerequisites" href="#prerequisites"></a>
+</h2>
+<ul>
+<li>Home Assistant 2023.12 or later, installed with the Home Assistant Operating System. If you do not have Home Assistant installed yet, refer to the <a href="/installation/">installation page</a> for instructions.</li>
+<li>
+<a href="/voice_control/voice_remote_cloud_assistant/">Home Assistant Cloud</a> or a manually configured <a href="/voice_control/voice_remote_local_assistant">Assist Pipeline</a>
+</li>
+<li>The password to your 2.4 GHz Wi-Fi network</li>
+<li>Chrome or Edge browser on a desktop (not Android/iOS)</li>
+<li>One of the Espressif ESP32-S3-BOX variants:
+<ul>
+<li>ESP32-S3-BOX-3B</li>
+<li>ESP32-S3-BOX-3, ESP32-S3-BOX, or ESP32-S3-BOX-Lite (not currently on the market)</li>
+</ul>
+</li>
+<li>USB-C cable to connect the ESP32-S3-BOX</li>
+<li>This procedure assumes that this is the first time you are installing ESPHome firmware on the device. If you have previously completed this tutorial and now want to install the latest software version, follow the steps on <a href="#updating-the-software-on-the-s3-box">updating the software on the S3-BOX</a>.</li>
+</ul>
+<h2>Installing the software onto the ESP32-S3-BOX <a class="title-link" name="installing-the-software-onto-the-esp32-s3-box" href="#installing-the-software-onto-the-esp32-s3-box"></a>
+</h2>
+<p>Before you can use this device with Home Assistant, you need to install a bit of software on it.</p>
+<script>
+function openTab(tab){
+  const tabKey = tab.querySelector("div").id;
+  const targetTabContent = tab.parentElement.parentElement.querySelector(`#${tabKey}.tabbed-content-block-content`);
+  const tabContents = tab.parentElement.parentElement.querySelectorAll(".tabbed-content-block-content")
+
+  tabContents.forEach((content) => {
+    content.style.display = "none"
+  });
+  targetTabContent.style.display = "block";
+}
+window.addEventListener('DOMContentLoaded', (event) => {
+  const tabbedBlocks = document.querySelectorAll(".tabbed-content-block");
+  tabbedBlocks.forEach((block) => {
+      block.querySelector("input").checked = true;
+      block.querySelector(".tabbed-content-block-content").style.display = "block";
+  });
+
+});
+</script>
+<div class="tabbed-content-block">
+  <div class="tabbed-content-block-tabs">
+<label onclick="openTab(this)"><input type="radio" name="idec68c8582d016d01eb94"><div id="idec68c8582d016d01eb94-using-the-esp32-s3-box-3b">Using the ESP32-S3-BOX-3(B)</div></label><label onclick="openTab(this)"><input type="radio" name="idec68c8582d016d01eb94"><div id="idec68c8582d016d01eb94-using-the-esp32-s3-box">Using the ESP32-S3-BOX</div></label><label onclick="openTab(this)"><input type="radio" name="idec68c8582d016d01eb94"><div id="idec68c8582d016d01eb94-using-the-esp32-s3-box-lite">Using the ESP32-S3-BOX-Lite</div></label>
+</div>
+<div id="idec68c8582d016d01eb94-using-the-esp32-s3-box-3b" class="tabbed-content-block-content">
+<ol>
+<li>
+<p>These steps apply both to the ESP32-S3-BOX-3 and the ESP32-S3-BOX-3B. Make sure this page is opened in a Chromium-based browser on a <strong>desktop</strong>. The software installation does not work with a tablet or phone.</p>
+<ul>
+<li>
+<p>Select the <strong>Connect</strong> button below to display a list of available USB devices. Do not connect the ESP32-S3-BOX-3 yet. We want to see the list of available USB devices first, so that it is easier to recognize the ESP device afterward.</p>
+</li>
+<li>
+<p>If your browser does not support web serial, you will see a warning message indicating this instead of a button.</p>
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+<p><esp-web-install-button manifest="https://firmware.esphome.io/wake-word-voice-assistant/esp32-s3-box-3/manifest.json"></esp-web-install-button></p>
+</li>
+<li>
+<p><strong>For advanced users</strong>: The configuration files are available on GitHub:</p>
+<ul>
+<li><a href="https://github.com/esphome/wake-word-voice-assistants/blob/main/esp32-s3-box-3/esp32-s3-box-3.yaml" rel="external nofollow">ESP32-S3-BOX-3 config on GitHub<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>To connect the ESP32-S3-BOX-3 to your computer, follow these steps:</p>
+<ul>
+<li>In the pop-up window, view the available ports.</li>
+<li>Plug the USB-C cable into the box directly, not into the docking station (not into the blue part) and connect it to your computer.</li>
+<li>
+<strong>Troubleshooting</strong>: If your ESP32-S3-BOX-3 does not appear in the list of devices presented by your browser, you need to manually invoke “flash mode”:
+<ul>
+<li>Hold the “boot” button (left side upper button) as you tap the “reset” button (left side lower button).</li>
+<li>After a few seconds, the ESP32-S3-BOX-3 should appear in the list of USB devices presented by your browser.</li>
+<li>Follow the steps until step 3. After selecting the <strong>Next</strong> button, on the S3-Box-3, tap the “Reset” button again.</li>
+<li>Then, select the blue <strong>Connect button</strong> again, select the USB device and follow the prompts to configure the Wi-Fi.</li>
+<li>In the pop-up window, there should now appear a new entry. Select this USB serial port and select <strong>Connect</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Select <strong>Install Voice Assistant</strong>, then <strong>Install</strong>.</p>
+<ul>
+<li>Once the installation is complete, select <strong>Next</strong>.</li>
+<li>Add the ESP32-S3-BOX-3 to your Wi-Fi:
+<ul>
+<li>When prompted, select your network from the list and enter the credentials to your 2.4 GHz Wi-Fi network.</li>
+<li>Select <strong>Connect</strong>.</li>
+<li>The ESP32-S3-BOX-3 now joined your network. Select <strong>Add to Home Assistant</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>This opens the <strong>My</strong> link to Home Assistant.</p>
+<ul>
+<li>If you have not used My Home Assistant before, you will need to configure it. If your Home Assistant URL is not accessible on <code>http://homeassistant.local:8123</code>, replace it with the URL to your Home Assistant instance.</li>
+<li>Open the link.
+<img src="/images/assist/esp32-atom-flash-06.png" alt="Open My link">
+</li>
+</ul>
+</li>
+<li>
+<p>Select <strong>OK</strong>.</p>
+<p><img src="/images/assist/esp32-atom-flash-07.png" alt="Set up ESPHome"></p>
+</li>
+<li>
+<p>To add the newly discovered device, select the ESP32-S3-BOX-3 from the list.</p>
+<ul>
+<li>Add your ESP32-S3-BOX-3 to a room and select <strong>Finish</strong>.</li>
+</ul>
+</li>
+<li>
+<p>You should now see the <strong>ESPHome</strong> integration.
+<img src="/images/assist/m5stack-atom-echo-discovered-33.png" alt="New ESPHome device discovered"></p>
+</li>
+<li>
+<p>Select the <strong>ESPHome</strong> integration. Under <strong>Devices</strong>, you should see the <strong>ESP32-S3-BOX</strong> listed.
+<img src="/images/assist/s32-s3-box-3-discovered.png" alt="ESP32-S3-BOX-3 discovered"></p>
+<ul>
+<li>Your ESP32-S3-BOX is connected to Home Assistant over Wi-Fi. You can now move it to any place in your home with a USB power supply.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="idec68c8582d016d01eb94-using-the-esp32-s3-box" class="tabbed-content-block-content">
+<ol>
+<li>
+<p>Make sure this page is opened in a Chromium-based browser on a <strong>desktop</strong>. The software installation does not work with a tablet or phone.</p>
+<ul>
+<li>
+<p>If your browser does not support web serial, you will see a warning message indicating this instead of a button.</p>
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+<p><esp-web-install-button manifest="https://firmware.esphome.io/wake-word-voice-assistant/esp32-s3-box/manifest.json"></esp-web-install-button></p>
+</li>
+<li>
+<p><strong>For advanced users</strong>: The configuration files are available on GitHub:</p>
+<ul>
+<li><a href="https://github.com/esphome/wake-word-voice-assistants/blob/main/esp32-s3-box/esp32-s3-box.yaml" rel="external nofollow">ESP32-S3-BOX config on GitHub<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>To connect the ESP32-S3-BOX to your computer, follow these steps:</p>
+<ul>
+<li>In the pop-up window, view the available ports.</li>
+<li>Plug the USB-C cable into the ESP32-S3-BOX and connect it to your computer.</li>
+</ul>
+</li>
+<li>
+<p>Select <strong>Install Voice Assistant</strong>, then <strong>Install</strong>.</p>
+<ul>
+<li>Once the installation is complete, select <strong>Next</strong>.</li>
+<li>Add the ESP32-S3-BOX to your Wi-Fi:
+<ul>
+<li>When prompted, select your network from the list and enter the credentials to your 2.4 GHz Wi-Fi network.</li>
+<li>Select <strong>Connect</strong>.</li>
+<li>The ESP32-S3-BOX now joined your network. Select <strong>Add to Home Assistant</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>This opens the <strong>My</strong> link to Home Assistant.</p>
+<ul>
+<li>If you have not used My Home Assistant before, you will need to configure it. If your Home Assistant URL is not accessible on <code>http://homeassistant.local:8123</code>, replace it with the URL to your Home Assistant instance.</li>
+<li>Open the link.
+<img src="/images/assist/esp32-atom-flash-06.png" alt="Open My link">
+</li>
+</ul>
+</li>
+<li>
+<p>Select <strong>OK</strong>.
+<img src="/images/assist/esp32-atom-flash-07.png" alt="Set up ESPHome"></p>
+</li>
+<li>
+<p>To add the newly discovered device, select the ESP32-S3-BOX from the list.</p>
+<ul>
+<li>Add your ESP32-S3-BOX to a room and select <strong>Finish</strong>.</li>
+</ul>
+</li>
+<li>
+<p>You should now see the <strong>ESPHome</strong> integration.
+<img src="/images/assist/m5stack-atom-echo-discovered-33.png" alt="New ESPHome device discovered"></p>
+</li>
+<li>
+<p>Select the <strong>ESPHome</strong> integration. Under <strong>Devices</strong>, you should see the <strong>ESP32-S3-BOX</strong> listed.
+<img src="/images/assist/s32-s3-box-3-discovered.png" alt="ESP32-S3-BOX-3 discovered"></p>
+<ul>
+<li>Your ESP32-S3-BOX is connected to Home Assistant over Wi-Fi. You can now move it to any place in your home with a USB power supply.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="idec68c8582d016d01eb94-using-the-esp32-s3-box-lite" class="tabbed-content-block-content">
+<ol>
+<li>
+<p>Make sure this page is opened in a Chromium-based browser on a <strong>desktop</strong>. The software installation does not work with a tablet or phone.</p>
+<ul>
+<li>
+<p>If your browser does not support web serial, you will see a warning message indicating this instead of a button.</p>
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+<p><esp-web-install-button manifest="https://firmware.esphome.io/wake-word-voice-assistant/esp32-s3-box-lite/manifest.json"></esp-web-install-button></p>
+</li>
+<li>
+<p><strong>For advanced users</strong>: The configuration files are available on GitHub:</p>
+<ul>
+<li><a href="https://github.com/esphome/wake-word-voice-assistants/blob/main/esp32-s3-box-lite/esp32-s3-box-lite.yaml" rel="external nofollow">ESP32-S3-BOX-Lite config on GitHub<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>To connect the ESP32-S3-BOX-Lite to your computer, follow these steps:</p>
+<ul>
+<li>In the pop-up window, view the available ports.</li>
+<li>Plug the USB-C cable into the ESP32-S3-BOX-Lite and connect it to your computer.</li>
+</ul>
+</li>
+<li>
+<p>Select <strong>Install Voice Assistant</strong>, then <strong>Install</strong>.</p>
+<ul>
+<li>Once the installation is complete, select <strong>Next</strong>.</li>
+<li>Add the ESP32-S3-BOX-Lite to your Wi-Fi:
+<ul>
+<li>When prompted, select your network from the list and enter the credentials to your 2.4 GHz Wi-Fi network.</li>
+<li>Select <strong>Connect</strong>.</li>
+<li>The ESP32-S3-BOX-Lite now joined your network. Select <strong>Add to Home Assistant</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>This opens the <strong>My</strong> link to Home Assistant.</p>
+<ul>
+<li>If you have not used My Home Assistant before, you will need to configure it. If your Home Assistant URL is not accessible on <code>http://homeassistant.local:8123</code>, replace it with the URL to your Home Assistant instance.</li>
+<li>Open the link.
+<img src="/images/assist/esp32-atom-flash-06.png" alt="Open My link">
+</li>
+</ul>
+</li>
+<li>
+<p>Select <strong>OK</strong>.
+<img src="/images/assist/esp32-atom-flash-07.png" alt="Set up ESPHome"></p>
+</li>
+<li>
+<p>To add the newly discovered device, select the ESP32-S3-BOX-Lite from the list.</p>
+<ul>
+<li>Add your ESP32-S3-BOX-Lite to a room and select <strong>Finish</strong>.</li>
+</ul>
+</li>
+<li>
+<p>You should now see the <strong>ESPHome</strong> integration.
+<img src="/images/assist/m5stack-atom-echo-discovered-33.png" alt="New ESPHome device discovered"></p>
+</li>
+<li>
+<p>Select the <strong>ESPHome</strong> integration. Under <strong>Devices</strong>, you should see the <strong>ESP32-S3-BOX-Lite</strong> listed.
+<img src="/images/assist/s32-s3-box-3-discovered.png" alt="ESP32-S3-BOX-3 discovered"></p>
+<ul>
+<li>Your ESP32-S3-BOX-Lite is connected to Home Assistant over Wi-Fi. You can now move it to any place in your home with a USB power supply.</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+<h2>Checking wake word settings <a class="title-link" name="checking-wake-word-settings" href="#checking-wake-word-settings"></a>
+</h2>
+<ol>
+<li>
+<p>Make sure your assistant has <a href="/voice_control/install_wake_word_add_on/">wake word enabled</a>, using “OK Nabu”.</p>
+</li>
+<li>
+<p>Under <strong>Devices</strong>, on the ESP32-S3-BOX* entry, select <strong>Device</strong> to open the device page.</p>
+</li>
+<li>
+<p>Check the device settings:</p>
+<ul>
+<li>
+<p>If you want, you can process the wake word on the ESP32-S3 device, rather than on your Home Assistant server.   (The server is the device where Home Assistant is installed, for example on Home Assistant Green):</p>
+</li>
+<li>
+<p>Under <strong>Wake word engine location</strong>, select <strong>On device</strong>, if you want your wake word to be processed on the device itself, and not in Home Assistant.</p>
+<ul>
+<li>Local processing is faster.</li>
+<li>The wake word is now <em>Okay Nabu</em>.</li>
+</ul>
+<p><img src="/images/assist/wake_word_engine_location.png" alt="ESP32-S3-BOX-3 on device wake word processing"></p>
+</li>
+</ul>
+</li>
+<li>
+<p>If you chose on-device wake word, but you do not want to use <em>Okay Nabu</em>, you can change the on-device wake word.</p>
+<ul>
+<li>Currently, <em>Hey Jarvis</em> or <em>Alexa</em> are the supported alternatives.</li>
+<li>To change your wake word, follow the steps in <a href="/voice_control/s3-box-customize/#customizing-on-device-wake-words-microwakeword">Customizing the S3-BOX-3 with on-device wake words</a>.</li>
+</ul>
+</li>
+<li>
+<p>Congratulations! You can now voice control Home Assistant via a ESP32 device with a display. Now give some commands.</p>
+</li>
+</ol>
+<h2>Controlling Home Assistant <a class="title-link" name="controlling-home-assistant" href="#controlling-home-assistant"></a>
+</h2>
+<ol>
+<li>Say your wake word. For this tutorial, use “OK Nabu”.</li>
+<li>Say a <a href="/voice_control/builtin_sentences/">supported voice command</a>. For example, <em>Turn on the light</em>.
+<ul>
+<li>Once the intent has been processed, the LED lights up in green and Home Assistant confirms the action.
+<ul>
+<li>Make sure you’re using the area name exactly as you defined it in Home Assistant.</li>
+<li>You can also ask a question, such as
+<ul>
+<li><em>Is the front door locked?</em></li>
+<li><em>Which lights are on in the living room?</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Your command is not supported? Add your own commands using <a href="/voice_control/custom_sentences/">a sentence trigger</a>.</li>
+</ol>
+<h2>Turning off microphone or screen <a class="title-link" name="turning-off-microphone-or-screen" href="#turning-off-microphone-or-screen"></a>
+</h2>
+<ol>
+<li>If you do not want to Assist to listen to you for a while, you can turn off the microphone.
+<ul>
+<li>
+<p>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; Services</strong></a> and select the <strong>ESPHome</strong> integration.</p>
+<ul>
+<li>Under <strong>ESP32-S3-BOX-3</strong>, select <strong>1 device</strong>.</li>
+<li>Enable <strong>Mute</strong>.</li>
+<li>The screen of the ESP32-S3-BOX-3 will turn off, too.</li>
+</ul>
+<p><img src="/images/assist/wake_word_disable.png" alt="Toggle to enable/disable Mute"></p>
+</li>
+</ul>
+</li>
+<li>If you want to just use the wake word, but do not want to use the screen, you can turn it off.
+<ul>
+<li>
+<p>Go to <a href="https://my.home-assistant.io/redirect/integrations" class="my" target="_blank"><strong>Settings</strong> &gt; <strong>Devices &amp; Services</strong></a> and select the <strong>ESPHome</strong> integration.</p>
+<ul>
+<li>Under <strong>ESP32-S3-BOX-3</strong>, select <strong>1 device</strong>.</li>
+<li>Disable <strong>Screen</strong>.</li>
+</ul>
+<p><img src="/images/assist/s3-box-disable-screen.png" alt="Toggle to enable/disable wake word"></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2>Updating the software on the S3-BOX <a class="title-link" name="updating-the-software-on-the-s3-box" href="#updating-the-software-on-the-s3-box"></a>
+</h2>
+<p>To update the software on your S3-BOX, follow the steps below that reflect your setup.</p>
+<ul>
+<li>
+<strong>Option 1</strong>: You have Home Assistant 2024.7 or later, and have not manually altered your ESPHome configuration for the S3-BOX:
+<ul>
+<li>Once an update is available, you will receive an update notification, just like any other update.</li>
+<li>To install the precompiled new firmware directly on your box, make sure the S3-BOX is connected to your network, and under <strong>ESP32 S3 BOX…Firmware</strong>, select <strong>Install</strong>.</li>
+</ul>
+</li>
+<li>
+<strong>Option 2</strong>: You have Home Assistant 2024.6 or older, and have not manually altered your ESPHome configuration for the S3-BOX:
+<ul>
+<li>Follow steps 1-3 of the procedure on <a href="#installing-the-software-onto-the-esp32-s3-box">installing the software onto the S3-BOX</a>.
+<ul>
+<li>This installs the latest, precompiled firmware for your S3-BOX.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Option 3</strong>: You have manually changed the configuration file for your S3-BOX:
+<ul>
+<li>You need to compile your own firmware. To do so, either:
+<ul>
+<li>Use the ESPHome dashboard add-on within Home Assistant. While the easiest option, it tends to be the slowest and may fail, particularly on older systems or on systems with limited memory/CPU resources.</li>
+<li>Follow the steps in the <a href="https://esphome.io/guides/getting_started_command_line">ESPHome documentation<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a> and use a desktop-class system to compile and install the firmware. Initial setup is more complex, but the process is significantly faster and more reliable.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+  
+
+<div class="text related-topics">
+  <h2>Related topics<a class="title-link" href="#related-topics" name="related-topics"></a>
+</h2>
+  <ul>
+    
+    
+    
+    
+    
+    <li>
+      <a href="/needlehack-blog/voice_control/troubleshooting/" class="topic">
+        General troubleshooting section for assist
+      </a>
+    </li>
+    
+    
+    
+    
+    
+    
+    <li>
+      <a href="/needlehack-blog/voice_control/troubleshooting_the_s3_box/" class="topic">
+        Troubleshooting the esp32 s3 box 3
+      </a>
+    </li>
+    
+    
+    
+    
+    
+    
+    <li>
+      <a href="/needlehack-blog/common-tasks/os/#configuring-access-to-files" class="topic">
+        Access to your configuration files
+      </a>
+    </li>
+    
+    
+    
+    
+    
+    
+    <li>
+      <a href="/needlehack-blog/voice_control/about_wake_word/" class="topic">
+        Enable wake word
+      </a>
+    </li>
+    
+    
+    
+    
+    
+    
+    <li>
+      <a href="/needlehack-blog/voice_control/s3-box-customize/#customizing-on-device-wake-words-microwakeword" class="topic">
+        Customizing the s3 box with on device wake words
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+<div class="text related-links">
+  <h2>Related links<a class="title-link" href="#related-links" name="related-links"></a>
+</h2>
+  <ul>
+    
+    <li><a href="https://esphome.io/projects/index.html" class="link" target="_blank">ESPHome projects page<iconify-icon inline="true" icon="tabler:external-link" class="external-link"></iconify-icon></a></li>
+    
+  </ul>
+</div>
+
+  
+<div class="material-card text feedback">
+  <h4>
+<iconify-icon inline icon="mdi:feedback" title="Feedback"></iconify-icon> <b> Help us improve our documentation</b><a href="#feedback_section" class="title-link" name="feedback_section"></a>
+</h4>
+  Suggest an edit to this page, or provide/view feedback for this page.
+  <div class="links">
+    <ul aria-label="Page feedback options">
+    <li><a href="https://github.com/home-assistant/home-assistant.io/tree/current/source/voice_control/s3_box_voice_assistant.markdown" target="_blank" title="Edit this page"><iconify-icon inline icon="mdi:edit"></iconify-icon> Edit</a></li>
+    
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues/new?template=feedback.yml&amp;url=https%3A%2F%2Fivangrod.github.io%2Fvoice_control%2Fs3_box_voice_assistant%2F&amp;version=2025.9.4&amp;labels=current" target="_blank" title="Provide feedback on this page"><iconify-icon inline icon="mdi:comment-edit-outline"></iconify-icon> Provide feedback</a></li>
+    <li><a href="https://github.com/home-assistant/home-assistant.io/issues?utf8=%E2%9C%93&amp;q=%22%2Fvoice_control%2Fs3_box_voice_assistant%2F%22&amp;in=body" target="_blank" title="View given feedback for this page"><iconify-icon inline icon="mdi:comment-text-multiple-outline"></iconify-icon> View given feedback</a></li>
+    
+  </ul>
+  </div>
+</div>
+
+
+</article>
+
+            
+          </div>
+
+
+          
+            
+              <aside id="sidebar" class="grid__item one-third desk-wide-one-quarter lap-one-whole palm-one-whole">
+            
+            <div class="grid">
+  
+
+
+
+
+  <section class="vertical-nav aside-module grid__item one-whole lap-one-half">
+  <div class="section">
+    <h1 class="title epsilon"><iconify-icon inline icon='mdi:bookshelf' title='Bookshelf'></iconify-icon> Documentation</h1>
+    <ul class="divided sidebar-menu">
+      <li>
+        <a  href='/docs/'>Overview </a>
+        |
+        <a  href='/faq/'>FAQ </a>
+        |
+        <a  href='/docs/glossary/'>Glossary </a>
+      </li>
+
+      <li>
+  <iconify-icon icon="mdi:robot-happy"></iconify-icon> <a  href='/docs/automation/'>Automations </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:gauge' title='Gauge'></iconify-icon> <a  href='/dashboards'>Dashboards </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:microphone' title='Microphone'></iconify-icon> <a  href='/voice_control/'>Voice assistants </a>
+  
+  <ul>
+    <li><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> <a  href='/voice_control/'>Assist up and running </a>
+      <ul>
+        <li><a  href='/voice_control/voice_remote_local_assistant/'>Getting started - Local </a></li>
+        <li><a  href='/voice_control/voice_remote_cloud_assistant/'>Getting started - Home Assistant Cloud </a></li>
+      </ul>
+    </li>
+    <li><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> <a  href='/voice_control/best_practices'>Best practices </a>
+      <ul>
+        <li><a  href='/voice_control/voice_remote_expose_devices/'>Exposing entities to Assist </a></li>
+        <li><a  href='/voice_control/assign_areas_floors/'>Assigning devices to areas and areas to floors </a></li>
+        <li><a  href='/voice_control/aliases/'>Aliases for entities, areas and floors </a></li> 
+        <li><a  href='/voice_control/builtin_sentences/'>Talking to Assist - Sentences starter pack </a></li>
+      </ul>
+    </li>
+    <li><iconify-icon inline icon='mdi:comment-processing-outline' title='Comment processing outline'></iconify-icon> <a  href='/voice_control/expanding_assist'>Expanding Assist </a>
+      <ul>
+        <li><a  href='/voice_control/assist_create_open_ai_personality/'>Creating a personality with AI </a></li>
+        <li><a  href='/voice_control/custom_sentences/'>Custom sentences </a></li>
+        <li><a  href='/voice_control/android/'>Assist for Android </a></li>
+        <li><a  href='/voice_control/apple/'>Assist for Apple </a></li>
+      </ul>
+    </li>
+    <li><iconify-icon inline icon='mdi:checkbox-marked' title='Checkbox marked'></iconify-icon> Experiment with Assist setups
+      <ul>
+        <li><a  href='/voice_control/about_wake_word/'>The Home Assistant Approach to Wake Words </a></li>
+        <li><a  href='/voice_control/create_wake_word/'>Wake words for Assist </a></li>
+        <li><a class='active' href='/voice_control/s3_box_voice_assistant/'>Tutorial: ESP32-S3-BOX voice assistant </a></li>
+        <li><a  href='/voice_control/s3-box-customize/'>Tutorial: Customize the S3-BOX </a></li>
+        <li><a  href='/voice_control/thirteen-usd-voice-remote/'>Tutorial: $13 voice assistant </a></li>
+        <li><a  href='/voice_control/worlds-most-private-voice-assistant/'>Tutorial: World's most private voice assistant </a></li>
+        <li><a  href='/voice_control/assist_daily_summary/'>Tutorial: Your daily summary by Assist </a></li>
+        <li><a  href='/voice_control/start_assist_from_dashboard/'>Starting Assist from your dashboard </a></li>
+        <li><a  href='/voice_control/contribute-voice/'>Contribute to the Voice initiative </a></li>
+      </ul>
+    </li>
+    <li><iconify-icon inline icon='mdi:account-help' title='Account help'></iconify-icon> Troubleshooting
+      <ul>
+        <li><a  href='/voice_control/troubleshooting/'>Troubleshooting Assist </a></li>
+        <li><a  href='/voice_control/troubleshooting_the_s3_box/'>Troubleshooting the ESP32-S3-BOX </a></li>
+        <li><a  href='/voice_control/using_tts_in_automation/'>Using Piper TTS in automations </a></li>
+      </ul>
+    </li>
+  </ul>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:category' title='Category'></iconify-icon> <a  href='/docs/organizing/'>Organization </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:solar-power-variant' title='Solar power variant'></iconify-icon> <a  href='/docs/energy/'>Home energy management </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:update' title='Update'></iconify-icon> <a  href='/common-tasks/general/'>Common tasks </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:cogs' title='Cogs'></iconify-icon> <a  href='/docs/configuration/'>Advanced configuration </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:account-security' title='Account security'></iconify-icon> <a  href='/docs/authentication/'>Authentication </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:database' title='Database'></iconify-icon> <a  href='/docs/backend/'>Backend </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:palette' title='Palette'></iconify-icon> <a  href='/docs/tools/'>Tools and helpers </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='mdi:cellphone' title='Cellphone'></iconify-icon> <a href="https://companion.home-assistant.io/docs">iOS and Android apps <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+</li>
+
+<li>
+  <iconify-icon inline icon='simple-icons:mqtt' title='Mqtt'></iconify-icon> <a  href='/integrations/mqtt'>MQTT </a>
+  
+</li>
+
+<li>
+  <iconify-icon inline icon='bitcoin-icons:node-hardware-filled' title='Node hardware filled'></iconify-icon> Official hardware
+  <ul>
+    <li><a href="https://support.nabucasa.com/hc/en-us/categories/24638797677853-Home-Assistant-Green">Home Assistant Green <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+    <li><a href="https://support.nabucasa.com/hc/en-us/categories/24734620813469">Home Assistant Connect ZBT-1 <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+    <li><a href="https://support.nabucasa.com/hc/en-us/categories/28669861145885">Home Assistant Connect ZWA-2 <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+    <li><a href="https://support.nabucasa.com/hc/en-us/categories/24734575925149-Home-Assistant-Yellow">Home Assistant Yellow <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+    <li><a href="https://support.nabucasa.com/hc/en-us/categories/24451727188125-Home-Assistant-Voice-Preview-Edition">Home Assistant Voice Preview Edition <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+  </ul>
+</li>
+
+    </ul>
+  </div>
+</section>
+
+
+
+  <section id="toc-module" class="aside-module grid__item one-whole lap-one-half">
+        <div class='section'>
+          <h1 class="title epsilon"><iconify-icon inline icon='mdi:toc' title='Toc'></iconify-icon> On this page</h1>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="toc-entry toc-h2"><a href="#installing-the-software-onto-the-esp32-s3-box">Installing the software onto the ESP32-S3-BOX</a></li>
+<li class="toc-entry toc-h2"><a href="#checking-wake-word-settings">Checking wake word settings</a></li>
+<li class="toc-entry toc-h2"><a href="#controlling-home-assistant">Controlling Home Assistant</a></li>
+<li class="toc-entry toc-h2"><a href="#turning-off-microphone-or-screen">Turning off microphone or screen</a></li>
+<li class="toc-entry toc-h2"><a href="#updating-the-software-on-the-s3-box">Updating the software on the S3-BOX</a></li>
+<li class="toc-entry toc-h2"><a href="#related-topics">Related topics</a></li>
+<li class="toc-entry toc-h2"><a href="#related-links">Related links</a></li>
+</ul>
+        </div>
+      </section></div>
+
+          </aside>
+          
+        </div>
+      </div>
+
+      <footer>
+        <div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item">
+      <div class="skyline grid">
+        <div class="skyline grid__item one-whole">
+          <div class="footer-skyline">
+          </div>
+        </div>
+      </div>
+      <div class="footer-nav grid">
+        <div class="company grid__item one-quarter lap-one-half palm-one-whole">
+          <div class="title">
+            <img
+              src="/needlehack-blog/images/footer-logo-text.svg"
+              height="72"
+              alt="Home Assistant"
+            />
+          </div>
+          <p>
+            Home Assistant is a project from the <a href="https://www.openhomefoundation.org/">Open Home Foundation</a>, sponsored by <a href="https://www.nabucasa.com/">Nabu Casa</a>.
+          </p>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Join us and contribute!</h3>
+          <ul>
+            <li><a class="external-link" href="https://github.com/home-assistant/">GitHub repo <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://developers.home-assistant.io">Developers Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://design.home-assistant.io">Design Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://data.home-assistant.io">Data Science Portal <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://community.home-assistant.io">Community Forum <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://creators.home-assistant.io/">Creator Network <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a class="external-link" href="https://works-with.home-assistant.io/">Works With Home Assistant <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></li>
+            <li><a href="/needlehack-blog/community">Our community</li>
+            <li><a href="/needlehack-blog/help/reporting_issues/">Reporting issues</a></li>
+          </ul>
+          <h3>System status</h3>
+          <ul>
+            <li>
+              <a class="external-link"  href="https://alerts.home-assistant.io">Integration Alerts <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+            <li><a href="/needlehack-blog/security/">Security Alerts</a></li>
+            <li>
+              <a class="external-link" href="https://status.home-assistant.io">System Status <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid__item one-quarter lap-one-half palm-one-whole">
+          <h3>Companion apps</h3>
+          <ul>
+            <li><a class="external-link" href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS and Apple devices</a></li>
+            <li><a class="external-link" href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android and Wear OS</a></li>
+            <li><a class="external-link" href="https://companion.home-assistant.io/">...and more!</a></li>
+          </ul>
+          <h3>Governance</h3>
+          <ul>
+            <li><a href="/needlehack-blog/privacy/">Privacy Notices</a></li>
+            <li><a href="/needlehack-blog/developers/cla/">Contributor License Agreement</a></li>
+            <li><a href="/needlehack-blog/tos/">Terms of Service</a></li>
+            <li><a href="/needlehack-blog/code_of_conduct/">Code of Conduct</a></li>
+            <li><a href="/needlehack-blog/developers/credits/">Credits</a></li>
+            <li><a href="/needlehack-blog/developers/license/">License</a></li>
+          </ul>
+        </div>
+
+        <div class="socials grid__item one-quarter lap-one-half palm-one-whole">
+
+          <h3>Follow us</h3>
+          <p><a class="external-link" href='https://newsletter.openhomefoundation.org/#/portal'>Sign up for our newsletter <iconify-icon inline icon='tabler:external-link' title='External link'></iconify-icon></a></p>
+          <div class="icons">
+            <a
+              rel="me"
+              href="https://youtube.com/@home_assistant"
+              title="YouTube"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:youtube"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://reddit.com/r/homeassistant"
+              title="Reddit"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:reddit"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://github.com/home-assistant/home-assistant"
+              title="GitHub"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:github"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://fosstodon.org/@homeassistant"
+              title="Mastodon"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:mastodon"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://bsky.app/profile/home-assistant.io"
+              title="Bluesky"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:bluesky"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://x.com/home_assistant"
+              title="X"
+              target="_blank"
+             ><iconify-icon icon="simple-icons:x"></iconify-icon></a>
+            <br />
+            <a
+              rel="me"
+              href="https://www.facebook.com/homeassistantio"
+              title="Facebook"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:facebook"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.instagram.com/homeassistant/"
+              title="Instagram"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:instagram"></iconify-icon></a>
+            <a
+              rel="me"
+              href="https://www.linkedin.com/company/home-assistant"
+              title="LinkedIn"
+              target="_blank"
+              ><iconify-icon icon="simple-icons:linkedin"></iconify-icon></a>
+          </div>
+
+          <div class="web-notice">
+            <p>
+              For partnership inquiries please check out <a href="https://works-with.home-assistant.io/">Works With Home Assistant</a>. For media, get in touch <a href="mailto:media@openhomefoundation.org">here</a>. For other questions, you can contact us <a href="mailto:hello@home-assistant.io">here</a> (No technical support!)
+            </p>
+            <p>
+              Website powered by <a href="https://jekyllrb.com/">Jekyll</a><br />
+              Originally based on the <a href="https://github.com/coogie/oscailte">Oscailte theme</a>
+            </p>
+            <a href="https://www.netlify.com">
+              <img
+                src="/needlehack-blog/images/frontpage/netlify.svg"
+                alt="Deploys by Netlify Badge"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </footer>
+
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1.3.1/lite-youtube.js"></script>
+
+<script src="/javascripts/terminology_tooltip.js?274cec0734bc752f0e5ea3d4e2e59858" type="text/javascript" defer></script>
+
+<script src="/javascripts/prism.js?5d6619066a1fc5cd819a93c132b539ac" type="text/javascript" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3/dist/umd/index.min.js"></script>
+<script type="text/javascript">
+  docsearch({
+    container: '#docsearch',
+    appId: 'FBHBYS3J0U',
+    indexName: 'home-assistant',
+    apiKey: "ba6f7e6d97b3d3d2f778978c742a47c6",
+  });
+  document.querySelector('.site-title').addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    document.location.assign("https://design.home-assistant.io/#brand/logo")
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  {
+    const article = document.querySelector("article.post");
+    if (article) {
+      const iframes = article.querySelectorAll("iframe[data-src]");
+      let loaded = false;
+      if (iframes) {
+        document.addEventListener('mousemove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('touchmove', loadLazyFrames, { passive: true, once: true });
+        document.addEventListener('scroll', loadLazyFrames, { passive: true, once: true });
+  
+        function loadLazyFrames() {
+          if (loaded) return;
+          loaded = true;
+  
+          iframes.forEach((iframe) => {
+            const src = iframe.getAttribute("data-src");
+            if (src) {
+              iframe.setAttribute("src", src);
+              iframe.removeAttribute("data-src");
+            }
+          });
+        }
+      }
+    }
+  }
+</script>
+
+  </body>
+</html>
