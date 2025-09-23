@@ -8,7 +8,7 @@ author: Paulus Schoutsen
 author_twitter: balloob
 comments: true
 categories: Announcements
-og_image: {{site.baseurl}}/images/blog/2019-11-state-of-the-union/social.jpeg
+og_image: "{{site.baseurl}}/images/blog/2019-11-state-of-the-union/social.jpeg"
 ---
 
 On November 13, 2019, 150 Home Assistant community members gathered at [ING](https://www.ing.com) in Amsterdam for the Home Assistant State of the Union 2019.
