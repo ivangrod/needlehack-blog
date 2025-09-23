@@ -17,7 +17,7 @@ Two weeks ago me, Marcel van der Veldt, and Stefan Agner, traveled to Geneva to 
 _(Matter is the new smart home standard that promises to make everyone’s smart home devices work with each other across platforms and ecosystems, locally and privately. It’s being developed by the CSA, which is also responsible for Zigbee)._
 
 <p class='img'>
-<img src="/images/blog/2023-11-matter-member-meeting/matter-image.jpg">
+<img src="{{site.baseurl}}/images/blog/2023-11-matter-member-meeting/matter-image.jpg">
 Stefan and Marcel
 </p>
 

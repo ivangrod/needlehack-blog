@@ -75,7 +75,7 @@ Next, Invinciberry shared his version:
 <blockquote class="reddit-card" data-card-created="1606506801">
 <a href="https://www.reddit.com/r/homeassistant/comments/jw6g9m/now_lets_wall_mount_this_thing/">Now let's wall mount this thing.</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a>
 </blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 Both look very slick! Thanks for sharing!
 
@@ -99,7 +99,7 @@ Sunday, 13 December, we'll be looking back at last year; but more importantly,
 lots of great talks are planned by speakers from our community about all
 different kinds of subjects:
 
-<a href="/conference"><img src='/images/conference/schedule.png' alt='Home Assistant Conference Schedule' class='no-shadow'></a>
+<a href="{{site.baseurl}}/conference"><img src='/images/conference/schedule.png' alt='Home Assistant Conference Schedule' class='no-shadow'></a>
 
 Above all, some new and exciting stuff is going to be announced as well! So,
 ensure you don't miss it.

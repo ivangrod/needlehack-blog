@@ -21,7 +21,7 @@ Screenshot of a populated Overview dashboard in masonry view layout.
 The following screenshot shows a fully populated dashboard in [sections view](/dashboards/sections/) layout.
 
 <p class='img'>
-    <img src="/images/dashboards/section_view.png" alt="A fully populated dashboard in Sections view layout"/>
+    <img src="{{site.baseurl}}/images/dashboards/section_view.png" alt="A fully populated dashboard in Sections view layout"/>
     A fully populated dashboard in Sections view layout
 </p>
 
@@ -85,7 +85,7 @@ In the following steps, we will create a new dashboard and edit some card settin
    - Leave the **Admin only** and **Show in sidebar** options as they are.
    - Select **Create**.
    - **Result**: The dashboard is added.
-4. Open your new dashboard and in the top right of the screen, select the <img height="28px" src="/images/blog/2024-03-dashboard-chapter-1/mdi-edit.png" alt="Edit icon"/> button.
+4. Open your new dashboard and in the top right of the screen, select the <img height="28px" src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/mdi-edit.png" alt="Edit icon"/> button.
 5. By editing the dashboard, you are taking over control of this dashboard.
      - This means that it is no longer automatically updated when new dashboard elements become available.
      - To continue, in the dialog, select the three dots {% icon "mdi:dots-vertical" %} menu, then select **Take control**.

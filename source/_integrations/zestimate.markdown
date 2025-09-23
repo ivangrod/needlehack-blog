@@ -60,4 +60,4 @@ These attributes are available:
 
 Example screenshot:
 
-<img src="/images/integrations/zestimate/zestimateexample.png" />
+<img src="{{site.baseurl}}/images/integrations/zestimate/zestimateexample.png" />

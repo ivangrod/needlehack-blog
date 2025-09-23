@@ -43,7 +43,7 @@ For the-berik, on our [subreddit][reddit], it was reason enough to do something 
 Click on the video below to see how it works.
 
 <blockquote class="reddit-card"><a href="https://www.reddit.com/r/homeassistant/comments/elwvro/smart_toiletroll_holder_with_esphome_and/">Smart toiletroll holder with Esphome and Homeassistant</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a></blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 ## Smart mailbox sensor, the easy way
 

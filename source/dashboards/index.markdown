@@ -26,7 +26,7 @@ You can customize your dashboard using various options:
 - Use custom cards from our amazing community.
 
 <p class='img'>
-  <img src="/images/dashboards/section_view_rearrange_cards.gif" alt="Screencast showing how to edit a dashboard in section view and how to rearrange cards"/>
+  <img src="{{site.baseurl}}/images/dashboards/section_view_rearrange_cards.gif" alt="Screencast showing how to edit a dashboard in section view and how to rearrange cards"/>
   Screencast showing how to edit a dashboard in section view and how to rearrange cards
 </p>
 

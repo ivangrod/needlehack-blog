@@ -51,7 +51,7 @@ consumed energy of the last 24 hours.
 
 <blockquote class="reddit-card" data-card-created="1584140539"><a href="https://www.reddit.com/r/homeassistant/comments/f78h7n/new_energyconsumption_screen_still_tweaking_it/">New energyconsumption screen, still tweaking it.</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a>
 </blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 Do you actively monitor your energy usage? What does your dashboard look like?
 

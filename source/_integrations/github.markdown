@@ -41,7 +41,7 @@ When you configure a repository to be tracked in this integration it will be rep
 
 <picture>
   <source srcset="/images/integrations/github/service_dark.png" media="(prefers-color-scheme: dark)">
-  <img src="/images/integrations/github/service_light.png">
+  <img src="{{site.baseurl}}/images/integrations/github/service_light.png">
   <p>
 </picture>
 

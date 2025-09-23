@@ -10,7 +10,7 @@ og_image: /images/blog/2017-05-hassbian-pi-zero/home_assistant_plus_rpi_600x315.
 ---
 
 <p class="img">
-  <img src="/images/blog/2017-05-hassbian-pi-zero/home_assistant_plus_rpi_600x315.png" />
+  <img src="{{site.baseurl}}/images/blog/2017-05-hassbian-pi-zero/home_assistant_plus_rpi_600x315.png" />
 </p>
 
 {% warning %}

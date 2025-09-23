@@ -65,7 +65,7 @@ AI pushed us to completely revamp our Text-to-Speech (TTS) system to take advant
 People built some really cool voice hardware, from landline telephones to little talking robots, but the fact that it was so DIY was always a barrier to entry. To make our voice assistant available to everyone, we released the [Home Assistant Voice Preview Edition](/blog/2024/12/19/voice-preview-edition-the-era-of-open-voice/). This is an easy and affordable way to try Home Assistant Voice. It has some seriously powerful audio processing hardware inside its sleek package. If you were on the fence about trying out voice, it really is [the best way to get started](/voice-pe/).
 
 <p class="img">
-    <img src="/images/blog/2025-09-ai/voice-pe.webp" style='border: 0;box-shadow: none;' alt="Home Assistant Voice Preview Edition">
+    <img src="{{site.baseurl}}/images/blog/2025-09-ai/voice-pe.webp" style='border: 0;box-shadow: none;' alt="Home Assistant Voice Preview Edition">
     Voice Preview Edition is not only open and powerful, but it looks and feels great too!
 </p>
 
@@ -75,16 +75,16 @@ It’s now easier than ever to set up your Assist hardware to work with LLMs wit
 
 [Last month](/blog/2025/08/06/release-20258/), Home Assistant launched a new opt-in feature to leverage the power of AI when automating with Home Assistant. The goal is to shorten the journey from a blank slate to your finished idea.
 
-When saving an automation or script, users can now leverage the new Suggest button: <img src="/images/blog/2025-09-ai/suggest.webp" style='border: 0;box-shadow: none;'> When clicked, it will send your automation configuration along with the titles of your existing automations and labels to AI to suggest a name, description, category, and labels for your new automation. Over the coming months, we’re going to explore what other features can benefit from AI suggestions.
+When saving an automation or script, users can now leverage the new Suggest button: <img src="{{site.baseurl}}/images/blog/2025-09-ai/suggest.webp" style='border: 0;box-shadow: none;'> When clicked, it will send your automation configuration along with the titles of your existing automations and labels to AI to suggest a name, description, category, and labels for your new automation. Over the coming months, we’re going to explore what other features can benefit from AI suggestions.
 
 <div class="contain nb">
-    <img src="/images/blog/2025-09-ai/suggest-button.webp" alt="A rename modal open with the new Suggest button top right">
+    <img src="{{site.baseurl}}/images/blog/2025-09-ai/suggest-button.webp" alt="A rename modal open with the new Suggest button top right">
 </div>
 
 To opt-in to this feature, you need to take two steps. First, you need to configure an integration that provides an [_AI Tasks_ entity](/integrations/?cat=ai). For local AI, you can configure Ollama, or you can also leverage cloud-based AI like Google, OpenAI, or Anthropic. Once configured, you need to go to the new [AI Task preferences pane](https://my.home-assistant.io/redirect/config_ai_task/) under **_System -> General_** and pick the AI Task entity to power suggestions in the UI. If you don't configure an AI Tasks entity, the Suggest button will not be visible.
 
 <div class="contain nb">
-    <img src="/images/blog/2025-09-ai/ai-suggestions.webp" alt="The AI Suggestions setting within Home Assistant">
+    <img src="{{site.baseurl}}/images/blog/2025-09-ai/ai-suggestions.webp" alt="The AI Suggestions setting within Home Assistant">
 </div>
 
 ## AI Tasks gets the job done
@@ -130,7 +130,7 @@ template:
 This template sends a snapshot of the camera to the AI, asking it to analyze what is going on. It defines that the output should always be a number, since we want to use that information in Home Assistant. All of this is embedded in a template entity that automatically updates every 5 minutes. An AI Task could also be embedded in an automation, a script, or any other place that can execute actions.
 
 <div class="contain">
-    <img src="/images/blog/2025-09-ai/activity.webp" alt="Activity view in Home Assistant of the doorbell image analyzed by AI Tasks">
+    <img src="{{site.baseurl}}/images/blog/2025-09-ai/activity.webp" alt="Activity view in Home Assistant of the doorbell image analyzed by AI Tasks">
     An automation triggers an AI Task to identify what caused motion on a camera.
 </div>
 

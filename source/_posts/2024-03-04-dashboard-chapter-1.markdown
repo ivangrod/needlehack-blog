@@ -71,7 +71,7 @@ Let's dive in each solution and learn how they work together to make your dashbo
 
 
 <p class='img'>
-    <img src="/images/blog/2024-03-dashboard-chapter-1/sections-case-studies.png" alt="Case studies of our users' dashboards"/>
+    <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-case-studies.png" alt="Case studies of our users' dashboards"/>
     Case studies of our users' dashboards
 </p>
 
@@ -80,7 +80,7 @@ Throughout this project, we have looked at dozens of different dashboards create
 Home Assistant dashboards are robust and packed with information, and our users often place dozens of cards for all sorts of buttons, switches, graphs, indicators, and more. By grouping cards into “sections”, our users can reduce the number of items they need to scan through when they are looking for a certain card, as they will be able to look for the relevant group title first and then reduce the scope to scan that particular group for the information. And by packing cards in a section into a grid card, the relative positions of the cards within a section are not affected by changes in screen sizes, and so the spatial memory of the cards are retained, leading to a faster and less cumbersome experience.
 
 <p class='img'>
-    <img width="66%" src="/images/blog/2024-03-dashboard-chapter-1/sections-section-example.png" alt="Example of a dashboard section"/>
+    <img width="66%" src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-section-example.png" alt="Example of a dashboard section"/>
     Example of a dashboard section
 </p>
 
@@ -93,34 +93,34 @@ The new Sections view is experimental! Please do not build your daily dashboard 
 {% endwarning %}
 
 <p class='img'>
-    <img width="66%" src="/images/blog/2024-03-dashboard-chapter-1/sections-create-new-view.png" alt="The Create New View configuration screen"/>
+    <img width="66%" src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-create-new-view.png" alt="The Create New View configuration screen"/>
     The Create New View configuration screen
 </p>
 
 To get started with the new Sections view, create a new view on your dashboard and choose **Sections (experimental)** as the view type. We currently do not have the option to migrate your current dashboard over yet.
 
 {% note %}
-If you are using the default dashboard, please read about how to <a href="/dashboards/#get-started-with-your-own-dashboard">create a new dashboard</a>.
+If you are using the default dashboard, please read about how to <a href="{{site.baseurl}}/dashboards/#get-started-with-your-own-dashboard">create a new dashboard</a>.
 {% endnote %}
 
 <p class='img'>
-    <img src="/images/blog/2024-03-dashboard-chapter-1/sections-blank-sections-view.png" alt="A new dashboard view laid out in Sections"/>
+    <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-blank-sections-view.png" alt="A new dashboard view laid out in Sections"/>
     A new dashboard view laid out in Sections
 </p>
 
 You will be greeted by a clean new dashboard view, with one section already created for you.
 
 * To add a new section, select the **Create Section** button.
-  <img height="56px" src="/images/blog/2024-03-dashboard-chapter-1/sections-add-section-button.png" alt="Add Section button"/>
+  <img height="56px" src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-add-section-button.png" alt="Add Section button"/>
 
-* To edit the name of a section, select the <img height="28px" src="/images/blog/2024-03-dashboard-chapter-1/mdi-edit.png" alt="Edit icon"/> **Edit** button on the top right of the section. (Tip: You can add any descriptive text for your section, including emojis!) When the section does not have a name, the section header will be hidden.
+* To edit the name of a section, select the <img height="28px" src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/mdi-edit.png" alt="Edit icon"/> **Edit** button on the top right of the section. (Tip: You can add any descriptive text for your section, including emojis!) When the section does not have a name, the section header will be hidden.
 
-* To delete a section, select the <img height="28px" src="/images/blog/2024-03-dashboard-chapter-1/mdi-trash.png" alt="Delete icon"/> **Delete** button  on the top right of the section. You will be asked to confirm the deletion.
+* To delete a section, select the <img height="28px" src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/mdi-trash.png" alt="Delete icon"/> **Delete** button  on the top right of the section. You will be asked to confirm the deletion.
 
 ### Filling it up
 
 <p class='img'>
-    <img src="/images/blog/2024-03-dashboard-chapter-1/sections-example-dashboard.png" alt="A fully populated dashboard in Sections view layout"/>
+    <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-example-dashboard.png" alt="A fully populated dashboard in Sections view layout"/>
     A fully populated dashboard in Sections view layout
 </p>
 
@@ -134,20 +134,20 @@ There are multiple ways to add cards into a section and populate your dashboard:
 
     * **By Card**
         <p class='img'>
-            <img src="/images/blog/2024-03-dashboard-chapter-1/sections-add-card-by-card.png" alt="Add Card by Card type dialog"/>Add Card by Card type dialog
+            <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-add-card-by-card.png" alt="Add Card by Card type dialog"/>Add Card by Card type dialog
         </p>
 
         If you have a good idea of what card you want to use for an entity, browse the list of available cards on this screen. For the Sections view, we recommend the Tile card, which is now pinned to the top in a Suggested Cards section.
 
     * **By Entity**
         <p class='img'>
-            <img src="/images/blog/2024-03-dashboard-chapter-1/sections-add-card-by-card.png" alt="Add Card by Entity dialog"/>Add Card by Entity dialog
+            <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-add-card-by-card.png" alt="Add Card by Entity dialog"/>Add Card by Entity dialog
         </p>
 
         If you want to add a bunch of entities in one go, select one or multiple entities on this list.
 
         <p class='img'>
-            <img src="/images/blog/2024-03-dashboard-chapter-1/sections-add-card-suggestions.png" alt="Card suggestions"/>Card suggestions
+            <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-add-card-suggestions.png" alt="Card suggestions"/>Card suggestions
         </p>
         Home Assistant will show a preview of the cards to be added, which will be displayed in Tile cards as the default of the Sections view. Tap the “Add to Dashboard” button to complete the process.
 
@@ -156,7 +156,7 @@ There are multiple ways to add cards into a section and populate your dashboard:
 {% details "Using the Add to Dashboard button on device pages" %}
 
 <p class='img'>
-    <img width="66%" src="/images/blog/2024-03-dashboard-chapter-1/sections-add-from-device-page.jpg" alt="Add to Dashboard feature on the device page"/>Add to Dashboard feature on the device page
+    <img width="66%" src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-add-from-device-page.jpg" alt="Add to Dashboard feature on the device page"/>Add to Dashboard feature on the device page
 </p>
 
 Another handy method for adding a bunch of sensors or controls belonging to the same device is to add them from the device’s page.
@@ -174,7 +174,7 @@ Another handy method for adding a bunch of sensors or controls belonging to the 
 One major benefit of the new Sections view is that it is now much easier to build dashboards that work with multiple screen sizes.
 
 <p class='img'>
-    <img src="/images/blog/2024-03-dashboard-chapter-1/sections-responsive-design.png" alt="Sections view adapt nicely to different screen sizes."/>
+    <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/sections-responsive-design.png" alt="Sections view adapt nicely to different screen sizes."/>
     Sections view adapt nicely to different screen sizes.
 </p>
 
@@ -187,14 +187,14 @@ Our current dashboard views are organized in columns with cards of varying heigh
 Enter the grid system, a bastion of graphic design principles.
 
 <p class='img'>
-    <img src="/images/blog/2024-03-dashboard-chapter-1/grid-system-examples.png" alt="Examples of grid systems in use"/>
+    <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/grid-system-examples.png" alt="Examples of grid systems in use"/>
     Examples of grid systems in use
 </p>
 
 Typographic grid systems have a long history in modern graphic design and print publishing, starting from its rise in the early 20th Century during the Constructivist and Geometrical art movements in Europe, which concerns the hidden rhythm behind a visual image. They are easily repeatable and, therefore, practical for generating an infinite amount of pages, yet also ensure aesthetic proportions and consistency for printable matter. They also bring order to a page. It helps users understand the relationship between each element on the page and whether one element belongs to another.
 
 <p class='img'>
-    <img src="/images/blog/2024-03-dashboard-chapter-1/grid-system.gif" alt="The Home Assistant dashboard grid system"/>
+    <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/grid-system.gif" alt="The Home Assistant dashboard grid system"/>
     The Home Assistant dashboard grid system
 </p>
 
@@ -203,7 +203,7 @@ When a UI is designed with a structured layout, that feeling of structure and or
 By introducing a grid system with cards of regular row height and column width multiples, we can help users rearrange cards more easily in a predictable manner, make Home Assistant adapt the dashboards to different screen sizes more easily, and, of course, make dashboards look tidier and more aesthetically pleasing.
 
 <p class='img'>
-    <img width="66%" src="/images/blog/2024-03-dashboard-chapter-1/grid-system-available-cards.png" alt="Cards currently optimized for the grid system: Sensor card, Tile card, and Button card"/>
+    <img width="66%" src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/grid-system-available-cards.png" alt="Cards currently optimized for the grid system: Sensor card, Tile card, and Button card"/>
     Cards currently optimized for the grid system: Sensor card, Tile card, and Button card
 </p>
 
@@ -216,7 +216,7 @@ For card developers, we will have more information on how to adapt your custom c
 With sections and a grid system in place, we can finally implement a way to arrange cards and sections that is intuitive with drag-and-drop, predictable with how the cards will rearrange, while creating a dashboard that is easy to navigate and remember by visualizing the information hierarchy and not disturbing the spatial relationship between cards. Users will not need to pray and guess where the cards will land when they change their orders anymore!
 
 <p class='img'>
-    <img src="/images/blog/2024-03-dashboard-chapter-1/drag-and-drop-arrangement-methods-comparison.png" alt="Comparison of four card arrangement methods"/>
+    <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/drag-and-drop-arrangement-methods-comparison.png" alt="Comparison of four card arrangement methods"/>
     Comparison of four card arrangement methods
 </p>
 
@@ -227,14 +227,14 @@ Throughout the design process, we looked at a few different ways of how cards sh
 While your dashboard is in Edit Mode:
 
 <p class='img'>
-    <img src="/images/blog/2024-03-dashboard-chapter-1/drag-and-drop-sections.gif" alt="Rearranging sections with drag-and-drop"/>
+    <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/drag-and-drop-sections.gif" alt="Rearranging sections with drag-and-drop"/>
     Rearranging sections with drag-and-drop
 </p>
 
-* To rearrange sections, simply tap and hold the <img height="28px" src="/images/blog/2024-03-dashboard-chapter-1/mdi-edit.png" alt="Edit icon"/> **Move** handle and then move your cursor or finger towards your desired location. Other sections will move out of the way for where the selected section will drop.
+* To rearrange sections, simply tap and hold the <img height="28px" src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/mdi-edit.png" alt="Edit icon"/> **Move** handle and then move your cursor or finger towards your desired location. Other sections will move out of the way for where the selected section will drop.
 
 <p class='img'>
-    <img src="/images/blog/2024-03-dashboard-chapter-1/drag-and-drop-cards.gif" alt="Rearranging cards with drag-and-drop"/>
+    <img src="{{site.baseurl}}/images/blog/2024-03-dashboard-chapter-1/drag-and-drop-cards.gif" alt="Rearranging cards with drag-and-drop"/>
     Rearranging sections with drag-and-drop
 </p>
 

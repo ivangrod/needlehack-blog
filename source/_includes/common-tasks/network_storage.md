@@ -14,7 +14,7 @@ You need to update to Home Assistant Operating System 10.2 before you can use th
 <p class='img'>
   <picture>
     <source srcset="/images/screenshots/network-storage/list_dark.png" media="(prefers-color-scheme: dark)">
-    <img src="/images/screenshots/network-storage/list_light.png">
+    <img src="{{site.baseurl}}/images/screenshots/network-storage/list_light.png">
   </picture>
   Screenshot of the list of network shares inside the storage panel.
 </p>
@@ -29,7 +29,7 @@ You need to update to Home Assistant Operating System 10.2 before you can use th
 <p class='img'>
   <picture>
     <source srcset="/images/screenshots/network-storage/connect_dark.png" media="(prefers-color-scheme: dark)">
-    <img src="/images/screenshots/network-storage/connect_light.png">
+    <img src="{{site.baseurl}}/images/screenshots/network-storage/connect_light.png">
   </picture>
   Screenshot of connecting a new network storage.
 </p>

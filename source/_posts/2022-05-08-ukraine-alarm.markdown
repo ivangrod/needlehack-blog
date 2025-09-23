@@ -25,12 +25,12 @@ Paulus
 
 _(English screenshots below the Ukranian screenshots)_
 
-<img src="/images/blog/2022-05-ukraine-alarm/integration_uk.png" class='no-shadow' alt="Screenshot in Ukranian of safety sensors provided by the Ukraine Alarm in integration in Home Assistant">
+<img src="{{site.baseurl}}/images/blog/2022-05-ukraine-alarm/integration_uk.png" class='no-shadow' alt="Screenshot in Ukranian of safety sensors provided by the Ukraine Alarm in integration in Home Assistant">
 
 <!--more-->
 
-<img src="/images/blog/2022-05-ukraine-alarm/automation_uk.png" class='no-shadow' alt="Screenshot in Ukranian of possible automations based on the safety sensors.">
+<img src="{{site.baseurl}}/images/blog/2022-05-ukraine-alarm/automation_uk.png" class='no-shadow' alt="Screenshot in Ukranian of possible automations based on the safety sensors.">
 
-<img src="/images/blog/2022-05-ukraine-alarm/integration.png" class='no-shadow' alt="Screenshot of safety sensors provided by the Ukraine Alarm in integration in Home Assistant">
+<img src="{{site.baseurl}}/images/blog/2022-05-ukraine-alarm/integration.png" class='no-shadow' alt="Screenshot of safety sensors provided by the Ukraine Alarm in integration in Home Assistant">
 
-<img src="/images/blog/2022-05-ukraine-alarm/automation.png" class='no-shadow' alt="Screenshot of possible automations based on the safety sensors.">
+<img src="{{site.baseurl}}/images/blog/2022-05-ukraine-alarm/automation.png" class='no-shadow' alt="Screenshot of possible automations based on the safety sensors.">

@@ -99,7 +99,7 @@ To get started, see our new ["create your own wake word"-tutorial.][own-wake-wor
 The models generated with the notebook will perform reasonably well. They will not perform as well as the ones bundled with Home Assistant which have received a lot of extensive training.
 
 <p class='img'>
-<img src="/images/assist/wake_word_enter_target_word.png">
+<img src="{{site.baseurl}}/images/assist/wake_word_enter_target_word.png">
 Screenshot of the wake word generation notebook
 </p>
 

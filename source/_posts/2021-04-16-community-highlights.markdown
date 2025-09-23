@@ -62,7 +62,7 @@ inspiration 😄 This time it has become that of [FreakLikeMe0991](https://www.r
 which, like last week's dashboard, mainly focuses on the use from a mobile device.
 
 <blockquote class="reddit-card" data-card-created="1618574623"><a href="https://www.reddit.com/r/homeassistant/comments/mpiqak/new_3_click_mobile_dashboard_work_in_progress/">New &gt;3 Click Mobile Dashboard - Work in Progress</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a></blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script><br>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script><br>
 
 Would you also like your dashboard to be in the community highlight? Drop it
 on [Reddit][reddit] and maybe I'll pick it out for the next edition.
@@ -76,8 +76,8 @@ video) onto your kitchen cupboard and could be operated by voice. You can read a
 more about it [here][community_project].
 
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/jIgBmiQ"  >
-    <a href="//imgur.com/a/jIgBmiQ">HOLODECK</a>
-</blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+    <a href="{{site.baseurl}}//imgur.com/a/jIgBmiQ">HOLODECK</a>
+</blockquote><script async src="{{site.baseurl}}//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 ## Got a tip for the next edition?
 

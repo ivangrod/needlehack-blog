@@ -6,7 +6,7 @@ description: "Description of the various badges that are available."
 Badges are widgets that sit at the top of a panel, above all the cards.
 
 <p class="img">
-  <img src="/images/dashboards/badges.png" alt="Badges">
+  <img src="{{site.baseurl}}/images/dashboards/badges.png" alt="Badges">
   Badges at the top of a panel.
 </p>
 
@@ -32,7 +32,7 @@ Badges are widgets that sit at the top of a panel, above all the cards.
 9. Select **Save**.
 
 <p class="img">
-  <img src="/images/dashboards/adding_a_badge_to_a_dashboard.webp" alt="screencast showing how to add a badge to a dashboard">
+  <img src="{{site.baseurl}}/images/dashboards/adding_a_badge_to_a_dashboard.webp" alt="screencast showing how to add a badge to a dashboard">
   Adding a badge to a dashboard.
 </p>
 

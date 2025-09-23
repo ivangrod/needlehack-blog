@@ -117,7 +117,7 @@ The Envoy device reports aggregated data for all connected micro-inverters.
 - **Envoy <abbr title="Envoy serial number">SN</abbr> Lifetime energy production**: Lifetime energy production in Wh, default display scaled to MWh. (See known limitations [Lifetime reset](#lifetime-reset)).
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_solar_production.png" alt="Envoy device">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_solar_production.png" alt="Envoy device">
   <figcaption>Envoy device with solar production entities.</figcaption>
 </figure>
 
@@ -151,7 +151,7 @@ Due to a limitation in the Envoy firmware, the inverter device data is only avai
 {% endnote %}
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_inverter_device.png" alt="micro-inverter device">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_inverter_device.png" alt="micro-inverter device">
   <figcaption>Micro-inverter device with solar production entities.</figcaption>
 </figure>
 
@@ -167,7 +167,7 @@ House consumption data requires an Envoy Metered equipped and configured with at
 - **Envoy <abbr title="Envoy serial number">SN</abbr> Energy consumption today**: Energy consumption since midnight in Wh, default display scaled to kWh. (See known limitations [Energy Incorrect](#energy-incorrect))
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_consumption.png" alt="consumption entities">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_consumption.png" alt="consumption entities">
   <figcaption>Envoy metered with CT reporting production and consumption entities.</figcaption>
 </figure>
 
@@ -185,7 +185,7 @@ The below diagram shows CT installation positions and how they are referred to.
 - The storage CT measures the energy exchange between the battery storage and the switchboard.
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_ct_model.png" alt="ct model">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_ct_model.png" alt="ct model">
   <figcaption>Envoy current transformers.</figcaption>
 </figure>
 
@@ -286,7 +286,7 @@ If a [storage <abbr title="current transformers">CT</abbr>](#storage-ct-sensor-e
 - **Envoy <abbr title="Envoy serial number">SN</abbr> Lifetime battery energy charged**: Lifetime energy charged in the battery in Wh, default display format MWh.
 
 <figure id="aggregated-iq-battery-data">
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_aggr_iq_battery.png" alt="aggregated iq battery">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_aggr_iq_battery.png" alt="aggregated iq battery">
   <figcaption>Envoy Aggregated IQ battery Sensor entities with no <a href="#current-transformers">storage CT</a> nor <a href="#enpower-data">Enpower</a> installed.</figcaption>
 </figure>
 
@@ -312,7 +312,7 @@ For each IQ Battery, an Encharge device is created, linked to the Envoy parent d
 - **Encharge <abbr title="Encharge serial number">SN</abbr> DC Switch**: DC Switched off status of encharge battery, On / Off. This is a diagnostics entity.
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_encharge.png" alt="iq battery">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_encharge.png" alt="iq battery">
   <figcaption>Envoy Encharge IQ battery sensor entities.</figcaption>
 </figure>
 
@@ -328,7 +328,7 @@ No individual AC-battery data is available, only aggregated AC-battery data for 
 - **Envoy <abbr title="Envoy serial number">SN</abbr> Available ACB battery energy**: Current AC-battery energy content in Wh
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_acb_battery.png" alt="acb battery">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_acb_battery.png" alt="acb battery">
   <figcaption>Envoy AC-battery sensor entities.</figcaption>
 </figure>
 
@@ -343,7 +343,7 @@ If both IQ and AC batteries are used, aggregated battery data for all installed 
 The below figure shows the 3 aggregated entities along with the [AC-battery energy](#ac-battery-sensor-entities) and 3 of the [IQ Battery aggregate](#aggregated-iq-battery-sensor-entities) values.
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_aggr_acb_iq_battery.png" alt="aggregated acb iq battery">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_aggr_acb_iq_battery.png" alt="aggregated acb iq battery">
   <figcaption>Envoy aggregated ACB and IQ battery sensor entities.</figcaption>
 </figure>
 
@@ -375,7 +375,7 @@ Data for an installed Enphase Enpower off-grid enabling switch is available in v
 - **Enpower <abbr title="Enpower serial number">SN</abbr> Grid enabled**: Enable or disable grid connection. Note that the Enpower has a slight delay built-in between receiving these commands and actually switching the system on or off grid.
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_enpower.png" alt="envoy enpower">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_enpower.png" alt="envoy enpower">
   <figcaption>Envoy Enpower entities.</figcaption>
 </figure>
 
@@ -408,7 +408,7 @@ The names of entities and devices are derived from the load_name configured in t
 - **<abbr title="dry_contacts.load_name">LOAD_NAME</abbr> Generator action**: dry-contact on generator action:  `Powered`, `Not powered`, `Follow schedule`, `None`
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_dry_contact.png" alt="envoy dry-contact">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_dry_contact.png" alt="envoy dry-contact">
   <figcaption>Envoy Enpower dry-contact entities.</figcaption>
 </figure>
 
@@ -434,7 +434,7 @@ The Enphase C6 combiner controller (C6CC) provides some status information to th
 - **C6CC <abbr title="C6CC serial number">SN</abbr> Communicating**: Communication status of C6 Combiner, Connected / Disconnected. This is a diagnostics entity.
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_collar_and_ccc_data.png" alt="envoy collar and c6cc">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_collar_and_ccc_data.png" alt="envoy collar and c6cc">
   <figcaption>Envoy IQ Metered Collar and C6 Combiner Controller entities.</figcaption>
 </figure>
 
@@ -739,12 +739,12 @@ When using Envoy Metered with <abbr title="current transformers">CT</abbr>
 {% details "History examples for Today's energy production value not resetting to zero" %}
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_production_non_zero_reset.png" alt="envoy today non zero reset">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_production_non_zero_reset.png" alt="envoy today non zero reset">
   <figcaption>Envoy Today's energy production value exhibits a daily reset to an ever increasing non-zero value.</figcaption>
 </figure>
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_production_non_zero_reset_step_change.png" alt="envoy today step change">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_production_non_zero_reset_step_change.png" alt="envoy today step change">
   <figcaption>Envoy Today's energy production value exhibits a sudden onset of non-zero resets.</figcaption>
 </figure>
 {% enddetails %}
@@ -764,7 +764,7 @@ Envoy Metered without installed CT, running older firmware versions, reportedly 
 {% details "History example for Envoy Lifetime energy production value reset" %}
 
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_production_reset.png" alt="envoy dry-contact">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_production_reset.png" alt="envoy dry-contact">
   <figcaption>Envoy Lifetime energy production value reset.</figcaption>
 </figure>
 
@@ -778,7 +778,7 @@ Envoy Standard (not Metered), running firmware 8.2.4264, reportedly decreases th
 
 The example below shows decreases when multiple inverters reach a 1.2 MWh lifetime value over time. This would typically occur after some year(s) lifetime and then spread over some months based on individual solar panel production variations.
 <figure>
-  <img src="/images/integrations/enphase_envoy/enphase_envoy_production_decrease.png" alt="envoy lifetime energy production decrease">
+  <img src="{{site.baseurl}}/images/integrations/enphase_envoy/enphase_envoy_production_decrease.png" alt="envoy lifetime energy production decrease">
   <figcaption>Envoy Lifetime energy production value decrease.</figcaption>
 </figure>
 

@@ -13,7 +13,7 @@ ha_integration_type: entity
 ---
 
 <p class='img'>
-<img src="/images/blog/2020-09-15-home-assistant-tags/tag-reader.jpg" alt="Tag Reader for Home Assistant">
+<img src="{{site.baseurl}}/images/blog/2020-09-15-home-assistant-tags/tag-reader.jpg" alt="Tag Reader for Home Assistant">
 <a href="https://github.com/adonno/tagreader">Tag Reader for Home Assistant</a>
 </p>
 

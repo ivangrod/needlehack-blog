@@ -178,7 +178,7 @@ module Jekyll
             Configuration Variables <a class="title-link" name="#{linkId}" href="##{linkId}"></a>
           </h4>
           <div class="configuration-link">
-            <a href="/docs/configuration/" target="_blank">Looking for your configuration file?</a>
+            <a href="{{site.baseurl}}/docs/configuration/" target="_blank">Looking for your configuration file?</a>
           </div>
           #{render_config_vars(
             vars: vars,

@@ -76,7 +76,7 @@ On Reddit user /u/Jenova70 showed a super slick navigation arrow that indicates 
 
 <blockquote class="reddit-card" data-card-created="1582092743"><a href="https://www.reddit.com/r/homeassistant/comments/f27dtk/i_built_a_physical_navigation_arrow_that_is/">I built a physical "navigation arrow" that is changing color based on the estimated time of arrival at work (Waze commute data :) )</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a></blockquote>
 
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 _Thanks, Jean-Loïc Pouffier & cogneato for sending in this item! 👍_
 

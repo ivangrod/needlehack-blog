@@ -42,7 +42,7 @@ Happy birthday to [adlawton](https://www.reddit.com/user/adlawton/)! 🥳 For hi
 his wife baked this great Home Assistant cake and also gave him a [Home Assistant Blue](/blue).
 
 <blockquote class="reddit-card" data-card-created="1615556016"><a href="https://www.reddit.com/r/homeassistant/comments/lz5s6s/my_wife_decided_to_bake_me_a_cake_to_go_along/">My wife decided to bake me a cake to go along with my birthday present this year. Can't wait to fire this thing up!</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a></blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 Hopefully, the cake tasted delicious and have fun with your Blue!
 
@@ -56,7 +56,7 @@ finish this with a 3D printed case.
 <object type="image/svg+xml" data="https://gh-card.dev/repos/maxmacstn/HA-ePaper-Display.svg?link_target=_blank"></object>
 
 <blockquote class="reddit-card" data-card-created="1615556565"><a href="https://www.reddit.com/r/homeassistant/comments/lwp709/my_diy_epaper_sensor_display/">My DIY E-Paper Sensor Display</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a></blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 ## Hass Workstation Service
 

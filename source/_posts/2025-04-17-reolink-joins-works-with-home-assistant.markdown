@@ -42,7 +42,7 @@ Reolink is a big fan of our active and engaged community and joined Works with H
 </div>
 
 ## Devices
-<p class='img'><video src="/images/blog/2025-04-reolink/argus-track.webm" autoplay muted loop playsinline>Your browser does not support the video tag.</video>🤖 Security has never looked so friendly... and private.</p>
+<p class='img'><video src="{{site.baseurl}}/images/blog/2025-04-reolink/argus-track.webm" autoplay muted loop playsinline>Your browser does not support the video tag.</video>🤖 Security has never looked so friendly... and private.</p>
 
 In case you didn't know, Works with Home Assistant differs from other certification programs as products are rigorously tested in-house to ensure they work seamlessly out of the box. Any company joining also commits to providing long-term support and firmware updates while being a positive force in the Home Assistant community. Works with Home Assistant is operated by the [Open Home Foundation](https://www.openhomefoundation.org/), and the support of [Home Assistant Cloud](/cloud/) subscribers funds this work. Reolink has certified the following devices:
 

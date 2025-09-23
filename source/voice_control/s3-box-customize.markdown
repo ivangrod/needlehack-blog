@@ -188,8 +188,8 @@ If your images have transparency, you can define the background color in the con
 ![ESP32-S3-BOX-3 config file](/images/assist/draw_assist.png)
 2. Download the file and start drawing!
 
-      <a href="/images/assist/draw_assist.pdf" Download>
-      <img width="60" src="/images/assist/download-file.png" alt="Draw Assist">
+      <a href="{{site.baseurl}}/images/assist/draw_assist.pdf" Download>
+      <img width="60" src="{{site.baseurl}}/images/assist/download-file.png" alt="Draw Assist">
       </a>
 3. When you are done:
    - Snap a picture of each.

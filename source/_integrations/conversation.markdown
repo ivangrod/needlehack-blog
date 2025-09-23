@@ -15,7 +15,7 @@ ha_integration_type: system
 The **Conversation** {% term integration %} allows you to converse with Home Assistant. You can either converse by pressing the microphone in the frontend (supported browsers only (no iOS)) or by calling the `conversation/process` action with the transcribed text.
 
 <p class='img'>
-  <img src="/images/screenshots/voice-commands.png" />
+  <img src="{{site.baseurl}}/images/screenshots/voice-commands.png" />
   Screenshot of the conversation interface in Home Assistant.
 </p>
 

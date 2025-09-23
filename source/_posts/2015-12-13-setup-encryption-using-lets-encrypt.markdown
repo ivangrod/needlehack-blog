@@ -85,7 +85,7 @@ With either method your certificate will be generated and put in the directory `
                      --standalone-supported-challenges http-01
 ```
 
-<img width="60" src="/images/favicon-192x192.png" style='float: right; border:none; box-shadow: none;'>
+<img width="60" src="{{site.baseurl}}/images/favicon-192x192.png" style='float: right; border:none; box-shadow: none;'>
 
 ### Home Assistant
 

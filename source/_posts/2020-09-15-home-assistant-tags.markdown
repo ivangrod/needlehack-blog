@@ -38,7 +38,7 @@ Only iPhone XS, XR and iPhone 11 or later support background NFC tag reading.
 Having mobile tag readers is great, but there is more! The original RFID jukebox that peaked my interest worked with a dedicated RFID reader. This RFID reader was connected to a Raspberry Pi that was running a script to read the tags and send them to Home Assistant.
 
 <p class="img">
-  <img src="/images/blog/2020-09-15-home-assistant-tags/old-system.jpg" alt="Photo of the old system">
+  <img src="{{site.baseurl}}/images/blog/2020-09-15-home-assistant-tags/old-system.jpg" alt="Photo of the old system">
   Photo of the old system.
 </p>
 
@@ -111,7 +111,7 @@ automation:
 
 <p class='img'>
 <img src='/images/blog/2020-09-15-home-assistant-tags/cards.jpg' alt='Photo of printed NFC cards'>
-Printed NFC cards. <a href="/integrations/tag/#printing-tags">Learn how to make them</a>
+Printed NFC cards. <a href="{{site.baseurl}}/integrations/tag/#printing-tags">Learn how to make them</a>
 </p>
 
 ## Time to get scanning!

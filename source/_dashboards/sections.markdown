@@ -23,7 +23,7 @@ The sections view lets you organize your cards in sections on a grid.
 You can group cards without using horizontal or vertical stack cards.
 
 <p class='img'>
-    <img src="/images/dashboards/section_view.png" alt="A fully populated dashboard in Sections view layout"/>
+    <img src="{{site.baseurl}}/images/dashboards/section_view.png" alt="A fully populated dashboard in Sections view layout"/>
     A fully populated dashboard in Sections view layout
 </p>
 
@@ -47,7 +47,7 @@ You can group cards without using horizontal or vertical stack cards.
 ## Editing the header
 
 <p class='img'>
-  <img src="/images/dashboards/sections_view_header_edit.png" alt="Editing the header"/>
+  <img src="{{site.baseurl}}/images/dashboards/sections_view_header_edit.png" alt="Editing the header"/>
   Editing the header
 </p>
 
@@ -91,14 +91,14 @@ In the sections view, you can rearrange sections and cards by dragging them to a
 2. To rearrange sections, hold the move {% icon "mdi:cursor-move" %} button and move the card.
 
     <p class='img'>
-      <img src="/images/dashboards/section_view_rearrange_sections.gif" alt="Rearranging sections by dragging"/>
+      <img src="{{site.baseurl}}/images/dashboards/section_view_rearrange_sections.gif" alt="Rearranging sections by dragging"/>
       Rearranging sections by dragging
     </p>
 
 3. To rearrange cards, tap and hold the card and move it to your desired location.
 
     <p class='img'>
-      <img src="/images/dashboards/section_view_rearrange_cards.gif" alt="Rearranging cards by dragging"/>
+      <img src="{{site.baseurl}}/images/dashboards/section_view_rearrange_cards.gif" alt="Rearranging cards by dragging"/>
       Rearranging cards by dragging
     </p>
 

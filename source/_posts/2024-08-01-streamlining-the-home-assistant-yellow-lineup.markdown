@@ -68,7 +68,7 @@ So you've decided on getting some official Home Assistant hardware and don't kno
     </tr>
     <tr>
       <td><b>Zigbee/Thread built-in</b></td>
-      <td>No <p>(Can be added with <a href="/connectzbt1/">Home Assistant Connect ZBT-1</a>)</p></td>
+      <td>No <p>(Can be added with <a href="{{site.baseurl}}/connectzbt1/">Home Assistant Connect ZBT-1</a>)</p></td>
       <td>Yes <p>(Onboard <a href="https://yellow.home-assistant.io/guides/about-firmware-options/">Zigbee 3.0 / Thread</a>)</p></td>
     </tr>
     <tr>
@@ -106,8 +106,8 @@ So you've decided on getting some official Home Assistant hardware and don't kno
     </tr>
     <tr>
       <td><b>More information</b></td>
-      <td><a href="/green/">Learn more about Home Assistant Green</a></td>
-      <td><a href="/yellow/">Learn more about Home Assistant Yellow</a></td>
+      <td><a href="{{site.baseurl}}/green/">Learn more about Home Assistant Green</a></td>
+      <td><a href="{{site.baseurl}}/yellow/">Learn more about Home Assistant Yellow</a></td>
     </tr>
   </tbody>
 </table>

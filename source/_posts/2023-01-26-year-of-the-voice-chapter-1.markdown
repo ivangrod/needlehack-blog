@@ -34,7 +34,7 @@ Assist is enabled by default in the Home Assistant 2023.2 release. Tap the new A
 
 [Assist documentation.](https://www.home-assistant.io/voice_control/)
 
-<img src="/images/blog/2023-01-26-year-of-the-voice-chapter-1/assist-dialog.png" alt="Screenshot of the Assist dialog" class='no-shadow' />
+<img src="{{site.baseurl}}/images/blog/2023-01-26-year-of-the-voice-chapter-1/assist-dialog.png" alt="Screenshot of the Assist dialog" class='no-shadow' />
 
 ## Assist on Android Wear
 

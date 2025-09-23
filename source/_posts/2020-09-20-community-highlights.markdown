@@ -35,7 +35,7 @@ It looks great, OmegaX-NL! Does it work for the kids?
 
 <blockquote class="reddit-card">
 <a href="https://www.reddit.com/r/homeassistant/comments/fyhgwj/nice_side_project/">Nice side project!</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a>
-</blockquote><script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+</blockquote><script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 ## Illuminate your stairs
 

@@ -51,7 +51,7 @@ Voice control for Home Assistant goes back further than most people assume, with
 ### Timers
 
 <div style="text-align: center;">
-  <video src="/images/blog/2024-12-voice-chapter-8/timer.webm"
+  <video src="{{site.baseurl}}/images/blog/2024-12-voice-chapter-8/timer.webm"
          autoplay muted loop playsinline>
     Your browser does not support the video tag.
   </video>
@@ -69,7 +69,7 @@ If you tell your Assist hardware what room it is in and ensure other devices are
 
 ### Wake words
 
-<p class='img'><img src='/images/blog/2024-12-voice-chapter-8/wake-word.webp' style="max-width: 100%; height: auto; display: inline-block;" alt="Timer animation video"><br>Our community is donating small amounts of time to improve wake words <a href="/blog/2024/10/24/wake-word-collective/" target="_blank">with our tool</a>.</br></a>
+<p class='img'><img src='/images/blog/2024-12-voice-chapter-8/wake-word.webp' style="max-width: 100%; height: auto; display: inline-block;" alt="Timer animation video"><br>Our community is donating small amounts of time to improve wake words <a href="{{site.baseurl}}/blog/2024/10/24/wake-word-collective/" target="_blank">with our tool</a>.</br></a>
 
 Wake Words are the unique phrases that initiate a voice assistant to listen and start processing a command. Wake words originally had to be processed on Home Assistant via an add-on like openWakeWord, meaning the Assist hardware needed to continuously stream audio to Home Assistant. Shortly after Year of the Voice [microWakeWord](/blog/2024/02/21/voice-chapter-6/#microwakeword) was released, which brought wake word processing on-device for faster responses. It is improving fast thanks to our community using our [fast and easy tool](/blog/2024/10/24/wake-word-collective/) to donate samples of their voice. There is a growing list of wake words, and  the on-device options include "Okay Nabu" (default and most reliable), "Hey Jarvis", and "Hey Mycroft". Both of these wake word engines were built by the Home Assistant community and are open source, giving the world two great free and open wake word engines!
 
@@ -81,7 +81,7 @@ Assist can't understand spoken words and needs something to take that audio and 
 
 ### Language support
 
-<p class='img'><img src='/images/blog/2024-12-voice-chapter-8/language-support.png' style='border: 0;box-shadow: none;' alt="Our language checker">See if your language is supported with <a href="/voice-pe/#language-support" target="_blank">our checker</a>.</p>
+<p class='img'><img src='/images/blog/2024-12-voice-chapter-8/language-support.png' style='border: 0;box-shadow: none;' alt="Our language checker">See if your language is supported with <a href="{{site.baseurl}}/voice-pe/#language-support" target="_blank">our checker</a>.</p>
 
 Assist aims to support more languages than other voice assistants, and this has been a massive undertaking for our community - We need more help. The first step for language support is getting the commands (intents) right, and we have [over 25 major languages](https://ohf-voice.github.io/intents/) that are ready to use today. Our wake words are also getting better at understanding different accents thanks to our [Wake Word Collective tool](https://ohf-voice.github.io/wake-word-collective/).
 
@@ -116,13 +116,13 @@ We really think voice is an integral part of a well-rounded smart home ecosystem
 ### Home Assistant Voice Preview is available at retailers today,<!-- omit in toc -->
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <img src="/images/blog/2024-12-voice-chapter-8/vpe-packaging.png"
+  <img src="{{site.baseurl}}/images/blog/2024-12-voice-chapter-8/vpe-packaging.png"
        alt="Voice Preview Edition with packaging">
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <a href="/voice-pe/">
-    <img src="/images/blog/2024-12-voice-chapter-8/buy-now.png"
+  <a href="{{site.baseurl}}/voice-pe/">
+    <img src="{{site.baseurl}}/images/blog/2024-12-voice-chapter-8/buy-now.png"
          style="border: 0; box-shadow: none;"
          alt="buy now">
   </a>

@@ -200,7 +200,7 @@ This guide describes how to add a new device. This will use the Bluetooth connec
 7. Your device is now ready to use.
 
 <p class='img'>
-    <img width="300" src="/images/integrations/matter/matter_android_connect_new.webp" alt="Screencast showing how to add a new Matter device to Home Assistant."/>
+    <img width="300" src="{{site.baseurl}}/images/integrations/matter/matter_android_connect_new.webp" alt="Screencast showing how to add a new Matter device to Home Assistant."/>
     Screencast showing how to add a new Matter device to Home Assistant.
 </p>
 
@@ -272,7 +272,7 @@ To allow Home Assistant to control the Matter device that has already been added
    - You can now control your device from within Home Assistant, as well as from Google Home.
 
 <p class='img'>
-    <img width="300" src="/images/integrations/matter/matter_share_from_apple.webp" alt="Screencast showing how to share a Matter device from Apple Home."/>
+    <img width="300" src="{{site.baseurl}}/images/integrations/matter/matter_share_from_apple.webp" alt="Screencast showing how to share a Matter device from Apple Home."/>
     Screencast showing how to share a Matter device from Apple Home.
 </p>
 

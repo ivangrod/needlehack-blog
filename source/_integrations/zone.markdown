@@ -26,7 +26,7 @@ Zones allow you to specify certain regions on a map. They enable [zone presence-
 Create a zone for each area you want to automate on. For example, work, school, and home. Different technologies can be used to detect presence in these zones. A common method is app-based detection using a mobile phone.
 
 <p class='img'>
-    <img src="/images/screenshots/map.png" alt="Screenshot of a map dashboard in Home Assistant showing a school, work and home zone and two people."/>
+    <img src="{{site.baseurl}}/images/screenshots/map.png" alt="Screenshot of a map dashboard in Home Assistant showing a school, work and home zone and two people."/>
     Map dashboard showing a school, work, and a home zone and the location of two people.
 </p>
 

@@ -18,7 +18,7 @@ If you’re not using Z-Wave, it's time to take a second look, as Connect ZWA-2 
 
 Join the smart home range revolution for **$69 or €59** (that’s the recommended MSRP, and pricing will vary by retailer). For quick details, specs, and where to buy, visit our [Home Assistant Connect ZWA-2 page](/connect/zwa-2/). It's available for purchase today. Read on to learn what goes into the ultimate Z-Wave upgrade.
 
-<a href="/connect/zwa-2" style="display:block;text-align:center;"><img src='/images/blog/2025-08-home-assistant-connect-zwa-2/buy.webp' style='border: 0;box-shadow: none;' alt="Buy the Home Assistant Connect ZWA-2"></a>
+<a href="{{site.baseurl}}/connect/zwa-2" style="display:block;text-align:center;"><img src='/images/blog/2025-08-home-assistant-connect-zwa-2/buy.webp' style='border: 0;box-shadow: none;' alt="Buy the Home Assistant Connect ZWA-2"></a>
 <!--more-->
 
 ## We love open standards

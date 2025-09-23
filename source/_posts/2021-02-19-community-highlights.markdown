@@ -34,7 +34,7 @@ out of his curtain.
 Maybe we can give him some community love and help with his question? 😄
 
 <blockquote class="reddit-card" data-card-created="1613656706"><a href="https://www.reddit.com/r/homeassistant/comments/lixarb/i_accidentally_got_some_paint_on_a_curtain_in_my/">I accidentally got some paint on a curtain in my house, it’s oil paint, how do I get it out without taking my curtain down?</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a></blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 ## DSMR Reader add-on
 
@@ -59,7 +59,7 @@ in a fun way in Lovelace? Perhaps the example below could inspire you. You can f
 Lovelace YAML code [here](https://pastebin.com/S3uVcQHT).
 
 <blockquote class="reddit-card" data-card-created="1613656949"><a href="https://www.reddit.com/r/homeassistant/comments/ll5ioi/took_some_trickery_but_my_laundry_card_is_done/">Took some trickery but my laundry card is done</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a></blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 ## Got a tip for the next edition?
 

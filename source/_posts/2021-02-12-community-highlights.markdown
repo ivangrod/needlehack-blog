@@ -67,7 +67,7 @@ Who else would want one in the house?
 <blockquote class="reddit-card" data-card-created="1613128537">
 <a href="https://www.reddit.com/r/homeassistant/comments/l1w4gh/is_there_a_market_for_bespoke_home_automation/">Is there a market for bespoke home automation components? You may recall I built this interface to our home that speaks, rings, and lights regular alerts. It has tasmota at its heart so is hardware based and easily interfaced with Home Assistant. Is there a market for me to make this kind of thing?</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a>
 </blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 ## Got a tip for the next edition?
 

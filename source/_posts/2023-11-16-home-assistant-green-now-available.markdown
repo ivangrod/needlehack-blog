@@ -12,7 +12,7 @@ og_image: /images/blog/2023-11-green-release/green-image.jpg
 
 We're happy to tell you that Home Assistant Green is now available from most of the distributors in our global network. If you were waiting for a store closer to your location to sell Home Assistant Green, check out our distributor list now to find one near you:
 
-<a href="/green?order" class="btn">Buy Home Assistant Green</a>
+<a href="{{site.baseurl}}/green?order" class="btn">Buy Home Assistant Green</a>
 
 ![Photo of Home Assistant Green](/images/blog/2023-11-green-release/green-image.jpg)
 <!--more-->

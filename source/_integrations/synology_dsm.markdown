@@ -81,7 +81,7 @@ Don't manually delete or rename the files in the backup path on the NAS. This co
 
 Assume there is a shared folder called `HA Backup`, with two directories in it `productive_instance` and `test_instance`.
 
-<img src="/images/integrations/synology_dsm/synology_file_station.png" />
+<img src="{{site.baseurl}}/images/integrations/synology_dsm/synology_file_station.png" />
 
 #### Use an existing path
 

@@ -58,7 +58,7 @@ Screenshot of the new Assist debug tool.
 
 The [Home Assistant Cloud][nc] subscription, besides end-to-end encrypted remote connection, includes state of the art speech-to-text and text-to-speech services. This allows your voice assistant to speak 130+ languages (including dialects like Peruvian Spanish) and is extremely fast to respond. Sample:
 
-<audio preload controls src="/images/assist/ha_cloud.mp3"></audio>
+<audio preload controls src="{{site.baseurl}}/images/assist/ha_cloud.mp3"></audio>
 
 As a subscriber, you can directly start using voice in Home Assistant. You will not need any extra hardware or software to get started.
 
@@ -80,7 +80,7 @@ To make quality text-to-speech running locally possible, we’ve had to create o
 
 Piper uses [modern machine learning algorithms][mm-algo] for realistic-sounding speech but can still generate audio quickly. On a Raspberry Pi 4, Piper can generate 2 seconds of audio with only 1 second of processing time. More powerful CPUs, such as the Intel Core i5, can generate 17 seconds of audio in the same amount of time. Sample:
 
-<audio preload controls src="/images/assist/piper.wav"></audio>
+<audio preload controls src="{{site.baseurl}}/images/assist/piper.wav"></audio>
 
 _For more samples, see [the Piper website][piper-samples]_
 

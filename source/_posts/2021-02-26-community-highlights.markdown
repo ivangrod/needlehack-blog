@@ -63,7 +63,7 @@ page of [swake88](https://www.reddit.com/user/swake88/). Who knows, there might 
 
 You can find [here](https://www.reddit.com/r/homeassistant/comments/lqo7wr/ha_2_years_later_and_what_ive_built_so_far/) the related Reddit topic.
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/8BHxBVN"  ><a href="//imgur.com/a/8BHxBVN">Home Assistant - Feb 2021</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/8BHxBVN"  ><a href="{{site.baseurl}}//imgur.com/a/8BHxBVN">Home Assistant - Feb 2021</a></blockquote><script async src="{{site.baseurl}}//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 Which card in Lovelace are you most proud of? Share it with us!
 
@@ -73,7 +73,7 @@ Do you have a vacuum cleaning robot but you don't know where to place the chargi
 station? Maybe you can hide these behind a plinth, like what [ialex87](https://www.reddit.com/user/ialex87/) did.
 
 <blockquote class="reddit-card" data-card-created="1614344206"><a href="https://www.reddit.com/r/homeassistant/comments/l4wsyk/my_vacuum_hidden_garage_under_the_kitchen/">My vacuum hidden garage under the kitchen</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a></blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 ## Got a tip for the next edition?
 

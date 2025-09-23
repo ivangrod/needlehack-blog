@@ -61,8 +61,8 @@ We also worked hard to keep the price affordable and comparable to other voice a
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <a href="/voice-pe/">
-    <img src="/images/blog/2024-12-voice-chapter-8/buy-now.png"
+  <a href="{{site.baseurl}}/voice-pe/">
+    <img src="{{site.baseurl}}/images/blog/2024-12-voice-chapter-8/buy-now.png"
          style="border: 0; box-shadow: none;"
          alt="buy now">
   </a>

@@ -35,7 +35,7 @@ that was shared on our [subreddit][reddit] page. A lot of inspiration for those 
 are still looking for which actions they want to link to their Aqara Magic Cube.
 
 <blockquote class="reddit-card" data-card-created="1616149831"><a href="https://www.reddit.com/r/homeassistant/comments/m45tca/my_aqara_magic_cube_setup_is_a_bit_different/">My Aqara Magic Cube setup is a bit different (pet-proof). Details in comment.</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a></blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 ## Retro Record Player
 
@@ -56,7 +56,7 @@ the photo of [Akmantainman](https://www.reddit.com/user/Akmantainman/) will give
 some inspiration to make your own version of this.
 
 <blockquote class="reddit-card" data-card-created="1616150627"><a href="https://www.reddit.com/r/homeassistant/comments/m6f23i/homelab_monitor_setup/">Homelab Monitor Setup</a> from <a href="http://www.reddit.com/r/homeassistant">r/homeassistant</a></blockquote>
-<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+<script async src="{{site.baseurl}}//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
 
 Also look in the comments on Reddit, because many people shared their own
 version on this post already.
